@@ -14,3 +14,7 @@ https://thedigitalprojectmanager.com/fr/meilleurs-outils-scrum/ : Pour l'étude 
 - Versioning créé
 - Première structure de la documentation effectuée
 - Nécessite encore une restructuration de la base de données
+## 07.04
+- Restructuration de la base de données
+- Création de la base de données
+- Documentation de la base de données
