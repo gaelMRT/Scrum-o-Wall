@@ -27,3 +27,10 @@ C'est soit ça, soit avoir une méga table qui contiendrais tous les mindmap
 - Restructuration accomplies
 - Base de donnée créée dans un fichier accdb
 - Documentation mise à jour pour la base de données
+## 08.04
+### Tâches à faire
+- Création des maquettes 
+- Documentation des maquettes
+### Liens utiles et idées
+
+### Tâches accomplies
