@@ -46,3 +46,13 @@ J'ai du raccourcir l'écriture du projet afin qu'il rentre dans un icone carré 
 ### Tâches accomplies
 - Icône créé pour github et pour l'application
 - Poster commencé
+## 14.04 
+### Tâches à faire
+- Finir le poster
+- Créer le résumé
+### Liens utiles et idées
+J'ai décidé de mettre des post-it sur le poster afin de représenter la méthode agile ainsi qu'un mindmap comme image d'arrière plan afin de faire penser à la reflexion qu'on doit avoir en permanance lors du développement agile. J'ai voulu garder le poster assez sobre et ne pas rajouter d'informations pour ne pas surcharger l'image.
+Je ne sais pas si le résumé est correct. Je devrais demander conseil à Mme. Terrier.
+### Tâches accomplies
+- Poster
+- Premier résumé fini
