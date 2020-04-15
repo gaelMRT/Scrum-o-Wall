@@ -56,3 +56,18 @@ Je ne sais pas si le résumé est correct. Je devrais demander conseil à Mme. T
 ### Tâches accomplies
 - Poster
 - Premier résumé fini
+## 15.04
+### Tâches à faire
+- Recherche sur les existants
+### Liens utiles et idées
+- monday.com : [https://monday.com/lp/mb/dpm/scrum/?utm_source=mb&utm_campaign=dpm&utm_medium=scrum%20](https://monday.com/lp/mb/dpm/scrum/?utm_source=mb&utm_campaign=dpm&utm_medium=scrum%20)
+- JIRA : [https://www.atlassian.com/software/jira?r=sct](https://www.atlassian.com/software/jira?r=sct)
+
+Spécifique aux écrans interactifs 
+- Ubikey : [https://www.ubikey.fr/](https://www.ubikey.fr/)
+https://www.speechi.net/fr/2019/06/04/comparatif-des-outils-de-visual-management-pour-ecran-interactif/
+- Trello : [https://trello.com/fr](https://trello.com/fr)
+- Kantree : [https://kantree.io/fr/](https://kantree.io/fr/)
+- Wrike : [https://www.wrike.com/fr/](https://www.wrike.com/fr/)
+### Tâches accomplies
+- Trouver plein d'applications pareils
