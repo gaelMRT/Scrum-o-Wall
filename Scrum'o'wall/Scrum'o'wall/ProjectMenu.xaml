@@ -5,8 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Scrum_o_wall"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Scrum'o'Wall" Height="450" Width="800" ResizeMode="NoResize" WindowState="Maximized" WindowStartupLocation="CenterScreen">
+    <Window.ContextMenu >
+        <ContextMenu >
+                <MenuItem Header="Fermer"/>
+                <MenuItem Header="cacher"/>
+                <MenuItem Header="afficher"/>
+                <MenuItem Header="Créer"/>
+        </ContextMenu>
+    </Window.ContextMenu>
     <Grid>
-        
     </Grid>
 </Window>

@@ -1,5 +1,7 @@
 # Scrum-o-wall Journal de bord
+
 ## 06.04
+
 ### Tâches à faire
 - Créer le versionning
 - Commencer la structure de la documentation
@@ -15,6 +17,7 @@ https://thedigitalprojectmanager.com/fr/meilleurs-outils-scrum/ : Pour l'étude 
 - Première structure de la documentation effectuée
 - Nécessite encore une restructuration de la base de données
 ## 07.04
+
 ### Tâches à faire
 - Restructuration de la base de données
 - Création de la base de données
@@ -28,6 +31,7 @@ C'est soit ça, soit avoir une méga table qui contiendrais tous les mindmap
 - Base de donnée créée dans un fichier accdb
 - Documentation mise à jour pour la base de données
 ## 08.04
+
 ### Tâches à faire
 - Création des maquettes 
 - Documentation des maquettes
@@ -47,6 +51,7 @@ J'ai du raccourcir l'écriture du projet afin qu'il rentre dans un icone carré 
 - Icône créé pour github et pour l'application
 - Poster commencé
 ## 14.04 
+
 ### Tâches à faire
 - Finir le poster
 - Créer le résumé
@@ -57,17 +62,30 @@ Je ne sais pas si le résumé est correct. Je devrais demander conseil à Mme. T
 - Poster
 - Premier résumé fini
 ## 15.04
+
 ### Tâches à faire
 - Recherche sur les existants
 ### Liens utiles et idées
 - monday.com : [https://monday.com/lp/mb/dpm/scrum/?utm_source=mb&utm_campaign=dpm&utm_medium=scrum%20](https://monday.com/lp/mb/dpm/scrum/?utm_source=mb&utm_campaign=dpm&utm_medium=scrum%20)
 - JIRA : [https://www.atlassian.com/software/jira?r=sct](https://www.atlassian.com/software/jira?r=sct)
 
-Spécifique aux écrans interactifs 
+Spécifique aux écrans interactifs https://www.speechi.net/fr/2019/06/04/comparatif-des-outils-de-visual-management-pour-ecran-interactif/
 - Ubikey : [https://www.ubikey.fr/](https://www.ubikey.fr/)
-https://www.speechi.net/fr/2019/06/04/comparatif-des-outils-de-visual-management-pour-ecran-interactif/
+
 - Trello : [https://trello.com/fr](https://trello.com/fr)
 - Kantree : [https://kantree.io/fr/](https://kantree.io/fr/)
 - Wrike : [https://www.wrike.com/fr/](https://www.wrike.com/fr/)
 ### Tâches accomplies
 - Trouver plein d'applications pareils
+
+## 20.04
+
+### Tâches à faire
+- Analyser les existants
+- Créer les classes
+### Liens utiles et idées
+J'ai réduit pas mal les existant pour garder que les plus pertinents.
+J'ai déjà créer les fonctions pour altérer les listes des classes.
+### Tâches accomplies
+- Existant analyser
+- Classes créées
