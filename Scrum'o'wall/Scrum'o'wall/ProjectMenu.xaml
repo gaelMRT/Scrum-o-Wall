@@ -1,19 +1,40 @@
-﻿<Window x:Class="Scrum_o_wall.MainWindow"
+﻿<!-- 
+    Author  :   Gaël Serge Mariot
+    Project :   Scrum'o'Wall
+    File    :   ProjectMenu.xaml
+    Desc.   :   This file contains the graphics of the ProjectMenu window
+    -->
+    <Window x:Class="Scrum_o_wall.ProjectMenu"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Scrum_o_wall"
         mc:Ignorable="d"
-        Title="Scrum'o'Wall" Height="450" Width="800" ResizeMode="NoResize" WindowState="Maximized" WindowStartupLocation="CenterScreen">
+        Title="Scrum'o'Wall" ResizeMode="NoResize" WindowState="Maximized" WindowStartupLocation="CenterScreen" Width="1000" Height="1000" WindowStyle="None">
     <Window.ContextMenu >
         <ContextMenu >
-                <MenuItem Header="Fermer"/>
-                <MenuItem Header="cacher"/>
-                <MenuItem Header="afficher"/>
-                <MenuItem Header="Créer"/>
+            <MenuItem Header="Ajouter un projet" Name="AddProject" Click="AddProject_Click"/>
+
+            <Separator/>
+            <MenuItem Header="Quitter" Name="Quit" Click="Quit_Click"/>
         </ContextMenu>
     </Window.ContextMenu>
-    <Grid>
-    </Grid>
+    <Canvas x:Name="cnvsProject" IsManipulationEnabled="True" RenderTransformOrigin="0.5,0.5" Width="990" Margin="0,0,0,0" HorizontalAlignment="Left">
+        <Canvas.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform ScaleY="1" ScaleX="1"/>
+                <SkewTransform AngleY="0" AngleX="0"/>
+                <RotateTransform Angle="0"/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </Canvas.RenderTransform>
+        <Button x:Name="btnAddProject" Click="AddProject_Click" Content="+" Canvas.Left="891" Canvas.Top="869.4" Width="75" Height="68" BorderBrush="Black" FontSize="36">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="50"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+    </Canvas>
 </Window>

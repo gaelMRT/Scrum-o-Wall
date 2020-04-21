@@ -89,3 +89,18 @@ J'ai déjà créer les fonctions pour altérer les listes des classes.
 ### Tâches accomplies
 - Existant analyser
 - Classes créées
+
+## 21.04
+
+### Tâches à faire
+-Faire une vue
+### Liens utiles et idées
+En fait il faudrait que je fasse le controller avant de faire les vues.
+Je vais donc commencer le controller
+J'ai eu une erreur "Le fournisseur 'Microsoft.ACE.OLEDB.12.0' n'est pas inscrit sur l'ordinateur local". Je pense que je ne dois pas avoir les drivers.
+Après recherches, j'ai trouvé un lien en ligne : 
+https://www.microsoft.com/fr-FR/download/details.aspx?id=39358
+De plus, Visual Studio à choisit de lancer l'application de préfèrence en 32 bits alors que l'engine de base de données est en 64 bits. J'ai donc du désactivé la préférence aux 32 bits dans les options de Build de l'application 
+### Tâches accomplies
+- Début de la vue (Manque la création dynamique des projets et de leurs liens respectifs)
+- Singlotron de la Database fonctionnelle
