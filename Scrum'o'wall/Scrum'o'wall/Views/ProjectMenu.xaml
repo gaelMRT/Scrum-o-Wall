@@ -20,21 +20,23 @@
             <MenuItem Header="Quitter" Name="Quit" Click="Quit_Click"/>
         </ContextMenu>
     </Window.ContextMenu>
-    <Canvas x:Name="cnvsProject" IsManipulationEnabled="True" RenderTransformOrigin="0.5,0.5" Width="990" Margin="0,0,0,0" HorizontalAlignment="Left">
-        <Canvas.RenderTransform>
-            <TransformGroup>
-                <ScaleTransform ScaleY="1" ScaleX="1"/>
-                <SkewTransform AngleY="0" AngleX="0"/>
-                <RotateTransform Angle="0"/>
-                <TranslateTransform/>
-            </TransformGroup>
-        </Canvas.RenderTransform>
-        <Button x:Name="btnAddProject" Click="AddProject_Click" Content="+" Canvas.Left="891" Canvas.Top="869.4" Width="75" Height="68" BorderBrush="Black" FontSize="36">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="50"/>
-                </Style>
-            </Button.Resources>
-        </Button>
-    </Canvas>
+    <ScrollViewer x:Name="scrllVwr" VerticalScrollBarVisibility="Auto">
+        <Canvas x:Name="cnvsProject" RenderTransformOrigin="0.5,0.5" Width="990" Margin="0,0,0,0" HorizontalAlignment="Left">
+            <Canvas.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="1" ScaleX="1"/>
+                    <SkewTransform AngleY="0" AngleX="0"/>
+                    <RotateTransform Angle="0"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Canvas.RenderTransform>
+            <Button x:Name="btnAddProject" Click="AddProject_Click" Content="+" VerticalContentAlignment="Top" Canvas.Left="891" Canvas.Top="869.4" Width="75" Height="68" BorderBrush="Black" FontSize="41">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="50"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </Canvas>
+    </ScrollViewer>
 </Window>

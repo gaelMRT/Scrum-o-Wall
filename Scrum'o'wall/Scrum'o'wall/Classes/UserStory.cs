@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Scrum_o_wall.Classes
 {
-    class UserStory
+    public class UserStory
     {
         private string text;
         private string currentState;

@@ -15,7 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Scrum_o_wall.Controller
+namespace Scrum_o_wall
 {
     public static class DB
     {
@@ -29,7 +29,6 @@ namespace Scrum_o_wall.Controller
                 opf.Title = "Quel base de données Access utiliser ?";
                 opf.DefaultExt = ".accdb|*.accdb";
                 opf.Filter = "Fichier Acces (*.accdb)|*.accdb";
-                opf.InitialDirectory = Directory.GetCurrentDirectory();
                 while (opf.ShowDialog() != true || !opf.SafeFileName.Contains(".accdb"))
                 {
                     MessageBox.Show("Vous devez obligatoirement donner un fichier valide!", "Attention", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -37,19 +36,6 @@ namespace Scrum_o_wall.Controller
                 connection = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + opf.FileName+ ";Persist Security Info=False;");
             }
             return connection;
-        }
-        public static void GetProjects()
-        {
-            OleDbCommand cmd;
-            OleDbDataReader rdr;
-            Debug.Print(GetConnection().ConnectionString);
-            GetConnection().Open();
-            cmd = GetConnection().CreateCommand();
-            cmd.CommandText = "SELECT * FROM TProjects;";
-            cmd.Connection = GetConnection();
-            rdr = cmd.ExecuteReader();
-            rdr.Close();
-            GetConnection().Close();
         }
     }
 }

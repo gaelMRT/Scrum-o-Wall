@@ -1,0 +1,15 @@
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\bin\Release\Scrum_o_wall.exe.config
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\bin\Release\Scrum_o_wall.exe
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\bin\Release\Scrum_o_wall.pdb
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Release\Scrum'o'wall.csprojAssemblyReference.cache
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Release\ProjectMenu.g.cs
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Release\App.g.cs
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Release\Scrum_o_wall_MarkupCompile.cache
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Release\Scrum_o_wall_MarkupCompile.lref
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Release\ProjectMenu.baml
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Release\Scrum_o_wall.g.resources
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Release\Scrum_o_wall.Properties.Resources.resources
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Release\Scrum'o'wall.csproj.GenerateResource.cache
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Release\Scrum'o'wall.csproj.CoreCompileInputs.cache
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Release\Scrum_o_wall.exe
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Release\Scrum_o_wall.pdb

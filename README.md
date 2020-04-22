@@ -104,3 +104,16 @@ De plus, Visual Studio à choisit de lancer l'application de préfèrence en 32 
 ### Tâches accomplies
 - Début de la vue (Manque la création dynamique des projets et de leurs liens respectifs)
 - Singlotron de la Database fonctionnelle
+
+## 22.04
+
+### Tâches à faire
+- Finir le controlleur pour la vue des projets
+- Finir la vue des projets
+### Liens utiles et idées
+Je galère a trouver un algorithme pour centre verticalement les frame des projets. De plus, je risque de rencontrer un problème si il y a vraiment trop de projets dans la database. Je suis donc parti du haut de la fenêtre et j'ai mis le tout dans un ScrollViewer pour qu'une scrollbar s'affiche automatiquement quand il y a trop de contenu.
+Il faut encore que je crée le popup de création et j'aurais fini pour la vue des projets.
+
+### Tâches accomplies
+- Fais la création et la récupération des projets
+- Première vue créée avec le popup de création

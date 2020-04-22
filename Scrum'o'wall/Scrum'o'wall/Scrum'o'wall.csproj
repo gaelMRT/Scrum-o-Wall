@@ -83,11 +83,14 @@
     <Compile Include="Classes\Project.cs" />
     <Compile Include="Classes\Sprint.cs" />
     <Compile Include="Classes\UserStory.cs" />
+    <Compile Include="Views\ProjectCreate.xaml.cs">
+      <DependentUpon>ProjectCreate.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\Controller.cs" />
-    <Compile Include="Controller\DB.cs" />
-    <Compile Include="ProjectMenu.xaml.cs">
+    <Compile Include="Controller.cs" />
+    <Compile Include="DB.cs" />
+    <Compile Include="Views\ProjectMenu.xaml.cs">
       <DependentUpon>ProjectMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -116,9 +119,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="ProjectMenu.xaml">
+    <Page Include="Views\ProjectMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ProjectCreate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

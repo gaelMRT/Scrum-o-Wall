@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Scrum_o_wall.Classes
 {
-    class MindMap
+    public class MindMap
     {
         private List<MindMap> childrens = new List<MindMap>();
         private string name;

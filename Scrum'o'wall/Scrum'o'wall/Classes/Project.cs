@@ -12,19 +12,21 @@ using System.Threading.Tasks;
 
 namespace Scrum_o_wall.Classes
 {
-    class Project
+    public class Project
     {
         //vars declaration
         private List<UserStory> allUserStories = new List<UserStory>();
         private List<Sprint> sprints = new List<Sprint>();
         private List<MindMap> roots = new List<MindMap>();
         private List<string> states = new List<string>();
+        private int id;
         private DateTime begin;
         private string name;
         private string description;
 
 
         //properties declaration
+        public int Id { get => id; set => id = value; }
         public DateTime Begin { get => begin; set => begin = value; }
         public string Name { get => name; set => name = value; }
         public string Description { get => description; set => description = value; }
@@ -35,8 +37,9 @@ namespace Scrum_o_wall.Classes
         /// <param name="aName">the name of the project</param>
         /// <param name="aDesc">the description of the project</param>
         /// <param name="aBegin">the date of beginning of project</param>
-        public Project(string aName,string aDesc, DateTime aBegin)
+        public Project(int anId, string aName,string aDesc, DateTime aBegin)
         {
+            Id = anId;
             Name = aName;
             Description = aDesc;
             Begin = aBegin;
@@ -129,6 +132,11 @@ namespace Scrum_o_wall.Classes
             }
         }
         #endregion
+
+        public override string ToString()
+        {
+            return String.Format("Project N°{00:0} - {1} - {2} - {3}", Id, Name, Begin, Description);
+        }
 
     }
 }

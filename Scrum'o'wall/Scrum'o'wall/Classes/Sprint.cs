@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Scrum_o_wall.Classes
 {
-    class Sprint
+    public class Sprint
     {
         private List<UserStory> userStories = new List<UserStory>();
         private DateTime begin;
