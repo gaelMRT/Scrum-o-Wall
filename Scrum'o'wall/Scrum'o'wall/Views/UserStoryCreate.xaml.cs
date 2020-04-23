@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,11 +15,11 @@ using System.Windows.Shapes;
 namespace Scrum_o_wall.Views
 {
     /// <summary>
-    /// Logique d'interaction pour Window1.xaml
+    /// Logique d'interaction pour UserStoryCreate.xaml
     /// </summary>
-    public partial class ProjectCreate : Window
+    public partial class UserStoryCreate : Window
     {
-        public ProjectCreate()
+        public UserStoryCreate()
         {
             InitializeComponent();
         }
@@ -32,7 +31,7 @@ namespace Scrum_o_wall.Views
 
         private void btnAddProject_Click(object sender, RoutedEventArgs e)
         {
-            if(tbxName.Text.Length > 0 && tbxDesc.Text.Length > 0 &&  tbxDate.SelectedDate != null)
+            if (tbxDesc.Text.Length > 0)
             {
                 this.DialogResult = true;
                 this.Close();
@@ -40,6 +39,25 @@ namespace Scrum_o_wall.Views
             else
             {
                 MessageBox.Show("Un ou plusieurs champ(s) n'est pas rempli !", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void tbxTime_KeyDown(object sender, KeyEventArgs e)
+        {
+            bool isNumber = (e.Key >= Key.D0 && e.Key <= Key.D9);
+            bool isPoint = e.Key == Key.Decimal && !tbxTime.Text.Contains('.');
+            if(!isNumber && !isPoint)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void tbxComplexity_KeyDown(object sender, KeyEventArgs e)
+        {
+            bool isNumber = (e.Key >= Key.D0 && e.Key <= Key.D9);
+            if (!isNumber)
+            {
+                e.Handled = true;
             }
         }
     }

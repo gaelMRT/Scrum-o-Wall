@@ -14,33 +14,16 @@ namespace Scrum_o_wall.Classes
 {
     public class MindMap
     {
-        private List<MindMap> childrens = new List<MindMap>();
+        private Node root;
         private string name;
-        public MindMap(string aName)
+        private int id;
+        private int projectId;
+        public MindMap(int anId,string aName,int aProjectId)
         {
+            id = anId;
             name = aName;
+            projectId = aProjectId;
         }
 
-        #region Add/Remove childrens
-        public void addChildren(MindMap toAdd)
-        {
-            childrens.Add(toAdd);
-        }
-        public void addListChildrens(List<MindMap> ListToAdd)
-        {
-            childrens.AddRange(ListToAdd);
-        }
-        public void removeChildren(MindMap toRemove)
-        {
-            childrens.Remove(toRemove);
-        }
-        public void removeListChildrens(List<MindMap> ListToRemove)
-        {
-            foreach (MindMap toRemove in ListToRemove)
-            {
-                childrens.Remove(toRemove);
-            }
-        }
-        #endregion
     }
 }

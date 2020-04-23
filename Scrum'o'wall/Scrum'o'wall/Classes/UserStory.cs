@@ -18,17 +18,26 @@ namespace Scrum_o_wall.Classes
         private string currentState;
         private float timeEstimation;
         private int complexityEstimation;
+        private int id;
+        private int stateId;
+        private int projectId;
 
         public string Text { get => text; set => text = value; }
         public string CurrentState { get => currentState; set => currentState = value; }
         public float TimeEstimation { get => timeEstimation; set => timeEstimation = value; }
         public int ComplexityEstimation { get => complexityEstimation; set => complexityEstimation = value; }
+        public int Id { get => id; set => id = value; }
+        public int StateId { get => stateId; set => stateId = value; }
+        public int ProjectId { get => projectId; set => projectId = value; }
 
-        public UserStory(string aDesc, float aTime, int aComplexity)
+        public UserStory(int anId, string aDesc, float aTime, int aComplexity,int aProjectId,int aStateId)
         {
+            Id = anId;
             Text = aDesc;
             TimeEstimation = aTime;
             ComplexityEstimation = aComplexity;
+            ProjectId = projectId;
+            StateId = aStateId;
         }
     }
 }

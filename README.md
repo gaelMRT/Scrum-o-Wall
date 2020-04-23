@@ -117,3 +117,21 @@ Il faut encore que je crée le popup de création et j'aurais fini pour la vue d
 ### Tâches accomplies
 - Fais la création et la récupération des projets
 - Première vue créée avec le popup de création
+
+## 23.04
+
+### Tâches à faire
+- Créer la forme principale des autres vues
+- Créer une méthode controller pour avoir toutes les infos des projets
+- Mise à jour du planning actuel
+### Liens utiles et idées
+Il n'existe pas de numeric updown par défaut dans WPF. Mais il existe un package nuget 
+qui l'ajoute (Source : 
+https://stackoverflow.com/questions/841293/where-is-the-wpf-numeric-updown-control) Je 
+sais pas si je vais utilisé cela car il ne permet que peu de choses de par sa licence. Je vais chercher une autre solution.
+Finalement je vais juste filtrer les entrées utilisateurs et mettre un textbox. C'est le plus simple à faire sans plugin.
+J'aimerais quand même avoir un petit clavier virtuel qui respecterait le multi-point.
+### Tâches accomplies
+- Planning mis à jour
+- Le controlleur récupère toutes les infos au lancement de l'application
+- Les vues du sprint et du backlog ne sont pas finies (sans compter le gantt et le mindmap)

@@ -15,12 +15,19 @@ namespace Scrum_o_wall.Classes
     public class Sprint
     {
         private List<UserStory> userStories = new List<UserStory>();
+        private int id;
         private DateTime begin;
         private DateTime end;
-        public Sprint(DateTime aBegin, DateTime anEnd)
+
+        public int Id { get => id; set => id = value; }
+        public DateTime Begin { get => begin; set => begin = value; }
+        public DateTime End { get => end; set => end = value; }
+
+        public Sprint(int anId, DateTime aBegin, DateTime anEnd)
         {
-            begin = aBegin;
-            end = anEnd;
+            Id = anId;
+            Begin = aBegin;
+            End = anEnd;
         }
 
         #region Add/Remove userStories

@@ -25,7 +25,7 @@
         <Button x:Name="btnCancel" Click="btnCancel_Click" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Height="18" Width="50" RenderTransformOrigin="0.155,1.263">Annuler</Button>
 
         <TextBox Grid.Row="1" Name="tbxName" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="203" Height="18"></TextBox>
-        <TextBox Grid.Row="2" Name="tbxDesc" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="138" Width="203"/>
+        <TextBox Grid.Row="2" Name="tbxDesc" Grid.Column="1" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center" Height="138" Width="203"/>
         <DatePicker Grid.Row="3" Name="tbxDate" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="24" Width="203"/>
         <Button x:Name="btnAddProject" Click="btnAddProject_Click" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="18" Width="94">Confirmer</Button>
     </Grid>

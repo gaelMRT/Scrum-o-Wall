@@ -80,11 +80,24 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\MindMap.cs" />
+    <Compile Include="Classes\Node.cs" />
     <Compile Include="Classes\Project.cs" />
     <Compile Include="Classes\Sprint.cs" />
     <Compile Include="Classes\UserStory.cs" />
+    <Compile Include="Views\BacklogMenu.xaml.cs">
+      <DependentUpon>BacklogMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ProjectCreate.xaml.cs">
       <DependentUpon>ProjectCreate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SprintCreate.xaml.cs">
+      <DependentUpon>SprintCreate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SprintMenu.xaml.cs">
+      <DependentUpon>SprintMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserStoryCreate.xaml.cs">
+      <DependentUpon>UserStoryCreate.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -119,11 +132,27 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\BacklogMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ProjectMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ProjectCreate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SprintCreate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SprintMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserStoryCreate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

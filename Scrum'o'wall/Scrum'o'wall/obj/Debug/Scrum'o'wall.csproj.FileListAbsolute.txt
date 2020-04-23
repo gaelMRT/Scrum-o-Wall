@@ -15,3 +15,11 @@ C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\P
 C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\ProjectCreate.g.cs
 C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\ProjectMenu.baml
 C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\ProjectCreate.baml
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\BacklogMenu.g.cs
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\SprintCreate.g.cs
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\SprintMenu.g.cs
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\UserStoryCreate.g.cs
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\BacklogMenu.baml
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\SprintCreate.baml
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\SprintMenu.baml
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\UserStoryCreate.baml

@@ -34,7 +34,7 @@ namespace Scrum_o_wall
         {
             InitializeComponent();
             controller = new Controller();
-            controller.GetProjects();
+            controller.GetDatas();
             Loaded += ProjectMenu_Loaded;
         }
 
@@ -95,6 +95,12 @@ namespace Scrum_o_wall
                 //Positioning of control
                 Canvas.SetLeft(usrCntrl, (cnvsProject.Width - usrCntrl.Width) / 2.0 + ((usrCntrl.Width + usrCntrl.Width / 4) * (i % 3 - 1)));
                 Canvas.SetTop(usrCntrl, 20 + (usrCntrl.Height + usrCntrl.Height / 5) * (i / 3));
+
+                if(Canvas.GetTop(usrCntrl) + usrCntrl.Height > cnvsProject.Height)
+                {
+                    cnvsProject.Height = Canvas.GetTop(usrCntrl) + usrCntrl.Height;
+                }
+
                 //Add project frame to canvas
                 cnvsProject.Children.Add(usrCntrl);
             }
@@ -106,9 +112,9 @@ namespace Scrum_o_wall
             cnvsProject.Height = this.ActualHeight;
             scrllVwr.Width = cnvsProject.Width;
             scrllVwr.Height = cnvsProject.Height;
-            //Set the adding project button to 90% width and 90% height
-            Canvas.SetLeft(btnAddProject, cnvsProject.Width * .9);
-            Canvas.SetTop(btnAddProject, cnvsProject.Height * .9);
+            //Set the addProject button's position
+            Canvas.SetLeft(btnAddProject, cnvsProject.Width - btnAddProject.Width - 30);
+            Canvas.SetTop(btnAddProject, cnvsProject.Height - btnAddProject.Height-20);
 
             //Refresh the view
             Refresh();
@@ -139,7 +145,7 @@ namespace Scrum_o_wall
 
         private void AddProject_Click(object sender, RoutedEventArgs e)
         {
-            ProjectCreate projectCreate = new ProjectCreate(controller);
+            ProjectCreate projectCreate = new ProjectCreate();
             if (projectCreate.ShowDialog() == true)
             {
                 string name = projectCreate.tbxName.Text;

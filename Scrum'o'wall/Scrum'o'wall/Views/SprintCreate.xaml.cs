@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,11 +15,11 @@ using System.Windows.Shapes;
 namespace Scrum_o_wall.Views
 {
     /// <summary>
-    /// Logique d'interaction pour Window1.xaml
+    /// Logique d'interaction pour SprintCreate.xaml
     /// </summary>
-    public partial class ProjectCreate : Window
+    public partial class SprintCreate : Window
     {
-        public ProjectCreate()
+        public SprintCreate()
         {
             InitializeComponent();
         }
@@ -32,7 +31,7 @@ namespace Scrum_o_wall.Views
 
         private void btnAddProject_Click(object sender, RoutedEventArgs e)
         {
-            if(tbxName.Text.Length > 0 && tbxDesc.Text.Length > 0 &&  tbxDate.SelectedDate != null)
+            if (dtpckDateBegin.SelectedDate != null  && dtpckDateEnd.SelectedDate != null)
             {
                 this.DialogResult = true;
                 this.Close();

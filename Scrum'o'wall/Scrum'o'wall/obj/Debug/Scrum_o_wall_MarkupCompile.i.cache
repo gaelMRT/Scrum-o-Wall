@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\App.xaml
-21512423834
+61752136115
 
-131881724507
+18-1520951128
 13-1505183044
-Views\ProjectMenu.xaml;Views\ProjectCreate.xaml;
+Views\BacklogMenu.xaml;Views\ProjectMenu.xaml;Views\ProjectCreate.xaml;Views\SprintCreate.xaml;Views\SprintMenu.xaml;Views\UserStoryCreate.xaml;
 
-False
+True
 
