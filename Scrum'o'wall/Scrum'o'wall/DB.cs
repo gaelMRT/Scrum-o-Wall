@@ -29,10 +29,13 @@ namespace Scrum_o_wall
                 opf.Title = "Quel base de données Access utiliser ?";
                 opf.DefaultExt = ".accdb|*.accdb";
                 opf.Filter = "Fichier Acces (*.accdb)|*.accdb";
-                while (opf.ShowDialog() != true || !opf.SafeFileName.Contains(".accdb"))
+                do
                 {
-                    MessageBox.Show("Vous devez obligatoirement donner un fichier valide!", "Attention", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                    if(opf.ShowDialog() != true)
+                    {
+                        Application.Current.Shutdown();
+                    }
+                }while  (!opf.SafeFileName.Contains(".accdb"));
                 connection = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + opf.FileName+ ";Persist Security Info=False;");
             }
             return connection;

@@ -30,6 +30,10 @@ namespace Scrum_o_wall.Classes
         public DateTime Begin { get => begin; set => begin = value; }
         public string Name { get => name; set => name = value; }
         public string Description { get => description; set => description = value; }
+        public List<string> States { get => states; }
+        public List<UserStory> AllUserStories { get => allUserStories; }
+        public List<Sprint> Sprints { get => sprints;  }
+        public List<MindMap> Roots { get => roots; }
 
         /// <summary>
         /// Create a project with name,description and date

@@ -57,12 +57,12 @@ namespace Scrum_o_wall
 
             //Read and put entries in a list of objects
             rdr = cmd.ExecuteReader();
-            values = new object[3];
+            values = new object[4];
             while (rdr.Read())
             {
                 rdr.GetValues(values);
                 // 0:idSprint,1:DateBegin,2:DateEnd
-                Sprint s = new Sprint((int)values[0], (DateTime)values[1], (DateTime)values[0]);
+                Sprint s = new Sprint((int)values[0], (DateTime)values[1], (DateTime)values[2],(int)values[3]);
                 allSprints.Add(s);
             }
 
@@ -87,7 +87,6 @@ namespace Scrum_o_wall
 
             //Close database and reader
             rdr.Close();
-
             #endregion
             #region States
             //Execute SQL Command
@@ -153,6 +152,15 @@ namespace Scrum_o_wall
             }
             #endregion
 
+            #region Link Sprint with Project
+            foreach (Sprint s in allSprints)
+            {
+                Project proj = allProjects.First(p => p.Id == s.ProjectId);
+                s.Project = proj;
+                proj.addSprint(s);
+            }
+            #endregion
+
             projects = allProjects;
             DB.GetConnection().Close();
         }
@@ -196,5 +204,6 @@ namespace Scrum_o_wall
             projects.Add(p);
 
         }
+
     }
 }

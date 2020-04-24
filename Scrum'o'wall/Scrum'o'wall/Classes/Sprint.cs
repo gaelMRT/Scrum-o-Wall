@@ -15,19 +15,26 @@ namespace Scrum_o_wall.Classes
     public class Sprint
     {
         private List<UserStory> userStories = new List<UserStory>();
+        Project project;
         private int id;
         private DateTime begin;
         private DateTime end;
+        private int projectId;
+
 
         public int Id { get => id; set => id = value; }
         public DateTime Begin { get => begin; set => begin = value; }
         public DateTime End { get => end; set => end = value; }
+        public int ProjectId { get => projectId; set => projectId = value; }
+        public Project Project { get => project; set => project = value; }
+        public List<UserStory> UserStories { get => userStories; }
 
-        public Sprint(int anId, DateTime aBegin, DateTime anEnd)
+        public Sprint(int anId, DateTime aBegin, DateTime anEnd,int aProjectId)
         {
             Id = anId;
             Begin = aBegin;
             End = anEnd;
+            ProjectId = aProjectId;
         }
 
         #region Add/Remove userStories
@@ -51,5 +58,10 @@ namespace Scrum_o_wall.Classes
             }
         }
         #endregion
+
+        public override string ToString()
+        {
+            return String.Format("Sprint du {0} au {1}", Begin.ToShortDateString(), End.ToShortDateString());
+        }
     }
 }

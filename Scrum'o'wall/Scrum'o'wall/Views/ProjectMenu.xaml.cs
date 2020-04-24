@@ -135,7 +135,8 @@ namespace Scrum_o_wall
 
         private void OpenProject(Project p)
         {
-            MessageBox.Show("Ouverture du projet :\n" + p.ToString(), "Ouverture");
+            BacklogMenu backlogMenu = new BacklogMenu(p, controller);
+            backlogMenu.ShowDialog();
         }
 
         private void Quit_Click(object sender, RoutedEventArgs e)

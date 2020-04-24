@@ -36,8 +36,12 @@ namespace Scrum_o_wall.Classes
             Text = aDesc;
             TimeEstimation = aTime;
             ComplexityEstimation = aComplexity;
-            ProjectId = projectId;
+            ProjectId = aProjectId;
             StateId = aStateId;
+        }
+        public override string ToString()
+        {
+            return Text;
         }
     }
 }

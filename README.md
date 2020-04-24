@@ -135,3 +135,14 @@ J'aimerais quand même avoir un petit clavier virtuel qui respecterait le multi-
 - Planning mis à jour
 - Le controlleur récupère toutes les infos au lancement de l'application
 - Les vues du sprint et du backlog ne sont pas finies (sans compter le gantt et le mindmap)
+
+## 24.04
+
+### Tâches à faire
+- Finir les vues
+- Connecter les vues entre elles
+### Liens utiles et idées
+J'ai pensé à peut-être une protection de projet par mot de passe.
+### Tâches accomplies
+- Vues finies
+- La connection avec la vue du sprint a un problème. Il ne trouve pas le groupbox
