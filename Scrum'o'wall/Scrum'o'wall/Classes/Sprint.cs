@@ -14,7 +14,7 @@ namespace Scrum_o_wall.Classes
 {
     public class Sprint
     {
-        private List<UserStory> userStories = new List<UserStory>();
+        private Dictionary<int, UserStory> orderedUserStories = new Dictionary<int, UserStory>();
         Project project;
         private int id;
         private DateTime begin;
@@ -27,7 +27,7 @@ namespace Scrum_o_wall.Classes
         public DateTime End { get => end; set => end = value; }
         public int ProjectId { get => projectId; set => projectId = value; }
         public Project Project { get => project; set => project = value; }
-        public List<UserStory> UserStories { get => userStories; }
+        public Dictionary<int, UserStory> OrderedUserStories { get => orderedUserStories;}
 
         public Sprint(int anId, DateTime aBegin, DateTime anEnd,int aProjectId)
         {
@@ -38,24 +38,20 @@ namespace Scrum_o_wall.Classes
         }
 
         #region Add/Remove userStories
-        public void addUserStory(UserStory toAdd)
+        public void addUserStory(int order,UserStory toAdd)
         {
-            userStories.Add(toAdd);
+            orderedUserStories.Add(order,toAdd);
         }
-        public void addListUserStories(List<UserStory> ListToAdd)
+        public void addListUserStories(Dictionary<int, UserStory> ListToAdd)
         {
-            userStories.AddRange(ListToAdd);
-        }
-        public void removeUserStory(UserStory toRemove)
-        {
-            userStories.Remove(toRemove);
-        }
-        public void removeListUserStories(List<UserStory> ListToRemove)
-        {
-            foreach (UserStory toRemove in ListToRemove)
+            foreach (KeyValuePair<int,UserStory> item in ListToAdd)
             {
-                userStories.Remove(toRemove);
+                orderedUserStories.Add(item.Key,item.Value);
             }
+        }
+        public void removeUserStoryByOrder(int order)
+        {
+            orderedUserStories.Remove(order);
         }
         #endregion
 

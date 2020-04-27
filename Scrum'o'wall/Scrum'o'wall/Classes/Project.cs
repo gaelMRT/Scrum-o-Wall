@@ -18,7 +18,7 @@ namespace Scrum_o_wall.Classes
         private List<UserStory> allUserStories = new List<UserStory>();
         private List<Sprint> sprints = new List<Sprint>();
         private List<MindMap> roots = new List<MindMap>();
-        private List<string> states = new List<string>();
+        private Dictionary<int,string> states = new Dictionary<int, string>();
         private int id;
         private DateTime begin;
         private string name;
@@ -30,7 +30,7 @@ namespace Scrum_o_wall.Classes
         public DateTime Begin { get => begin; set => begin = value; }
         public string Name { get => name; set => name = value; }
         public string Description { get => description; set => description = value; }
-        public List<string> States { get => states; }
+        public Dictionary<int, string> States { get => states; }
         public List<UserStory> AllUserStories { get => allUserStories; }
         public List<Sprint> Sprints { get => sprints;  }
         public List<MindMap> Roots { get => roots; }
@@ -116,24 +116,20 @@ namespace Scrum_o_wall.Classes
         #endregion
 
         #region Add/Remove states
-        public void addState(string toAdd)
+        public void addState(int id,string toAdd)
         {
-            states.Add(toAdd);
+            states.Add(id,toAdd);
         }
-        public void addListStates(List<string> ListToAdd)
+        public void addListStates(Dictionary<int,string> ListToAdd)
         {
-            states.AddRange(ListToAdd);
-        }
-        public void removeState(string toRemove)
-        {
-            states.Remove(toRemove);
-        }
-        public void removeListStates(List<string> ListToRemove)
-        {
-            foreach (string toRemove in ListToRemove)
+            foreach (KeyValuePair<int,string> item in ListToAdd)
             {
-                states.Remove(toRemove);
+                states.Add(item.Key, item.Value);
             }
+        }
+        public void removeState(int idToRemove)
+        {
+            states.Remove(idToRemove);
         }
         #endregion
 

@@ -146,3 +146,17 @@ J'ai pensé à peut-être une protection de projet par mot de passe.
 ### Tâches accomplies
 - Vues finies
 - La connection avec la vue du sprint a un problème. Il ne trouve pas le groupbox
+
+## 27.04
+
+### Tâches à faire
+- Régler le problème de la vue du sprint
+- Faire les méthodes d'ajout
+### Liens utiles et idées
+Le problème était que je cherchais le nom sans avoir enregistré le nom : https://docs.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement.registername?view=netcore-3.1 
+Je viens de penser au rajout de colonne et je remarque qu'il me manque des vues. Il me faut un popup de création de colonnes et un popup de gestion de colonnes
+### Tâches accomplies 
+- Problème de la vue du sprint réglé
+- Export des methodes d'accès à la DB dans la classe DB
+- Modification de l'orthographe de la doc
+- Analyse et priorisation des fonctions du trello

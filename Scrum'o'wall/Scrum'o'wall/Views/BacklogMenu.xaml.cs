@@ -32,6 +32,30 @@ namespace Scrum_o_wall.Views
 
             Loaded += BacklogMenu_Loaded;
         }
+
+        private void BacklogMenu_Loaded(object sender, RoutedEventArgs e)
+        {
+            cnvsBacklog.Width = this.ActualWidth;
+            cnvsBacklog.Height = this.ActualHeight;
+
+            gbxUserStory.Width = (cnvsBacklog.Width - 25) / 2.0;
+            gbxSprint.Width = (cnvsBacklog.Width - 25) / 2.0;
+            gbxSprint.Height = (cnvsBacklog.Height - 190);
+            gbxUserStory.Height = (cnvsBacklog.Height - 190);
+
+            //Set controls positions
+            Canvas.SetLeft(gbxSprint, cnvsBacklog.Width / 2.0 + 2.5);
+            Canvas.SetRight(gbxUserStory, cnvsBacklog.Width / 2.0 - 2.5);
+
+            Canvas.SetLeft(lblProjectName, (cnvsBacklog.Width - lblProjectName.ActualWidth) / 2.0);
+            Canvas.SetLeft(lblBacklog, (cnvsBacklog.Width - lblBacklog.ActualWidth) / 2.0);
+
+            Canvas.SetLeft(btnReturn, (cnvsBacklog.Width - btnReturn.ActualWidth) / 2.0);
+            Canvas.SetTop(btnReturn, cnvsBacklog.Height - btnReturn.ActualHeight - 10);
+
+            //Refresh the window
+            Refresh();
+        }
         private void Refresh()
         {
             int nbSprints = currentProject.Sprints.Count;
@@ -53,14 +77,14 @@ namespace Scrum_o_wall.Views
                 cnvsBacklog.Children.Add(userControl);
 
                 Canvas.SetLeft(userControl, Canvas.GetLeft(gbxSprint) + 5);
-                Canvas.SetTop(userControl, Canvas.GetTop(gbxSprint) + 10 + 30 * i);
+                Canvas.SetTop(userControl, Canvas.GetTop(gbxSprint) + 30 + 30 * i);
             }
 
             int nbUserStories = currentProject.AllUserStories.Count;
             for (int i = 0; i < nbUserStories; i++)
             {
                 UserStory userStory = currentProject.AllUserStories[i];
-                //Create Sprint frame
+                //Create userStory frame
                 UserControl userControl = new UserControl();
                 userControl.Content = userStory.ToString();
                 userControl.Width = gbxUserStory.Width - 20;
@@ -75,7 +99,7 @@ namespace Scrum_o_wall.Views
                 cnvsBacklog.Children.Add(userControl);
 
                 Canvas.SetLeft(userControl, Canvas.GetLeft(gbxUserStory) + 5);
-                Canvas.SetTop(userControl, Canvas.GetTop(gbxUserStory) + 10 + 30 * i);
+                Canvas.SetTop(userControl, Canvas.GetTop(gbxUserStory) + 30 + 30 * i);
             }
         }
 
@@ -107,30 +131,6 @@ namespace Scrum_o_wall.Views
         {
             SprintMenu sprintMenu = new SprintMenu(s, controller);
             sprintMenu.ShowDialog();
-        }
-
-        private void BacklogMenu_Loaded(object sender, RoutedEventArgs e)
-        {
-            cnvsBacklog.Width = this.ActualWidth;
-            cnvsBacklog.Height = this.ActualHeight;
-
-            gbxUserStory.Width = (cnvsBacklog.Width - 25) / 2.0;
-            gbxSprint.Width = (cnvsBacklog.Width - 25) / 2.0;
-            gbxSprint.Height = (cnvsBacklog.Height - 190);
-            gbxUserStory.Height = (cnvsBacklog.Height - 190);
-
-            //Set controls positions
-            Canvas.SetLeft(gbxSprint, cnvsBacklog.Width / 2.0 + 2.5);
-            Canvas.SetRight(gbxUserStory, cnvsBacklog.Width / 2.0 - 2.5);
-
-            Canvas.SetLeft(lblProjectName, (cnvsBacklog.Width - lblProjectName.ActualWidth) / 2.0);
-            Canvas.SetLeft(lblBacklog, (cnvsBacklog.Width - lblBacklog.ActualWidth) / 2.0);
-
-            Canvas.SetLeft(btnReturn, (cnvsBacklog.Width - btnReturn.ActualWidth) / 2.0);
-            Canvas.SetTop(btnReturn, cnvsBacklog.Height - btnReturn.ActualHeight - 10);
-
-            //Refresh the window
-            Refresh();
         }
 
         private void Quit_Click(object sender, RoutedEventArgs e)

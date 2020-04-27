@@ -8,6 +8,8 @@
         Title="SprintMenu" Height="450" Width="800" WindowState="Maximized" WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Window.ContextMenu >
         <ContextMenu >
+            <MenuItem Header="Ajouter une colonne" Name="addColumn" Click="addColumn_Click"/>
+            <MenuItem Header="Ouvrir le calendrier" Name="Backlog" Click="btnBacklog_Click"/>
             <Separator/>
             <MenuItem Header="Quitter" Name="Quit" Click="Quit_Click"/>
         </ContextMenu>
@@ -15,14 +17,14 @@
     <Canvas x:Name="cnvsSprint">
         <Label Name="lblProjectName" Content="Nom du projet" FontSize="30" Height="60"/>
         <Label Name="lblSprintName" Content="Nom du sprint" Canvas.Top="65" Height="30"/>
-        <Button x:Name="btnReturn" Content="←" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="75" Height="75" BorderBrush="Black" FontSize="45" Canvas.Left="80">
+        <Button x:Name="btnReturn" Click="Quit_Click"  Content="←" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="75" Height="75" BorderBrush="Black" FontSize="45" Canvas.Left="80">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="50"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="btnBacklog" Content="📅" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="75" Height="75" BorderBrush="Black" FontSize="45">
+        <Button x:Name="btnBacklog" Click="btnBacklog_Click" Content="📅" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="75" Height="75" BorderBrush="Black" FontSize="45">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="50"/>

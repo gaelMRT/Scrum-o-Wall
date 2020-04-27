@@ -34,7 +34,6 @@ namespace Scrum_o_wall
         {
             InitializeComponent();
             controller = new Controller();
-            controller.GetDatas();
             Loaded += ProjectMenu_Loaded;
         }
 
@@ -42,10 +41,10 @@ namespace Scrum_o_wall
         {
 
             //Create controls for the projects
-            int maxProj = controller.projects.Count;
+            int maxProj = controller.Projects.Count;
             for (int i = 0; i < maxProj; i++)
             {
-                Project p = controller.projects[i];
+                Project p = controller.Projects[i];
 
                 //create a control for title
                 Label title = new Label();
@@ -123,8 +122,11 @@ namespace Scrum_o_wall
 
         private void UsrCntrl_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            Project p = (sender as UserControl).Tag as Project;
-            OpenProject(p);
+            if(e.LeftButton == MouseButtonState.Released)
+            {
+                Project p = (sender as UserControl).Tag as Project;
+                OpenProject(p);
+            }
         }
 
         private void UsrCntrl_TouchUp(object sender, TouchEventArgs e)

@@ -32,34 +32,18 @@ namespace Scrum_o_wall.Views
 
             lblProjectName.Content = currentSprint.Project.Name;
             lblSprintName.Content = s.ToString();
-
-            foreach (string state in currentSprint.Project.States)
+            //Define NameScope to use FindName later
+            NameScope.SetNameScope(cnvsSprint, new NameScope());
+            foreach (KeyValuePair<int,string> state in currentSprint.Project.States)
             {
                 GroupBox groupBox = new GroupBox();
-                groupBox.Name = "gbx" + state.Replace(" ","");
-                groupBox.Content = state;
+                groupBox.Name = "gbx" + state.Value.Replace(" ","");
+                groupBox.Content = state.Value;
                 cnvsSprint.Children.Add(groupBox);
                 Canvas.SetTop(groupBox, 100);
                 Canvas.SetBottom(groupBox, 90);
-            }
-        }
-
-        private void Refresh()
-        {
-            double leftPadding = 0;
-            double widthGbx = cnvsSprint.ActualWidth / currentSprint.Project.States.Count;
-            foreach (string state in currentSprint.Project.States)
-            {
-
-                object gbx = cnvsSprint.FindName("gbx" + state.Replace(" ", ""));
-                GroupBox gbxState = (GroupBox)gbx;
-                gbxState.Width = widthGbx;
-                gbxState.Header = state;
-                Canvas.SetLeft(gbxState, leftPadding);
-                leftPadding += widthGbx;
-            }
-            foreach (UserStory u in currentSprint.UserStories)
-            {
+                //Register Name to find it with FindName later
+                cnvsSprint.RegisterName(groupBox.Name, groupBox);
 
             }
         }
@@ -76,9 +60,92 @@ namespace Scrum_o_wall.Views
 
             Refresh();
         }
+
+        /// <summary>
+        /// Refresh the view with it content
+        /// </summary>
+        private void Refresh()
+        {
+            //Declare variables for groupbox positioning
+            double leftPadding = 0;
+            double widthGbx = cnvsSprint.ActualWidth / currentSprint.Project.States.Count;
+            int i = 0;
+
+            foreach (KeyValuePair<int,string> state in currentSprint.Project.States)
+            {
+                GroupBox gbx = (GroupBox)cnvsSprint.FindName("gbx" + state.Value.Replace(" ", ""));
+                if(gbx != null)
+                {
+                    gbx.Width = widthGbx;
+                    gbx.Height = cnvsSprint.ActualHeight - 190;
+                    gbx.Header = state.Value;
+                    gbx.Content = "";
+                    Canvas.SetLeft(gbx, leftPadding);
+                    leftPadding += widthGbx;
+                }
+                else
+                {
+                    MessageBox.Show("Un problème est survenue avec l'état '"+state.Value + "'.");
+                }
+            }
+            /// Place UserStories
+            foreach (KeyValuePair<int,UserStory> item in currentSprint.OrderedUserStories)
+            {
+                UserStory userStory = item.Value;
+                GroupBox gbx = (GroupBox)cnvsSprint.FindName("gbx" + userStory.CurrentState.Replace(" ", ""));
+                if (gbx == null)
+                {
+                    MessageBox.Show("Un problème est survenue avec l'état '" + userStory.CurrentState + "'.");
+                }
+
+                //Create userStory frame
+                UserControl userControl = new UserControl();
+                userControl.Content = userStory.ToString();
+                userControl.Width = widthGbx - 20;
+                userControl.BorderBrush = Brushes.Black;
+                userControl.Background = Brushes.LightGray;
+                userControl.Cursor = Cursors.Hand;
+                userControl.Height = 20;
+                userControl.Tag = userStory;
+                userControl.MouseUp += usrCtrlUserStory_MouseUp;
+                userControl.TouchUp += usrCtrlUserStory_TouchUp;
+
+                cnvsSprint.Children.Add(userControl);
+
+
+                Canvas.SetLeft(userControl, Canvas.GetLeft(gbx) + 10);
+                Canvas.SetTop(userControl, Canvas.GetTop(gbx) + 30 + 30 * i);
+                i++;
+            }
+        }
+
+
+
+        private void usrCtrlUserStory_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            //TODO : Modify User Story
+            MessageBox.Show("Modification User Story", "Modif", MessageBoxButton.OK);
+        }
+
+        private void usrCtrlUserStory_TouchUp(object sender, TouchEventArgs e)
+        {
+            //TODO : Modify User Story
+            MessageBox.Show("Modification User Story", "Modif", MessageBoxButton.OK);
+        }
+
         private void Quit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void btnBacklog_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void addColumn_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
