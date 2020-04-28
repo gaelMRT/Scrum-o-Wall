@@ -160,3 +160,15 @@ Je viens de penser au rajout de colonne et je remarque qu'il me manque des vues.
 - Export des methodes d'accès à la DB dans la classe DB
 - Modification de l'orthographe de la doc
 - Analyse et priorisation des fonctions du trello
+## 28.04
+
+### Tâches à faire
+- Approfondir l'analyse approfondie de Trello
+- Restructurer la documentation
+- Modifier la base de données et la documentation pour s'adapter à l'analyse de Trello.
+### Liens utiles et idées
+
+### Tâches accomplies
+- Analyse sur Trello approfondie
+- Documentation restructurée
+- Changement du Modèle Conceptuel de Données et documentation des changements
