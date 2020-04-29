@@ -172,3 +172,14 @@ Je viens de penser au rajout de colonne et je remarque qu'il me manque des vues.
 - Analyse sur Trello approfondie
 - Documentation restructurée
 - Changement du Modèle Conceptuel de Données et documentation des changements
+## 29.04
+
+### Tâches à faire 
+- Modifier la base de données
+- Créer/Modifier les classes
+### Liens utiles et idées
+Je ne trouvais pas le diagramme de classe mais après une recherche il fallait l'installer par le Visual Studio Installer
+### Tâches accomplies
+- Base de données modifiée
+- Création des classes et modification des existantes
+- Création du diagramme de classe

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,34 +13,66 @@ namespace Scrum_o_wall
     public class Controller
     {
         private List<Project> projects;
+        private List<User> users;
 
-        public List<Project> Projects { get => projects;}
+        private List<Classes.Type> types;
+        private List<Priority> priorities;
+        private List<FileType> fileTypes;
+        private List<State> states;
+
+        public List<Project> Projects { get => projects; }
+        public List<User> Users { get => users; }
+        public List<Classes.Type> Types { get => types; }
+        public List<Priority> Priorities { get => priorities; }
+        public List<FileType> FileTypes { get => fileTypes; }
+        public List<State> States { get => states; }
 
         public Controller()
         {
-            projects = GetDatas();
+            GetDatas();
         }
 
         /// <summary>
         /// Get All datas and links all objects between them 
         /// </summary>
         /// <returns>a list of project containing all infos</returns>
-        private List<Project> GetDatas()
+        private void GetDatas()
         {
             //Initialise variables
             List<Project> allProjects;
             List<UserStory> allUserStories;
             List<Sprint> allSprints;
+            List<State> allStates;
+            List<User> allUsers;
+            List<Classes.File> allFiles;
+            List<FileType> allFileTypes;
+            List<Activity> allActivities;
+            List<Checklist> allChecklists;
+            List<ChecklistItem> allChecklistItems;
+            List<Priority> allPriorities;
+            List<Comment> allComments;
+            List<Classes.Type> allTypes;
 
-            Dictionary<int, string> allStates;
             List<int[]> projectStates;
             List<int[]> userStoriesSprint;
+            List<int[]> userUserStories;
+            List<int[]> userChecklistItem;
+            List<int[]> userProjects;
 
 
             allProjects = DB.GetProjects();
             allSprints = DB.GetSprints();
             allUserStories = DB.GetUserStories();
             allStates = DB.GetStates();
+            allUsers = DB.GetUsers();
+            allFiles = DB.GetFiles();
+            allFileTypes = DB.GetFileTypes();
+            allActivities = DB.GetActivities();
+            allChecklists = DB.GetChecklists();
+            allChecklistItems = DB.GetChecklistItems();
+            allPriorities = DB.GetPriorities();
+            allComments = DB.GetComments();
+            allTypes = DB.GetTypes();
 
 
             #region Link State with project
@@ -48,14 +81,27 @@ namespace Scrum_o_wall
             foreach (int[] item in projectStates)
             {
                 Project project = allProjects.First(p => p.Id == item[0]);
-                project.addState(item[1],allStates[item[1]]);
+                State state = allStates.First(s => s.Id == item[1]);
+                project.States.Add(state);
             }
             #endregion
 
-            #region Link State with UserStory
+            #region Link UserStory with other classes
             foreach (UserStory u in allUserStories)
             {
-                u.CurrentState = allStates[u.StateId];
+                Project project = allProjects.First(p => p.Id == u.ProjectId);
+                State state = allStates.First(s => s.Id == u.StateId);
+                Priority priority = allPriorities.First(p => p.Id == u.PriorityId);
+                Classes.Type type = allTypes.First(t => t.Id == u.TypeId);
+                List<Activity> activities = allActivities.Where(a => a.UserStoryId == u.Id).ToList();
+                List<Classes.File> files = allFiles.Where(f => f.UserStoryId == u.Id).ToList();
+
+                u.CurrentState = state;
+                u.Priority = priority;
+                u.Type = type;
+                u.Activities = activities;
+                u.Files = files;
+                project.AllUserStories.Add(u);
             }
             #endregion
 
@@ -70,24 +116,52 @@ namespace Scrum_o_wall
             }
             #endregion
 
-            #region Link UserStory with Project
-            foreach (UserStory u in allUserStories)
-            {
-                Project project = allProjects.First(p => p.Id == u.ProjectId);
-                project.addUserStory(u);
-            }
-            #endregion
-
             #region Link Sprint with Project
             foreach (Sprint s in allSprints)
             {
                 Project project = allProjects.First(p => p.Id == s.ProjectId);
                 s.Project = project;
-                project.addSprint(s);
+                project.Sprints.Add(s);
             }
             #endregion
 
-            return allProjects;
+            #region Link user with UserStory
+            userUserStories = DB.GetUserUserStory();
+            foreach (int[] item in userUserStories)
+            {
+                // 0:IdUser,1:IdUserStories
+                User user = allUsers.First(u => u.Id == item[0]);
+                UserStory userStory = allUserStories.First(us => us.Id == item[1]);
+                userStory.AssignedUsers.Add(user);
+            }
+            #endregion
+            #region Link user with CheckListItem
+            userChecklistItem = DB.GetUserChecklistItem();
+            foreach (int[] item in userChecklistItem)
+            {
+                // 0:IdUser,1:IdChecklistItem
+                User user = allUsers.First(u => u.Id == item[0]);
+                ChecklistItem checklistItem = allChecklistItems.First(c => c.Id == item[1]);
+                checklistItem.AssignedUsers.Add(user);
+            }
+            #endregion
+            #region Link user with Project
+            userProjects = DB.GetUserProject();
+            foreach (int[] item in userProjects)
+            {
+                // 0:IdUser,1:IdProject
+                User user = allUsers.First(u => u.Id == item[0]);
+                Project project = allProjects.First(p => p.Id == item[1]);
+                project.AssignedUsers.Add(user);
+            }
+            #endregion
+
+            projects = allProjects;
+            users = allUsers;
+            types = allTypes;
+            priorities = allPriorities;
+            fileTypes = allFileTypes;
+            states = allStates;
         }
 
         /// <summary>
@@ -98,7 +172,7 @@ namespace Scrum_o_wall
         /// <param name="aDate"></param>
         public void CreateProject(string aName, string aDesc, DateTime aDate)
         {
-            projects.Add(DB.CreateProject(aName,aDesc,aDate));
+            projects.Add(DB.CreateProject(aName, aDesc, aDate));
         }
 
     }

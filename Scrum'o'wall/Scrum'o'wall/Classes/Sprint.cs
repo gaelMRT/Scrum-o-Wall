@@ -21,14 +21,6 @@ namespace Scrum_o_wall.Classes
         private DateTime end;
         private int projectId;
 
-
-        public int Id { get => id; set => id = value; }
-        public DateTime Begin { get => begin; set => begin = value; }
-        public DateTime End { get => end; set => end = value; }
-        public int ProjectId { get => projectId; set => projectId = value; }
-        public Project Project { get => project; set => project = value; }
-        public Dictionary<int, UserStory> OrderedUserStories { get => orderedUserStories;}
-
         public Sprint(int anId, DateTime aBegin, DateTime anEnd,int aProjectId)
         {
             Id = anId;
@@ -36,6 +28,12 @@ namespace Scrum_o_wall.Classes
             End = anEnd;
             ProjectId = aProjectId;
         }
+        public int Id { get => id; set => id = value; }
+        public DateTime Begin { get => begin; set => begin = value; }
+        public DateTime End { get => end; set => end = value; }
+        public int ProjectId { get => projectId; set => projectId = value; }
+        public Project Project { get => project; set => project = value; }
+        public Dictionary<int, UserStory> OrderedUserStories { get => orderedUserStories; }
 
         #region Add/Remove userStories
         public void addUserStory(int order,UserStory toAdd)

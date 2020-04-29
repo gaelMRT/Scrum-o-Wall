@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents.Serialization;
 
 namespace Scrum_o_wall.Classes
 {
@@ -18,22 +19,13 @@ namespace Scrum_o_wall.Classes
         private List<UserStory> allUserStories = new List<UserStory>();
         private List<Sprint> sprints = new List<Sprint>();
         private List<MindMap> roots = new List<MindMap>();
-        private Dictionary<int,string> states = new Dictionary<int, string>();
+        private List<State> states = new List<State>();
+        private List<User> assignedUsers = new List<User>();
         private int id;
         private DateTime begin;
         private string name;
         private string description;
 
-
-        //properties declaration
-        public int Id { get => id; set => id = value; }
-        public DateTime Begin { get => begin; set => begin = value; }
-        public string Name { get => name; set => name = value; }
-        public string Description { get => description; set => description = value; }
-        public Dictionary<int, string> States { get => states; }
-        public List<UserStory> AllUserStories { get => allUserStories; }
-        public List<Sprint> Sprints { get => sprints;  }
-        public List<MindMap> Roots { get => roots; }
 
         /// <summary>
         /// Create a project with name,description and date
@@ -49,89 +41,16 @@ namespace Scrum_o_wall.Classes
             Begin = aBegin;
         }
 
-        #region Add/Remove userStories
-        public void addUserStory(UserStory toAdd)
-        {
-            allUserStories.Add(toAdd);
-        }
-        public void addListUserStories(List<UserStory> ListToAdd)
-        {
-            allUserStories.AddRange(ListToAdd);
-        }
-        public void removeUserStory(UserStory toRemove)
-        {
-            allUserStories.Remove(toRemove);
-        }
-        public void removeListUserStories(List<UserStory> ListToRemove)
-        {
-            foreach (UserStory toRemove in ListToRemove)
-            {
-                allUserStories.Remove(toRemove);
-            }
-        }
-        #endregion
-
-        #region Add/Remove sprints
-        public void addSprint(Sprint toAdd)
-        {
-            sprints.Add(toAdd);
-        }
-        public void addListSprints(List<Sprint> ListToAdd)
-        {
-            sprints.AddRange(ListToAdd);
-        }
-        public void removeSprint(Sprint toRemove)
-        {
-            sprints.Remove(toRemove);
-        }
-        public void removeListSprints(List<Sprint> ListToRemove)
-        {
-            foreach (Sprint toRemove in ListToRemove)
-            {
-                sprints.Remove(toRemove);
-            }
-        }
-        #endregion
-
-        #region Add/Remove MindMap
-        public void addMindMap(MindMap toAdd)
-        {
-            roots.Add(toAdd);
-        }
-        public void addListMindMaps(List<MindMap> ListToAdd)
-        {
-            roots.AddRange(ListToAdd);
-        }
-        public void removeMindMap(MindMap toRemove)
-        {
-            roots.Remove(toRemove);
-        }
-        public void removeListMindMaps(List<MindMap> ListToRemove)
-        {
-            foreach (MindMap toRemove in ListToRemove)
-            {
-                roots.Remove(toRemove);
-            }
-        }
-        #endregion
-
-        #region Add/Remove states
-        public void addState(int id,string toAdd)
-        {
-            states.Add(id,toAdd);
-        }
-        public void addListStates(Dictionary<int,string> ListToAdd)
-        {
-            foreach (KeyValuePair<int,string> item in ListToAdd)
-            {
-                states.Add(item.Key, item.Value);
-            }
-        }
-        public void removeState(int idToRemove)
-        {
-            states.Remove(idToRemove);
-        }
-        #endregion
+        //properties declaration
+        public int Id { get => id; set => id = value; }
+        public DateTime Begin { get => begin; set => begin = value; }
+        public string Name { get => name; set => name = value; }
+        public string Description { get => description; set => description = value; }
+        public List<UserStory> AllUserStories { get => allUserStories; set => allUserStories = value; }
+        public List<Sprint> Sprints { get => sprints; set => sprints = value; }
+        public List<MindMap> Roots { get => roots; set => roots = value; }
+        public List<State> States { get => states; set => states = value; }
+        public List<User> AssignedUsers { get => assignedUsers; set => assignedUsers = value; }
 
         public override string ToString()
         {

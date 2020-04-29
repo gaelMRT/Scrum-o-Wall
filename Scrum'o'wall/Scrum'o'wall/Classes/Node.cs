@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Scrum_o_wall.Classes
 {
-    class Node
+    public class Node
     {
         
         int id;
@@ -23,30 +23,36 @@ namespace Scrum_o_wall.Classes
 
         public Node(int anId, string aName, int aPreviousId, int aMindmapId)
         {
-            this.id = anId;
-            this.name = aName;
-            this.previousId = aPreviousId;
-            this.mindmapId = aMindmapId;
+            this.Id = anId;
+            this.Name = aName;
+            this.PreviousId = aPreviousId;
+            this.MindmapId = aMindmapId;
         }
+
+        public int Id { get => id; set => id = value; }
+        public string Name { get => name; set => name = value; }
+        public int PreviousId { get => previousId; set => previousId = value; }
+        public int MindmapId { get => mindmapId; set => mindmapId = value; }
+        public List<Node> Childrens { get => childrens; set => childrens = value; }
 
         #region Add/Remove childrens
         public void addChildren(Node toAdd)
         {
-            childrens.Add(toAdd);
+            Childrens.Add(toAdd);
         }
         public void addListChildrens(List<Node> ListToAdd)
         {
-            childrens.AddRange(ListToAdd);
+            Childrens.AddRange(ListToAdd);
         }
         public void removeChildren(Node toRemove)
         {
-            childrens.Remove(toRemove);
+            Childrens.Remove(toRemove);
         }
         public void removeListChildrens(List<Node> ListToRemove)
         {
             foreach (Node toRemove in ListToRemove)
             {
-                childrens.Remove(toRemove);
+                Childrens.Remove(toRemove);
             }
         }
         #endregion

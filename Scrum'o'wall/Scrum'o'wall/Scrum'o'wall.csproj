@@ -79,10 +79,20 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Classes\Activity.cs" />
+    <Compile Include="Classes\Checklist.cs" />
+    <Compile Include="Classes\ChecklistItem.cs" />
+    <Compile Include="Classes\Comment.cs" />
+    <Compile Include="Classes\File.cs" />
+    <Compile Include="Classes\FileType.cs" />
     <Compile Include="Classes\MindMap.cs" />
     <Compile Include="Classes\Node.cs" />
+    <Compile Include="Classes\Priority.cs" />
     <Compile Include="Classes\Project.cs" />
     <Compile Include="Classes\Sprint.cs" />
+    <Compile Include="Classes\State.cs" />
+    <Compile Include="Classes\Type.cs" />
+    <Compile Include="Classes\User.cs" />
     <Compile Include="Classes\UserStory.cs" />
     <Compile Include="Views\BacklogMenu.xaml.cs">
       <DependentUpon>BacklogMenu.xaml</DependentUpon>

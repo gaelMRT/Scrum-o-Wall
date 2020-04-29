@@ -34,11 +34,11 @@ namespace Scrum_o_wall.Views
             lblSprintName.Content = s.ToString();
             //Define NameScope to use FindName later
             NameScope.SetNameScope(cnvsSprint, new NameScope());
-            foreach (KeyValuePair<int,string> state in currentSprint.Project.States)
+            foreach (State state in currentSprint.Project.States)
             {
                 GroupBox groupBox = new GroupBox();
-                groupBox.Name = "gbx" + state.Value.Replace(" ","");
-                groupBox.Content = state.Value;
+                groupBox.Name = "gbx" + state.Name.Replace(" ","");
+                groupBox.Content = state;
                 cnvsSprint.Children.Add(groupBox);
                 Canvas.SetTop(groupBox, 100);
                 Canvas.SetBottom(groupBox, 90);
@@ -71,31 +71,31 @@ namespace Scrum_o_wall.Views
             double widthGbx = cnvsSprint.ActualWidth / currentSprint.Project.States.Count;
             int i = 0;
 
-            foreach (KeyValuePair<int,string> state in currentSprint.Project.States)
+            foreach (State state in currentSprint.Project.States)
             {
-                GroupBox gbx = (GroupBox)cnvsSprint.FindName("gbx" + state.Value.Replace(" ", ""));
+                GroupBox gbx = (GroupBox)cnvsSprint.FindName("gbx" + state.Name.Replace(" ", ""));
                 if(gbx != null)
                 {
                     gbx.Width = widthGbx;
                     gbx.Height = cnvsSprint.ActualHeight - 190;
-                    gbx.Header = state.Value;
+                    gbx.Header = state.Name;
                     gbx.Content = "";
                     Canvas.SetLeft(gbx, leftPadding);
                     leftPadding += widthGbx;
                 }
                 else
                 {
-                    MessageBox.Show("Un problème est survenue avec l'état '"+state.Value + "'.");
+                    MessageBox.Show("Un problème est survenue avec l'état '"+state.Name + "'.");
                 }
             }
             /// Place UserStories
             foreach (KeyValuePair<int,UserStory> item in currentSprint.OrderedUserStories)
             {
                 UserStory userStory = item.Value;
-                GroupBox gbx = (GroupBox)cnvsSprint.FindName("gbx" + userStory.CurrentState.Replace(" ", ""));
+                GroupBox gbx = (GroupBox)cnvsSprint.FindName("gbx" + userStory.CurrentState.Name.Replace(" ", ""));
                 if (gbx == null)
                 {
-                    MessageBox.Show("Un problème est survenue avec l'état '" + userStory.CurrentState + "'.");
+                    MessageBox.Show("Un problème est survenue avec l'état '" + userStory.CurrentState.Name + "'.");
                 }
 
                 //Create userStory frame

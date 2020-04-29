@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Scrum_o_wall.Classes.Activity" Collapsed="true">
+    <Position X="1" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAACAAAAAAAgAAAAKAAAAAAABAAAAAQAAAAAAAAAAgA=</HashCode>
+      <FileName>Classes\Activity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scrum_o_wall.Classes.Checklist" Collapsed="true">
+    <Position X="4.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAACAAAAAEAAAAAACAAAAAQAAEAEAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Classes\Checklist.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scrum_o_wall.Classes.ChecklistItem" Collapsed="true">
+    <Position X="2.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABCBAAIQAAACAAAAAAABQAAAAEAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Classes\ChecklistItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scrum_o_wall.Classes.Comment" Collapsed="true">
+    <Position X="1" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAACAAAAAAAgAAAAKAAAAAgABAAAAAQAAAAAAAAAAgA=</HashCode>
+      <FileName>Classes\Comment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scrum_o_wall.Classes.File" Collapsed="true">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAACAAAAAAAgAAAAKAAAAAwAAAAMAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Classes\File.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scrum_o_wall.Classes.FileType" Collapsed="true">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Classes\FileType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scrum_o_wall.Classes.MindMap" Collapsed="true">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAACAAAAAkAAQABAAEAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Classes\MindMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scrum_o_wall.Classes.Node" Collapsed="true">
+    <Position X="1" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAKAAAACAAIAARQAABEEAQAAAAEAAIAAAAAAAAAAgA=</HashCode>
+      <FileName>Classes\Node.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scrum_o_wall.Classes.Priority" Collapsed="true">
+    <Position X="2.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Classes\Priority.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scrum_o_wall.Classes.Project" Collapsed="true">
+    <Position X="4.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAgAAgEIAAKAQUQAgEFEAAEAAAABAAAAgA=</HashCode>
+      <FileName>Classes\Project.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scrum_o_wall.Classes.Sprint" Collapsed="true">
+    <Position X="6.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAICACACAAAAAAAEAAAECAAQBAgIEAIAAAAAAAAAIgA=</HashCode>
+      <FileName>Classes\Sprint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scrum_o_wall.Classes.State" Collapsed="true">
+    <Position X="1" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Classes\State.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scrum_o_wall.Classes.Type" Collapsed="true">
+    <Position X="2.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Classes\Type.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scrum_o_wall.Classes.User" Collapsed="true">
+    <Position X="4.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Classes\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scrum_o_wall.Classes.UserStory" Collapsed="true">
+    <Position X="6.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQiAAgARAQIAEQEIAREASAERAEBAAAoAQAAqIAEIoA=</HashCode>
+      <FileName>Classes\UserStory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scrum_o_wall.Views.BacklogMenu" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAEEABAAAEEgAAAAAAACAAAAAAAAAAAACCAAAA=</HashCode>
+      <FileName>Views\BacklogMenu.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Scrum_o_wall.Views.ProjectCreate" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="10.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ProjectCreate.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Scrum_o_wall.Views.SprintCreate" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\SprintCreate.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Scrum_o_wall.Views.SprintMenu" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="10.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAEEgQAAAAAACAAAAAAAAAACACIAAAA=</HashCode>
+      <FileName>Views\SprintMenu.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Scrum_o_wall.Views.UserStoryCreate" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAACAAAACAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\UserStoryCreate.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Scrum_o_wall.ProjectMenu" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAkAAAAAAAAACggAAAAIAAAAACAAAAA=</HashCode>
+      <FileName>Views\ProjectMenu.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Scrum_o_wall.Controller">
+    <Position X="2.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IgAAAiAAAAIAAAACAAAAAAIAAAAAAAAEAAABBAIACQA=</HashCode>
+      <FileName>Controller.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scrum_o_wall.DB">
+    <Position X="1" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IBAQAEIAAACBAAgAIACBBAAAAAEAUAAAAAgAQJgACAA=</HashCode>
+      <FileName>DB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
