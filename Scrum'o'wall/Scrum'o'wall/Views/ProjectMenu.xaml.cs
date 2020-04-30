@@ -142,5 +142,15 @@ namespace Scrum_o_wall.Views
         {
             this.Close();
         }
+
+        private void btnAddUserStory_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAddSprint_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

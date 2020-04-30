@@ -192,3 +192,6 @@ Je ne trouvais pas le diagramme de classe mais après une recherche il fallait l
 ### Liens utiles et idées
 
 ### Tâches accomplies
+- Modification des maquettes 
+- Maquettes pour les fenêtres manquantes
+- Début du plan de test 
