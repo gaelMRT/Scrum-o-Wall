@@ -94,8 +94,8 @@
     <Compile Include="Classes\Type.cs" />
     <Compile Include="Classes\User.cs" />
     <Compile Include="Classes\UserStory.cs" />
-    <Compile Include="Views\BacklogMenu.xaml.cs">
-      <DependentUpon>BacklogMenu.xaml</DependentUpon>
+    <Compile Include="Views\ProjectMenu.xaml.cs">
+      <DependentUpon>ProjectMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProjectCreate.xaml.cs">
       <DependentUpon>ProjectCreate.xaml</DependentUpon>
@@ -113,8 +113,8 @@
   <ItemGroup>
     <Compile Include="Controller.cs" />
     <Compile Include="DB.cs" />
-    <Compile Include="Views\ProjectMenu.xaml.cs">
-      <DependentUpon>ProjectMenu.xaml</DependentUpon>
+    <Compile Include="Views\MainMenu.xaml.cs">
+      <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -133,6 +133,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -142,11 +143,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Views\BacklogMenu.xaml">
+    <Page Include="Views\ProjectMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ProjectMenu.xaml">
+    <Page Include="Views\MainMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

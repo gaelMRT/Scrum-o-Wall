@@ -1,42 +1,54 @@
-﻿<!-- 
-    Author  :   Gaël Serge Mariot
-    Project :   Scrum'o'Wall
-    File    :   ProjectMenu.xaml
-    Desc.   :   This file contains the graphics of the ProjectMenu window
-    -->
-    <Window x:Class="Scrum_o_wall.ProjectMenu"
+﻿<Window x:Class="Scrum_o_wall.Views.ProjectMenu"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Scrum_o_wall"
+        xmlns:local="clr-namespace:Scrum_o_wall.Views"
         mc:Ignorable="d"
-        Title="Scrum'o'Wall" ResizeMode="NoResize" WindowState="Maximized" WindowStartupLocation="CenterScreen" Width="1000" Height="1000" WindowStyle="None">
+        Title="ProjectMenu" Height="450" Width="800" WindowState="Maximized" WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Window.ContextMenu >
         <ContextMenu >
-            <MenuItem Header="Ajouter un projet" Name="AddProject" Click="AddProject_Click"/>
 
             <Separator/>
             <MenuItem Header="Quitter" Name="Quit" Click="Quit_Click"/>
         </ContextMenu>
     </Window.ContextMenu>
-    <ScrollViewer x:Name="scrllVwr" VerticalScrollBarVisibility="Auto">
-        <Canvas x:Name="cnvsProject" RenderTransformOrigin="0.5,0.5" Width="1000" Margin="0,0,0,0" HorizontalAlignment="Left">
-            <Canvas.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform ScaleY="1" ScaleX="1"/>
-                    <SkewTransform AngleY="0" AngleX="0"/>
-                    <RotateTransform Angle="0"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Canvas.RenderTransform>
-            <Button x:Name="btnAddProject" Click="AddProject_Click" Content="+" VerticalContentAlignment="Top" Canvas.Left="891" Canvas.Top="869.4" Width="75" Height="68" BorderBrush="Black" FontSize="41">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="50"/>
-                    </Style>
-                </Button.Resources>
-            </Button>
-        </Canvas>
-    </ScrollViewer>
+    <Canvas x:Name="cnvsBacklog">
+        <Label Name="lblProjectName" Content="Nom du projet" FontSize="30" Height="60"/>
+        <Label Name="lblBacklog" Canvas.Top="65" Height="30">Product Backlog</Label>
+        <GroupBox x:Name="gbxUserStories" Height="260" Width="387" Canvas.Top="100" Canvas.Left="10" Header="User stories" >
+            <ScrollViewer Name="scrlUserStories" Margin="0,0,0,50">
+
+            </ScrollViewer>
+        </GroupBox>
+        <GroupBox x:Name="gbxSprints" Height="260" Width="388" Canvas.Top="100" Canvas.Right="10" Canvas.Left="402" Header="Sprints"  >
+            <ScrollViewer Name="scrlSprints" Margin="0,0,0,50">
+
+            </ScrollViewer>
+        </GroupBox>
+        <GroupBox x:Name="gbxMindMap" Content="MindMap" Height="122" Width="388" Canvas.Top="238" Canvas.Right="10" Canvas.Left="402" Visibility="Hidden"   >
+
+        </GroupBox>
+        <Button x:Name="btnReturn" Click="btnReturn_Click" Content="←" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="75" Height="75" BorderBrush="Black" FontSize="45" Canvas.Top="365" Canvas.Left="363">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="50"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button x:Name="btnAddUserStory" Click="btnAddUserStory_Click" Content="+" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="40" Height="40" BorderBrush="Black" FontSize="23" Canvas.Top="320" Canvas.Left="193">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="50"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button x:Name="btnAddSprint" Click="btnAddSprint_Click" Content="+" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="40" Height="40" BorderBrush="Black" FontSize="23" Canvas.Top="320" Canvas.Left="588">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="50"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+    </Canvas>
 </Window>

@@ -183,3 +183,12 @@ Je ne trouvais pas le diagramme de classe mais après une recherche il fallait l
 - Base de données modifiée
 - Création des classes et modification des existantes
 - Création du diagramme de classe
+## 30.04
+
+### Tâches à faire 
+- Modification des maquettes existantes
+- Refaire des maquettes pour les fenêtres manquantes
+- Faire un plan de tests
+### Liens utiles et idées
+
+### Tâches accomplies

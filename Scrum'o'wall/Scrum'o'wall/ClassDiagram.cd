@@ -106,15 +106,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Scrum_o_wall.Views.BacklogMenu" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="9" Y="0.5" Width="1.5" />
+    <Position X="1" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAEEABAAAEEgAAAAAAACAAAAAAAAAAAACCAAAA=</HashCode>
-      <FileName>Views\BacklogMenu.xaml.cs</FileName>
+      <FileName>Views\ProjectMenu.xaml.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Scrum_o_wall.Views.ProjectCreate" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="10.75" Y="0.5" Width="1.5" />
+    <Position X="2.75" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAACAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Views\ProjectCreate.xaml.cs</FileName>
@@ -122,7 +121,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Scrum_o_wall.Views.SprintCreate" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="9" Y="1.5" Width="1.5" />
+    <Position X="1" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAACAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Views\SprintCreate.xaml.cs</FileName>
@@ -130,7 +129,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Scrum_o_wall.Views.SprintMenu" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="10.75" Y="1.5" Width="1.5" />
+    <Position X="2.75" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAABAAAEEgQAAAAAACAAAAAAAAAACACIAAAA=</HashCode>
       <FileName>Views\SprintMenu.xaml.cs</FileName>
@@ -138,7 +137,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Scrum_o_wall.Views.UserStoryCreate" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="12.5" Y="1.5" Width="1.5" />
+    <Position X="4.5" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAACAAAAAACAAAACAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Views\UserStoryCreate.xaml.cs</FileName>
@@ -146,22 +145,22 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Scrum_o_wall.ProjectMenu" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="12.5" Y="0.5" Width="1.5" />
+    <Position X="4.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAABAAAkAAAAAAAAACggAAAAIAAAAACAAAAA=</HashCode>
-      <FileName>Views\ProjectMenu.xaml.cs</FileName>
+      <FileName>Views\MainMenu.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="Scrum_o_wall.Controller">
-    <Position X="2.75" Y="4.75" Width="1.5" />
+  <Class Name="Scrum_o_wall.Controller" Collapsed="true">
+    <Position X="2.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IgAAAiAAAAIAAAACAAAAAAIAAAAAAAAEAAABBAIACQA=</HashCode>
       <FileName>Controller.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Scrum_o_wall.DB">
-    <Position X="1" Y="4.75" Width="1.5" />
+  <Class Name="Scrum_o_wall.DB" Collapsed="true">
+    <Position X="1" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IBAQAEIAAACBAAgAIACBBAAAAAEAUAAAAAgAQJgACAA=</HashCode>
       <FileName>DB.cs</FileName>

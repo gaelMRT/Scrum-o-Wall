@@ -66,10 +66,11 @@ namespace Scrum_o_wall.Views
         /// </summary>
         private void Refresh()
         {
-            //Declare variables for groupbox positioning
+            //Declare variables for groupbox and userstories positioning
             double leftPadding = 0;
             double widthGbx = cnvsSprint.ActualWidth / currentSprint.Project.States.Count;
-            int i = 0;
+            Dictionary<State, int> userStoriesPerState = new Dictionary<State, int>();
+
 
             foreach (State state in currentSprint.Project.States)
             {
@@ -82,6 +83,7 @@ namespace Scrum_o_wall.Views
                     gbx.Content = "";
                     Canvas.SetLeft(gbx, leftPadding);
                     leftPadding += widthGbx;
+                    userStoriesPerState.Add(state, 0);
                 }
                 else
                 {
@@ -114,8 +116,9 @@ namespace Scrum_o_wall.Views
 
 
                 Canvas.SetLeft(userControl, Canvas.GetLeft(gbx) + 10);
-                Canvas.SetTop(userControl, Canvas.GetTop(gbx) + 30 + 30 * i);
-                i++;
+                Canvas.SetTop(userControl, Canvas.GetTop(gbx) + 30 + 30 * userStoriesPerState[userStory.CurrentState]);
+                userStoriesPerState[userStory.CurrentState]++;
+                
             }
         }
 

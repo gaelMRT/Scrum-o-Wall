@@ -1,14 +1,6 @@
-﻿/*
- * Author   :   Gaël Serge Mariot
- * Project  :   Scrum'o'wall
- * File     :   ProjectMenu.xaml.cs
- * Desc.    :   This file contains the methods behind the ProjectMenu View   
- */
-using Scrum_o_wall.Classes;
-using Scrum_o_wall.Views;
+﻿using Scrum_o_wall.Classes;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,145 +11,136 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Scrum_o_wall
+namespace Scrum_o_wall.Views
 {
     /// <summary>
     /// Logique d'interaction pour ProjectMenu.xaml
     /// </summary>
     public partial class ProjectMenu : Window
     {
+        Project currentProject;
         Controller controller;
-        public ProjectMenu()
+        public ProjectMenu(Project p, Controller ctrl)
         {
             InitializeComponent();
-            controller = new Controller();
-            Loaded += ProjectMenu_Loaded;
+            currentProject = p;
+            controller = ctrl;
+
+            lblProjectName.Content = p.Name;
+
+            Loaded += BacklogMenu_Loaded;
         }
 
+        private void BacklogMenu_Loaded(object sender, RoutedEventArgs e)
+        {
+            cnvsBacklog.Width = this.ActualWidth;
+            cnvsBacklog.Height = this.ActualHeight;
+
+            gbxUserStory.Width = (cnvsBacklog.Width - 25) / 2.0;
+            gbxSprint.Width = (cnvsBacklog.Width - 25) / 2.0;
+            gbxSprint.Height = (cnvsBacklog.Height - 190);
+            gbxUserStory.Height = (cnvsBacklog.Height - 190);
+
+            //Set controls positions
+            Canvas.SetLeft(gbxSprint, cnvsBacklog.Width / 2.0 + 2.5);
+            Canvas.SetRight(gbxUserStory, cnvsBacklog.Width / 2.0 - 2.5);
+
+            Canvas.SetLeft(lblProjectName, (cnvsBacklog.Width - lblProjectName.ActualWidth) / 2.0);
+            Canvas.SetLeft(lblBacklog, (cnvsBacklog.Width - lblBacklog.ActualWidth) / 2.0);
+
+            Canvas.SetLeft(btnReturn, (cnvsBacklog.Width - btnReturn.ActualWidth) / 2.0);
+            Canvas.SetTop(btnReturn, cnvsBacklog.Height - btnReturn.ActualHeight - 10);
+
+            //Refresh the window
+            Refresh();
+        }
         private void Refresh()
         {
-
-            //Create controls for the projects
-            int maxProj = controller.Projects.Count;
-            for (int i = 0; i < maxProj; i++)
+            int nbSprints = currentProject.Sprints.Count;
+            for (int i = 0; i < nbSprints; i++)
             {
-                Project p = controller.Projects[i];
+                Sprint sprint = currentProject.Sprints[i];
+                //Create Sprint frame
+                UserControl userControl = new UserControl();
+                userControl.Content = sprint.ToString();
+                userControl.Width = gbxSprint.Width - 20;
+                userControl.BorderBrush = Brushes.Black;
+                userControl.Background = Brushes.LightGray;
+                userControl.Cursor = Cursors.Hand;
+                userControl.Height = 20;
+                userControl.Tag = sprint;
+                userControl.MouseUp += usrCtrlSprint_MouseUp;
+                userControl.TouchUp += usrCtrlSprint_TouchUp;
 
-                //create a control for title
-                Label title = new Label();
-                title.Content = p.Name;
-                title.HorizontalContentAlignment = HorizontalAlignment.Center;
-                title.FontSize = 24;
-                Grid.SetRow(title, 0);
+                cnvsBacklog.Children.Add(userControl);
 
-                //Create a control for description
-                Label desc = new Label();
-                TextBlock txtBlck = new TextBlock();
-                txtBlck.TextWrapping = TextWrapping.WrapWithOverflow;
-                txtBlck.Text = p.Description;
-                desc.Content = txtBlck;
-                desc.HorizontalAlignment = HorizontalAlignment.Stretch;
-                desc.FontSize = 18;
-                Grid.SetRow(desc, 1);
-
-                //Create a control of date
-                Label date = new Label();
-                date.Content = "Date de début : " + p.Begin.ToShortDateString();
-                date.HorizontalContentAlignment = HorizontalAlignment.Left;
-                date.FontSize = 18;
-                Grid.SetRow(date, 2);
-
-                //Place controls in a grid
-                Grid grd = new Grid();
-                grd.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(60) });
-                grd.RowDefinitions.Add(new RowDefinition());
-                grd.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(40) });
-                grd.Children.Add(title);
-                grd.Children.Add(desc);
-                grd.Children.Add(date);
-
-                //Create project frame
-                UserControl usrCntrl = new UserControl();
-                usrCntrl.Width = cnvsProject.Width / 4;
-                usrCntrl.Height = cnvsProject.Height / 5;
-                usrCntrl.Content = grd;
-                usrCntrl.BorderBrush = Brushes.Black;
-                usrCntrl.Background = Brushes.LightGray;
-                usrCntrl.Cursor = Cursors.Hand;
-                usrCntrl.Tag = p;
-                usrCntrl.TouchUp += UsrCntrl_TouchUp;
-                usrCntrl.MouseUp += UsrCntrl_MouseUp; ;
-
-                //Positioning of control
-                Canvas.SetLeft(usrCntrl, (cnvsProject.Width - usrCntrl.Width) / 2.0 + ((usrCntrl.Width + usrCntrl.Width / 4) * (i % 3 - 1)));
-                Canvas.SetTop(usrCntrl, 20 + (usrCntrl.Height + usrCntrl.Height / 5) * (i / 3));
-
-                if(Canvas.GetTop(usrCntrl) + usrCntrl.Height > cnvsProject.Height)
-                {
-                    cnvsProject.Height = Canvas.GetTop(usrCntrl) + usrCntrl.Height;
-                }
-
-                //Add project frame to canvas
-                cnvsProject.Children.Add(usrCntrl);
+                Canvas.SetLeft(userControl, Canvas.GetLeft(gbxSprint) + 5);
+                Canvas.SetTop(userControl, Canvas.GetTop(gbxSprint) + 30 + 30 * i);
             }
-        }
-        private void ProjectMenu_Loaded(object sender, RoutedEventArgs e)
-        {
-            //ActualWidth and ActualHeight measured when window is loaded minus border sizes
-            cnvsProject.Width = this.ActualWidth;
-            cnvsProject.Height = this.ActualHeight;
-            scrllVwr.Width = cnvsProject.Width;
-            scrllVwr.Height = cnvsProject.Height;
-            //Set the addProject button's position
-            Canvas.SetLeft(btnAddProject, cnvsProject.Width - btnAddProject.Width - 30);
-            Canvas.SetTop(btnAddProject, cnvsProject.Height - btnAddProject.Height-20);
 
-            //Refresh the view
-            Refresh();
-
-        }
-
-        private void UsrCntrl_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            if(e.LeftButton == MouseButtonState.Released)
+            int nbUserStories = currentProject.AllUserStories.Count;
+            for (int i = 0; i < nbUserStories; i++)
             {
-                Project p = (sender as UserControl).Tag as Project;
-                OpenProject(p);
+                UserStory userStory = currentProject.AllUserStories[i];
+                //Create userStory frame
+                UserControl userControl = new UserControl();
+                userControl.Content = userStory.ToString();
+                userControl.Width = gbxUserStory.Width - 20;
+                userControl.BorderBrush = Brushes.Black;
+                userControl.Background = Brushes.LightGray;
+                userControl.Cursor = Cursors.Hand;
+                userControl.Height = 20;
+                userControl.Tag = userStory;
+                userControl.MouseUp += usrCtrlUserStory_MouseUp;
+                userControl.TouchUp += usrCtrlUserStory_TouchUp;
+
+                cnvsBacklog.Children.Add(userControl);
+
+                Canvas.SetLeft(userControl, Canvas.GetLeft(gbxUserStory) + 5);
+                Canvas.SetTop(userControl, Canvas.GetTop(gbxUserStory) + 30 + 30 * i);
             }
         }
 
-        private void UsrCntrl_TouchUp(object sender, TouchEventArgs e)
+
+        private void usrCtrlUserStory_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            Project p = (sender as UserControl).Tag as Project;
-            OpenProject(p);
+            //TODO : Modify User Story
+            MessageBox.Show("Modification User Story", "Modif", MessageBoxButton.OK);
         }
 
-        private void OpenProject(Project p)
+        private void usrCtrlUserStory_TouchUp(object sender, TouchEventArgs e)
         {
-            BacklogMenu backlogMenu = new BacklogMenu(p, controller);
-            backlogMenu.ShowDialog();
+            //TODO : Modify User Story
+            MessageBox.Show("Modification User Story", "Modif", MessageBoxButton.OK);
+        }
+
+        private void usrCtrlSprint_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Sprint s = (sender as UserControl).Tag as Sprint;
+            OpenSprint(s);
+        }
+
+        private void usrCtrlSprint_TouchUp(object sender, TouchEventArgs e)
+        {
+            Sprint s = (sender as UserControl).Tag as Sprint;
+            OpenSprint(s);
+        }
+        private void OpenSprint(Sprint s)
+        {
+            SprintMenu sprintMenu = new SprintMenu(s, controller);
+            sprintMenu.ShowDialog();
         }
 
         private void Quit_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            this.Close();
         }
 
-        private void AddProject_Click(object sender, RoutedEventArgs e)
+        private void btnReturn_Click(object sender, RoutedEventArgs e)
         {
-            ProjectCreate projectCreate = new ProjectCreate();
-            if (projectCreate.ShowDialog() == true)
-            {
-                string name = projectCreate.tbxName.Text;
-                string desc = projectCreate.tbxDesc.Text;
-                DateTime date = (DateTime)projectCreate.tbxDate.SelectedDate;
-                controller.CreateProject(name, desc, date);
-
-                Refresh();
-            }
+            this.Close();
         }
     }
 }

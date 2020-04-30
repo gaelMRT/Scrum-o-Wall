@@ -22,10 +22,6 @@ namespace Scrum_o_wall.Classes
         private int complexityEstimation;
         private int id;
         private bool blocked;
-        private int stateId;
-        private int projectId;
-        private int typeId;
-        private int priorityId;
         private Priority priority;
         private Type type;
         private List<File> files = new List<File>();
@@ -33,6 +29,10 @@ namespace Scrum_o_wall.Classes
         private List<Activity> activities = new List<Activity>();
         private List<Checklist> checklists = new List<Checklist>();
         private List<User> assignedUsers = new List<User>();
+        private int stateId;
+        private int projectId;
+        private int typeId;
+        private int priorityId;
 
         public UserStory(int anId, string aDesc, DateTime? aDateLimit, int aComplexity, int aCompletedComplexity, bool isBlocked, int aProjectId, int aStateId, int aTypeId, int aPriorityId)
         {
