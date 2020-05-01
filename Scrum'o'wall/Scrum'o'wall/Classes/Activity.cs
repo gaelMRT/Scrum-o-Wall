@@ -14,22 +14,20 @@ namespace Scrum_o_wall.Classes
 {
     public class Activity
     {
-        int id;
-        string description;
-        DateTime dateTime;
-        int userStoryId;
+        private int id;
+        private int userStoryId;
 
         public Activity(int id, string description, DateTime dateTime, int userStoryId)
         {
-            this.Id = id;
+            this.id = id;
             this.Description = description;
             this.DateTime = dateTime;
-            this.UserStoryId = userStoryId;
+            this.userStoryId = userStoryId;
         }
 
-        public int Id { get => id; set => id = value; }
-        public string Description { get => description; set => description = value; }
-        public DateTime DateTime { get => dateTime; set => dateTime = value; }
-        public int UserStoryId { get => userStoryId; set => userStoryId = value; }
+        public int Id { get => id; }
+        public string Description { get; set; }
+        public DateTime DateTime { get; set; }
+        public int UserStoryId { get => userStoryId; }
     }
 }

@@ -9,7 +9,7 @@
     <Window.ContextMenu >
         <ContextMenu >
             <MenuItem Header="Ajouter une colonne" Name="addColumn" Click="addColumn_Click"/>
-            <MenuItem Header="Ouvrir le calendrier" Name="Backlog" Click="btnBacklog_Click"/>
+            <MenuItem Header="Ouvrir le calendrier" Name="btnBurndownChartMenu" Click="btnBurndownChart_Click"/>
             <Separator/>
             <MenuItem Header="Quitter" Name="Quit" Click="Quit_Click"/>
         </ContextMenu>
@@ -24,7 +24,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="btnBacklog" Click="btnBacklog_Click" Content="📅" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="75" Height="75" BorderBrush="Black" FontSize="45">
+        <Button x:Name="btnBurndownChart" Click="btnBurndownChart_Click" Content="📅" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="75" Height="75" BorderBrush="Black" FontSize="45">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="50"/>

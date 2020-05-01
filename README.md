@@ -195,3 +195,31 @@ Je ne trouvais pas le diagramme de classe mais après une recherche il fallait l
 - Modification des maquettes 
 - Maquettes pour les fenêtres manquantes
 - Début du plan de test 
+
+# 01.05
+
+### Tâches à faire
+- Finir le plan de test
+- Faire la réunion avec Mme. Terrier
+- Faire le visuel des maquettes
+### Liens utiles et idées
+Pour la gestion des listes il faudra que je reproduise ça en code :
+
+                <Border BorderBrush="Black" BorderThickness="1" Width="408" >
+                    <Grid x:Name="list1"  >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30*"></ColumnDefinition>
+                            <ColumnDefinition Width="67*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock VerticalAlignment="Top" TextWrapping="Wrap" Margin="10,10,10,0" TextAlignment="Right"></TextBlock>
+                        <ListView Grid.Column="1" VerticalAlignment="Top" x:Name="listItems" Margin="10,10,10,10" Height="76">
+                            <CheckBox IsChecked="True">asdasd</CheckBox>
+                            <CheckBox IsChecked="False">asdasd</CheckBox>
+                            <CheckBox >asdasd</CheckBox>
+                        </ListView>
+                    </Grid>
+                </Border>
+### Tâches accomplies
+- Plan de test des vues
+- Réunion avec Mme.Terrier
+- Fais la moitié des visuels

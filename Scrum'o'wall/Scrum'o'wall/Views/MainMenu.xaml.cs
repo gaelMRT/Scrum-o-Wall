@@ -34,7 +34,7 @@ namespace Scrum_o_wall
         {
             InitializeComponent();
             controller = new Controller();
-            Loaded += ProjectMenu_Loaded;
+            Loaded += MainMenu_Loaded;
         }
 
         private void Refresh()
@@ -104,7 +104,7 @@ namespace Scrum_o_wall
                 cnvsProject.Children.Add(usrCntrl);
             }
         }
-        private void ProjectMenu_Loaded(object sender, RoutedEventArgs e)
+        private void MainMenu_Loaded(object sender, RoutedEventArgs e)
         {
             //ActualWidth and ActualHeight measured when window is loaded minus border sizes
             cnvsProject.Width = this.ActualWidth;

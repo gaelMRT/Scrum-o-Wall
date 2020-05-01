@@ -15,23 +15,20 @@ namespace Scrum_o_wall.Classes
     public class ChecklistItem
     {
         int id;
-        string nameItem;
-        bool done;
         int checklistId;
-        List<User> assignedUsers;
 
         public ChecklistItem(int id, string nameItem, bool done, int checklistId)
         {
             this.id = id;
-            this.nameItem = nameItem;
-            this.done = done;
+            this.NameItem = nameItem;
+            this.Done = done;
             this.checklistId = checklistId;
         }
 
-        public int Id { get => id; set => id = value; }
-        public string NameItem { get => nameItem; set => nameItem = value; }
-        public bool Done { get => done; set => done = value; }
-        public int ChecklistId { get => checklistId; set => checklistId = value; }
-        public List<User> AssignedUsers { get => assignedUsers; set => assignedUsers = value; }
+        public int Id { get => id;  }
+        public string NameItem { get; set; }
+        public bool Done { get; set; }
+        public int ChecklistId { get => checklistId; }
+        public List<User> AssignedUsers { get; set; }
     }
 }

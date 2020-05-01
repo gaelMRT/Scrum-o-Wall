@@ -16,45 +16,22 @@ namespace Scrum_o_wall.Classes
     {
         
         int id;
-        string name;
-        int previousId;
+        int? previousId;
         int mindmapId;
-        List<Node> childrens = new List<Node>();
 
-        public Node(int anId, string aName, int aPreviousId, int aMindmapId)
+        public Node(int anId, string aName, int? aPreviousId, int aMindmapId)
         {
-            this.Id = anId;
+            this.id = anId;
             this.Name = aName;
-            this.PreviousId = aPreviousId;
-            this.MindmapId = aMindmapId;
+            this.previousId = aPreviousId;
+            this.mindmapId = aMindmapId;
         }
 
-        public int Id { get => id; set => id = value; }
-        public string Name { get => name; set => name = value; }
-        public int PreviousId { get => previousId; set => previousId = value; }
-        public int MindmapId { get => mindmapId; set => mindmapId = value; }
-        public List<Node> Childrens { get => childrens; set => childrens = value; }
+        public int Id { get => id;  }
+        public string Name { get; set; }
+        public int PreviousId { get => (previousId == null ? 0 : (int)previousId);  }
+        public int MindmapId { get => mindmapId;  }
+        public List<Node> Childrens { get; set; } = new List<Node>();
 
-        #region Add/Remove childrens
-        public void addChildren(Node toAdd)
-        {
-            Childrens.Add(toAdd);
-        }
-        public void addListChildrens(List<Node> ListToAdd)
-        {
-            Childrens.AddRange(ListToAdd);
-        }
-        public void removeChildren(Node toRemove)
-        {
-            Childrens.Remove(toRemove);
-        }
-        public void removeListChildrens(List<Node> ListToRemove)
-        {
-            foreach (Node toRemove in ListToRemove)
-            {
-                Childrens.Remove(toRemove);
-            }
-        }
-        #endregion
     }
 }

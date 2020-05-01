@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Scrum_o_wall.Views"
         mc:Ignorable="d"
-        Title="Création d'un projet" Height="450" Width="431.713" WindowStartupLocation="CenterScreen"  >
+        Title="Création d'une User Story" Height="450" Width="431.713" WindowStartupLocation="CenterScreen"  >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="163*"/>

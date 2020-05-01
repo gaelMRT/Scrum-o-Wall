@@ -1,0 +1,32 @@
+﻿<Window x:Class="Scrum_o_wall.Views.CommentCreate"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Scrum_o_wall.Views"
+        mc:Ignorable="d"
+        Title="Création de commentaire" Height="310.865" Width="445.866" FontSize="16">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="25*"></ColumnDefinition>
+            <ColumnDefinition Width="48*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="63*"></RowDefinition>
+            <RowDefinition Height="117*"></RowDefinition>
+            <RowDefinition Height="50*"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.ColumnSpan="2" TextAlignment="Center" FontSize="20" VerticalAlignment="Center" Margin="10">Poster un Commentaire</TextBlock>
+        <TextBlock Grid.Row="1" TextAlignment="Right" VerticalAlignment="Center" Margin="10,45,10,50" Height="22" >Contenu :</TextBlock>
+        <TextBox Grid.Row="1" Grid.Column="1" TextWrapping="WrapWithOverflow" Margin="10"></TextBox>
+        <TextBlock Grid.Row="2" TextAlignment="Right" VerticalAlignment="Center" Margin="10,12,10,18" Height="20" >Auteur :</TextBlock>
+        <ComboBox Grid.Row="2" Grid.Column="1" Name="cbxAuthor" Margin="10">
+            <ComboBoxItem>dasd</ComboBoxItem>
+            <ComboBoxItem>dasd</ComboBoxItem>
+            <ComboBoxItem>dasd</ComboBoxItem>
+        </ComboBox>
+        <Button x:Name="btnCancel" Grid.Row="3" Grid.Column="0" Margin="10">Annuler</Button>
+        <Button x:Name="btnConfirm" Grid.Row="3" Grid.Column="1" Margin="10">Confirmer</Button>
+    </Grid>
+</Window>

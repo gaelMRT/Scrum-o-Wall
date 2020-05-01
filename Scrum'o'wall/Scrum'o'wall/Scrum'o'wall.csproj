@@ -94,6 +94,48 @@
     <Compile Include="Classes\Type.cs" />
     <Compile Include="Classes\User.cs" />
     <Compile Include="Classes\UserStory.cs" />
+    <Compile Include="Views\BurndownChart.xaml.cs">
+      <DependentUpon>BurndownChart.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ChecklistCreate.xaml.cs">
+      <DependentUpon>ChecklistCreate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ChecklistEdit.xaml.cs">
+      <DependentUpon>ChecklistEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ChecklistItemCreate.xaml.cs">
+      <DependentUpon>ChecklistItemCreate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ChecklistMenu.xaml.cs">
+      <DependentUpon>ChecklistMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CommentCreate.xaml.cs">
+      <DependentUpon>CommentCreate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CommentMenu.xaml.cs">
+      <DependentUpon>CommentMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FileCreate.xaml.cs">
+      <DependentUpon>FileCreate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FileEdit.xaml.cs">
+      <DependentUpon>FileEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FileMenu.xaml.cs">
+      <DependentUpon>FileMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MindmapCreate.xaml.cs">
+      <DependentUpon>MindmapCreate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MindmapEdit.xaml.cs">
+      <DependentUpon>MindmapEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MindmapMenu.xaml.cs">
+      <DependentUpon>MindmapMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProjectEdit.xaml.cs">
+      <DependentUpon>ProjectEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ProjectMenu.xaml.cs">
       <DependentUpon>ProjectMenu.xaml</DependentUpon>
     </Compile>
@@ -106,8 +148,26 @@
     <Compile Include="Views\SprintMenu.xaml.cs">
       <DependentUpon>SprintMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\StateCreate.xaml.cs">
+      <DependentUpon>StateCreate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StateMenu.xaml.cs">
+      <DependentUpon>StateMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserCreate.xaml.cs">
+      <DependentUpon>UserCreate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserEdit.xaml.cs">
+      <DependentUpon>UserEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserMenu.xaml.cs">
+      <DependentUpon>UserMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserStoryCreate.xaml.cs">
       <DependentUpon>UserStoryCreate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserStoryEdit.xaml.cs">
+      <DependentUpon>UserStoryEdit.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -143,6 +203,62 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\BurndownChart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ChecklistCreate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ChecklistEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ChecklistItemCreate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ChecklistMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CommentCreate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CommentMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FileCreate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FileEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FileMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MindmapCreate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MindmapEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MindmapMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProjectEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ProjectMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -163,7 +279,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\StateCreate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StateMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserCreate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UserStoryCreate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserStoryEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

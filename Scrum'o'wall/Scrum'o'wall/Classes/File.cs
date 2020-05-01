@@ -15,24 +15,21 @@ namespace Scrum_o_wall.Classes
     public class File
     {
         int id;
-        string name;
-        string description;
-        int fileTypeId;
         int userStoryId;
 
         public File(int id, string name, string description, int fileTypeId, int userStoryId)
         {
-            this.Id = id;
+            this.id = id;
             this.Name = name;
             this.Description = description;
             this.FileTypeId = fileTypeId;
-            this.UserStoryId = userStoryId;
+            this.userStoryId = userStoryId;
         }
 
-        public int Id { get => id; set => id = value; }
-        public string Name { get => name; set => name = value; }
-        public string Description { get => description; set => description = value; }
-        public int FileTypeId { get => fileTypeId; set => fileTypeId = value; }
-        public int UserStoryId { get => userStoryId; set => userStoryId = value; }
+        public int Id { get => id; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public int FileTypeId { get; set; }
+        public int UserStoryId { get => userStoryId;  }
     }
 }

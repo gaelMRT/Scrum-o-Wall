@@ -15,24 +15,22 @@ namespace Scrum_o_wall.Classes
     public class Comment
     {
         int id;
-        string description;
-        DateTime dateTime;
         int userStoryId;
         int userId;
 
         public Comment(int id, string description, DateTime dateTime, int userStoryId, int userId)
         {
-            this.Id = id;
+            this.id = id;
             this.Description = description;
             this.DateTime = dateTime;
-            this.UserStoryId = userStoryId;
-            this.UserId = userId;
+            this.userStoryId = userStoryId;
+            this.userId = userId;
         }
 
-        public int Id { get => id; set => id = value; }
-        public string Description { get => description; set => description = value; }
-        public DateTime DateTime { get => dateTime; set => dateTime = value; }
-        public int UserStoryId { get => userStoryId; set => userStoryId = value; }
-        public int UserId { get => userId; set => userId = value; }
+        public int Id { get => id;  }
+        public string Description { get; set; }
+        public DateTime DateTime { get; set; }
+        public int UserStoryId { get => userStoryId; }
+        public int UserId { get => userId; }
     }
 }

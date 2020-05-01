@@ -77,12 +77,12 @@ namespace Scrum_o_wall
 
             #region Link State with project
             projectStates = DB.GetProjectStates();
-            // 0:IdProject,1:IdState
+            // 0:IdProject,1:IdState,2:order
             foreach (int[] item in projectStates)
             {
                 Project project = allProjects.First(p => p.Id == item[0]);
                 State state = allStates.First(s => s.Id == item[1]);
-                project.States.Add(state);
+                project.States.Add(item[2],state);
             }
             #endregion
 

@@ -30,28 +30,42 @@ namespace Scrum_o_wall.Views
 
             lblProjectName.Content = p.Name;
 
-            Loaded += BacklogMenu_Loaded;
+            Loaded += ProjectMenu_Loaded;
         }
 
-        private void BacklogMenu_Loaded(object sender, RoutedEventArgs e)
+        private void ProjectMenu_Loaded(object sender, RoutedEventArgs e)
         {
+            //set controls sizes
             cnvsBacklog.Width = this.ActualWidth;
             cnvsBacklog.Height = this.ActualHeight;
 
-            gbxUserStory.Width = (cnvsBacklog.Width - 25) / 2.0;
-            gbxSprint.Width = (cnvsBacklog.Width - 25) / 2.0;
-            gbxSprint.Height = (cnvsBacklog.Height - 190);
-            gbxUserStory.Height = (cnvsBacklog.Height - 190);
+            gbxUserStories.Width = (cnvsBacklog.Width - 25) / 2.0;
+            gbxUserStories.Height = (cnvsBacklog.Height - 190);
+
+            gbxSprints.Width = (cnvsBacklog.Width - 25) / 2.0;
+            gbxSprints.Height = (cnvsBacklog.Height - 190);
+
+            cnvsSprints.Width = gbxSprints.Width;
+            cnvsSprints.Height = gbxSprints.Height - 25;
+
+            cnvsUserStories.Width = gbxUserStories.Width;
+            cnvsUserStories.Height = gbxUserStories.Height - 25;
 
             //Set controls positions
-            Canvas.SetLeft(gbxSprint, cnvsBacklog.Width / 2.0 + 2.5);
-            Canvas.SetRight(gbxUserStory, cnvsBacklog.Width / 2.0 - 2.5);
+            Canvas.SetLeft(gbxSprints, cnvsBacklog.Width / 2.0 + 2.5);
+            Canvas.SetRight(gbxUserStories, cnvsBacklog.Width / 2.0 - 2.5);
 
             Canvas.SetLeft(lblProjectName, (cnvsBacklog.Width - lblProjectName.ActualWidth) / 2.0);
             Canvas.SetLeft(lblBacklog, (cnvsBacklog.Width - lblBacklog.ActualWidth) / 2.0);
 
             Canvas.SetLeft(btnReturn, (cnvsBacklog.Width - btnReturn.ActualWidth) / 2.0);
             Canvas.SetTop(btnReturn, cnvsBacklog.Height - btnReturn.ActualHeight - 10);
+
+            Canvas.SetLeft(btnAddSprint, Canvas.GetLeft(gbxSprints) + gbxSprints.Width / 2.0);
+            Canvas.SetTop(btnAddSprint, Canvas.GetTop(gbxSprints) + gbxSprints.Height + 10);
+
+            Canvas.SetLeft(btnAddUserStory, Canvas.GetLeft(gbxUserStories) + gbxUserStories.Width / 2.0);
+            Canvas.SetTop(btnAddUserStory, Canvas.GetTop(gbxUserStories) + gbxUserStories.Height + 10);
 
             //Refresh the window
             Refresh();
@@ -65,7 +79,7 @@ namespace Scrum_o_wall.Views
                 //Create Sprint frame
                 UserControl userControl = new UserControl();
                 userControl.Content = sprint.ToString();
-                userControl.Width = gbxSprint.Width - 20;
+                userControl.Width = cnvsSprints.Width - 40;
                 userControl.BorderBrush = Brushes.Black;
                 userControl.Background = Brushes.LightGray;
                 userControl.Cursor = Cursors.Hand;
@@ -74,10 +88,10 @@ namespace Scrum_o_wall.Views
                 userControl.MouseUp += usrCtrlSprint_MouseUp;
                 userControl.TouchUp += usrCtrlSprint_TouchUp;
 
-                cnvsBacklog.Children.Add(userControl);
+                cnvsSprints.Children.Add(userControl);
 
-                Canvas.SetLeft(userControl, Canvas.GetLeft(gbxSprint) + 5);
-                Canvas.SetTop(userControl, Canvas.GetTop(gbxSprint) + 30 + 30 * i);
+                Canvas.SetLeft(userControl, 5);
+                Canvas.SetTop(userControl, 30 * i);
             }
 
             int nbUserStories = currentProject.AllUserStories.Count;
@@ -87,7 +101,7 @@ namespace Scrum_o_wall.Views
                 //Create userStory frame
                 UserControl userControl = new UserControl();
                 userControl.Content = userStory.ToString();
-                userControl.Width = gbxUserStory.Width - 20;
+                userControl.Width = cnvsUserStories.Width - 40;
                 userControl.BorderBrush = Brushes.Black;
                 userControl.Background = Brushes.LightGray;
                 userControl.Cursor = Cursors.Hand;
@@ -96,10 +110,10 @@ namespace Scrum_o_wall.Views
                 userControl.MouseUp += usrCtrlUserStory_MouseUp;
                 userControl.TouchUp += usrCtrlUserStory_TouchUp;
 
-                cnvsBacklog.Children.Add(userControl);
+                cnvsUserStories.Children.Add(userControl);
 
-                Canvas.SetLeft(userControl, Canvas.GetLeft(gbxUserStory) + 5);
-                Canvas.SetTop(userControl, Canvas.GetTop(gbxUserStory) + 30 + 30 * i);
+                Canvas.SetLeft(userControl, 5);
+                Canvas.SetTop(userControl, 30 * i);
             }
         }
 

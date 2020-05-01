@@ -34,8 +34,9 @@ namespace Scrum_o_wall.Views
             lblSprintName.Content = s.ToString();
             //Define NameScope to use FindName later
             NameScope.SetNameScope(cnvsSprint, new NameScope());
-            foreach (State state in currentSprint.Project.States)
+            foreach (KeyValuePair<int,State> keyValuePair in currentSprint.Project.States)
             {
+                State state = keyValuePair.Value;
                 GroupBox groupBox = new GroupBox();
                 groupBox.Name = "gbx" + state.Name.Replace(" ","");
                 groupBox.Content = state;
@@ -55,7 +56,7 @@ namespace Scrum_o_wall.Views
             //set control positions
             Canvas.SetLeft(lblProjectName, (cnvsSprint.Width - lblProjectName.ActualWidth) / 2.0);
             Canvas.SetLeft(lblSprintName, (cnvsSprint.Width - lblSprintName.ActualWidth) / 2.0);
-            Canvas.SetLeft(btnBacklog, (cnvsSprint.Width) / 2.0 + btnBacklog.ActualWidth);
+            Canvas.SetLeft(btnBurndownChart, (cnvsSprint.Width) / 2.0 + btnBurndownChart.ActualWidth);
             Canvas.SetLeft(btnReturn, (cnvsSprint.Width) / 2.0 - btnReturn.ActualWidth);
 
             Refresh();
@@ -67,13 +68,13 @@ namespace Scrum_o_wall.Views
         private void Refresh()
         {
             //Declare variables for groupbox and userstories positioning
-            double leftPadding = 0;
             double widthGbx = cnvsSprint.ActualWidth / currentSprint.Project.States.Count;
             Dictionary<State, int> userStoriesPerState = new Dictionary<State, int>();
 
 
-            foreach (State state in currentSprint.Project.States)
+            foreach (KeyValuePair<int,State> keyValuePair in currentSprint.Project.States)
             {
+                State state = keyValuePair.Value;
                 GroupBox gbx = (GroupBox)cnvsSprint.FindName("gbx" + state.Name.Replace(" ", ""));
                 if(gbx != null)
                 {
@@ -81,8 +82,7 @@ namespace Scrum_o_wall.Views
                     gbx.Height = cnvsSprint.ActualHeight - 190;
                     gbx.Header = state.Name;
                     gbx.Content = "";
-                    Canvas.SetLeft(gbx, leftPadding);
-                    leftPadding += widthGbx;
+                    Canvas.SetLeft(gbx, keyValuePair.Key * widthGbx);
                     userStoriesPerState.Add(state, 0);
                 }
                 else
@@ -141,12 +141,13 @@ namespace Scrum_o_wall.Views
             this.Close();
         }
 
-        private void btnBacklog_Click(object sender, RoutedEventArgs e)
+
+        private void addColumn_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void addColumn_Click(object sender, RoutedEventArgs e)
+        private void btnBurndownChart_Click(object sender, RoutedEventArgs e)
         {
 
         }

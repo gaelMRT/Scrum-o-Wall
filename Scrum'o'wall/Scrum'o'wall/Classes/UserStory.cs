@@ -15,20 +15,7 @@ namespace Scrum_o_wall.Classes
 {
     public class UserStory
     {
-        private string text;
-        private State currentState;
-        private DateTime? dateLimit;
-        private int completedComplexity;
-        private int complexityEstimation;
         private int id;
-        private bool blocked;
-        private Priority priority;
-        private Type type;
-        private List<File> files = new List<File>();
-        private List<Comment> comments = new List<Comment>();
-        private List<Activity> activities = new List<Activity>();
-        private List<Checklist> checklists = new List<Checklist>();
-        private List<User> assignedUsers = new List<User>();
         private int stateId;
         private int projectId;
         private int typeId;
@@ -36,36 +23,36 @@ namespace Scrum_o_wall.Classes
 
         public UserStory(int anId, string aDesc, DateTime? aDateLimit, int aComplexity, int aCompletedComplexity, bool isBlocked, int aProjectId, int aStateId, int aTypeId, int aPriorityId)
         {
-            Id = anId;
+            id = anId;
             Text = aDesc;
             DateLimit = aDateLimit;
             ComplexityEstimation = aComplexity;
             CompletedComplexity = aCompletedComplexity;
             Blocked = isBlocked;
-            ProjectId = aProjectId;
-            StateId = aStateId;
-            TypeId = aTypeId;
-            PriorityId = aPriorityId;
+            projectId = aProjectId;
+            stateId = aStateId;
+            typeId = aTypeId;
+            priorityId = aPriorityId;
         }
 
-        public string Text { get => text; set => text = value; }
-        public State CurrentState { get => currentState; set => currentState = value; }
-        public DateTime? DateLimit { get => dateLimit; set => dateLimit = value; }
-        public int CompletedComplexity { get => completedComplexity; set => completedComplexity = value; }
-        public int ComplexityEstimation { get => complexityEstimation; set => complexityEstimation = value; }
-        public int Id { get => id; set => id = value; }
-        public int StateId { get => stateId; set => stateId = value; }
-        public int ProjectId { get => projectId; set => projectId = value; }
-        public bool Blocked { get => blocked; set => blocked = value; }
-        public Type Type { get => type; set => type = value; }
-        public List<File> Files { get => files; set => files = value; }
-        public List<Comment> Comments { get => comments; set => comments = value; }
-        public List<Activity> Activities { get => activities; set => activities = value; }
-        public List<Checklist> Checklists { get => checklists; set => checklists = value; }
-        public int TypeId { get => typeId; set => typeId = value; }
-        public int PriorityId { get => priorityId; set => priorityId = value; }
-        public List<User> AssignedUsers { get => assignedUsers; set => assignedUsers = value; }
-        internal Priority Priority { get => priority; set => priority = value; }
+        public int Id { get => id; }
+        public int StateId { get => stateId;}
+        public int ProjectId { get => projectId; }
+        public int TypeId { get => typeId; }
+        public int PriorityId { get => priorityId; }
+        public string Text { get; set; }
+        public State CurrentState { get; set; }
+        public DateTime? DateLimit { get; set; }
+        public int CompletedComplexity { get; set; }
+        public int ComplexityEstimation { get; set; }
+        public bool Blocked { get; set; }
+        public Type Type { get; set; }
+        public List<File> Files { get; set; } = new List<File>();
+        public List<Comment> Comments { get; set; } = new List<Comment>();
+        public List<Activity> Activities { get; set; } = new List<Activity>();
+        public List<Checklist> Checklists { get; set; } = new List<Checklist>();
+        public List<User> AssignedUsers { get; set; } = new List<User>();
+        internal Priority Priority { get; set; }
 
         public override string ToString()
         {

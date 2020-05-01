@@ -9,15 +9,14 @@ namespace Scrum_o_wall.Classes
     public class Priority
     {
         int id;
-        string name;
 
         public Priority(int id, string name)
         {
-            this.Id = id;
+            this.id = id;
             this.Name = name;
         }
 
-        public int Id { get => id; set => id = value; }
-        public string Name { get => name; set => name = value; }
+        public int Id { get => id;}
+        public string Name { get; set; }
     }
 }

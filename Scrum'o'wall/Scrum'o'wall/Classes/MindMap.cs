@@ -14,20 +14,18 @@ namespace Scrum_o_wall.Classes
 {
     public class MindMap
     {
-        private Node root;
-        private string name;
         private int id;
         private int projectId;
         public MindMap(int anId,string aName,int aProjectId)
         {
-            Id = anId;
+            id = anId;
             Name = aName;
-            ProjectId = aProjectId;
+            projectId = aProjectId;
         }
 
-        public Node Root { get => root; set => root = value; }
-        public string Name { get => name; set => name = value; }
-        public int Id { get => id; set => id = value; }
-        public int ProjectId { get => projectId; set => projectId = value; }
+        public Node Root { get; set; }
+        public string Name { get; set; }
+        public int Id { get => id;  }
+        public int ProjectId { get => projectId; }
     }
 }

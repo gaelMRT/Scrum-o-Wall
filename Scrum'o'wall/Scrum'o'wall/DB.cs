@@ -122,12 +122,12 @@ namespace Scrum_o_wall
 
             //Read and assign states with project
             rdr = cmd.ExecuteReader();
-            values = new object[2];
+            values = new object[3];
             while (rdr.Read())
             {
                 rdr.GetValues(values);
-                // 0:IdProject,1:IdState
-                valuesPair.Add(new int[] { (int)values[0], (int)values[1] });
+                // 0:IdProject,1:IdState,2:order
+                valuesPair.Add(new int[] { (int)values[0], (int)values[1],(int)values[2] });
             }
 
             //Close database and reader

@@ -1,0 +1,19 @@
+﻿<Window x:Class="Scrum_o_wall.Views.MindmapMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Scrum_o_wall.Views"
+        mc:Ignorable="d"
+        Title="Scrum'o'Wall" Height="450" Width="800" WindowState="Maximized" WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Window.ContextMenu >
+        <ContextMenu >
+
+            <Separator/>
+            <MenuItem Header="Quitter" Name="Quit" Click="Quit_Click"/>
+        </ContextMenu>
+    </Window.ContextMenu>
+    <Grid>
+        
+    </Grid>
+</Window>

@@ -15,17 +15,7 @@ namespace Scrum_o_wall.Classes
 {
     public class Project
     {
-        //vars declaration
-        private List<UserStory> allUserStories = new List<UserStory>();
-        private List<Sprint> sprints = new List<Sprint>();
-        private List<MindMap> roots = new List<MindMap>();
-        private List<State> states = new List<State>();
-        private List<User> assignedUsers = new List<User>();
         private int id;
-        private DateTime begin;
-        private string name;
-        private string description;
-
 
         /// <summary>
         /// Create a project with name,description and date
@@ -35,22 +25,22 @@ namespace Scrum_o_wall.Classes
         /// <param name="aBegin">the date of beginning of project</param>
         public Project(int anId, string aName,string aDesc, DateTime aBegin)
         {
-            Id = anId;
+            id = anId;
             Name = aName;
             Description = aDesc;
             Begin = aBegin;
         }
 
         //properties declaration
-        public int Id { get => id; set => id = value; }
-        public DateTime Begin { get => begin; set => begin = value; }
-        public string Name { get => name; set => name = value; }
-        public string Description { get => description; set => description = value; }
-        public List<UserStory> AllUserStories { get => allUserStories; set => allUserStories = value; }
-        public List<Sprint> Sprints { get => sprints; set => sprints = value; }
-        public List<MindMap> Roots { get => roots; set => roots = value; }
-        public List<State> States { get => states; set => states = value; }
-        public List<User> AssignedUsers { get => assignedUsers; set => assignedUsers = value; }
+        public int Id { get => id;  }
+        public DateTime Begin { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public List<UserStory> AllUserStories { get; set; } = new List<UserStory>();
+        public List<Sprint> Sprints { get; set; } = new List<Sprint>();
+        public List<MindMap> Roots { get; set; } = new List<MindMap>();
+        public Dictionary<int,State> States { get; set; } = new Dictionary<int, State>();
+        public List<User> AssignedUsers { get; set; } = new List<User>();
 
         public override string ToString()
         {
