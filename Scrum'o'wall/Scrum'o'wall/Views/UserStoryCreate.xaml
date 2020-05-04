@@ -12,22 +12,32 @@
             <ColumnDefinition Width="226*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="84*"/>
-            <RowDefinition Height="184*"/>
-            <RowDefinition Height="43*"/>
-            <RowDefinition Height="53*"/>
             <RowDefinition Height="56*"/>
+            <RowDefinition Height="148*"/>
+            <RowDefinition Height="44*"/>
+            <RowDefinition Height="42*"/>
+            <RowDefinition Height="42*"/>
+            <RowDefinition Height="42*"/>
+            <RowDefinition Height="45*"/>
         </Grid.RowDefinitions>
-        <Label Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Height="58" >Créer une User Story</Label>
-        <Label Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Height="26"  >Description de la User Story:</Label>
-        <Label Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Height="26" >Estimation de temps (jours):</Label>
-        <Label Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Height="26">Estimation de complexité :</Label>
-        <Button x:Name="btnCancel" Click="btnCancel_Click" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Height="18" Width="50" RenderTransformOrigin="0.155,1.263" Margin="56,19,57,19">Annuler</Button>
+        <Label Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Height="58" Margin="44,-2,44,0" Width="336" >Créer une User Story</Label>
 
-        <TextBox Grid.Row="1" Name="tbxDesc" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="138" Width="204" Margin="13,23,9,23"/>
-        <TextBox Grid.Row="2" Name="tbxTime" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="204" KeyDown="tbxTime_KeyDown"/>
-        <TextBox Grid.Row="3" Name="tbxComplexity" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="204" KeyDown="tbxComplexity_KeyDown"/>
+        <Label Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Top" >Description de la User Story:</Label>
+        <TextBox Grid.Row="1" Name="tbxDesc" Grid.Column="1" Margin="10"/>
+
+        <Label Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" >Date limite:</Label>
+        <DatePicker x:Name="dtpckrDateLimit" Grid.Column="1" Margin="10" Grid.Row="2"/>
+
+        <Label Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center">Estimation de complexité :</Label>
+        <TextBox Grid.Row="3" Name="tbxComplexity" Grid.Column="1" KeyDown="tbxComplexity_KeyDown" Margin="10"/>
+
+        <Label Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center">Priorité</Label>
+        <ComboBox Name="cbxPriority" Grid.Row="4" Margin="10" Grid.Column="10"></ComboBox>
         
-        <Button x:Name="btnAddProject" Click="btnAddProject_Click" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="18" Width="94" Margin="67,19,65,19">Confirmer</Button>
+        <Label Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center">Type</Label>
+        <ComboBox Name="cbxType" Grid.Row="5" Margin="10" Grid.Column="10"></ComboBox>
+
+        <Button x:Name="btnAddProject" Click="btnAddProject_Click" Grid.Row="6" Grid.Column="1" Margin="10">Confirmer</Button>
+        <Button x:Name="btnCancel" Click="btnCancel_Click" Grid.Row="6" Margin="10">Annuler</Button>
     </Grid>
 </Window>

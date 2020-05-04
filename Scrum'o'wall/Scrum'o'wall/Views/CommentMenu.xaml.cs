@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Scrum_o_wall.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,24 @@ namespace Scrum_o_wall.Views
     /// </summary>
     public partial class CommentMenu : Window
     {
-        public CommentMenu()
+        UserStory userStory;
+        Controller controller;
+        public CommentMenu(UserStory aUserStory, Controller aController)
         {
+            userStory = aUserStory;
+            controller = aController;
+
             InitializeComponent();
+
+        }
+
+        public void Refresh()
+        {
+            lstComments.Items.Clear();
+            foreach (Comment comment in userStory.Comments)
+            {
+                lstComments.Items.Add(comment);
+            }
         }
 
         private void Quit_Click(object sender, RoutedEventArgs e)
@@ -29,5 +45,19 @@ namespace Scrum_o_wall.Views
             this.Close();
         }
 
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnAddComment_Click(object sender, RoutedEventArgs e)
+        {
+            CommentCreate commentCreate = new CommentCreate(userStory.AssignedUsers);
+            if(commentCreate.ShowDialog() == true)
+            {
+                controller.CreateComment(commentCreate.tbxContent.Text, userStory);
+                Refresh();
+            }
+        }
     }
 }

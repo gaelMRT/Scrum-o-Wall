@@ -223,3 +223,14 @@ Pour la gestion des listes il faudra que je reproduise ça en code :
 - Plan de test des vues
 - Réunion avec Mme.Terrier
 - Fais la moitié des visuels
+# 04.05
+
+### Tâches à faire 
+- Finir les visuels
+- Créer les constructeurs des vues
+- Placer les valeurs dans le visuel
+### Liens utiles et idées
+Trouvé de quoi faire la ligne pour le burndown chart https://www.c-sharpcorner.com/UploadFile/mahesh/polyline-in-wpf/
+### Tâches accomplies
+- Finir les visuels
+- Fais les vues suivantes ; Burndown Chart, ChecklistCreate, ActivitesMenus, CheckListItemCreate, ChecklistMenu,CommentCreate, CommentsMenu, MindMapCreate, CommentCreate, CommentMenu

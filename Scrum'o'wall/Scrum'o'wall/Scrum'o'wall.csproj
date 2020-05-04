@@ -94,6 +94,9 @@
     <Compile Include="Classes\Type.cs" />
     <Compile Include="Classes\User.cs" />
     <Compile Include="Classes\UserStory.cs" />
+    <Compile Include="Views\ActivitiesMenu.xaml.cs">
+      <DependentUpon>ActivitiesMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BurndownChart.xaml.cs">
       <DependentUpon>BurndownChart.xaml</DependentUpon>
     </Compile>
@@ -126,9 +129,6 @@
     </Compile>
     <Compile Include="Views\MindmapCreate.xaml.cs">
       <DependentUpon>MindmapCreate.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MindmapEdit.xaml.cs">
-      <DependentUpon>MindmapEdit.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MindmapMenu.xaml.cs">
       <DependentUpon>MindmapMenu.xaml</DependentUpon>
@@ -203,6 +203,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\ActivitiesMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\BurndownChart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -244,10 +248,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MindmapCreate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\MindmapEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

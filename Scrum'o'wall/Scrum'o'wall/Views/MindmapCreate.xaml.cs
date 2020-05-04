@@ -23,5 +23,19 @@ namespace Scrum_o_wall.Views
         {
             InitializeComponent();
         }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnConfirm_Click(object sender, RoutedEventArgs e)
+        {
+            if(tbxName.Text.Length > 1)
+            {
+                this.DialogResult = true;
+                this.Close();
+            }
+        }
     }
 }

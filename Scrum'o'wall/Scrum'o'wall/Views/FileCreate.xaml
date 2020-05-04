@@ -5,8 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Scrum_o_wall.Views"
         mc:Ignorable="d"
-        Title="FileCreate" Height="450" Width="800">
+        Title="Ajouter un fichier" Height="450" Width="447.5" FontSize="16">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70*"></RowDefinition>
+            <RowDefinition Height="50*"></RowDefinition>
+            <RowDefinition Height="249*"></RowDefinition>
+            <RowDefinition Height="50*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="119*"></ColumnDefinition>
+            <ColumnDefinition Width="321*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="10,22" TextAlignment="Center" FontSize="20" Height="26" >Ajouter un fichier</TextBlock>
+        <TextBlock Grid.Row="1" VerticalAlignment="Center" Margin="10,12,10,18" TextAlignment="Right" Height="20" ><Run Text="Fichier :"/><LineBreak/><Run/><LineBreak/><Run/></TextBlock>
+        <TextBlock Grid.Row="2" VerticalAlignment="Top" Margin="10,10,10,0" TextAlignment="Right" Height="21" >Description :</TextBlock>
+        <TextBox x:Name="tbxFileName" Grid.Row="1" Grid.Column="1" Margin="10,10,100,10" ></TextBox>
+        <Button x:Name="btnFileSearch" Grid.Row="1" Grid.Column="1" Margin="226,10,10,10" Click="btnFileSearch_Click">+</Button>
+        <TextBox Margin="10" TextWrapping="Wrap" Name="tbxDescription" Grid.Row="2" Grid.Column="1">
+        </TextBox>
+
+        <Button x:Name="btnCancel" Grid.Row="3" Margin="10" Click="btnCancel_Click">Annuler</Button>
+        <Button x:Name="btnConfirm" Grid.Row="3" Grid.Column="1" Margin="10" Click="btnConfirm_Click">Confirmer</Button>
     </Grid>
 </Window>
+

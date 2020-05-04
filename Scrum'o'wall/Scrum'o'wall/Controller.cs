@@ -164,6 +164,23 @@ namespace Scrum_o_wall
             states = allStates;
         }
 
+        public void CreateComment(string text, UserStory userStory)
+        {
+            userStory.Comments.Add(DB.CreateComment(text, userStory.Id));
+        }
+
+        public void CreateCheckListItem(string aName, Checklist checklist)
+        {
+            checklist.ChecklistItems.Add(DB.CreateCheckListItem(aName, checklist.Id));
+        }
+
+        public Checklist CreateCheckList(string aName,UserStory aUserStory)
+        {
+            Checklist checklist = DB.CreateCheckList(aName);
+            aUserStory.Checklists.Add(checklist);
+            return checklist;
+        }
+
         /// <summary>
         /// Create a project and add it to all projects
         /// </summary>
@@ -174,6 +191,8 @@ namespace Scrum_o_wall
         {
             projects.Add(DB.CreateProject(aName, aDesc, aDate));
         }
+
+        
 
     }
 }

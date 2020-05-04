@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Scrum_o_wall.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,9 +21,40 @@ namespace Scrum_o_wall.Views
     /// </summary>
     public partial class BurndownChart : Window
     {
-        public BurndownChart()
+        Sprint sprint;
+        public BurndownChart(Sprint aSprint)
         {
+            sprint = aSprint;
             InitializeComponent();
+            Loaded += BurndownChart_Loaded;
+
+            lblDayBegin.Content = sprint.Begin.ToString("dd.MM");
+            lblDayEnd.Content = sprint.End.ToString("dd.MM");
+
+        }
+
+        private void BurndownChart_Loaded(object sender, RoutedEventArgs e)
+        {
+            double daysSinceBegin = (DateTime.Now - sprint.Begin).TotalDays;
+            double totalDays = (sprint.End - sprint.Begin).TotalDays;
+            double elapsedDays = Math.Min(totalDays, daysSinceBegin);
+
+            int totalComplexity = 0;
+            int completedComplexity = 0;
+
+            foreach (KeyValuePair<int, UserStory> keyValuePair in sprint.OrderedUserStories)
+            {
+                totalComplexity += keyValuePair.Value.ComplexityEstimation;
+                completedComplexity += keyValuePair.Value.CompletedComplexity;
+            }
+
+            lblComplexityMax.Content = totalComplexity.ToString();
+            double x2Line = elapsedDays / totalDays * (this.ActualWidth - 200) + 130;
+            double y2Line = completedComplexity / totalComplexity * (this.ActualHeight - 140) + 70;
+
+            PointCollection linePoints = new PointCollection();
+            linePoints.Add(new Point(130, 70));
+            linePoints.Add(new Point(x2Line, y2Line));
         }
 
         private void Quit_Click(object sender, RoutedEventArgs e)
@@ -29,5 +62,9 @@ namespace Scrum_o_wall.Views
             this.Close();
         }
 
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

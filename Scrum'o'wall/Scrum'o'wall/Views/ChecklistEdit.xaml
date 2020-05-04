@@ -20,6 +20,7 @@
         <TextBlock Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="10,21" TextAlignment="Center" FontSize="20" >Modifier une checklist</TextBlock>
         <TextBlock Grid.Row="1" VerticalAlignment="Center" Margin="10,12" TextAlignment="Right" >Nom :</TextBlock>
         <TextBlock Grid.Row="2" VerticalAlignment="Top" Margin="10,10,10,0" TextAlignment="Right" >Objets :</TextBlock>
+        <TextBox Grid.Row="1" Grid.Column="1" Margin="10" Name="tbxName"></TextBox>
         <Grid Grid.Row="2" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="229*"></RowDefinition>
@@ -27,10 +28,10 @@
             </Grid.RowDefinitions>
             <ListView x:Name="listItems" Margin="10">
             </ListView>
-            <Button x:Name="btnAddItem" Grid.Row="1" Margin="10">Ajouter un objet</Button>
+            <Button x:Name="btnAddItem" Grid.Row="1" Margin="10" Click="btnAddItem_Click">Ajouter un objet</Button>
         </Grid>
 
-        <Button x:Name="btnCancel" Grid.Row="3" Margin="10">Annuler</Button>
-        <Button x:Name="btnConfirm" Grid.Row="3" Grid.Column="1" Margin="10">Confirmer</Button>
+        <Button x:Name="btnCancel" Grid.Row="3" Margin="10" Click="btnCancel_Click">Annuler</Button>
+        <Button x:Name="btnConfirm" Grid.Row="3" Grid.Column="1" Margin="10" Click="btnConfirm_Click">Confirmer</Button>
     </Grid>
 </Window>

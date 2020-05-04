@@ -23,5 +23,15 @@ namespace Scrum_o_wall.Views
         {
             InitializeComponent();
         }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnConfirm_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -22,7 +22,7 @@
             </ListView>
         </Border>
 
-        <Button x:Name="btnCancel" Grid.Row="2" Margin="10">Retour</Button>
-        <Button x:Name="btnAddList" Grid.Row="2" Grid.Column="1" Margin="10">Ajouter</Button>
+        <Button x:Name="btnCancel" Grid.Row="2" Margin="10" Click="btnCancel_Click">Retour</Button>
+        <Button x:Name="btnAddList" Grid.Row="2" Grid.Column="1" Margin="10" Click="btnAddList_Click">Ajouter</Button>
     </Grid>
 </Window>

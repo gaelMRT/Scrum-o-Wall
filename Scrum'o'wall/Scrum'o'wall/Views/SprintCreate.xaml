@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Scrum_o_wall.Views"
         mc:Ignorable="d"
-        Title="Création d'un sprint" Height="234.783" Width="399.488" WindowStartupLocation="CenterScreen"  >
+        Title="Création d'un sprint" Height="264.633" Width="399.488" WindowStartupLocation="CenterScreen"  >
     <Grid Margin="0,0,2,-1">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="140*"/>
@@ -20,10 +20,10 @@
         <Label Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Height="58" Margin="70,13,69,13" Width="250">Créer un sprint</Label>
         <Label Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Height="26" Width="92">Date de début :</Label>
         <Label Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Height="26" Width="94">Date de fin :</Label>
-        <Button x:Name="btnCancel" Click="btnCancel_Click" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Height="24" Width="50" RenderTransformOrigin="0.155,1.263" Margin="45,10,45,15">Annuler</Button>
+        <Button x:Name="btnCancel" Click="btnCancel_Click" Grid.Row="3" Margin="10">Annuler</Button>
 
-        <DatePicker Grid.Row="1" Name="dtpckDateBegin" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="24" Width="203"/>
-        <DatePicker Grid.Row="2" Name="dtpckDateEnd" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="24" Width="203"/>
-        <Button x:Name="btnAddProject" Click="btnAddProject_Click" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="24" Width="94" Margin="78,10,77,15">Confirmer</Button>
+        <DatePicker Grid.Row="1" Name="dtpckDateBegin" Grid.Column="1" Margin="10"/>
+        <DatePicker Grid.Row="2" Name="dtpckDateEnd" Grid.Column="1" Margin="10"/>
+        <Button x:Name="btnAddProject" Click="btnAddProject_Click" Grid.Row="3" Grid.Column="1" Margin="10">Confirmer</Button>
     </Grid>
 </Window>

@@ -198,6 +198,22 @@ namespace Scrum_o_wall
 
             return valuesPair;
         }
+
+        internal static Comment CreateComment(string text, int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static ChecklistItem CreateCheckListItem(string aName, int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static Checklist CreateCheckList(string aName)
+        {
+            throw new NotImplementedException();
+        }
+
         public static List<int[]> GetUserUserStory()
         {
             //Declare variables

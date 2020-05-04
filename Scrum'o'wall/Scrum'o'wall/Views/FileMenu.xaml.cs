@@ -29,5 +29,14 @@ namespace Scrum_o_wall.Views
             this.Close();
         }
 
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnAddFile_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -5,8 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Scrum_o_wall.Views"
         mc:Ignorable="d"
-        Title="UserEdit" Height="450" Width="800">
+        Title="Modification d'un utilisateur" Height="159.532" Width="328.533">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.ColumnSpan="2" TextAlignment="Center" FontSize="20" VerticalAlignment="Center">Modification d'un utilisateur</TextBlock>
+        <TextBlock Grid.Row="1" TextAlignment="Right" VerticalAlignment="Center" Margin="10,13,10,14">Nom de l'utilisateur :</TextBlock>
+        <TextBox Grid.Row="1" Name="tbxUserName" Grid.Column="1" Margin="10"></TextBox>
+        <Button x:Name="btnCancel" Grid.Row="2" Grid.Column="0" Margin="10">Annuler</Button>
+        <Button x:Name="btnConfirm" Grid.Row="2" Grid.Column="1" Margin="10">Confirmer</Button>
     </Grid>
 </Window>
