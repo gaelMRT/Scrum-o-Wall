@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using Scrum_o_wall.Classes;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,17 +29,26 @@ namespace Scrum_o_wall.Views
 
         private void btnFileSearch_Click(object sender, RoutedEventArgs e)
         {
-
+            OpenFileDialog opf = new OpenFileDialog();
+            opf.Multiselect = false;
+            if(opf.ShowDialog() == true)
+            {
+                tbxFileName.Text = opf.FileName;
+            }
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
 
         private void btnConfirm_Click(object sender, RoutedEventArgs e)
         {
-
+            if(tbxDescription.Text.Length > 1 && tbxFileName.Text.Length > 1 && System.IO.File.Exists(tbxFileName.Text))
+            {
+                this.DialogResult = true;
+                this.Close();
+            }
         }
     }
 }

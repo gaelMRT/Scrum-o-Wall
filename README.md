@@ -234,3 +234,12 @@ Trouvé de quoi faire la ligne pour le burndown chart https://www.c-sharpcorner.
 ### Tâches accomplies
 - Finir les visuels
 - Fais les vues suivantes ; Burndown Chart, ChecklistCreate, ActivitesMenus, CheckListItemCreate, ChecklistMenu,CommentCreate, CommentsMenu, MindMapCreate, CommentCreate, CommentMenu
+# 05.05
+
+### Tâches à faire 
+- Faire une partie des vues restantes
+### Liens utiles et idées
+
+### Tâches accomplies
+- Fini les vues : FileCreate, FileEdit, FileMenu, ProjectEdit, StateCreate, StateMenu, UserCreate, UserEdit, UserStoryCreate
+- Il reste UserStoryEdit et UserMenu

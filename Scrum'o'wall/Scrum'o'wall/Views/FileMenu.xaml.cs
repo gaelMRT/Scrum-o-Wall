@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Scrum_o_wall.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,23 @@ namespace Scrum_o_wall.Views
     /// </summary>
     public partial class FileMenu : Window
     {
-        public FileMenu()
+        UserStory userStory;
+        Controller controller;
+        public FileMenu(UserStory aUserStory, Controller aController)
         {
+            userStory = aUserStory;
+            controller = aController;
+
             InitializeComponent();
+
+        }
+        public void Refresh()
+        {
+            lstFiles.Items.Clear();
+            foreach (File file in userStory.Files)
+            {
+                lstFiles.Items.Add(file);
+            }
         }
 
         private void Quit_Click(object sender, RoutedEventArgs e)
@@ -31,11 +46,17 @@ namespace Scrum_o_wall.Views
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
 
         private void btnAddFile_Click(object sender, RoutedEventArgs e)
         {
+            FileCreate fileCreate = new FileCreate();
+            if(fileCreate.ShowDialog() == true)
+            {
+                controller.CreateFile(fileCreate.tbxFileName.Text, fileCreate.tbxDescription.Text, userStory);
+                Refresh();
+            }
 
         }
     }

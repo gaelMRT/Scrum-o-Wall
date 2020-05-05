@@ -26,7 +26,28 @@ namespace Scrum_o_wall.Views
 
         private void btnConfirm_Click(object sender, RoutedEventArgs e)
         {
+            if(tbxDate.SelectedDate != null && tbxDesc.Text.Length > 0 && tbxName.Text.Length > 0)
+            {
+                this.DialogResult = true;
+                this.Close();
+            }
+        }
 
+        private void btnStates_Click(object sender, RoutedEventArgs e)
+        {
+            StateMenu stateMenu = new StateMenu();
+            stateMenu.ShowDialog();
+        }
+
+        private void btnUsers_Click(object sender, RoutedEventArgs e)
+        {
+            UserMenu userMenu = new UserMenu();
+            userMenu.ShowDialog();
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -42,15 +42,6 @@ namespace Scrum_o_wall.Views
             }
         }
 
-        private void tbxTime_KeyDown(object sender, KeyEventArgs e)
-        {
-            bool isNumber = (e.Key >= Key.D0 && e.Key <= Key.D9);
-            bool isPoint = e.Key == Key.Decimal && !tbxTime.Text.Contains('.');
-            if(!isNumber && !isPoint)
-            {
-                e.Handled = true;
-            }
-        }
 
         private void tbxComplexity_KeyDown(object sender, KeyEventArgs e)
         {

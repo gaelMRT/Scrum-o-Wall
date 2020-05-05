@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Scrum_o_wall.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,18 @@ namespace Scrum_o_wall.Views
     /// </summary>
     public partial class MindmapMenu : Window
     {
-        public MindmapMenu()
+        MindMap mindMap;
+        public MindmapMenu(MindMap aMindMap)
         {
+            mindMap = aMindMap;
+
             InitializeComponent();
+
+            Refresh();
+        }
+        public void Refresh()
+        {
+
         }
 
         private void Quit_Click(object sender, RoutedEventArgs e)

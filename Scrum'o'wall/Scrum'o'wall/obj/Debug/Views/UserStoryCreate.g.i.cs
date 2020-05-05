@@ -121,10 +121,8 @@ namespace Scrum_o_wall.Views
                     this.tbxDesc = ((System.Windows.Controls.TextBox)(target));
                     return;
                 case 3:
-                    this.tbxTime = ((System.Windows.Controls.TextBox)(target));
 
 #line 28 "..\..\..\Views\UserStoryCreate.xaml"
-                    this.tbxTime.KeyDown += new System.Windows.Input.KeyEventHandler(this.tbxTime_KeyDown);
 
 #line default
 #line hidden

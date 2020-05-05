@@ -35,8 +35,8 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Margin="10" Name="btnStates">Colonnes</Button>
-            <Button  Grid.Column="1" Margin="10" Name="btnUsers">Utilisateurs assignés</Button>
+            <Button Margin="10" Name="btnStates" Click="btnStates_Click">Colonnes</Button>
+            <Button  Grid.Column="1" Margin="10" Name="btnUsers" Click="btnUsers_Click">Utilisateurs assignés</Button>
         </Grid>
 
         <Button x:Name="btnCancel" Click="btnCancel_Click" Grid.Row="5" Margin="10">Annuler</Button>

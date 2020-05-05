@@ -24,14 +24,19 @@ namespace Scrum_o_wall.Views
             InitializeComponent();
         }
 
+
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
 
         private void btnConfirm_Click(object sender, RoutedEventArgs e)
         {
-
+            if (tbxDescription.Text.Length > 1 && tbxFileName.Text.Length > 1 && System.IO.File.Exists(tbxFileName.Text))
+            {
+                this.DialogResult = true;
+                this.Close();
+            }
         }
     }
 }
