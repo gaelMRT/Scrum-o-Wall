@@ -271,3 +271,4 @@ Ce qui est lié à l'écran tactile.
 ### Tâches accomplies
 - Documentation sur les maquettes écrans refaite
 - Les diagrammes de classes ont été ajoutés et nécessitent une documentation plus poussée
+- Correction de bugs empêchant la compilation

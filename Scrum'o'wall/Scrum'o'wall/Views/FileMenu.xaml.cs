@@ -103,7 +103,7 @@ namespace Scrum_o_wall.Views
             FileCreate fileCreate = new FileCreate(controller);
             if(fileCreate.ShowDialog() == true)
             {
-                controller.CreateFile(fileCreate.tbxFileName.Text, fileCreate.tbxDescription.Text, userStory);
+                controller.CreateFile(fileCreate.tbxFileName.Text, fileCreate.tbxDescription.Text,fileCreate.cbxFileTypes.SelectedItem as FileType, userStory);
                 Refresh();
             }
 

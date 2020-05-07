@@ -164,11 +164,6 @@ namespace Scrum_o_wall
             states = allStates;
         }
 
-        internal void CreateFile(string text1, string text2, UserStory userStory)
-        {
-            throw new NotImplementedException();
-        }
-
         internal void UpdateUserStory(string description, DateTime? selectedDate, int complexity, int completedComplexity, Priority aPriority, Classes.Type aType, UserStory userStory, Project project)
         {
             DB.UpdateUserStory(description, selectedDate, complexity, completedComplexity, aPriority.Id, aType.Id, project.States.First().Value.Id, project.Id, userStory.Id);
@@ -204,7 +199,6 @@ namespace Scrum_o_wall
                     checklist.ChecklistItems.Add(item);
                 }
             }
-            throw new NotImplementedException();
         }
 
         public void CreateUserStory(string description, DateTime? selectedDate, string complexity, Priority aPriority, Classes.Type aType, Project aProject)
