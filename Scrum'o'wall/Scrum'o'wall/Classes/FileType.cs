@@ -24,5 +24,9 @@ namespace Scrum_o_wall.Classes
 
         public int Id { get => id; }
         public string Name { get; set; }
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

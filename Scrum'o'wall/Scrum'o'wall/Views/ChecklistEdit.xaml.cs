@@ -31,6 +31,8 @@ namespace Scrum_o_wall.Views
             InitializeComponent();
 
             itemsToAdd = new List<ChecklistItem>();
+
+            Refresh();
         }
 
         private void Refresh()
@@ -55,6 +57,7 @@ namespace Scrum_o_wall.Views
                 ChecklistItem checklistItem = new ChecklistItem(-1, checklistItemCreate.tbxObjet.Text, false, -1);
 
                 itemsToAdd.Add(checklistItem);
+                Refresh();
             }
         }
 

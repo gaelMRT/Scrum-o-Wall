@@ -1,6 +1,6 @@
 ﻿using Scrum_o_wall.Classes;
 using System;
-using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -120,14 +120,24 @@ namespace Scrum_o_wall.Views
 
         private void usrCtrlUserStory_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            //TODO : Modify User Story
-            MessageBox.Show("Modification User Story", "Modif", MessageBoxButton.OK);
+            UserStory userStory = (sender as UserControl).Tag as UserStory;
+            UserStoryEditing(userStory);
         }
 
         private void usrCtrlUserStory_TouchUp(object sender, TouchEventArgs e)
         {
-            //TODO : Modify User Story
-            MessageBox.Show("Modification User Story", "Modif", MessageBoxButton.OK);
+            UserStory userStory = (sender as UserControl).Tag as UserStory;
+            UserStoryEditing(userStory);
+        }
+
+        private void UserStoryEditing(UserStory userStory)
+        {
+            UserStoryEdit userStoryEdit = new UserStoryEdit(userStory, controller);
+            if (userStoryEdit.ShowDialog() == true)
+            {
+                controller.UpdateUserStory( userStoryEdit.tbxDesc.Text, userStoryEdit.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryEdit.tbxComplexity.Text), Convert.ToInt32(userStoryEdit.tbxCompletedComplexity.Text), (Priority)userStoryEdit.cbxPriority.SelectedItem, (Classes.Type)userStoryEdit.cbxType.SelectedItem, userStory, currentProject);
+                Refresh();
+            }
         }
 
         private void usrCtrlSprint_MouseUp(object sender, MouseButtonEventArgs e)
@@ -159,12 +169,32 @@ namespace Scrum_o_wall.Views
 
         private void btnAddUserStory_Click(object sender, RoutedEventArgs e)
         {
-
+            UserStoryCreate userStoryCreate = new UserStoryCreate();
+            if(userStoryCreate.ShowDialog() == true)
+            {
+                controller.CreateUserStory(userStoryCreate.tbxDesc.Text, userStoryCreate.dtpckrDateLimit.SelectedDate, userStoryCreate.tbxComplexity.Text, (Priority)userStoryCreate.cbxPriority.SelectedItem, (Classes.Type)userStoryCreate.cbxType.SelectedItem,currentProject);
+                Refresh();
+            }
         }
 
         private void btnAddSprint_Click(object sender, RoutedEventArgs e)
         {
+            SprintCreate sprintCreate = new SprintCreate();
+            if(sprintCreate.ShowDialog() == true)
+            {
+                controller.CreateSprint((DateTime)sprintCreate.dtpckDateBegin.SelectedDate, (DateTime)sprintCreate.dtpckDateEnd.SelectedDate, currentProject);
+                Refresh();
+            }
+        }
 
+        private void Edit_Click(object sender, RoutedEventArgs e)
+        {
+            ProjectEdit projectEdit = new ProjectEdit(currentProject, controller);
+            if(projectEdit.ShowDialog() == true)
+            {
+                controller.UpdateProject(projectEdit.tbxName.Text, projectEdit.tbxDesc.Text, (DateTime)projectEdit.dtpckrDateBegin.SelectedDate ,currentProject);
+                Refresh();
+            }
         }
     }
 }

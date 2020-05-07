@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Scrum_o_wall.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,14 +20,19 @@ namespace Scrum_o_wall.Views
     /// </summary>
     public partial class ProjectEdit : Window
     {
-        public ProjectEdit()
+        Project project;
+        Controller controller;
+        public ProjectEdit(Project aProject, Controller aController)
         {
+            project = aProject;
+            controller = aController;
+
             InitializeComponent();
         }
 
         private void btnConfirm_Click(object sender, RoutedEventArgs e)
         {
-            if(tbxDate.SelectedDate != null && tbxDesc.Text.Length > 0 && tbxName.Text.Length > 0)
+            if(dtpckrDateBegin.SelectedDate != null && tbxDesc.Text.Length > 0 && tbxName.Text.Length > 0)
             {
                 this.DialogResult = true;
                 this.Close();
@@ -35,13 +41,13 @@ namespace Scrum_o_wall.Views
 
         private void btnStates_Click(object sender, RoutedEventArgs e)
         {
-            StateMenu stateMenu = new StateMenu();
+            StateMenu stateMenu = new StateMenu(project,controller);
             stateMenu.ShowDialog();
         }
 
         private void btnUsers_Click(object sender, RoutedEventArgs e)
         {
-            UserMenu userMenu = new UserMenu();
+            UserMenu userMenu = new UserMenu(project,controller);
             userMenu.ShowDialog();
         }
 

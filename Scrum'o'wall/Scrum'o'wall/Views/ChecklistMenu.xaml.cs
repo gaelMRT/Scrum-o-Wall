@@ -46,6 +46,8 @@ namespace Scrum_o_wall.Views
                 border.BorderBrush = Brushes.Black;
                 border.BorderThickness = new Thickness(1);
                 border.Width = 408;
+                border.Tag = chckLst;
+                border.TouchDown += Border_TouchDown;
 
                 //Create grid
                 Grid grd = new Grid();
@@ -80,6 +82,22 @@ namespace Scrum_o_wall.Views
                 border.Child = grd;
 
                 lstLists.Items.Add(border);
+            }
+        }
+
+        private void Border_TouchDown(object sender, TouchEventArgs e)
+        {
+            Checklist checklist = (sender as Border).Tag as Checklist;
+            ChecklistEdit checklistEdit = new ChecklistEdit(checklist, controller);
+            if(checklistEdit.ShowDialog() == true)
+            {
+                List<ChecklistItem> items = new List<ChecklistItem>();
+                foreach (var item in checklistEdit.listItems.Items)
+                {
+                    items.Add(item as ChecklistItem);
+                }
+                controller.UpdateCheckList(checklistEdit.tbxName.Text, items, checklist);
+                Refresh();
             }
         }
 

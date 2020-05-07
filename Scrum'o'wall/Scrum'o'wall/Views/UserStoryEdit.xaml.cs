@@ -53,7 +53,8 @@ namespace Scrum_o_wall.Views
 
         private void btnUserAssigned_Click(object sender, RoutedEventArgs e)
         {
-
+            UserMenu userMenu = new UserMenu(userStory, controller);
+            userMenu.ShowDialog();
         }
 
         private void btnChecklists_Click(object sender, RoutedEventArgs e)
@@ -81,6 +82,19 @@ namespace Scrum_o_wall.Views
                 this.DialogResult = true;
                 this.Close();
             }
+        }
+        private void tbxComplexity_KeyDown(object sender, KeyEventArgs e)
+        {
+            bool isNumber = (e.Key >= Key.D0 && e.Key <= Key.D9);
+            if (!isNumber)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -29,6 +29,7 @@ namespace Scrum_o_wall.Views
 
             InitializeComponent();
 
+            Refresh();
         }
 
         public void Refresh()
@@ -52,7 +53,7 @@ namespace Scrum_o_wall.Views
 
         private void btnAddComment_Click(object sender, RoutedEventArgs e)
         {
-            CommentCreate commentCreate = new CommentCreate(userStory.AssignedUsers);
+            CommentCreate commentCreate = new CommentCreate(userStory.GetUsers());
             if(commentCreate.ShowDialog() == true)
             {
                 controller.CreateComment(commentCreate.tbxContent.Text, userStory);

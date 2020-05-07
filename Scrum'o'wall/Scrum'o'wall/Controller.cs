@@ -82,7 +82,7 @@ namespace Scrum_o_wall
             {
                 Project project = allProjects.First(p => p.Id == item[0]);
                 State state = allStates.First(s => s.Id == item[1]);
-                project.States.Add(item[2],state);
+                project.States.Add(item[2], state);
             }
             #endregion
 
@@ -132,7 +132,7 @@ namespace Scrum_o_wall
                 // 0:IdUser,1:IdUserStories
                 User user = allUsers.First(u => u.Id == item[0]);
                 UserStory userStory = allUserStories.First(us => us.Id == item[1]);
-                userStory.AssignedUsers.Add(user);
+                userStory.AddUser(user);
             }
             #endregion
             #region Link user with CheckListItem
@@ -142,7 +142,7 @@ namespace Scrum_o_wall
                 // 0:IdUser,1:IdChecklistItem
                 User user = allUsers.First(u => u.Id == item[0]);
                 ChecklistItem checklistItem = allChecklistItems.First(c => c.Id == item[1]);
-                checklistItem.AssignedUsers.Add(user);
+                checklistItem.AddUser(user);
             }
             #endregion
             #region Link user with Project
@@ -152,7 +152,7 @@ namespace Scrum_o_wall
                 // 0:IdUser,1:IdProject
                 User user = allUsers.First(u => u.Id == item[0]);
                 Project project = allProjects.First(p => p.Id == item[1]);
-                project.AssignedUsers.Add(user);
+                project.AddUser(user);
             }
             #endregion
 
@@ -164,19 +164,81 @@ namespace Scrum_o_wall
             states = allStates;
         }
 
-        internal void CreateUser(string name)
+        internal void CreateFile(string text1, string text2, UserStory userStory)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void UpdateUserStory(string description, DateTime? selectedDate, int complexity, int completedComplexity, Priority aPriority, Classes.Type aType, UserStory userStory, Project project)
+        {
+            DB.UpdateUserStory(description, selectedDate, complexity, completedComplexity, aPriority.Id, aType.Id, project.States.First().Value.Id, project.Id, userStory.Id);
+            userStory.Text = description;
+            userStory.DateLimit = selectedDate;
+            userStory.ComplexityEstimation = complexity;
+            userStory.CompletedComplexity = completedComplexity;
+            userStory.CurrentState = project.States.First().Value;
+            userStory.Priority = aPriority;
+            userStory.Type = aType;
+        }
+
+        public void UpdateFile(string fileDescription, FileType fileType, Classes.File file)
+        {
+            DB.UpdateFile(fileDescription, fileType.Id, file.Id);
+            file.Description = fileDescription;
+        }
+
+        public void UpdateCheckList(string name, List<ChecklistItem> items, Checklist checklist)
+        {
+            DB.UpdateCheckList(name, checklist.Id);
+            checklist.Name = name;
+            checklist.ChecklistItems.Clear();
+            foreach (ChecklistItem item in items)
+            {
+                if (item.Id == -1)
+                {
+                    checklist.ChecklistItems.Add(DB.CreateCheckListItem(item.NameItem, checklist.Id));
+                }
+                else
+                {
+                    DB.UpdateCheckListItem(item.NameItem, item.Done, item.ChecklistId);
+                    checklist.ChecklistItems.Add(item);
+                }
+            }
+            throw new NotImplementedException();
+        }
+
+        public void CreateUserStory(string description, DateTime? selectedDate, string complexity, Priority aPriority, Classes.Type aType, Project aProject)
+        {
+            UserStory userStory = DB.CreateUserStory(description, selectedDate, complexity, aPriority.Id, aType.Id, aProject.States.First().Value.Id, aProject.Id);
+            aProject.AllUserStories.Add(userStory);
+        }
+
+        public void CreateSprint(DateTime dateBegin, DateTime dateEnd, Project aProject)
+        {
+            aProject.Sprints.Add(DB.CreateSprint(dateBegin, dateEnd, aProject.Id));
+        }
+
+        public void UpdateProject(string name, string description, DateTime dateTime, Project aProject)
+        {
+            DB.UpdateProject(name, description, dateTime, aProject.Id);
+            aProject.Name = name;
+            aProject.Description = description;
+            aProject.Begin = dateTime;
+        }
+
+        public void CreateFile(string fileName, string description, FileType fileType, UserStory userStory)
+        {
+            userStory.Files.Add(DB.CreateFile(fileName, description, fileType.Id, userStory.Id));
+        }
+
+        public void CreateUser(string name)
         {
             users.Add(DB.CreateUser(name));
         }
 
-        internal void CreateState(string name)
+        public void CreateState(string name)
         {
             states.Add(DB.CreateState(name));
-        }
-
-        internal void CreateFile(string fileName, string description, FileType fileType,UserStory userStory)
-        {
-            userStory.Files.Add(DB.CreateFile(fileName, description,fileType.Id, userStory.Id));
         }
 
         public void CreateComment(string text, UserStory userStory)
@@ -189,7 +251,7 @@ namespace Scrum_o_wall
             checklist.ChecklistItems.Add(DB.CreateCheckListItem(aName, checklist.Id));
         }
 
-        public Checklist CreateCheckList(string aName,UserStory aUserStory)
+        public Checklist CreateCheckList(string aName, UserStory aUserStory)
         {
             Checklist checklist = DB.CreateCheckList(aName);
             aUserStory.Checklists.Add(checklist);
@@ -207,7 +269,7 @@ namespace Scrum_o_wall
             projects.Add(DB.CreateProject(aName, aDesc, aDate));
         }
 
-        
+
 
     }
 }

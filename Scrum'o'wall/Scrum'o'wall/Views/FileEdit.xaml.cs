@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Scrum_o_wall.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,23 @@ namespace Scrum_o_wall.Views
     /// </summary>
     public partial class FileEdit : Window
     {
-        public FileEdit()
+        Controller controller;
+        File file;
+        public FileEdit(File aFile, Controller aController)
         {
+            file = aFile;
+
+            controller = aController;
+
             InitializeComponent();
+
+            foreach (FileType fileType in controller.FileTypes)
+            {
+                cbxFileTypes.Items.Add(fileType);
+            }
+
+            tbxDescription.Text = file.Description;
+            tbxFileName.Text = file.Name;
         }
 
 
@@ -32,7 +47,7 @@ namespace Scrum_o_wall.Views
 
         private void btnConfirm_Click(object sender, RoutedEventArgs e)
         {
-            if (tbxDescription.Text.Length > 1 && tbxFileName.Text.Length > 1 && System.IO.File.Exists(tbxFileName.Text))
+            if (tbxDescription.Text.Length > 1 && tbxFileName.Text.Length > 1 && System.IO.File.Exists(tbxFileName.Text) && cbxFileTypes.SelectedItem != null)
             {
                 this.DialogResult = true;
                 this.Close();

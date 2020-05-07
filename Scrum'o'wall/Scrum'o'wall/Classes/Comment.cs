@@ -32,5 +32,9 @@ namespace Scrum_o_wall.Classes
         public DateTime DateTime { get; set; }
         public int UserStoryId { get => userStoryId; }
         public int UserId { get => userId; }
+        public override string ToString()
+        {
+            return Description;
+        }
     }
 }

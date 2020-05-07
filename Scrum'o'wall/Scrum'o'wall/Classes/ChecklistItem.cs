@@ -45,5 +45,9 @@ namespace Scrum_o_wall.Classes
         {
             assignedUsers.Remove(user);
         }
+        public override string ToString()
+        {
+            return NameItem;
+        }
     }
 }

@@ -10,7 +10,7 @@
         <ContextMenu >
 
             <Separator/>
-            <MenuItem Header="Quitter" Name="Quit" Click="Quit_Click"/>
+            <MenuItem Header="Quitter" Name="Quit"/>
         </ContextMenu>
     </Window.ContextMenu>
     <Canvas x:Name="cnvsStates" Margin="0">

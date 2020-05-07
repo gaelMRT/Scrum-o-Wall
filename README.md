@@ -256,3 +256,18 @@ Afin de pouvoir utiliser le menu des utilisateurs j'ai du créer une interface c
 - Fini les vues :  UserStoryEdit et UserMenu
 - Création d'une interface
 - Rajout du langage de programmation sur le poster
+# 07.05
+
+### Tâches à faire 
+- Refaire la documentation sur les maquettes écrans
+- Refaire la documentation des classes
+### Liens utiles et idées
+Important de citer que j'ai voulu utiliser du déconnecté
+Expliquer la stratégie
+Expliquer la notice de connection à Access
+Pourquoi j'ai fait une classe d'interface, pourquoi j'ai fait ci et ça.
+Les challenges du WPF.
+Ce qui est lié à l'écran tactile.
+### Tâches accomplies
+- Documentation sur les maquettes écrans refaite
+- Les diagrammes de classes ont été ajoutés et nécessitent une documentation plus poussée

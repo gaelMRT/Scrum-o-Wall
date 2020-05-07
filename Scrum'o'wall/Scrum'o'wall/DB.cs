@@ -199,32 +199,67 @@ namespace Scrum_o_wall
             return valuesPair;
         }
 
-        internal static State CreateState(string name)
+        public static void UpdateUserStory(string description, DateTime? selectedDate, int complexity, int completedComplexity, int prioriyId, int stateId, int typeId, int projectId,int userStoryId)
         {
             throw new NotImplementedException();
         }
 
-        internal static Classes.File CreateFile(string fileName, string description, int idFileType, int idUserStory)
+        public static Classes.File UpdateFile(string fileDescription, int fileTypeId, int fileId)
         {
             throw new NotImplementedException();
         }
 
-        internal static User CreateUser(string text)
+        public static UserStory CreateUserStory(string description, DateTime? selectedDate, string complexity, int priorityId, int typeId, int stateId, int projectId)
         {
             throw new NotImplementedException();
         }
 
-        internal static Comment CreateComment(string text, int id)
+        public static void UpdateCheckList(string name, int id)
         {
             throw new NotImplementedException();
         }
 
-        internal static ChecklistItem CreateCheckListItem(string aName, int id)
+        public static State CreateState(string name)
         {
             throw new NotImplementedException();
         }
 
-        internal static Checklist CreateCheckList(string aName)
+        public static Classes.File CreateFile(string fileName, string description, int idFileType, int idUserStory)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static void UpdateCheckListItem(string nameItem, bool done, int checklistId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static User CreateUser(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static Comment CreateComment(string name, int userStoryId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static Sprint CreateSprint(DateTime dateBegin, DateTime dateEnd, int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static void UpdateProject(string name, string description, DateTime dateTime, int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static ChecklistItem CreateCheckListItem(string aName, int checklistId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static Checklist CreateCheckList(string aName)
         {
             throw new NotImplementedException();
         }

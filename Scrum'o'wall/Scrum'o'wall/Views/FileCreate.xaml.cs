@@ -22,9 +22,17 @@ namespace Scrum_o_wall.Views
     /// </summary>
     public partial class FileCreate : Window
     {
-        public FileCreate()
+        Controller controller;
+        public FileCreate(Controller aController)
         {
+            controller = aController;
+
             InitializeComponent();
+
+            foreach (FileType fileType in controller.FileTypes)
+            {
+                cbxFileTypes.Items.Add(fileType);
+            }
         }
 
         private void btnFileSearch_Click(object sender, RoutedEventArgs e)
@@ -44,7 +52,7 @@ namespace Scrum_o_wall.Views
 
         private void btnConfirm_Click(object sender, RoutedEventArgs e)
         {
-            if(tbxDescription.Text.Length > 1 && tbxFileName.Text.Length > 1 && System.IO.File.Exists(tbxFileName.Text))
+            if(tbxDescription.Text.Length > 1 && tbxFileName.Text.Length > 1 && System.IO.File.Exists(tbxFileName.Text) && cbxFileTypes.SelectedItem != null)
             {
                 this.DialogResult = true;
                 this.Close();

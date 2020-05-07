@@ -32,6 +32,10 @@ namespace Scrum_o_wall.Classes
         public int PreviousId { get => (previousId == null ? 0 : (int)previousId);  }
         public int MindmapId { get => mindmapId;  }
         public List<Node> Childrens { get; set; } = new List<Node>();
+        public override string ToString()
+        {
+            return Name;
+        }
 
     }
 }

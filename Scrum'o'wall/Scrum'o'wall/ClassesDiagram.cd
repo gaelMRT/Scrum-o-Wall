@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Scrum_o_wall.Classes.Activity">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Members>
+      <Method Name="Activity" Hidden="true" />
+      <Field Name="id" Hidden="true" />
+      <Field Name="userStoryId" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>CAACAAAAAAAgAAAACAAAAAAAAAAAAAQAAAAAAAAAAgA=</HashCode>
+      <FileName>Classes\Activity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scrum_o_wall.Classes.Checklist">
+    <Position X="2.25" Y="2.75" Width="1.5" />
+    <Members>
+      <Method Name="Checklist" Hidden="true" />
+      <Field Name="id" Hidden="true" />
+      <Field Name="userStoryId" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>CAACAAAAAEAAAAAACAAAAAQAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Classes\Checklist.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scrum_o_wall.Classes.ChecklistItem" BaseTypeListCollapsed="true">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <Members>
+      <Method Name="AddUser" Hidden="true" />
+      <Field Name="assignedUsers" Hidden="true" />
+      <Field Name="checklistId" Hidden="true" />
+      <Method Name="ChecklistItem" Hidden="true" />
+      <Method Name="GetUsers" Hidden="true" />
+      <Field Name="id" Hidden="true" />
+      <Method Name="RemoveUser" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>IAFCBAAAAAAACAAAAAAABQAAAAAAAAAgAAAAAAAAAgA=</HashCode>
+      <FileName>Classes\ChecklistItem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Scrum_o_wall.Classes.Comment">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <Members>
+      <Method Name="Comment" Hidden="true" />
+      <Field Name="id" Hidden="true" />
+      <Field Name="userId" Hidden="true" />
+      <Field Name="userStoryId" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>CAACAAAAAAAgAAAACAAAAAgAAAAAAAQAAAAAAAAAAgA=</HashCode>
+      <FileName>Classes\Comment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scrum_o_wall.Classes.File">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <Members>
+      <Method Name="File" Hidden="true" />
+      <Field Name="id" Hidden="true" />
+      <Field Name="userStoryId" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>CAACAAAAAAAgAAAACAAAAAwAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Classes\File.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scrum_o_wall.Classes.FileType">
+    <Position X="0.5" Y="5.5" Width="1.5" />
+    <Members>
+      <Method Name="FileType" Hidden="true" />
+      <Field Name="id" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Classes\FileType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scrum_o_wall.Classes.MindMap">
+    <Position X="8" Y="4.25" Width="1.5" />
+    <Members>
+      <Field Name="id" Hidden="true" />
+      <Method Name="MindMap" Hidden="true" />
+      <Field Name="projectId" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAACAAAAAEAAQABAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Classes\MindMap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scrum_o_wall.Classes.Node">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <Members>
+      <Field Name="id" Hidden="true" />
+      <Field Name="mindmapId" Hidden="true" />
+      <Method Name="Node" Hidden="true" />
+      <Field Name="previousId" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAKAAAACAAAAAAQAAAEEAQAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Classes\Node.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scrum_o_wall.Classes.Priority">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <Members>
+      <Field Name="id" Hidden="true" />
+      <Method Name="Priority" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Classes\Priority.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scrum_o_wall.Classes.Project" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <Members>
+      <Method Name="AddUser" Hidden="true" />
+      <Field Name="assignedUsers" Hidden="true" />
+      <Method Name="GetUsers" Hidden="true" />
+      <Field Name="id" Hidden="true" />
+      <Method Name="Project" Hidden="true" />
+      <Method Name="RemoveUser" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>IAECAAAAAAAgAAAEAAAKAQQAAAABEAAgAAAABAAAAgA=</HashCode>
+      <FileName>Classes\Project.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Scrum_o_wall.Classes.Sprint">
+    <Position X="9.75" Y="3.75" Width="2" />
+    <Members>
+      <Method Name="addListUserStories" Hidden="true" />
+      <Method Name="addUserStory" Hidden="true" />
+      <Field Name="id" Hidden="true" />
+      <Field Name="projectId" Hidden="true" />
+      <Method Name="removeUserStoryByOrder" Hidden="true" />
+      <Method Name="Sprint" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAICACAAAAAAAAAEAAAECAAABAAIEAIAAAAAAAAAIgA=</HashCode>
+      <FileName>Classes\Sprint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scrum_o_wall.Classes.State">
+    <Position X="4" Y="4.75" Width="1.5" />
+    <Members>
+      <Field Name="id" Hidden="true" />
+      <Method Name="State" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Classes\State.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scrum_o_wall.Classes.Type">
+    <Position X="0.5" Y="4" Width="1.5" />
+    <Members>
+      <Field Name="id" Hidden="true" />
+      <Method Name="Type" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Classes\Type.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scrum_o_wall.Classes.User">
+    <Position X="2.25" Y="4.75" Width="1.5" />
+    <Members>
+      <Field Name="id" Hidden="true" />
+      <Method Name="User" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Classes\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Scrum_o_wall.Classes.UserStory" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="0.5" Width="2" />
+    <Members>
+      <Method Name="AddUser" Hidden="true" />
+      <Field Name="assignedUsers" Hidden="true" />
+      <Method Name="GetUsers" Hidden="true" />
+      <Field Name="id" Hidden="true" />
+      <Field Name="priorityId" Hidden="true" />
+      <Field Name="projectId" Hidden="true" />
+      <Method Name="RemoveUser" Hidden="true" />
+      <Field Name="stateId" Hidden="true" />
+      <Field Name="typeId" Hidden="true" />
+      <Method Name="UserStory" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>IAUCAAAARAAIAEAEAAREASAEBAEAAAAgAQAAKIAAIoA=</HashCode>
+      <FileName>Classes\UserStory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="Scrum_o_wall.Classes.IUsersAssigned">
+    <Position X="8" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\IUsersAssigned.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
