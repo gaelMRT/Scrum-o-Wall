@@ -13,9 +13,10 @@ using System.Windows.Documents.Serialization;
 
 namespace Scrum_o_wall.Classes
 {
-    public class Project
+    public class Project : IUsersAssigned
     {
         private int id;
+        private List<User> assignedUsers = new List<User>();
 
         /// <summary>
         /// Create a project with name,description and date
@@ -40,7 +41,22 @@ namespace Scrum_o_wall.Classes
         public List<Sprint> Sprints { get; set; } = new List<Sprint>();
         public List<MindMap> Roots { get; set; } = new List<MindMap>();
         public Dictionary<int,State> States { get; set; } = new Dictionary<int, State>();
-        public List<User> AssignedUsers { get; set; } = new List<User>();
+
+
+        public void AddUser(User user)
+        {
+            assignedUsers.Add(user);
+        }
+
+        public List<User> GetUsers()
+        {
+            return assignedUsers;
+        }
+
+        public void RemoveUser(User user)
+        {
+            assignedUsers.Remove(user);
+        }
 
         public override string ToString()
         {

@@ -243,3 +243,16 @@ Trouvé de quoi faire la ligne pour le burndown chart https://www.c-sharpcorner.
 ### Tâches accomplies
 - Fini les vues : FileCreate, FileEdit, FileMenu, ProjectEdit, StateCreate, StateMenu, UserCreate, UserEdit, UserStoryCreate
 - Il reste UserStoryEdit et UserMenu
+
+# 06.05
+
+### Tâches à faire 
+- Faire les vues restantes
+- Corriger le poster
+
+### Liens utiles et idées
+Afin de pouvoir utiliser le menu des utilisateurs j'ai du créer une interface car plusieurs classes différentes l'utiliseront. J'ai découvert grâce à cela que la version 8.0 de C# permet d'implémenter les propriétés. Cependant, vu que j'utilise la version 7.3, j'ai dû créer des méthodes pour altérer la liste d'utilisateurs.
+### Tâches accomplies
+- Fini les vues :  UserStoryEdit et UserMenu
+- Création d'une interface
+- Rajout du langage de programmation sur le poster

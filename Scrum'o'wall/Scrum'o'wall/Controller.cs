@@ -164,14 +164,19 @@ namespace Scrum_o_wall
             states = allStates;
         }
 
-        internal void CreateState(string text)
+        internal void CreateUser(string name)
         {
-            throw new NotImplementedException();
+            users.Add(DB.CreateUser(name));
         }
 
-        internal void CreateFile(string text1, string text2, UserStory userStory)
+        internal void CreateState(string name)
         {
-            throw new NotImplementedException();
+            states.Add(DB.CreateState(name));
+        }
+
+        internal void CreateFile(string fileName, string description, FileType fileType,UserStory userStory)
+        {
+            userStory.Files.Add(DB.CreateFile(fileName, description,fileType.Id, userStory.Id));
         }
 
         public void CreateComment(string text, UserStory userStory)

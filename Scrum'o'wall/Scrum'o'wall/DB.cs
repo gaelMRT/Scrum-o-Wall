@@ -199,6 +199,21 @@ namespace Scrum_o_wall
             return valuesPair;
         }
 
+        internal static State CreateState(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static Classes.File CreateFile(string fileName, string description, int idFileType, int idUserStory)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static User CreateUser(string text)
+        {
+            throw new NotImplementedException();
+        }
+
         internal static Comment CreateComment(string text, int id)
         {
             throw new NotImplementedException();

@@ -55,15 +55,21 @@ namespace Scrum_o_wall.Views
         private void btnGoLeft_Click(object sender, RoutedEventArgs e)
         {
             State state = lstAssignedStates.SelectedItem as State;
-            lstAssignedStates.Items.Remove(state);
-            lstPossibleStates.Items.Add(state);
+            if(state != null)
+            {
+                lstAssignedStates.Items.Remove(state);
+                lstPossibleStates.Items.Add(state);
+            }
         }
 
         private void btnGoRight_Click(object sender, RoutedEventArgs e)
         {
             State state = lstPossibleStates.SelectedItem as State;
-            lstPossibleStates.Items.Remove(state);
-            lstAssignedStates.Items.Add(state);
+            if(state != null)
+            {
+                lstPossibleStates.Items.Remove(state);
+                lstAssignedStates.Items.Add(state);
+            }
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)

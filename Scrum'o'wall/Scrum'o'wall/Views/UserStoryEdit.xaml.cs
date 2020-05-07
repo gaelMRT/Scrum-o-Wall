@@ -21,23 +21,23 @@ namespace Scrum_o_wall.Views
     public partial class UserStoryEdit : Window
     {
         UserStory userStory;
-        Controller ctrl;
+        Controller controller;
         public UserStoryEdit(UserStory aUserStory,Controller aController)
         {
             InitializeComponent();
             userStory = aUserStory;
-            ctrl = aController;
+            controller = aController;
 
             tbxDesc.Text = userStory.Text;
             dtpckrDateLimit.SelectedDate = userStory.DateLimit;
             tbxComplexity.Text = userStory.ComplexityEstimation.ToString();
             tbxCompletedComplexity.Text = userStory.CompletedComplexity.ToString();
 
-            foreach (Priority p in ctrl.Priorities)
+            foreach (Priority p in controller.Priorities)
             {
                 cbxPriority.Items.Add(p);
             }
-            foreach (Classes.Type t in ctrl.Types)
+            foreach (Classes.Type t in controller.Types)
             {
                 cbxType.Items.Add(t);
             }
@@ -47,7 +47,8 @@ namespace Scrum_o_wall.Views
 
         private void btnActivities_Click(object sender, RoutedEventArgs e)
         {
-
+            ActivitiesMenu activitiesMenu = new ActivitiesMenu(userStory.Activities);
+            activitiesMenu.ShowDialog();
         }
 
         private void btnUserAssigned_Click(object sender, RoutedEventArgs e)
@@ -57,22 +58,29 @@ namespace Scrum_o_wall.Views
 
         private void btnChecklists_Click(object sender, RoutedEventArgs e)
         {
-
+            ChecklistMenu checklistMenu = new ChecklistMenu(userStory, controller);
+            checklistMenu.ShowDialog();
         }
 
         private void btnComments_Click(object sender, RoutedEventArgs e)
         {
-
+            CommentMenu commentMenu = new CommentMenu(userStory, controller);
+            commentMenu.ShowDialog();
         }
 
         private void btnFiles_Click(object sender, RoutedEventArgs e)
         {
-
+            FileMenu fileMenu = new FileMenu(userStory, controller);
+            fileMenu.ShowDialog();
         }
 
         private void btnConfirm_Click(object sender, RoutedEventArgs e)
         {
-
+            if(tbxCompletedComplexity.Text.Length > 0 && tbxComplexity.Text.Length > 0 && tbxDesc.Text.Length > 0)
+            {
+                this.DialogResult = true;
+                this.Close();
+            }
         }
     }
 }

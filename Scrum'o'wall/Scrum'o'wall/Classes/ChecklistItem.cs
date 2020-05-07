@@ -12,10 +12,11 @@ using System.Threading.Tasks;
 
 namespace Scrum_o_wall.Classes
 {
-    public class ChecklistItem
+    public class ChecklistItem : IUsersAssigned
     {
         int id;
         int checklistId;
+        private List<User> assignedUsers = new List<User>();
 
         public ChecklistItem(int id, string nameItem, bool done, int checklistId)
         {
@@ -25,10 +26,24 @@ namespace Scrum_o_wall.Classes
             this.checklistId = checklistId;
         }
 
-        public int Id { get => id;  }
+        public int Id { get => id; }
         public string NameItem { get; set; }
         public bool Done { get; set; }
         public int ChecklistId { get => checklistId; }
-        public List<User> AssignedUsers { get; set; }
+
+        public void AddUser(User user)
+        {
+            assignedUsers.Add(user);
+        }
+
+        public List<User> GetUsers()
+        {
+            return assignedUsers;
+        }
+
+        public void RemoveUser(User user)
+        {
+            assignedUsers.Remove(user);
+        }
     }
 }

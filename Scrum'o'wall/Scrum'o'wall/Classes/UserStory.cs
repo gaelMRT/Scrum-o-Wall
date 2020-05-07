@@ -13,13 +13,14 @@ using System.Windows.Documents;
 
 namespace Scrum_o_wall.Classes
 {
-    public class UserStory
+    public class UserStory : IUsersAssigned
     {
         private int id;
         private int stateId;
         private int projectId;
         private int typeId;
         private int priorityId;
+        private List<User> assignedUsers = new List<User>();
 
         public UserStory(int anId, string aDesc, DateTime? aDateLimit, int aComplexity, int aCompletedComplexity, bool isBlocked, int aProjectId, int aStateId, int aTypeId, int aPriorityId)
         {
@@ -51,9 +52,23 @@ namespace Scrum_o_wall.Classes
         public List<Comment> Comments { get; set; } = new List<Comment>();
         public List<Activity> Activities { get; set; } = new List<Activity>();
         public List<Checklist> Checklists { get; set; } = new List<Checklist>();
-        public List<User> AssignedUsers { get; set; } = new List<User>();
         internal Priority Priority { get; set; }
 
+
+        public void AddUser(User user)
+        {
+            assignedUsers.Add(user);
+        }
+
+        public List<User> GetUsers()
+        {
+            return assignedUsers;
+        }
+
+        public void RemoveUser(User user)
+        {
+            assignedUsers.Remove(user);
+        }
         public override string ToString()
         {
             return Text;
