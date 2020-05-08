@@ -42,6 +42,10 @@ namespace Scrum_o_wall.Views
                 cbxType.Items.Add(t);
             }
 
+
+            cbxPriority.SelectedItem = userStory.Priority;
+            cbxType.SelectedItem = userStory.Type;
+
             chckBxBlocked.IsChecked = userStory.Blocked;
         }
 

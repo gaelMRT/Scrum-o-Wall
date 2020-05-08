@@ -37,14 +37,14 @@
             </Canvas.RenderTransform>
         </Canvas>
     </ScrollViewer>
-    <Button Grid.Row="1" x:Name="btnAddProject" Click="AddProject_Click" Content="+" VerticalContentAlignment="Top" Canvas.Left="573" Canvas.Top="835" Width="75" Height="68" BorderBrush="Black" FontSize="41">
+    <Button Grid.Row="1" x:Name="btnAddProject" Click="AddProject_Click" Content="+" VerticalContentAlignment="Top" Canvas.Left="573" Canvas.Top="835" Width="75" Height="75" BorderBrush="Black" FontSize="45" Margin="446,15,478,10">
         <Button.Resources>
             <Style TargetType="Border">
                 <Setter Property="CornerRadius" Value="50"/>
             </Style>
         </Button.Resources>
         </Button>
-        <Button Grid.Row="1" x:Name="btnReturn" Click="btnReturn_Click" Content="←" VerticalContentAlignment="Top" BorderBrush="Black" FontSize="45"  Canvas.Left="573" Canvas.Top="835" Width="75" Height="68" RenderTransformOrigin="0.36,7.613" Margin="354,16,570,16">
+        <Button Grid.Row="1" x:Name="btnReturn" Click="btnReturn_Click" Content="←" VerticalContentAlignment="Top" BorderBrush="Black" FontSize="45"  Canvas.Left="573" Canvas.Top="835" Width="75" Height="75" RenderTransformOrigin="0.36,7.613" Margin="366,15,558,10">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="50"/>

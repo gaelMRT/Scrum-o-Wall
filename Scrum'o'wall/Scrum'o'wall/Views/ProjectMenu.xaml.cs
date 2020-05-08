@@ -135,7 +135,7 @@ namespace Scrum_o_wall.Views
             UserStoryEdit userStoryEdit = new UserStoryEdit(userStory, controller);
             if (userStoryEdit.ShowDialog() == true)
             {
-                controller.UpdateUserStory( userStoryEdit.tbxDesc.Text, userStoryEdit.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryEdit.tbxComplexity.Text), Convert.ToInt32(userStoryEdit.tbxCompletedComplexity.Text), (Priority)userStoryEdit.cbxPriority.SelectedItem, (Classes.Type)userStoryEdit.cbxType.SelectedItem, userStory, currentProject);
+                controller.UpdateUserStory( userStoryEdit.tbxDesc.Text, userStoryEdit.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryEdit.tbxComplexity.Text), Convert.ToInt32(userStoryEdit.tbxCompletedComplexity.Text), userStoryEdit.chckBxBlocked.IsChecked == true,(Priority)userStoryEdit.cbxPriority.SelectedItem, (Classes.Type)userStoryEdit.cbxType.SelectedItem, userStory, currentProject);
                 Refresh();
             }
         }
@@ -169,7 +169,7 @@ namespace Scrum_o_wall.Views
 
         private void btnAddUserStory_Click(object sender, RoutedEventArgs e)
         {
-            UserStoryCreate userStoryCreate = new UserStoryCreate();
+            UserStoryCreate userStoryCreate = new UserStoryCreate(controller);
             if(userStoryCreate.ShowDialog() == true)
             {
                 controller.CreateUserStory(userStoryCreate.tbxDesc.Text, userStoryCreate.dtpckrDateLimit.SelectedDate, userStoryCreate.tbxComplexity.Text, (Priority)userStoryCreate.cbxPriority.SelectedItem, (Classes.Type)userStoryCreate.cbxType.SelectedItem,currentProject);

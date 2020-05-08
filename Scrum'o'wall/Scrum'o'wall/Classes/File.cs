@@ -31,6 +31,8 @@ namespace Scrum_o_wall.Classes
         public string Description { get; set; }
         public int FileTypeId { get; set; }
         public int UserStoryId { get => userStoryId; }
+        public FileType FileType { get; set; }
+
         public override string ToString()
         {
             return Name;

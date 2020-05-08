@@ -8,6 +8,7 @@ using Microsoft.Win32;
 using Scrum_o_wall.Classes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.OleDb;
 using System.Diagnostics;
 using System.IO;
@@ -16,6 +17,7 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
 
 namespace Scrum_o_wall
 {
@@ -24,7 +26,7 @@ namespace Scrum_o_wall
         private static OleDbConnection connection;
         private static OleDbConnection GetConnection()
         {
-            if(connection is null)
+            if (connection is null)
             {
                 OpenFileDialog opf = new OpenFileDialog();
                 opf.Title = "Quel base de données Access utiliser ?";
@@ -32,14 +34,142 @@ namespace Scrum_o_wall
                 opf.Filter = "Fichier Acces (*.accdb)|*.accdb";
                 do
                 {
-                    if(opf.ShowDialog() != true)
+                    if (opf.ShowDialog() != true)
                     {
                         Application.Current.Shutdown();
                     }
-                }while  (!opf.SafeFileName.Contains(".accdb"));
-                connection = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + opf.FileName+ ";Persist Security Info=False;");
+                } while (!opf.SafeFileName.Contains(".accdb"));
+                connection = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + opf.FileName + ";Persist Security Info=False;");
             }
             return connection;
+        }
+
+
+        public static void AddUserToChecklistItem(User user, ChecklistItem checklistItem)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "INSERT INTO TUserChecklistItem (IdUser,IdChecklistItem) VALUES (?,?);";
+            cmd.Parameters.Add("IdUser", OleDbType.Integer);
+            cmd.Parameters.Add("IdProject", OleDbType.Integer);
+            cmd.Parameters[0].Value = user.Id;
+            cmd.Parameters[1].Value = checklistItem.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            //Close database
+            DB.GetConnection().Close();
+        }
+        public static void AddUserToUserStory(User user, UserStory userStory)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "INSERT INTO TUserUserStory(IdUser,IdUserStory) VALUES (?,?);";
+            cmd.Parameters.Add("IdUser", OleDbType.Integer);
+            cmd.Parameters.Add("IdProject", OleDbType.Integer);
+            cmd.Parameters[0].Value = user.Id;
+            cmd.Parameters[1].Value = userStory.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            //Close database
+            DB.GetConnection().Close();
+        }
+        public static void AddUserToProject(User user, Project project)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "INSERT INTO TUserProject (IdUser,IdProject) VALUES (?,?);";
+            cmd.Parameters.Add("IdUser", OleDbType.Integer);
+            cmd.Parameters.Add("IdProject", OleDbType.Integer);
+            cmd.Parameters[0].Value = user.Id;
+            cmd.Parameters[1].Value = project.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            //Close database
+            DB.GetConnection().Close();
+        }
+        public static void RemoveUserFromUserStory(User user, UserStory userStory)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "DELETE FROM TUserUserStory WHERE IdUser = ? AND IdUserStory = ?;";
+            cmd.Parameters.Add("IdUser", OleDbType.Integer);
+            cmd.Parameters.Add("IdUserStory", OleDbType.Integer);
+            cmd.Parameters[0].Value = user.Id;
+            cmd.Parameters[1].Value = userStory.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            //Close database
+            DB.GetConnection().Close();
+        }
+        public static void RemoveUserFromProject(User user, Project project)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "DELETE FROM TUserProject WHERE IdUser = ? AND IdProject = ?;";
+            cmd.Parameters.Add("IdUser", OleDbType.Integer);
+            cmd.Parameters.Add("IdProject", OleDbType.Integer);
+            cmd.Parameters[0].Value = user.Id;
+            cmd.Parameters[1].Value = project.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            //Close database
+            DB.GetConnection().Close();
+        }
+        public static void RemoveUserFromChecklistItem(User user, ChecklistItem checklistItem)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "DELETE FROM TUserChecklistItem WHERE IdUser = ? AND IdChecklistItem = ?;";
+            cmd.Parameters.Add("IdUser", OleDbType.Integer);
+            cmd.Parameters.Add("IdChecklistItem", OleDbType.Integer);
+            cmd.Parameters[0].Value = user.Id;
+            cmd.Parameters[1].Value = checklistItem.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            //Close database
+            DB.GetConnection().Close();
         }
 
         public static Project CreateProject(string aName, string aDesc, DateTime aDate)
@@ -71,8 +201,428 @@ namespace Scrum_o_wall
             DB.GetConnection().Close();
 
             //return created project
-            Project p = new Project(id, aName, aDesc, aDate);
-            return p;
+            Project project = new Project(id, aName, aDesc, aDate);
+            return project;
+        }
+        public static ChecklistItem CreateCheckListItem(string aName, Checklist checklist)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+            int id;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "INSERT INTO TChecklistItems (NameItem,Done,IdChecklist) VALUES (?,?,?);";
+            cmd.Parameters.Add("NameItem", OleDbType.VarChar, 255);
+            cmd.Parameters.Add("Done", OleDbType.Boolean);
+            cmd.Parameters.Add("IdChecklist", OleDbType.Integer);
+            cmd.Parameters[0].Value = aName;
+            cmd.Parameters[1].Value = false;
+            cmd.Parameters[2].Value = checklist.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            //Get last inserted id
+            cmd.CommandText = "SELECT @@Identity;";
+            id = (int)cmd.ExecuteScalar();
+
+            //Close database
+            DB.GetConnection().Close();
+
+            //return created project
+            ChecklistItem checklistItem = new ChecklistItem(id, aName, false, checklist.Id);
+            return checklistItem;
+        }
+
+        public static Checklist CreateCheckList(string aName, UserStory userStory)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+            int id;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "INSERT INTO TChecklist (NameChecklist,IdUserStory) VALUES (?,?);";
+            cmd.Parameters.Add("NameChecklist", OleDbType.VarChar, 255);
+            cmd.Parameters.Add("IdUserStory", OleDbType.Integer);
+            cmd.Parameters[0].Value = aName;
+            cmd.Parameters[1].Value = userStory.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            //Get last inserted id
+            cmd.CommandText = "SELECT @@Identity;";
+            id = (int)cmd.ExecuteScalar();
+
+            //Close database
+            DB.GetConnection().Close();
+
+            //return created project
+            Checklist checklist = new Checklist(id, aName, userStory.Id);
+            return checklist;
+        }
+
+        public static UserStory CreateUserStory(string description, DateTime? selectedDate, int complexity, Priority priority, Classes.Type type, State state, Project project)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+            int id;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "INSERT INTO TUserStories (DescriptionUserStory,DateLimite,ComplexityEstimation,CompletedComplexity,Blocked,IdProject,IdState,IdType,IdPriority) VALUES (?,?,?,?,?,?,?,?,?);";
+            cmd.Parameters.Add("DescriptionUserStory", OleDbType.LongVarChar, 65535);
+            cmd.Parameters.Add("DateLimite", OleDbType.Date);
+            cmd.Parameters.Add("ComplexityEstimation", OleDbType.Integer);
+            cmd.Parameters.Add("CompletedComplexity", OleDbType.Integer);
+            cmd.Parameters.Add("Blocked", OleDbType.Boolean);
+            cmd.Parameters.Add("IdProject", OleDbType.Integer);
+            cmd.Parameters.Add("IdState", OleDbType.Integer);
+            cmd.Parameters.Add("IdType", OleDbType.Integer);
+            cmd.Parameters.Add("IdPriority", OleDbType.Integer);
+            cmd.Parameters[0].Value = description;
+            if (selectedDate == null)
+            {
+                cmd.Parameters[1].Value = DBNull.Value;
+            }
+            else
+            {
+                cmd.Parameters[1].Value = selectedDate;
+            }
+            cmd.Parameters[2].Value = complexity;
+            cmd.Parameters[3].Value = 0;
+            cmd.Parameters[4].Value = false;
+            cmd.Parameters[5].Value = project.Id;
+            cmd.Parameters[6].Value = state.Id;
+            cmd.Parameters[7].Value = type.Id;
+            cmd.Parameters[8].Value = priority.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            //Get last inserted id
+            cmd.CommandText = "SELECT @@Identity;";
+            id = (int)cmd.ExecuteScalar();
+
+            //Close database
+            DB.GetConnection().Close();
+
+            //return created project
+            UserStory userStory = new UserStory(id, description, selectedDate, complexity, 0, false, project.Id, state.Id, type.Id, priority.Id);
+            userStory.Priority = priority;
+            userStory.Type = type;
+            userStory.CurrentState = state;
+            return userStory;
+        }
+
+        public static State CreateState(string name)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+            int id;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "INSERT INTO TStates (NameState) VALUES (?);";
+            cmd.Parameters.Add("NameState", OleDbType.VarChar, 30);
+            cmd.Parameters[0].Value = name;
+
+            //Execute sql statement
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            //Get last inserted id
+            cmd.CommandText = "SELECT @@Identity;";
+            id = (int)cmd.ExecuteScalar();
+
+            //Close database
+            DB.GetConnection().Close();
+
+            //return created project
+            State state = new State(id, name);
+            return state;
+        }
+
+        public static Classes.File CreateFile(string fileName, string description, FileType fileType, UserStory userStory)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+            int id;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "INSERT INTO TStates (NameFile,DescriptionFile,IdFileType,IdUserStory) VALUES (?,?,?,?);";
+            cmd.Parameters.Add("NameState", OleDbType.LongVarChar, 65535);
+            cmd.Parameters.Add("DescriptionFile", OleDbType.LongVarChar, 65535);
+            cmd.Parameters.Add("IdFileType", OleDbType.Integer);
+            cmd.Parameters.Add("IdUserStory", OleDbType.Integer);
+            cmd.Parameters[0].Value = fileName;
+            cmd.Parameters[1].Value = description;
+            cmd.Parameters[2].Value = fileType.Id;
+            cmd.Parameters[3].Value = userStory.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            //Get last inserted id
+            cmd.CommandText = "SELECT @@Identity;";
+            id = (int)cmd.ExecuteScalar();
+
+            //Close database
+            DB.GetConnection().Close();
+
+            //return created project
+            Classes.File file = new Classes.File(id, fileName, description, fileType.Id, userStory.Id);
+            file.FileType = fileType;
+            return file;
+        }
+        public static User CreateUser(string name)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+            int id;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "INSERT INTO TUsers (NameUser) VALUES (?);";
+            cmd.Parameters.Add("NameUser", OleDbType.VarChar, 255);
+            cmd.Parameters[0].Value = name;
+
+            //Execute sql statement
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            //Get last inserted id
+            cmd.CommandText = "SELECT @@Identity;";
+            id = (int)cmd.ExecuteScalar();
+
+            //Close database
+            DB.GetConnection().Close();
+
+            //return created project
+            User user = new User(id, name);
+            return user;
+        }
+
+        public static Comment CreateComment(string name, UserStory userStory, User user)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+            int id;
+            DateTime dateTime = DateTime.Now;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "INSERT INTO TUsers (DescriptionComment,DateTime,IdUserStory,IdUser) VALUES (?,?,?,?);";
+            cmd.Parameters.Add("DescriptionComment", OleDbType.LongVarChar, 65535);
+            cmd.Parameters.Add("DateTime", OleDbType.Date);
+            cmd.Parameters.Add("IdUserStory", OleDbType.Integer);
+            cmd.Parameters.Add("IdUser", OleDbType.Integer);
+            cmd.Parameters[0].Value = name;
+            cmd.Parameters[1].Value = dateTime;
+            cmd.Parameters[2].Value = userStory.Id;
+            cmd.Parameters[3].Value = user.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            //Get last inserted id
+            cmd.CommandText = "SELECT @@Identity;";
+            id = (int)cmd.ExecuteScalar();
+
+            //Close database
+            DB.GetConnection().Close();
+
+            Comment comment = new Comment(id, name, dateTime, userStory.Id, user.Id);
+            return comment;
+        }
+
+        public static Sprint CreateSprint(DateTime dateBegin, DateTime dateEnd, Project project)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+            int id;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "INSERT INTO TSprints (DateBegin,DateEnd,IdProject) VALUES (?,?,?);";
+            cmd.Parameters.Add("DateBegin", OleDbType.Date);
+            cmd.Parameters.Add("DateEnd", OleDbType.Date);
+            cmd.Parameters.Add("IdProject", OleDbType.Integer);
+            cmd.Parameters[0].Value = dateBegin;
+            cmd.Parameters[1].Value = dateEnd;
+            cmd.Parameters[2].Value = project.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            //Get last inserted id
+            cmd.CommandText = "SELECT @@Identity;";
+            id = (int)cmd.ExecuteScalar();
+
+            //Close database
+            DB.GetConnection().Close();
+
+            Sprint sprint = new Sprint(id, dateBegin, dateEnd, project.Id);
+            sprint.Project = project;
+            return sprint;
+
+        }
+
+        public static void UpdateUserStory(string description, DateTime? selectedDate, int complexity, int completedComplexity, bool blocked, Priority priority, State state, Classes.Type type, UserStory userStory)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "UPDATE TUserStories SET DescriptionUserStory = ?, DateLimite = ?, ComplexityEstimation = ?, CompletedComplexity = ?,Blocked = ?,IdPriority = ?, IdState = ?, IdType = ? WHERE IdUserStory = ?;";
+            cmd.Parameters.Add("DescriptionUserStory", OleDbType.LongVarChar, 65535);
+            cmd.Parameters.Add("DateLimite", OleDbType.Date);
+            cmd.Parameters.Add("ComplexityEstimation", OleDbType.Integer);
+            cmd.Parameters.Add("CompletedComplexity", OleDbType.Integer);
+            cmd.Parameters.Add("Blocked", OleDbType.Boolean);
+            cmd.Parameters.Add("IdPriority", OleDbType.Integer);
+            cmd.Parameters.Add("IdState", OleDbType.Integer);
+            cmd.Parameters.Add("IdType", OleDbType.Integer);
+            cmd.Parameters.Add("IdUserStory", OleDbType.Integer);
+            cmd.Parameters[0].Value = description;
+            if (selectedDate == null)
+            {
+                cmd.Parameters[1].Value = DBNull.Value;
+            }
+            else
+            {
+                cmd.Parameters[1].Value = selectedDate;
+            }
+            cmd.Parameters[2].Value = complexity;
+            cmd.Parameters[3].Value = completedComplexity;
+            cmd.Parameters[4].Value = blocked;
+            cmd.Parameters[5].Value = priority.Id;
+            cmd.Parameters[6].Value = state.Id;
+            cmd.Parameters[7].Value = type.Id;
+            cmd.Parameters[8].Value = userStory.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            //Close database
+            DB.GetConnection().Close();
+        }
+
+        public static void UpdateFile(string fileDescription, FileType fileType, Classes.File file)
+        {
+
+            //Initialize variables
+            OleDbCommand cmd;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "UPDATE TFiles SET DescriptionFile = ?, IdFileType = ? WHERE IdFile = ?;";
+            cmd.Parameters.Add("DescriptionFile", OleDbType.LongVarChar, 65535);
+            cmd.Parameters.Add("IdFileType", OleDbType.Integer);
+            cmd.Parameters.Add("IdFile", OleDbType.Integer);
+            cmd.Parameters[0].Value = fileDescription;
+            cmd.Parameters[1].Value = fileType.Id;
+            cmd.Parameters[2].Value = file.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            //Close database
+            DB.GetConnection().Close();
+        }
+
+        public static void UpdateCheckList(string name, Checklist checklist)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "UPDATE TChecklists SET NameChecklist = ? WHERE IdChecklist = ?;";
+            cmd.Parameters.Add("NameChecklist", OleDbType.VarChar, 255);
+            cmd.Parameters.Add("IdChecklist", OleDbType.Integer);
+            cmd.Parameters[0].Value = name;
+            cmd.Parameters[1].Value = checklist.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            //Close database
+            DB.GetConnection().Close();
+        }
+
+        public static void UpdateCheckListItem(string nameItem, bool done, ChecklistItem checklistItem)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "UPDATE TChecklistItems SET NameItem = ?, Done = ? WHERE IdChecklistItem = ?;";
+            cmd.Parameters.Add("NameItem", OleDbType.VarChar, 255);
+            cmd.Parameters.Add("Done", OleDbType.Boolean);
+            cmd.Parameters.Add("IdChecklistItem", OleDbType.Integer);
+            cmd.Parameters[0].Value = nameItem;
+            cmd.Parameters[1].Value = done;
+            cmd.Parameters[2].Value = checklistItem;
+
+            //Execute sql statement
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            //Close database
+            DB.GetConnection().Close();
+        }
+
+        public static void UpdateProject(string name, string description, DateTime dateTime, Project project)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "UPDATE TProjects SET NameProject = ?,Description = ?, DateBegin = ? WHERE IdProject = ?;";
+            cmd.Parameters.Add("NameProject", OleDbType.VarChar, 25);
+            cmd.Parameters.Add("Description", OleDbType.LongVarChar, 65535);
+            cmd.Parameters.Add("DateBegin", OleDbType.Date);
+            cmd.Parameters.Add("IdProject", OleDbType.Integer);
+            cmd.Parameters[0].Value = name;
+            cmd.Parameters[1].Value = description;
+            cmd.Parameters[2].Value = dateTime;
+            cmd.Parameters[3].Value = project.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            //Close database
+            DB.GetConnection().Close();
         }
         public static List<int[]> GetUserStoriesSprint()
         {
@@ -127,7 +677,7 @@ namespace Scrum_o_wall
             {
                 rdr.GetValues(values);
                 // 0:IdProject,1:IdState,2:order
-                valuesPair.Add(new int[] { (int)values[0], (int)values[1],(int)values[2] });
+                valuesPair.Add(new int[] { (int)values[0], (int)values[1], (int)values[2] });
             }
 
             //Close database and reader
@@ -198,72 +748,6 @@ namespace Scrum_o_wall
 
             return valuesPair;
         }
-
-        public static void UpdateUserStory(string description, DateTime? selectedDate, int complexity, int completedComplexity, int prioriyId, int stateId, int typeId, int projectId,int userStoryId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static Classes.File UpdateFile(string fileDescription, int fileTypeId, int fileId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static UserStory CreateUserStory(string description, DateTime? selectedDate, string complexity, int priorityId, int typeId, int stateId, int projectId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static void UpdateCheckList(string name, int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static State CreateState(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static Classes.File CreateFile(string fileName, string description, int idFileType, int idUserStory)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static void UpdateCheckListItem(string nameItem, bool done, int checklistId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static User CreateUser(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static Comment CreateComment(string name, int userStoryId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static Sprint CreateSprint(DateTime dateBegin, DateTime dateEnd, int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static void UpdateProject(string name, string description, DateTime dateTime, int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static ChecklistItem CreateCheckListItem(string aName, int checklistId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static Checklist CreateCheckList(string aName)
-        {
-            throw new NotImplementedException();
-        }
-
         public static List<int[]> GetUserUserStory()
         {
             //Declare variables
@@ -384,7 +868,7 @@ namespace Scrum_o_wall
             {
                 rdr.GetValues(values);
                 // 0:idUserStory,1:DescriptionUserStory,2:DateLimite,3:ComplexityEstimation,4:CompletedComplexity,5:Blocked,6:ProjectId,7:StateId,8:TypeId,9:PriorityId
-                UserStory u = new UserStory((int)values[0], (string)values[1],values[2] as DateTime?, (int)values[3], (int)values[4], (bool)values[5], (int)values[6], (int)values[7], (int)values[8], (int)values[9]);
+                UserStory u = new UserStory((int)values[0], (string)values[1], values[2] as DateTime?, (int)values[3], (int)values[4], (bool)values[5], (int)values[6], (int)values[7], (int)values[8], (int)values[9]);
                 userStories.Add(u);
             }
 

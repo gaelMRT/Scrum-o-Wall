@@ -164,9 +164,42 @@ namespace Scrum_o_wall
             states = allStates;
         }
 
-        internal void UpdateUserStory(string description, DateTime? selectedDate, int complexity, int completedComplexity, Priority aPriority, Classes.Type aType, UserStory userStory, Project project)
+        public void RemoveUserFromChecklistItem(User user, ChecklistItem checklistItem)
         {
-            DB.UpdateUserStory(description, selectedDate, complexity, completedComplexity, aPriority.Id, aType.Id, project.States.First().Value.Id, project.Id, userStory.Id);
+            DB.RemoveUserFromChecklistItem(user, checklistItem);
+        }
+
+        public void AddUserToChecklistItem(User user, ChecklistItem checklistItem)
+        {
+            DB.AddUserToChecklistItem(user, checklistItem);
+            checklistItem.AddUser(user);
+        }
+
+        public void RemoveUserFromUserStory(User user, UserStory userStory)
+        {
+            DB.RemoveUserFromUserStory(user, userStory);
+        }
+
+        public void AddUserToUserStory(User user, UserStory userStory)
+        {
+            DB.AddUserToUserStory(user, userStory);
+            userStory.AddUser(user);
+        }
+
+        public void RemoveUserFromProject(User user, Project project)
+        {
+            DB.RemoveUserFromProject(user, project);
+        }
+
+        public void AddUserToProject(User user, Project project)
+        {
+            DB.AddUserToProject(user, project);
+            project.AddUser(user);
+        }
+
+        public void UpdateUserStory(string description, DateTime? selectedDate, int complexity, int completedComplexity,bool blocked, Priority aPriority, Classes.Type aType, UserStory userStory, Project project)
+        {
+            DB.UpdateUserStory(description, selectedDate, complexity, completedComplexity, blocked,aPriority, project.States.First().Value, aType, userStory);
             userStory.Text = description;
             userStory.DateLimit = selectedDate;
             userStory.ComplexityEstimation = complexity;
@@ -178,24 +211,24 @@ namespace Scrum_o_wall
 
         public void UpdateFile(string fileDescription, FileType fileType, Classes.File file)
         {
-            DB.UpdateFile(fileDescription, fileType.Id, file.Id);
+            DB.UpdateFile(fileDescription, fileType, file);
             file.Description = fileDescription;
         }
 
         public void UpdateCheckList(string name, List<ChecklistItem> items, Checklist checklist)
         {
-            DB.UpdateCheckList(name, checklist.Id);
+            DB.UpdateCheckList(name, checklist);
             checklist.Name = name;
             checklist.ChecklistItems.Clear();
             foreach (ChecklistItem item in items)
             {
                 if (item.Id == -1)
                 {
-                    checklist.ChecklistItems.Add(DB.CreateCheckListItem(item.NameItem, checklist.Id));
+                    checklist.ChecklistItems.Add(DB.CreateCheckListItem(item.NameItem, checklist));
                 }
                 else
                 {
-                    DB.UpdateCheckListItem(item.NameItem, item.Done, item.ChecklistId);
+                    DB.UpdateCheckListItem(item.NameItem, item.Done, item);
                     checklist.ChecklistItems.Add(item);
                 }
             }
@@ -203,18 +236,18 @@ namespace Scrum_o_wall
 
         public void CreateUserStory(string description, DateTime? selectedDate, string complexity, Priority aPriority, Classes.Type aType, Project aProject)
         {
-            UserStory userStory = DB.CreateUserStory(description, selectedDate, complexity, aPriority.Id, aType.Id, aProject.States.First().Value.Id, aProject.Id);
+            UserStory userStory = DB.CreateUserStory(description, selectedDate, Convert.ToInt32(complexity), aPriority, aType, aProject.States.First().Value, aProject);
             aProject.AllUserStories.Add(userStory);
         }
 
         public void CreateSprint(DateTime dateBegin, DateTime dateEnd, Project aProject)
         {
-            aProject.Sprints.Add(DB.CreateSprint(dateBegin, dateEnd, aProject.Id));
+            aProject.Sprints.Add(DB.CreateSprint(dateBegin, dateEnd, aProject));
         }
 
         public void UpdateProject(string name, string description, DateTime dateTime, Project aProject)
         {
-            DB.UpdateProject(name, description, dateTime, aProject.Id);
+            DB.UpdateProject(name, description, dateTime, aProject);
             aProject.Name = name;
             aProject.Description = description;
             aProject.Begin = dateTime;
@@ -222,7 +255,7 @@ namespace Scrum_o_wall
 
         public void CreateFile(string fileName, string description, FileType fileType, UserStory userStory)
         {
-            userStory.Files.Add(DB.CreateFile(fileName, description, fileType.Id, userStory.Id));
+            userStory.Files.Add(DB.CreateFile(fileName, description, fileType, userStory));
         }
 
         public void CreateUser(string name)
@@ -237,17 +270,17 @@ namespace Scrum_o_wall
 
         public void CreateComment(string text, UserStory userStory)
         {
-            userStory.Comments.Add(DB.CreateComment(text, userStory.Id));
+            userStory.Comments.Add(DB.CreateComment(text, userStory,userStory.GetUsers().First()));
         }
 
         public void CreateCheckListItem(string aName, Checklist checklist)
         {
-            checklist.ChecklistItems.Add(DB.CreateCheckListItem(aName, checklist.Id));
+            checklist.ChecklistItems.Add(DB.CreateCheckListItem(aName, checklist));
         }
 
         public Checklist CreateCheckList(string aName, UserStory aUserStory)
         {
-            Checklist checklist = DB.CreateCheckList(aName);
+            Checklist checklist = DB.CreateCheckList(aName,aUserStory);
             aUserStory.Checklists.Add(checklist);
             return checklist;
         }

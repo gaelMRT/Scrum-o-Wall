@@ -23,7 +23,7 @@ namespace Scrum_o_wall.Views
     {
         Sprint sprint;
         Controller controller;
-        public SprintMenu(Sprint aSprint,Controller aController)
+        public SprintMenu(Sprint aSprint, Controller aController)
         {
             InitializeComponent();
             sprint = aSprint;
@@ -34,11 +34,11 @@ namespace Scrum_o_wall.Views
             lblSprintName.Content = aSprint.ToString();
             //Define NameScope to use FindName later
             NameScope.SetNameScope(cnvsSprint, new NameScope());
-            foreach (KeyValuePair<int,State> keyValuePair in sprint.Project.States)
+            foreach (KeyValuePair<int, State> keyValuePair in sprint.Project.States)
             {
                 State state = keyValuePair.Value;
                 GroupBox groupBox = new GroupBox();
-                groupBox.Name = "gbx" + state.Name.Replace(" ","");
+                groupBox.Name = "gbx" + state.Name.Replace(" ", "");
                 groupBox.Content = state;
                 cnvsSprint.Children.Add(groupBox);
                 Canvas.SetTop(groupBox, 100);
@@ -72,11 +72,11 @@ namespace Scrum_o_wall.Views
             Dictionary<State, int> userStoriesPerState = new Dictionary<State, int>();
 
 
-            foreach (KeyValuePair<int,State> keyValuePair in sprint.Project.States)
+            foreach (KeyValuePair<int, State> keyValuePair in sprint.Project.States)
             {
                 State state = keyValuePair.Value;
                 GroupBox gbx = (GroupBox)cnvsSprint.FindName("gbx" + state.Name.Replace(" ", ""));
-                if(gbx != null)
+                if (gbx != null)
                 {
                     gbx.Width = widthGbx;
                     gbx.Height = cnvsSprint.ActualHeight - 190;
@@ -87,11 +87,11 @@ namespace Scrum_o_wall.Views
                 }
                 else
                 {
-                    MessageBox.Show("Un problème est survenue avec l'état '"+state.Name + "'.");
+                    MessageBox.Show("Un problème est survenue avec l'état '" + state.Name + "'.");
                 }
             }
             /// Place UserStories
-            foreach (KeyValuePair<int,UserStory> item in sprint.OrderedUserStories)
+            foreach (KeyValuePair<int, UserStory> item in sprint.OrderedUserStories)
             {
                 UserStory userStory = item.Value;
                 GroupBox gbx = (GroupBox)cnvsSprint.FindName("gbx" + userStory.CurrentState.Name.Replace(" ", ""));
@@ -118,7 +118,7 @@ namespace Scrum_o_wall.Views
                 Canvas.SetLeft(userControl, Canvas.GetLeft(gbx) + 10);
                 Canvas.SetTop(userControl, Canvas.GetTop(gbx) + 30 + 30 * userStoriesPerState[userStory.CurrentState]);
                 userStoriesPerState[userStory.CurrentState]++;
-                
+
             }
         }
 
@@ -142,7 +142,7 @@ namespace Scrum_o_wall.Views
             UserStoryEdit userStoryEdit = new UserStoryEdit(userStory, controller);
             if (userStoryEdit.ShowDialog() == true)
             {
-                controller.UpdateUserStory( userStoryEdit.tbxDesc.Text, userStoryEdit.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryEdit.tbxComplexity.Text), Convert.ToInt32(userStoryEdit.tbxCompletedComplexity.Text), (Priority)userStoryEdit.cbxPriority.SelectedItem, (Classes.Type)userStoryEdit.cbxType.SelectedItem,userStory, sprint.Project);
+                controller.UpdateUserStory(userStoryEdit.tbxDesc.Text, userStoryEdit.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryEdit.tbxComplexity.Text), Convert.ToInt32(userStoryEdit.tbxCompletedComplexity.Text), userStoryEdit.chckBxBlocked.IsChecked == true, (Priority)userStoryEdit.cbxPriority.SelectedItem, (Classes.Type)userStoryEdit.cbxType.SelectedItem, userStory, sprint.Project);
                 Refresh();
             }
         }

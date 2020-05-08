@@ -28,6 +28,10 @@ namespace Scrum_o_wall.Views
             controller = aController;
 
             InitializeComponent();
+
+            tbxDesc.Text = project.Description;
+            tbxName.Text = project.Name;
+            dtpckrDateBegin.SelectedDate = project.Begin;
         }
 
         private void btnConfirm_Click(object sender, RoutedEventArgs e)

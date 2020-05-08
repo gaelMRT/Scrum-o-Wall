@@ -272,3 +272,12 @@ Ce qui est lié à l'écran tactile.
 - Documentation sur les maquettes écrans refaite
 - Les diagrammes de classes ont été ajoutés et nécessitent une documentation plus poussée
 - Correction de bugs empêchant la compilation
+
+# 08.05
+
+### Tâches à faire
+- Implémenter les méthodes de la base de données
+### Liens utiles et idées
+J'ai eu un problème sur la base de données. Il y avait une erreur lors de l'ajout d'un champ pouvant être nul. Après une recherche, j'ai découvert grâce à cette source : https://www.c-sharpcorner.com/article/enter-null-values-for-datetime-column-of-sql-server/ qu'une classe DBNull possèdait une constante pour les valeurs nulles des bases de données.
+### Tâches accomplies
+- Implémentation des méthodes de la base de données

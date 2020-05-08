@@ -32,6 +32,8 @@ namespace Scrum_o_wall.Views
 
             itemsToAdd = new List<ChecklistItem>();
 
+            tbxName.Text = checklist.Name;
+
             Refresh();
         }
 

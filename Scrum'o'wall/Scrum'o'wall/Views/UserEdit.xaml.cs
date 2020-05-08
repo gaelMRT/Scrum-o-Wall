@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Scrum_o_wall.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,8 +20,13 @@ namespace Scrum_o_wall.Views
     /// </summary>
     public partial class UserEdit : Window
     {
-        public UserEdit()
+        User user;
+        public UserEdit(User aUser)
         {
+            user = aUser;
+
+            tbxUserName.Text = user.Name;
+
             InitializeComponent();
         }
 

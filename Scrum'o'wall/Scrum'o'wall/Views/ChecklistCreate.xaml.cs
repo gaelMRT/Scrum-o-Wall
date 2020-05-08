@@ -26,6 +26,7 @@ namespace Scrum_o_wall.Views
             InitializeComponent();
 
             itemsToAdd = new List<ChecklistItem>();
+
             Refresh();
         }
 
