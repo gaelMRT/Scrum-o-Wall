@@ -88,8 +88,8 @@ namespace Scrum_o_wall
                 usrCntrl.Background = Brushes.LightGray;
                 usrCntrl.Cursor = Cursors.Hand;
                 usrCntrl.Tag = p;
-                usrCntrl.TouchUp += UsrCntrl_TouchUp;
-                usrCntrl.MouseUp += UsrCntrl_MouseUp; ;
+                usrCntrl.TouchDown += UsrCntrl_TouchDown;
+                usrCntrl.MouseDown += UsrCntrl_MouseDown;
 
                 //Positioning of control
                 Canvas.SetLeft(usrCntrl, (cnvsProject.Width - usrCntrl.Width) / 2.0 + ((usrCntrl.Width + usrCntrl.Width / 4) * (i % 3 - 1)));
@@ -111,30 +111,27 @@ namespace Scrum_o_wall
             cnvsProject.Height = this.ActualHeight;
             scrllVwr.Width = cnvsProject.Width;
             scrllVwr.Height = cnvsProject.Height;
-            //Set the buttons position
-            Canvas.SetLeft(btnAddProject, cnvsProject.Width + btnAddProject.Width - 30);
-            Canvas.SetTop(btnAddProject, cnvsProject.Height - btnAddProject.Height - 20);
-            Canvas.SetLeft(btnReturn, cnvsProject.Width - btnAddProject.Width - 30);
-            Canvas.SetTop(btnReturn, cnvsProject.Height - btnAddProject.Height - 20);
 
             //Refresh the view
             Refresh();
 
         }
 
-        private void UsrCntrl_MouseUp(object sender, MouseButtonEventArgs e)
+        private void UsrCntrl_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if(e.LeftButton == MouseButtonState.Released)
+            if(e.ChangedButton == MouseButton.Left)
             {
                 Project p = (sender as UserControl).Tag as Project;
                 OpenProject(p);
             }
         }
 
-        private void UsrCntrl_TouchUp(object sender, TouchEventArgs e)
+        private void UsrCntrl_TouchDown(object sender, TouchEventArgs e)
         {
+            /*
             Project p = (sender as UserControl).Tag as Project;
             OpenProject(p);
+            */
         }
 
         private void OpenProject(Project p)
@@ -165,6 +162,16 @@ namespace Scrum_o_wall
         private void btnReturn_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void btnReturn_TouchDown(object sender, TouchEventArgs e)
+        {
+
+        }
+
+        private void btnAddProject_TouchDown(object sender, TouchEventArgs e)
+        {
+
         }
     }
 }

@@ -59,5 +59,31 @@ namespace Scrum_o_wall.Views
         {
             this.Close();
         }
+
+        private void btnStates_TouchDown(object sender, TouchEventArgs e)
+        {
+            StateMenu stateMenu = new StateMenu(project, controller);
+            stateMenu.ShowDialog();
+        }
+
+        private void btnUsers_TouchDown(object sender, TouchEventArgs e)
+        {
+            UserMenu userMenu = new UserMenu(project, controller);
+            userMenu.ShowDialog();
+        }
+
+        private void btnCancel_TouchDown(object sender, TouchEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnConfirm_TouchDown(object sender, TouchEventArgs e)
+        {
+            if (dtpckrDateBegin.SelectedDate != null && tbxDesc.Text.Length > 0 && tbxName.Text.Length > 0)
+            {
+                this.DialogResult = true;
+                this.Close();
+            }
+        }
     }
 }

@@ -25,7 +25,11 @@
             <RowDefinition />
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
-        <ScrollViewer x:Name="scrllVwr" VerticalScrollBarVisibility="Auto">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer x:Name="scrllVwr" VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
         <Canvas x:Name="cnvsProject" RenderTransformOrigin="0.5,0.5" Width="1000" Margin="0,0,0,0" HorizontalAlignment="Left" Height="796">
             <Canvas.RenderTransform>
                 <TransformGroup>
@@ -37,14 +41,14 @@
             </Canvas.RenderTransform>
         </Canvas>
     </ScrollViewer>
-    <Button Grid.Row="1" x:Name="btnAddProject" Click="AddProject_Click" Content="+" VerticalContentAlignment="Top" Canvas.Left="573" Canvas.Top="835" Width="75" Height="75" BorderBrush="Black" FontSize="45" Margin="446,15,478,10">
+    <Button Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" x:Name="btnAddProject" TouchDown="btnAddProject_TouchDown" Click="AddProject_Click" Content="+" VerticalContentAlignment="Top"  Width="75" Height="75" BorderBrush="Black" FontSize="45" Margin="10">
         <Button.Resources>
             <Style TargetType="Border">
                 <Setter Property="CornerRadius" Value="50"/>
             </Style>
         </Button.Resources>
         </Button>
-        <Button Grid.Row="1" x:Name="btnReturn" Click="btnReturn_Click" Content="←" VerticalContentAlignment="Top" BorderBrush="Black" FontSize="45"  Canvas.Left="573" Canvas.Top="835" Width="75" Height="75" RenderTransformOrigin="0.36,7.613" Margin="366,15,558,10">
+        <Button Grid.Row="1"  HorizontalAlignment="Right" x:Name="btnReturn" TouchDown="btnReturn_TouchDown" Click="btnReturn_Click" Content="←" VerticalContentAlignment="Top" BorderBrush="Black" FontSize="45"  Width="75" Height="75" Margin="10">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="50"/>

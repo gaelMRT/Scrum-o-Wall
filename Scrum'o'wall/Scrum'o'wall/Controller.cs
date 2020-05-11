@@ -164,34 +164,118 @@ namespace Scrum_o_wall
             states = allStates;
         }
 
-        public void RemoveUserFromChecklistItem(User user, ChecklistItem checklistItem)
+        public void LinkUserStoryWithSprint(UserStory userStory, Sprint sprint)
         {
-            DB.RemoveUserFromChecklistItem(user, checklistItem);
+            if (!sprint.OrderedUserStories.ContainsValue(userStory))
+            {
+                int order = 0;
+                while (sprint.OrderedUserStories.ContainsKey(order))
+                {
+                    order++;
+                }
+                sprint.addUserStory(order, userStory);
+                DB.LinkUserStoryWithSprint(userStory, sprint, order);
+                MessageBox.Show("Enregistrement créé");
+            }
         }
 
-        public void AddUserToChecklistItem(User user, ChecklistItem checklistItem)
+        public void AddStateToProject(State state, Project project)
+        {
+            int i = 0;
+            while (project.States.ContainsKey(i))
+            {
+                i++;
+            }
+            DB.AddStateToProject(state, project,i);
+            project.States.Add(i,state);
+        }
+
+        public void RemoveStateFromProject(State state, Project project)
+        {
+            int order = -1;
+            foreach (KeyValuePair<int,State> item in project.States)
+            {
+                if(item.Value == state)
+                {
+                    project.States.Remove(item.Key);
+                    order = item.Key;
+                    break;
+                }
+            }
+            DB.RemoveStateFromProject(project, order);
+        }
+
+        public bool RemoveUserFromIUsersAssigned(User user, IUsersAssigned usersAssigned)
+        {
+            string typeName = usersAssigned.GetType().Name;
+            switch (typeName)
+            {
+                case "Project":
+                    this.RemoveUserFromProject(user, usersAssigned as Project);
+                    break;
+                case "UserStory":
+                    this.RemoveUserFromUserStory(user, usersAssigned as UserStory);
+                    break;
+                case "ChecklistItem":
+                    this.RemoveUserFromChecklistItem(user, usersAssigned as ChecklistItem);
+                    break;
+                default:
+                    return false;
+            }
+            return true;
+        }
+        public bool AddUserToIUsersAssigned(User user, IUsersAssigned usersAssigned)
+        {
+
+            string typeName = usersAssigned.GetType().Name;
+            switch (typeName)
+            {
+                case "Project":
+                    this.AddUserToProject(user, usersAssigned as Project);
+                    break;
+                case "UserStory":
+                    this.AddUserToUserStory(user, usersAssigned as UserStory);
+                    break;
+                case "ChecklistItem":
+                    this.AddUserToChecklistItem(user, usersAssigned as ChecklistItem);
+                    break;
+                default:
+                    return false;
+            }
+            return true;
+        }
+
+        private void RemoveUserFromChecklistItem(User user, ChecklistItem checklistItem)
+        {
+            DB.RemoveUserFromChecklistItem(user, checklistItem);
+            checklistItem.RemoveUser(user);
+        }
+
+        private void AddUserToChecklistItem(User user, ChecklistItem checklistItem)
         {
             DB.AddUserToChecklistItem(user, checklistItem);
             checklistItem.AddUser(user);
         }
 
-        public void RemoveUserFromUserStory(User user, UserStory userStory)
+        private void RemoveUserFromUserStory(User user, UserStory userStory)
         {
             DB.RemoveUserFromUserStory(user, userStory);
+            userStory.RemoveUser(user);
         }
 
-        public void AddUserToUserStory(User user, UserStory userStory)
+        private void AddUserToUserStory(User user, UserStory userStory)
         {
             DB.AddUserToUserStory(user, userStory);
             userStory.AddUser(user);
         }
 
-        public void RemoveUserFromProject(User user, Project project)
+        private void RemoveUserFromProject(User user, Project project)
         {
             DB.RemoveUserFromProject(user, project);
+            project.RemoveUser(user);
         }
 
-        public void AddUserToProject(User user, Project project)
+        private void AddUserToProject(User user, Project project)
         {
             DB.AddUserToProject(user, project);
             project.AddUser(user);
@@ -293,7 +377,16 @@ namespace Scrum_o_wall
         /// <param name="aDate"></param>
         public void CreateProject(string aName, string aDesc, DateTime aDate)
         {
-            projects.Add(DB.CreateProject(aName, aDesc, aDate));
+            Project project =(DB.CreateProject(aName, aDesc, aDate));
+            project.States.Add(0, states[0]);
+            project.States.Add(1, states[1]);
+            project.States.Add(2, states[2]);
+
+            DB.AddStateToProject(states[0], project,0);
+            DB.AddStateToProject(states[1], project,1);
+            DB.AddStateToProject(states[2], project,2);
+
+            projects.Add(project);
         }
 
 

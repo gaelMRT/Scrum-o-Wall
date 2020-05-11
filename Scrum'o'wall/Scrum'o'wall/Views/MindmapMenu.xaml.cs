@@ -21,9 +21,11 @@ namespace Scrum_o_wall.Views
     public partial class MindmapMenu : Window
     {
         MindMap mindMap;
-        public MindmapMenu(MindMap aMindMap)
+        Controller controller;
+        public MindmapMenu(MindMap aMindMap, Controller aController)
         {
             mindMap = aMindMap;
+            controller = aController;
 
             InitializeComponent();
 

@@ -27,8 +27,8 @@
         <TextBlock Grid.Row="3" VerticalAlignment="Center" TextAlignment="Right" Height="20" >Type de fichier :</TextBlock>
         <ComboBox x:Name="cbxFileTypes" Grid.Column="1" HorizontalAlignment="Left" Margin="10" Grid.Row="3" VerticalAlignment="Top" Width="301"/>
 
-        <Button x:Name="btnCancel" Grid.Row="4" Margin="10" Click="btnCancel_Click">Annuler</Button>
-        <Button x:Name="btnConfirm" Grid.Row="4" Grid.Column="1" Margin="10" Click="btnConfirm_Click">Confirmer</Button>
+        <Button TouchDown="btnCancel_TouchDown" x:Name="btnCancel" Grid.Row="4" Margin="10" Click="btnCancel_Click">Annuler</Button>
+        <Button TouchDown="btnConfirm_TouchDown" x:Name="btnConfirm" Grid.Row="4" Grid.Column="1" Margin="10" Click="btnConfirm_Click">Confirmer</Button>
     </Grid>
 </Window>
 

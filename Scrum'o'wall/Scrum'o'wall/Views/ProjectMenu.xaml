@@ -33,21 +33,21 @@
         <GroupBox x:Name="gbxMindMap" Content="MindMap" Height="122" Width="388" Canvas.Top="238" Canvas.Right="10" Canvas.Left="402" Visibility="Hidden"   >
 
         </GroupBox>
-        <Button x:Name="btnReturn" Click="btnReturn_Click" Content="←" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="75" Height="75" BorderBrush="Black" FontSize="45" Canvas.Top="365" Canvas.Left="363">
+        <Button x:Name="btnReturn" TouchDown="btnReturn_TouchDown" Click="btnReturn_Click" Content="←" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="75" Height="75" BorderBrush="Black" FontSize="45" Canvas.Top="365" Canvas.Left="363">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="50"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="btnAddUserStory" Click="btnAddUserStory_Click" Content="+" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="40" Height="40" BorderBrush="Black" FontSize="23" Canvas.Top="320" Canvas.Left="193">
+        <Button x:Name="btnAddUserStory" TouchDown="btnAddUserStory_TouchDown" Click="btnAddUserStory_Click" Content="+" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="40" Height="40" BorderBrush="Black" FontSize="23" Canvas.Top="320" Canvas.Left="193">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="50"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="btnAddSprint" Click="btnAddSprint_Click" Content="+" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="40" Height="40" BorderBrush="Black" FontSize="23" Canvas.Top="320" Canvas.Left="588">
+        <Button x:Name="btnAddSprint" TouchDown="btnAddSprint_TouchDown" Click="btnAddSprint_Click" Content="+" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="40" Height="40" BorderBrush="Black" FontSize="23" Canvas.Top="320" Canvas.Left="588">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="50"/>

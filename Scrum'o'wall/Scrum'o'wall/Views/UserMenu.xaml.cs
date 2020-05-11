@@ -70,7 +70,7 @@ namespace Scrum_o_wall.Views
             }
         }
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
+        private void Save()
         {
             List<User> toRemove = new List<User>();
             List<User> toAdd = new List<User>();
@@ -85,47 +85,19 @@ namespace Scrum_o_wall.Views
                     toRemove.Add(user);
                 }
             }
-            string typeName = objectWithAssignedUsers.GetType().Name;
-            switch (typeName)
+            foreach (User user in toAdd)
             {
-                case "Project":
-                    foreach (User user in toAdd)
-                    {
-                        controller.AddUserToProject(user, objectWithAssignedUsers as Project);
-                    }
-                    foreach (User user in toRemove)
-                    {
-                        controller.RemoveUserFromProject(user, objectWithAssignedUsers as Project);
-                    }
-                    MessageBox.Show("Sauvegarde effectuée");
-                    break;
-                case "UserStory":
-                    foreach (User user in toAdd)
-                    {
-                        controller.AddUserToUserStory(user, objectWithAssignedUsers as UserStory);
-                    }
-                    foreach (User user in toRemove)
-                    {
-                        controller.RemoveUserFromUserStory(user, objectWithAssignedUsers as UserStory);
-                    }
-                    MessageBox.Show("Sauvegarde effectuée");
-                    break;
-                case "ChecklistItem":
-                    foreach (User user in toAdd)
-                    {
-                        controller.AddUserToChecklistItem(user, objectWithAssignedUsers as ChecklistItem);
-                    }
-                    foreach (User user in toRemove)
-                    {
-                        controller.RemoveUserFromChecklistItem(user, objectWithAssignedUsers as ChecklistItem);
-                    }
-                    MessageBox.Show("Sauvegarde effectuée");
-                    break;
-                default:
-                    MessageBox.Show("Une erreur est survenue. Objet \"" + typeName + "\" non connu");
-                    break;
+                controller.AddUserToIUsersAssigned(user, objectWithAssignedUsers);
             }
+            foreach (User user in toRemove)
+            {
+                controller.RemoveUserFromIUsersAssigned(user, objectWithAssignedUsers);
+            }
+        }
 
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            Save();
         }
 
         private void btnAddUser_Click(object sender, RoutedEventArgs e)
@@ -136,6 +108,41 @@ namespace Scrum_o_wall.Views
                 controller.CreateUser(userCreate.tbxUserName.Text);
                 Refresh();
             }
+        }
+
+        private void btnAddUser_TouchDown(object sender, TouchEventArgs e)
+        {
+            UserCreate userCreate = new UserCreate();
+            if (userCreate.ShowDialog() == true)
+            {
+                controller.CreateUser(userCreate.tbxUserName.Text);
+                Refresh();
+            }
+        }
+
+        private void btnGoLeft_TouchDown(object sender, TouchEventArgs e)
+        {
+            User state = lstAssignedUsers.SelectedItem as User;
+            if (state != null)
+            {
+                lstAssignedUsers.Items.Remove(state);
+                lstPossibleUsers.Items.Add(state);
+            }
+        }
+
+        private void btnGoRight_TouchDown(object sender, TouchEventArgs e)
+        {
+            User state = lstPossibleUsers.SelectedItem as User;
+            if (state != null)
+            {
+                lstPossibleUsers.Items.Remove(state);
+                lstAssignedUsers.Items.Add(state);
+            }
+        }
+
+        private void btnSave_TouchDown(object sender, TouchEventArgs e)
+        {
+            Save();
         }
     }
 }

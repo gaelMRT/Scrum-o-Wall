@@ -44,7 +44,7 @@ namespace Scrum_o_wall.Views
                 border.BorderThickness = new Thickness(1);
                 border.Width = 408;
                 border.Tag = file;
-                border.TouchUp += FileInList_TouchUp;
+                border.TouchDown += FileInList_TouchDown;
 
                 //Create grid
                 Grid grd = new Grid();
@@ -77,7 +77,7 @@ namespace Scrum_o_wall.Views
             }
         }
 
-        private void FileInList_TouchUp(object sender, TouchEventArgs e)
+        private void FileInList_TouchDown(object sender, TouchEventArgs e)
         {
             File file = (sender as Border).Tag as File;
             FileEdit fileEdit = new FileEdit(file,controller);
@@ -107,6 +107,21 @@ namespace Scrum_o_wall.Views
                 Refresh();
             }
 
+        }
+
+        private void btnCancel_TouchDown(object sender, TouchEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnAddFile_TouchDown(object sender, TouchEventArgs e)
+        {
+            FileCreate fileCreate = new FileCreate(controller);
+            if (fileCreate.ShowDialog() == true)
+            {
+                controller.CreateFile(fileCreate.tbxFileName.Text, fileCreate.tbxDescription.Text, fileCreate.cbxFileTypes.SelectedItem as FileType, userStory);
+                Refresh();
+            }
         }
     }
 }

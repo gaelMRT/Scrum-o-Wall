@@ -43,5 +43,19 @@ namespace Scrum_o_wall.Views
         {
             this.Close();
         }
+
+        private void btnCancel_TouchDown(object sender, TouchEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnConfirm_TouchDown(object sender, TouchEventArgs e)
+        {
+            if (tbxUserName.Text.Length > 1)
+            {
+                this.DialogResult = true;
+                this.Close();
+            }
+        }
     }
 }

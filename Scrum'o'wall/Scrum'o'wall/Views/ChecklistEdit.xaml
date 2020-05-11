@@ -28,10 +28,10 @@
             </Grid.RowDefinitions>
             <ListView x:Name="listItems" Margin="10">
             </ListView>
-            <Button x:Name="btnAddItem" Grid.Row="1" Margin="10" Click="btnAddItem_Click">Ajouter un objet</Button>
+            <Button x:Name="btnAddItem" Grid.Row="1" Margin="10" TouchDown="btnAddItem_TouchDown" Click="btnAddItem_Click">Ajouter un objet</Button>
         </Grid>
 
-        <Button x:Name="btnCancel" Grid.Row="3" Margin="10" Click="btnCancel_Click">Annuler</Button>
-        <Button x:Name="btnConfirm" Grid.Row="3" Grid.Column="1" Margin="10" Click="btnConfirm_Click">Confirmer</Button>
+        <Button x:Name="btnCancel" Grid.Row="3" Margin="10" Click="btnCancel_Click" TouchDown="btnCancel_TouchDown">Annuler</Button>
+        <Button x:Name="btnConfirm" Grid.Row="3" Grid.Column="1" Margin="10" Click="btnConfirm_Click" TouchDown="btnConfirm_TouchDown">Confirmer</Button>
     </Grid>
 </Window>

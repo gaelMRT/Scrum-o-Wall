@@ -204,6 +204,33 @@ namespace Scrum_o_wall
             Project project = new Project(id, aName, aDesc, aDate);
             return project;
         }
+
+        public static void LinkUserStoryWithSprint(UserStory userStory, Sprint sprint, int order)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "INSERT INTO TUserStoriesSprint (IdUserStory , IdSprint , OrderUserStory) VALUES (? , ? , ?) ;";
+
+            cmd.Parameters.Add("IdUserStory", OleDbType.Integer);
+            cmd.Parameters.Add("IdSprint", OleDbType.Integer);
+            cmd.Parameters.Add("OrderUserStory", OleDbType.Integer);
+
+            cmd.Parameters[0].Value = userStory.Id;
+            cmd.Parameters[1].Value = sprint.Id;
+            cmd.Parameters[2].Value = order;
+
+            //Execute sql statement
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            //Close database
+            DB.GetConnection().Close();
+        }
+
         public static ChecklistItem CreateCheckListItem(string aName, Checklist checklist)
         {
             //Initialize variables
@@ -1207,6 +1234,51 @@ namespace Scrum_o_wall
 
             return states;
 
+        }
+        public static void AddStateToProject(State state, Project project, int order)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "INSERT INTO TProjectStates (IdProject,IdState,orderState) VALUES (?,?,?) ;";
+            cmd.Parameters.Add("IdProject", OleDbType.Integer);
+            cmd.Parameters.Add("IdState", OleDbType.Integer);
+            cmd.Parameters.Add("orderState", OleDbType.Integer);
+            cmd.Parameters[0].Value = project.Id;
+            cmd.Parameters[1].Value = state.Id;
+            cmd.Parameters[2].Value = order;
+
+            //Execute sql statement
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            //Close database
+            DB.GetConnection().Close();
+        }
+
+        public static void RemoveStateFromProject(Project project, int order)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "DELETE FROM TProjectStates WHERE IdProject = ? AND orderState = ?;";
+            cmd.Parameters.Add("IdProject", OleDbType.Integer);
+            cmd.Parameters.Add("orderState", OleDbType.Integer);
+            cmd.Parameters[0].Value = project.Id;
+            cmd.Parameters[1].Value = order;
+
+            //Execute sql statement
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            //Close database
+            DB.GetConnection().Close();
         }
 
     }

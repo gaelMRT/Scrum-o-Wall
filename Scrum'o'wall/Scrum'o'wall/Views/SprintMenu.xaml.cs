@@ -110,7 +110,7 @@ namespace Scrum_o_wall.Views
                 userControl.Height = 20;
                 userControl.Tag = userStory;
                 userControl.MouseUp += usrCtrlUserStory_MouseUp;
-                userControl.TouchUp += usrCtrlUserStory_TouchUp;
+                userControl.TouchDown += usrCtrlUserStory_TouchDown;
 
                 cnvsSprint.Children.Add(userControl);
 
@@ -130,7 +130,7 @@ namespace Scrum_o_wall.Views
             UserStoryEditing(userStory);
         }
 
-        private void usrCtrlUserStory_TouchUp(object sender, TouchEventArgs e)
+        private void usrCtrlUserStory_TouchDown(object sender, TouchEventArgs e)
         {
             UserStory userStory = (sender as UserControl).Tag as UserStory;
             UserStoryEditing(userStory);
@@ -164,6 +164,17 @@ namespace Scrum_o_wall.Views
         {
             BurndownChart burndownChart = new BurndownChart(sprint);
             burndownChart.ShowDialog();
+        }
+
+        private void btnBurndownChart_TouchDown(object sender, TouchEventArgs e)
+        {
+            BurndownChart burndownChart = new BurndownChart(sprint);
+            burndownChart.ShowDialog();
+        }
+
+        private void btnReturn_TouchDown(object sender, TouchEventArgs e)
+        {
+            this.Close();
         }
     }
 }

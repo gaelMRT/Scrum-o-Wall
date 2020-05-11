@@ -35,11 +35,11 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Margin="10" Name="btnStates" Click="btnStates_Click">Colonnes</Button>
-            <Button  Grid.Column="1" Margin="10" Name="btnUsers" Click="btnUsers_Click">Utilisateurs assignés</Button>
+            <Button TouchDown="btnStates_TouchDown" Margin="10" Name="btnStates" Click="btnStates_Click">Colonnes</Button>
+            <Button TouchDown="btnUsers_TouchDown" Grid.Column="1" Margin="10" Name="btnUsers" Click="btnUsers_Click">Utilisateurs assignés</Button>
         </Grid>
 
-        <Button x:Name="btnCancel" Click="btnCancel_Click" Grid.Row="5" Margin="10">Annuler</Button>
-        <Button x:Name="btnConfirm" Click="btnConfirm_Click" Grid.Row="5" Grid.Column="1" Margin="10">Confirmer</Button>
+        <Button x:Name="btnCancel" TouchDown="btnCancel_TouchDown" Click="btnCancel_Click" Grid.Row="5" Margin="10">Annuler</Button>
+        <Button x:Name="btnConfirm" TouchDown="btnConfirm_TouchDown" Click="btnConfirm_Click" Grid.Row="5" Grid.Column="1" Margin="10">Confirmer</Button>
     </Grid>
 </Window>

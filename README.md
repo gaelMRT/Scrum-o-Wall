@@ -281,3 +281,24 @@ Ce qui est lié à l'écran tactile.
 J'ai eu un problème sur la base de données. Il y avait une erreur lors de l'ajout d'un champ pouvant être nul. Après une recherche, j'ai découvert grâce à cette source : https://www.c-sharpcorner.com/article/enter-null-values-for-datetime-column-of-sql-server/ qu'une classe DBNull possèdait une constante pour les valeurs nulles des bases de données.
 ### Tâches accomplies
 - Implémentation des méthodes de la base de données
+
+# 09.05
+
+### Tâches à faire 
+- Rajouter la gestion de l'écran tactile.
+- Inclure le drag'n'drop sur ProjectMenu
+### Liens utiles et idées
+J'ai remarqué qu'il me manquait une vue la dernière fois. Il me manque ChecklistItemEdit.
+
+En plus, il faut que je commence à m'intéresser au drag'n'drop en wpf. J'ai trouvé ce post sur stackoverflow qui pourrait m'en apprendre plus : https://stackoverflow.com/questions/11306194/wpf-dragenter-between-two-canvas-not-firing
+Je vais essayer de faire un drag and drop sur le menu du projet.
+
+Le post stackoverflow renvoie sur un tutoriel de wpftutorial : http://wpftutorial.net/DragAndDrop.html.
+
+
+J'ai un problème pour la liaison du sprint avec les user stories "INSERT INTO TUserStoriesSprint (IdUserStory,IdSprint,Order) VALUES (2,3,1);" ne fonctionne pas avec erreur de syntaxe mais "INSERT INTO TUserStoriesSprint VALUES (2,3,1);" fonctionne.
+
+Après avoir cherché beaucoup trop de temps pour que ce soit raisonnable, j'ai trouvé le problème. Le mot order est reservé par SQL pour le "ORDER BY". j'ai donc renommé le nom du champ par "OrderUserStory".
+### Tâches accomplies
+- Gestion de l'écran tactile accomplies
+- Le drag'n'drop a été ajouté sur ProjectMenu 

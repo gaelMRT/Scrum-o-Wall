@@ -58,5 +58,29 @@ namespace Scrum_o_wall.Views
                 this.Close();
             }
         }
+
+        private void btnCancel_TouchDown(object sender, TouchEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnConfirm_TouchDown(object sender, TouchEventArgs e)
+        {
+            if (tbxDescription.Text.Length > 1 && tbxFileName.Text.Length > 1 && System.IO.File.Exists(tbxFileName.Text) && cbxFileTypes.SelectedItem != null)
+            {
+                this.DialogResult = true;
+                this.Close();
+            }
+        }
+
+        private void btnFileSearch_TouchDown(object sender, TouchEventArgs e)
+        {
+            OpenFileDialog opf = new OpenFileDialog();
+            opf.Multiselect = false;
+            if (opf.ShowDialog() == true)
+            {
+                tbxFileName.Text = opf.FileName;
+            }
+        }
     }
 }

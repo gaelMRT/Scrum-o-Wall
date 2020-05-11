@@ -1,5 +1,6 @@
 ﻿using Scrum_o_wall.Classes;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,9 @@ namespace Scrum_o_wall.Views
     {
         Project currentProject;
         Controller controller;
+        Dictionary<InputDevice, Border> dragging = new Dictionary<InputDevice, Border>();
+        Dictionary<InputDevice, Point> startPoint = new Dictionary<InputDevice, Point>();
+
         public ProjectMenu(Project p, Controller ctrl)
         {
             InitializeComponent();
@@ -81,12 +85,16 @@ namespace Scrum_o_wall.Views
                 userControl.Content = sprint.ToString();
                 userControl.Width = cnvsSprints.Width - 40;
                 userControl.BorderBrush = Brushes.Black;
+                userControl.BorderThickness = new Thickness(1);
                 userControl.Background = Brushes.LightGray;
                 userControl.Cursor = Cursors.Hand;
                 userControl.Height = 20;
                 userControl.Tag = sprint;
-                userControl.MouseUp += usrCtrlSprint_MouseUp;
-                userControl.TouchUp += usrCtrlSprint_TouchUp;
+                userControl.TouchDown += usrCtrlSprint_TouchDown;
+                userControl.AllowDrop = true;
+                userControl.Drop += sprint_Drop;
+                userControl.DragEnter += sprint_DragEnter;
+                userControl.DragLeave += sprint_DragLeave;
 
                 cnvsSprints.Children.Add(userControl);
 
@@ -103,11 +111,13 @@ namespace Scrum_o_wall.Views
                 userControl.Content = userStory.ToString();
                 userControl.Width = cnvsUserStories.Width - 40;
                 userControl.BorderBrush = Brushes.Black;
+                userControl.BorderThickness = new Thickness(1);
                 userControl.Background = Brushes.LightGray;
                 userControl.Cursor = Cursors.Hand;
                 userControl.Height = 20;
                 userControl.Tag = userStory;
-                userControl.MouseUp += usrCtrlUserStory_MouseUp;
+                userControl.PreviewTouchDown += userStory_PreviewTouchDown;
+                userControl.PreviewTouchMove += userStory_PreviewTouchMove;
                 userControl.TouchUp += usrCtrlUserStory_TouchUp;
 
                 cnvsUserStories.Children.Add(userControl);
@@ -117,17 +127,69 @@ namespace Scrum_o_wall.Views
             }
         }
 
-
-        private void usrCtrlUserStory_MouseUp(object sender, MouseButtonEventArgs e)
+        private void sprint_DragLeave(object sender, DragEventArgs e)
         {
-            UserStory userStory = (sender as UserControl).Tag as UserStory;
-            UserStoryEditing(userStory);
+            UserControl userControl = sender as UserControl;
+            userControl.BorderThickness = new Thickness(1);
+        }
+
+        private void sprint_DragEnter(object sender, DragEventArgs e)
+        {
+            UserControl userControl = sender as UserControl;
+
+            userControl.BorderThickness = new Thickness(3);
+        }
+
+        private void sprint_Drop(object sender, DragEventArgs e)
+        {
+            UserControl userControl = sender as UserControl;
+            userControl.BorderThickness = new Thickness(1);
+
+            Sprint sprint = userControl.Tag as Sprint;
+            UserStory userStory = e.Data.GetData("drag") as UserStory;
+
+            controller.LinkUserStoryWithSprint(userStory, sprint);
+        }
+
+
+        private void userStory_PreviewTouchDown(object sender, TouchEventArgs e)
+        {
+            startPoint.Add(e.Device, e.GetTouchPoint(null).Position);
+        }
+
+        private void userStory_PreviewTouchMove(object sender, TouchEventArgs e)
+        {
+            if (startPoint.ContainsKey(e.Device))
+            {
+                Point position = e.GetTouchPoint(null).Position;
+                Vector diff = startPoint[e.Device] - position;
+
+                if (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance || Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance)
+                {
+                    //extract data
+                    UserControl userControl = sender as UserControl;
+                    UserStory userStory = userControl.Tag as UserStory;
+
+                    //Drag'n'drop init
+                    DataObject dragData = new DataObject("drag", userStory);
+                    DragDrop.DoDragDrop(userControl, dragData, DragDropEffects.Move);
+
+                }
+            }
         }
 
         private void usrCtrlUserStory_TouchUp(object sender, TouchEventArgs e)
         {
-            UserStory userStory = (sender as UserControl).Tag as UserStory;
-            UserStoryEditing(userStory);
+            if (startPoint.ContainsKey(e.Device))
+            {
+                startPoint.Remove(e.Device);
+                dragging.Remove(e.Device);
+            }
+            else
+            {
+                UserStory userStory = (sender as UserControl).Tag as UserStory;
+                UserStoryEditing(userStory);
+            }
         }
 
         private void UserStoryEditing(UserStory userStory)
@@ -135,18 +197,12 @@ namespace Scrum_o_wall.Views
             UserStoryEdit userStoryEdit = new UserStoryEdit(userStory, controller);
             if (userStoryEdit.ShowDialog() == true)
             {
-                controller.UpdateUserStory( userStoryEdit.tbxDesc.Text, userStoryEdit.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryEdit.tbxComplexity.Text), Convert.ToInt32(userStoryEdit.tbxCompletedComplexity.Text), userStoryEdit.chckBxBlocked.IsChecked == true,(Priority)userStoryEdit.cbxPriority.SelectedItem, (Classes.Type)userStoryEdit.cbxType.SelectedItem, userStory, currentProject);
+                controller.UpdateUserStory(userStoryEdit.tbxDesc.Text, userStoryEdit.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryEdit.tbxComplexity.Text), Convert.ToInt32(userStoryEdit.tbxCompletedComplexity.Text), userStoryEdit.chckBxBlocked.IsChecked == true, (Priority)userStoryEdit.cbxPriority.SelectedItem, (Classes.Type)userStoryEdit.cbxType.SelectedItem, userStory, currentProject);
                 Refresh();
             }
         }
 
-        private void usrCtrlSprint_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            Sprint s = (sender as UserControl).Tag as Sprint;
-            OpenSprint(s);
-        }
-
-        private void usrCtrlSprint_TouchUp(object sender, TouchEventArgs e)
+        private void usrCtrlSprint_TouchDown(object sender, TouchEventArgs e)
         {
             Sprint s = (sender as UserControl).Tag as Sprint;
             OpenSprint(s);
@@ -170,9 +226,9 @@ namespace Scrum_o_wall.Views
         private void btnAddUserStory_Click(object sender, RoutedEventArgs e)
         {
             UserStoryCreate userStoryCreate = new UserStoryCreate(controller);
-            if(userStoryCreate.ShowDialog() == true)
+            if (userStoryCreate.ShowDialog() == true)
             {
-                controller.CreateUserStory(userStoryCreate.tbxDesc.Text, userStoryCreate.dtpckrDateLimit.SelectedDate, userStoryCreate.tbxComplexity.Text, (Priority)userStoryCreate.cbxPriority.SelectedItem, (Classes.Type)userStoryCreate.cbxType.SelectedItem,currentProject);
+                controller.CreateUserStory(userStoryCreate.tbxDesc.Text, userStoryCreate.dtpckrDateLimit.SelectedDate, userStoryCreate.tbxComplexity.Text, (Priority)userStoryCreate.cbxPriority.SelectedItem, (Classes.Type)userStoryCreate.cbxType.SelectedItem, currentProject);
                 Refresh();
             }
         }
@@ -180,7 +236,7 @@ namespace Scrum_o_wall.Views
         private void btnAddSprint_Click(object sender, RoutedEventArgs e)
         {
             SprintCreate sprintCreate = new SprintCreate();
-            if(sprintCreate.ShowDialog() == true)
+            if (sprintCreate.ShowDialog() == true)
             {
                 controller.CreateSprint((DateTime)sprintCreate.dtpckDateBegin.SelectedDate, (DateTime)sprintCreate.dtpckDateEnd.SelectedDate, currentProject);
                 Refresh();
@@ -190,9 +246,34 @@ namespace Scrum_o_wall.Views
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
             ProjectEdit projectEdit = new ProjectEdit(currentProject, controller);
-            if(projectEdit.ShowDialog() == true)
+            if (projectEdit.ShowDialog() == true)
             {
-                controller.UpdateProject(projectEdit.tbxName.Text, projectEdit.tbxDesc.Text, (DateTime)projectEdit.dtpckrDateBegin.SelectedDate ,currentProject);
+                controller.UpdateProject(projectEdit.tbxName.Text, projectEdit.tbxDesc.Text, (DateTime)projectEdit.dtpckrDateBegin.SelectedDate, currentProject);
+                Refresh();
+            }
+        }
+
+        private void btnReturn_TouchDown(object sender, TouchEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnAddUserStory_TouchDown(object sender, TouchEventArgs e)
+        {
+            UserStoryCreate userStoryCreate = new UserStoryCreate(controller);
+            if (userStoryCreate.ShowDialog() == true)
+            {
+                controller.CreateUserStory(userStoryCreate.tbxDesc.Text, userStoryCreate.dtpckrDateLimit.SelectedDate, userStoryCreate.tbxComplexity.Text, (Priority)userStoryCreate.cbxPriority.SelectedItem, (Classes.Type)userStoryCreate.cbxType.SelectedItem, currentProject);
+                Refresh();
+            }
+        }
+
+        private void btnAddSprint_TouchDown(object sender, TouchEventArgs e)
+        {
+            SprintCreate sprintCreate = new SprintCreate();
+            if (sprintCreate.ShowDialog() == true)
+            {
+                controller.CreateSprint((DateTime)sprintCreate.dtpckDateBegin.SelectedDate, (DateTime)sprintCreate.dtpckDateEnd.SelectedDate, currentProject);
                 Refresh();
             }
         }

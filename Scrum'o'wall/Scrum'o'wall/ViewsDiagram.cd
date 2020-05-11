@@ -170,9 +170,9 @@
       <Method Name="ProjectMenu_Loaded" Hidden="true" />
       <Method Name="Quit_Click" Hidden="true" />
       <Method Name="usrCtrlSprint_MouseUp" Hidden="true" />
-      <Method Name="usrCtrlSprint_TouchUp" Hidden="true" />
+      <Method Name="usrCtrlSprint_TouchDown" Hidden="true" />
       <Method Name="usrCtrlUserStory_MouseUp" Hidden="true" />
-      <Method Name="usrCtrlUserStory_TouchUp" Hidden="true" />
+      <Method Name="usrCtrlUserStory_TouchDown" Hidden="true" />
     </Members>
     <TypeIdentifier>
       <HashCode>AAAAgAAEEAhAAAEEgAAAAAAACAAAAAAAAAAAACAAAIA=</HashCode>
@@ -202,7 +202,7 @@
       <Method Name="SprintMenu" Hidden="true" />
       <Method Name="SprintMenu_Loaded" Hidden="true" />
       <Method Name="usrCtrlUserStory_MouseUp" Hidden="true" />
-      <Method Name="usrCtrlUserStory_TouchUp" Hidden="true" />
+      <Method Name="usrCtrlUserStory_TouchDown" Hidden="true" />
     </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAABAAAEEgAAAAAAACAAQAAAAAAACACIAAAA=</HashCode>
@@ -299,7 +299,7 @@
       <Method Name="MainMenu_Loaded" Hidden="true" />
       <Method Name="Quit_Click" Hidden="true" />
       <Method Name="UsrCntrl_MouseUp" Hidden="true" />
-      <Method Name="UsrCntrl_TouchUp" Hidden="true" />
+      <Method Name="UsrCntrl_TouchDown" Hidden="true" />
     </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAAEABAAAkAAAAAAAAAAggAAAAIAAAAACAABAA=</HashCode>

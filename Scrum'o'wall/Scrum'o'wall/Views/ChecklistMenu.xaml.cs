@@ -124,5 +124,24 @@ namespace Scrum_o_wall.Views
                 Refresh();
             }
         }
+
+        private void btnCancel_TouchDown(object sender, TouchEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnAddList_TouchDown(object sender, TouchEventArgs e)
+        {
+            ChecklistCreate checklistCreate = new ChecklistCreate();
+            if (checklistCreate.ShowDialog() == true)
+            {
+                Checklist checklist = controller.CreateCheckList(checklistCreate.tbxName.Text, userStory);
+                foreach (CheckBox item in checklistCreate.listItems.Items)
+                {
+                    controller.CreateCheckListItem(item.Content.ToString(), checklist);
+                }
+                Refresh();
+            }
+        }
     }
 }

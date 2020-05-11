@@ -64,5 +64,31 @@ namespace Scrum_o_wall.Views
                 this.Close();
             }
         }
+
+        private void btnCancel_TouchDown(object sender, TouchEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnConfirm_TouchDown(object sender, TouchEventArgs e)
+        {
+            if (tbxName.Text.Length > 0 && listItems.Items.Count > 0)
+            {
+                this.DialogResult = true;
+                this.Close();
+            }
+        }
+
+        private void btnAddItem_TouchDown(object sender, TouchEventArgs e)
+        {
+            ChecklistItemCreate checklistItemCreate = new ChecklistItemCreate();
+            if (checklistItemCreate.ShowDialog() == true)
+            {
+                ChecklistItem checklistItem = new ChecklistItem(-1, checklistItemCreate.tbxObjet.Text, false, -1);
+
+                itemsToAdd.Add(checklistItem);
+                Refresh();
+            }
+        }
     }
 }

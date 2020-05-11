@@ -22,6 +22,6 @@
             </ListView>
         </Border>
 
-        <Button x:Name="btnCancel" Grid.Row="2" Grid.ColumnSpan="2" Margin="10" Click="btnCancel_Click">Retour</Button>
+        <Button x:Name="btnCancel" Grid.Row="2" Grid.ColumnSpan="2" Margin="10" Click="btnCancel_Click" TouchDown="btnCancel_TouchDown">Retour</Button>
     </Grid>
 </Window>

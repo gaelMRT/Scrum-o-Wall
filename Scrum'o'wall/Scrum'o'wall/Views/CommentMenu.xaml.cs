@@ -60,5 +60,20 @@ namespace Scrum_o_wall.Views
                 Refresh();
             }
         }
+
+        private void btnCancel_TouchDown(object sender, TouchEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnAddComment_TouchDown(object sender, TouchEventArgs e)
+        {
+            CommentCreate commentCreate = new CommentCreate(userStory.GetUsers());
+            if (commentCreate.ShowDialog() == true)
+            {
+                controller.CreateComment(commentCreate.tbxContent.Text, userStory);
+                Refresh();
+            }
+        }
     }
 }
