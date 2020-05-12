@@ -90,6 +90,7 @@ namespace Scrum_o_wall.Views
                 userControl.Cursor = Cursors.Hand;
                 userControl.Height = 20;
                 userControl.Tag = sprint;
+                userControl.MouseLeftButtonUp += sprint_MouseLeftButtonUp;
                 userControl.TouchDown += usrCtrlSprint_TouchDown;
                 userControl.AllowDrop = true;
                 userControl.Drop += sprint_Drop;
@@ -116,6 +117,7 @@ namespace Scrum_o_wall.Views
                 userControl.Cursor = Cursors.Hand;
                 userControl.Height = 20;
                 userControl.Tag = userStory;
+                userControl.MouseLeftButtonUp += userStory_MouseLeftButtonUp;
                 userControl.PreviewTouchDown += userStory_PreviewTouchDown;
                 userControl.PreviewTouchMove += userStory_PreviewTouchMove;
                 userControl.TouchUp += usrCtrlUserStory_TouchUp;
@@ -127,6 +129,18 @@ namespace Scrum_o_wall.Views
             }
         }
 
+        private void userStory_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            UserStory userStory = (sender as UserControl).Tag as UserStory;
+            UserStoryEditing(userStory);
+        }
+
+        private void sprint_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            Sprint s = (sender as UserControl).Tag as Sprint;
+            OpenSprint(s);
+        }
+
         private void sprint_DragLeave(object sender, DragEventArgs e)
         {
             UserControl userControl = sender as UserControl;
@@ -136,7 +150,6 @@ namespace Scrum_o_wall.Views
         private void sprint_DragEnter(object sender, DragEventArgs e)
         {
             UserControl userControl = sender as UserControl;
-
             userControl.BorderThickness = new Thickness(3);
         }
 
@@ -148,7 +161,7 @@ namespace Scrum_o_wall.Views
             Sprint sprint = userControl.Tag as Sprint;
             UserStory userStory = e.Data.GetData("drag") as UserStory;
 
-            controller.LinkUserStoryWithSprint(userStory, sprint);
+            controller.AddUserStoryToSprint(userStory, sprint);
         }
 
 

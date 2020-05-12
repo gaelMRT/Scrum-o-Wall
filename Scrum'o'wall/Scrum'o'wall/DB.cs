@@ -205,7 +205,33 @@ namespace Scrum_o_wall
             return project;
         }
 
-        public static void LinkUserStoryWithSprint(UserStory userStory, Sprint sprint, int order)
+        public static void RemoveUserStoryFromSprint(UserStory userStory, Sprint sprint, int order)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "DELETE FROM TUserStoriesSprint WHERE IdUserStory = ? AND IdSprint = ? AND OrderUserStory = ? ;";
+
+            cmd.Parameters.Add("IdUserStory", OleDbType.Integer);
+            cmd.Parameters.Add("IdSprint", OleDbType.Integer);
+            cmd.Parameters.Add("OrderUserStory", OleDbType.Integer);
+
+            cmd.Parameters[0].Value = userStory.Id;
+            cmd.Parameters[1].Value = sprint.Id;
+            cmd.Parameters[2].Value = order;
+
+            //Execute sql statement
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            //Close database
+            DB.GetConnection().Close();
+        }
+
+        public static void AddUserStoryToSprint(UserStory userStory, Sprint sprint, int order)
         {
             //Initialize variables
             OleDbCommand cmd;

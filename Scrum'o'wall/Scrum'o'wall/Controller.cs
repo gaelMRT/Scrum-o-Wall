@@ -164,7 +164,7 @@ namespace Scrum_o_wall
             states = allStates;
         }
 
-        public void LinkUserStoryWithSprint(UserStory userStory, Sprint sprint)
+        public void AddUserStoryToSprint(UserStory userStory, Sprint sprint)
         {
             if (!sprint.OrderedUserStories.ContainsValue(userStory))
             {
@@ -174,10 +174,34 @@ namespace Scrum_o_wall
                     order++;
                 }
                 sprint.addUserStory(order, userStory);
-                DB.LinkUserStoryWithSprint(userStory, sprint, order);
+                DB.AddUserStoryToSprint(userStory, sprint, order);
                 MessageBox.Show("Enregistrement créé");
+            }else
+            {
+
+                MessageBox.Show("Enregistrement déjà existant");
             }
         }
+        public void RemoveUserStoryFromSprint(UserStory userStory,Sprint sprint)
+        {
+            if (sprint.OrderedUserStories.ContainsValue(userStory))
+            {
+                int order = 0;
+                while (sprint.OrderedUserStories[order] != userStory)
+                {
+                    order++;
+                }
+                sprint.removeUserStoryByOrder(order);
+                DB.RemoveUserStoryFromSprint(userStory, sprint, order);
+            }
+        }
+
+        public void UserStorySwitchState(UserStory userStory,State state)
+        {
+            DB.UpdateUserStory(userStory.Text, userStory.DateLimit, userStory.ComplexityEstimation, userStory.CompletedComplexity, userStory.Blocked, userStory.Priority, state, userStory.Type, userStory);
+            userStory.CurrentState = state;
+        }
+
 
         public void AddStateToProject(State state, Project project)
         {

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +24,9 @@ namespace Scrum_o_wall.Views
     {
         Sprint sprint;
         Controller controller;
+        Dictionary<InputDevice, Point> startPoint = new Dictionary<InputDevice, Point>();
+        List<GroupBox> columns = new List<GroupBox>();
+        List<UserControl> userStories = new List<UserControl>();
         public SprintMenu(Sprint aSprint, Controller aController)
         {
             InitializeComponent();
@@ -32,21 +36,74 @@ namespace Scrum_o_wall.Views
 
             lblProjectName.Content = sprint.Project.Name;
             lblSprintName.Content = aSprint.ToString();
-            //Define NameScope to use FindName later
-            NameScope.SetNameScope(cnvsSprint, new NameScope());
-            foreach (KeyValuePair<int, State> keyValuePair in sprint.Project.States)
+        }
+        private void CleanLists()
+        {
+            foreach (GroupBox gbx in columns)
             {
-                State state = keyValuePair.Value;
-                GroupBox groupBox = new GroupBox();
-                groupBox.Name = "gbx" + state.Name.Replace(" ", "");
-                groupBox.Content = state;
-                cnvsSprint.Children.Add(groupBox);
-                Canvas.SetTop(groupBox, 100);
-                Canvas.SetBottom(groupBox, 90);
-                //Register Name to find it with FindName later
-                cnvsSprint.RegisterName(groupBox.Name, groupBox);
-
+                cnvsSprint.Children.Remove(gbx);
             }
+            columns.Clear();
+            foreach (UserControl userControl in userStories)
+            {
+                cnvsSprint.Children.Remove(userControl);
+            }
+            userStories.Clear();
+        }
+        private GroupBox CreateStateColumn(State state)
+        {
+            //Create the column
+            GroupBox gbx = new GroupBox();
+            gbx.Height = cnvsSprint.ActualHeight - 190;
+            gbx.Width = cnvsSprint.ActualWidth / sprint.Project.States.Count;
+            gbx.Name = "gbx" + state.Name.Replace(" ", "");
+            gbx.Header = state.Name;
+            gbx.Tag = state;
+            gbx.BorderBrush = Brushes.Black;
+            gbx.BorderThickness = new Thickness(1);
+
+            //Needed for the drag'n'drop
+            gbx.AllowDrop = true;
+            gbx.Drop += state_Drop;
+            gbx.DragEnter += state_DragEnter;
+            gbx.DragLeave += state_DragLeave;
+
+            //Positioning and put into canvas
+            cnvsSprint.Children.Add(gbx);
+            Canvas.SetTop(gbx, 100);
+            Canvas.SetBottom(gbx, 90);
+            Canvas.SetLeft(gbx, gbx.Width * columns.Count);
+
+            //added to list and returned
+            columns.Add(gbx);
+            return gbx;
+        }
+        private UserControl CreateUserStoryControl(UserStory userStory, int cptTop = 0)
+        {
+            GroupBox gbx = columns.Where(c => c.Tag == userStory.CurrentState).First();
+
+            //Create userStory frame
+            UserControl userControl = new UserControl();
+            userControl.Content = userStory.ToString();
+            userControl.Tag = userStory;
+            userControl.Height = 20;
+            userControl.Width = gbx.Width - 20;
+            userControl.BorderBrush = Brushes.Black;
+            userControl.Background = Brushes.LightGray;
+            userControl.Cursor = Cursors.Hand;
+            userControl.MouseUp += usrCtrlUserStory_MouseUp;
+            userControl.TouchUp += usrCtrlUserStory_TouchUp;
+
+            //Events for drag'n'drop
+            userControl.PreviewTouchDown += userStory_PreviewTouchDown;
+            userControl.PreviewTouchMove += userStory_PreviewTouchMove;
+
+            //Add to lists, positionning and return
+            cnvsSprint.Children.Add(userControl);
+            Canvas.SetLeft(userControl, Canvas.GetLeft(gbx) + 10);
+            Canvas.SetTop(userControl, Canvas.GetTop(gbx) + 30 + 30 * cptTop);
+            userStories.Add(userControl);
+            return userControl;
         }
         private void SprintMenu_Loaded(object sender, RoutedEventArgs e)
         {
@@ -67,70 +124,83 @@ namespace Scrum_o_wall.Views
         /// </summary>
         private void Refresh()
         {
-            //Declare variables for groupbox and userstories positioning
-            double widthGbx = cnvsSprint.ActualWidth / sprint.Project.States.Count;
-            Dictionary<State, int> userStoriesPerState = new Dictionary<State, int>();
+            CleanLists();
 
+            //Declare variables for userstories positioning
+            Dictionary<State, int> userStoriesPerState = new Dictionary<State, int>();
 
             foreach (KeyValuePair<int, State> keyValuePair in sprint.Project.States)
             {
                 State state = keyValuePair.Value;
-                GroupBox gbx = (GroupBox)cnvsSprint.FindName("gbx" + state.Name.Replace(" ", ""));
-                if (gbx != null)
-                {
-                    gbx.Width = widthGbx;
-                    gbx.Height = cnvsSprint.ActualHeight - 190;
-                    gbx.Header = state.Name;
-                    gbx.Content = "";
-                    Canvas.SetLeft(gbx, keyValuePair.Key * widthGbx);
-                    userStoriesPerState.Add(state, 0);
-                }
-                else
-                {
-                    MessageBox.Show("Un problème est survenue avec l'état '" + state.Name + "'.");
-                }
+                CreateStateColumn(state);
+                userStoriesPerState.Add(state, 0);
             }
             /// Place UserStories
             foreach (KeyValuePair<int, UserStory> item in sprint.OrderedUserStories)
             {
                 UserStory userStory = item.Value;
-                GroupBox gbx = (GroupBox)cnvsSprint.FindName("gbx" + userStory.CurrentState.Name.Replace(" ", ""));
-                if (gbx == null)
-                {
-                    MessageBox.Show("Un problème est survenue avec l'état '" + userStory.CurrentState.Name + "'.");
-                }
-
-                //Create userStory frame
-                UserControl userControl = new UserControl();
-                userControl.Content = userStory.ToString();
-                userControl.Width = widthGbx - 20;
-                userControl.BorderBrush = Brushes.Black;
-                userControl.Background = Brushes.LightGray;
-                userControl.Cursor = Cursors.Hand;
-                userControl.Height = 20;
-                userControl.Tag = userStory;
-                userControl.MouseUp += usrCtrlUserStory_MouseUp;
-                userControl.TouchDown += usrCtrlUserStory_TouchDown;
-
-                cnvsSprint.Children.Add(userControl);
-
-
-                Canvas.SetLeft(userControl, Canvas.GetLeft(gbx) + 10);
-                Canvas.SetTop(userControl, Canvas.GetTop(gbx) + 30 + 30 * userStoriesPerState[userStory.CurrentState]);
+                CreateUserStoryControl(userStory, userStoriesPerState[userStory.CurrentState]);
                 userStoriesPerState[userStory.CurrentState]++;
-
             }
         }
 
+        private void userStory_PreviewTouchMove(object sender, TouchEventArgs e)
+        {
+            if (startPoint.ContainsKey(e.Device))
+            {
+                Point position = e.GetTouchPoint(null).Position;
+                Vector diff = startPoint[e.Device] - position;
 
+                if (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance || Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance)
+                {
+                    //extract data
+                    UserControl userControl = sender as UserControl;
+                    UserStory userStory = userControl.Tag as UserStory;
 
+                    //Drag'n'drop init
+                    DataObject dragData = new DataObject("drag", userStory);
+                    DragDrop.DoDragDrop(userControl, dragData, DragDropEffects.Move);
+
+                }
+            }
+        }
+
+        private void userStory_PreviewTouchDown(object sender, TouchEventArgs e)
+        {
+            startPoint.Add(e.Device, e.GetTouchPoint(null).Position);
+        }
+
+        private void state_DragLeave(object sender, DragEventArgs e)
+        {
+            GroupBox gbx = sender as GroupBox;
+            gbx.BorderThickness = new Thickness(1);
+        }
+
+        private void state_DragEnter(object sender, DragEventArgs e)
+        {
+            GroupBox gbx = sender as GroupBox;
+            gbx.BorderThickness = new Thickness(5);
+        }
+
+        private void state_Drop(object sender, DragEventArgs e)
+        {
+            GroupBox gbx = sender as GroupBox;
+            gbx.BorderThickness = new Thickness(1);
+
+            //Make userStory switch
+            State state = gbx.Tag as State;
+            UserStory userStory = e.Data.GetData("drag") as UserStory;
+            controller.UserStorySwitchState(userStory, state);
+
+            Refresh();
+        }
         private void usrCtrlUserStory_MouseUp(object sender, MouseButtonEventArgs e)
         {
             UserStory userStory = (sender as UserControl).Tag as UserStory;
             UserStoryEditing(userStory);
         }
 
-        private void usrCtrlUserStory_TouchDown(object sender, TouchEventArgs e)
+        private void usrCtrlUserStory_TouchUp(object sender, TouchEventArgs e)
         {
             UserStory userStory = (sender as UserControl).Tag as UserStory;
             UserStoryEditing(userStory);

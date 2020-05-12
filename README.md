@@ -196,7 +196,7 @@ Je ne trouvais pas le diagramme de classe mais après une recherche il fallait l
 - Maquettes pour les fenêtres manquantes
 - Début du plan de test 
 
-# 01.05
+## 01.05
 
 ### Tâches à faire
 - Finir le plan de test
@@ -223,7 +223,7 @@ Pour la gestion des listes il faudra que je reproduise ça en code :
 - Plan de test des vues
 - Réunion avec Mme.Terrier
 - Fais la moitié des visuels
-# 04.05
+## 04.05
 
 ### Tâches à faire 
 - Finir les visuels
@@ -234,7 +234,7 @@ Trouvé de quoi faire la ligne pour le burndown chart https://www.c-sharpcorner.
 ### Tâches accomplies
 - Finir les visuels
 - Fais les vues suivantes ; Burndown Chart, ChecklistCreate, ActivitesMenus, CheckListItemCreate, ChecklistMenu,CommentCreate, CommentsMenu, MindMapCreate, CommentCreate, CommentMenu
-# 05.05
+## 05.05
 
 ### Tâches à faire 
 - Faire une partie des vues restantes
@@ -244,7 +244,7 @@ Trouvé de quoi faire la ligne pour le burndown chart https://www.c-sharpcorner.
 - Fini les vues : FileCreate, FileEdit, FileMenu, ProjectEdit, StateCreate, StateMenu, UserCreate, UserEdit, UserStoryCreate
 - Il reste UserStoryEdit et UserMenu
 
-# 06.05
+## 06.05
 
 ### Tâches à faire 
 - Faire les vues restantes
@@ -256,7 +256,7 @@ Afin de pouvoir utiliser le menu des utilisateurs j'ai du créer une interface c
 - Fini les vues :  UserStoryEdit et UserMenu
 - Création d'une interface
 - Rajout du langage de programmation sur le poster
-# 07.05
+## 07.05
 
 ### Tâches à faire 
 - Refaire la documentation sur les maquettes écrans
@@ -273,7 +273,7 @@ Ce qui est lié à l'écran tactile.
 - Les diagrammes de classes ont été ajoutés et nécessitent une documentation plus poussée
 - Correction de bugs empêchant la compilation
 
-# 08.05
+## 08.05
 
 ### Tâches à faire
 - Implémenter les méthodes de la base de données
@@ -282,7 +282,7 @@ J'ai eu un problème sur la base de données. Il y avait une erreur lors de l'aj
 ### Tâches accomplies
 - Implémentation des méthodes de la base de données
 
-# 09.05
+## 11.05
 
 ### Tâches à faire 
 - Rajouter la gestion de l'écran tactile.
@@ -302,3 +302,17 @@ Après avoir cherché beaucoup trop de temps pour que ce soit raisonnable, j'ai 
 ### Tâches accomplies
 - Gestion de l'écran tactile accomplies
 - Le drag'n'drop a été ajouté sur ProjectMenu 
+
+## 12.05
+
+### Tâches à faire
+- Inclure le drag'n'drop sur SprintMenu
+- Rendre le drag'n'drop plus évident
+
+### Liens utiles et idées
+J'ai effectué le drag'n'drop mais les user controller ne sont pas effacés. Il faudrait que je mette à jour uniquement le bon UserControl ou que je remette à jour correctement tous les elements de la fenêtre.
+
+J'ai choisi la deuxième option et j'ai du refaire totalement la mise à jour de la vue. Cela m'a pris plus de temps que prévu et je n'ai pas le temps de faire ma deuxième activité.
+
+### Tâches accomplies
+- Drag'n'drop sur sprint menu effectué
