@@ -316,3 +316,18 @@ J'ai choisi la deuxième option et j'ai du refaire totalement la mise à jour de
 
 ### Tâches accomplies
 - Drag'n'drop sur sprint menu effectué
+
+## 13.05
+
+### Tâches à faire
+- Faire le résumé
+- Faire l'abstract
+- Rendre le résumé et l'abstract
+
+### Liens utiles et idées
+Ayant un vocabulaire en français plus fourni que mon vocabulaire anglais, j'ai fait d'abord l'anglais puis j'ai traduit de l'anglais au français.
+
+### Tâches accomplies
+- Faire le résumé
+- Faire l'abstract
+- Rendre le résumé et l'abstract
