@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Scrum_o_wall.Views"
         mc:Ignorable="d"
-        Title="Modifier un fichier" Height="450" Width="447.5" FontSize="16">
+        Title="Modifier un fichier" Height="500" Width="600" FontSize="16">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="70*"></RowDefinition>
@@ -15,17 +15,17 @@
             <RowDefinition Height="50*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="119*"></ColumnDefinition>
-            <ColumnDefinition Width="321*"></ColumnDefinition>
+            <ColumnDefinition Width="140"></ColumnDefinition>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="10,22" TextAlignment="Center" FontSize="20" Height="26" >Modifier un fichier</TextBlock>
-        <TextBlock Grid.Row="1" VerticalAlignment="Center" Margin="10,12,10,18" TextAlignment="Right" Height="20" ><Run Text="Fichier :"/><LineBreak/><Run/><LineBreak/><Run/></TextBlock>
-        <TextBlock Grid.Row="2" VerticalAlignment="Top" Margin="10,10,10,0" TextAlignment="Right" Height="21" >Description :</TextBlock>
-        <TextBox x:Name="tbxFileName" IsEnabled="False" Grid.Row="1" Grid.Column="1" Margin="10" ></TextBox>
-        <TextBox Margin="10" TextWrapping="Wrap" Name="tbxDescription" Grid.Row="2" Grid.Column="1"/>
-        
-        <TextBlock Grid.Row="3" VerticalAlignment="Center" TextAlignment="Right" Height="20" >Type de fichier :</TextBlock>
-        <ComboBox x:Name="cbxFileTypes" Grid.Column="1" HorizontalAlignment="Left" Margin="10" Grid.Row="3" VerticalAlignment="Top" Width="301"/>
+        <TextBlock Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="10" TextAlignment="Center" FontSize="20" >Modifier un fichier</TextBlock>
+        <TextBlock Grid.Row="1" VerticalAlignment="Center" Margin="10" TextAlignment="Right">Fichier :</TextBlock>
+        <TextBlock Grid.Row="2" VerticalAlignment="Top" Margin="10" TextAlignment="Right" >Description :</TextBlock>
+        <TextBox x:Name="tbxFileName" MaxLength="65535" IsEnabled="False" Grid.Row="1" Grid.Column="1" Margin="10" ></TextBox>
+        <TextBox Margin="10" MaxLength="65535" TextWrapping="Wrap" Name="tbxDescription" Grid.Row="2" Grid.Column="1"/>
+
+        <TextBlock Grid.Row="3" VerticalAlignment="Center" TextAlignment="Right" Margin="10" >Type de fichier :</TextBlock>
+        <ComboBox x:Name="cbxFileTypes" Grid.Column="1" Margin="10" Grid.Row="3" VerticalAlignment="Top"/>
 
         <Button TouchDown="btnCancel_TouchDown" x:Name="btnCancel" Grid.Row="4" Margin="10" Click="btnCancel_Click">Annuler</Button>
         <Button TouchDown="btnConfirm_TouchDown" x:Name="btnConfirm" Grid.Row="4" Grid.Column="1" Margin="10" Click="btnConfirm_Click">Confirmer</Button>

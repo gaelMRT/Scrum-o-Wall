@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Scrum_o_wall.Views"
         mc:Ignorable="d"
-        Title="Création d'une User Story" Height="450" Width="431.713" WindowStartupLocation="CenterScreen"  >
+        Title="Création d'une User Story" Height="491" Width="508.713" WindowStartupLocation="CenterScreen" FontSize="16"  >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="163*"/>
@@ -23,21 +23,21 @@
         <Label Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Height="58" Margin="44,-2,44,0" Width="336" >Créer une User Story</Label>
 
         <Label Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Top" >Description de la User Story:</Label>
-        <TextBox Grid.Row="1" Name="tbxDesc" Grid.Column="1" Margin="10"/>
+        <TextBox Grid.Row="1" TextWrapping="Wrap" MaxLength="65535" Name="tbxDesc" Grid.Column="1" Margin="10"/>
 
         <Label Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" >Date limite:</Label>
         <DatePicker x:Name="dtpckrDateLimit" Grid.Column="1" Margin="10" Grid.Row="2"/>
 
         <Label Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center">Estimation de complexité :</Label>
-        <TextBox Grid.Row="3" Name="tbxComplexity" Grid.Column="1" KeyDown="tbxComplexity_KeyDown" Margin="10"/>
+        <TextBox Grid.Row="3" Name="tbxComplexity" MaxLength="5" Grid.Column="1" KeyDown="tbxComplexity_KeyDown" Margin="10"/>
 
         <Label Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center">Priorité</Label>
         <ComboBox Name="cbxPriority" Grid.Row="4" Margin="10" Grid.Column="10"></ComboBox>
-        
+
         <Label Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center">Type</Label>
         <ComboBox Name="cbxType" Grid.Row="5" Margin="10" Grid.Column="10"></ComboBox>
 
-        <Button TouchDown="btnAddProject_TouchDown" x:Name="btnAddProject" Click="btnAddProject_Click" Grid.Row="6" Grid.Column="1" Margin="10">Confirmer</Button>
+        <Button TouchDown="btnConfirm_TouchDown" x:Name="btnConfirm" Click="btnConfirm_Click" Grid.Row="6" Grid.Column="1" Margin="10">Confirmer</Button>
         <Button TouchDown="btnCancel_TouchDown" x:Name="btnCancel" Click="btnCancel_Click" Grid.Row="6" Margin="10">Annuler</Button>
     </Grid>
 </Window>

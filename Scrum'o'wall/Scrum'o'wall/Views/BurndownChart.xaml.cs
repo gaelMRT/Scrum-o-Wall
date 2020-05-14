@@ -39,7 +39,7 @@ namespace Scrum_o_wall.Views
             double totalDays = (sprint.End - sprint.Begin).TotalDays;
             double elapsedDays = Math.Min(totalDays, daysSinceBegin);
 
-            int totalComplexity = 1;
+            int totalComplexity = 0;
             int completedComplexity = 0;
 
             foreach (KeyValuePair<int, UserStory> keyValuePair in sprint.OrderedUserStories)
@@ -50,7 +50,7 @@ namespace Scrum_o_wall.Views
 
             lblComplexityMax.Content = totalComplexity.ToString();
             double x2Line = elapsedDays / totalDays * (this.ActualWidth - 200) + 130;
-            double y2Line = completedComplexity / totalComplexity * (this.ActualHeight - 140) + 70;
+            double y2Line = completedComplexity / (double)totalComplexity * (this.ActualHeight - 140) + 70;
 
             PointCollection linePoints = new PointCollection();
             linePoints.Add(new Point(120, 70));

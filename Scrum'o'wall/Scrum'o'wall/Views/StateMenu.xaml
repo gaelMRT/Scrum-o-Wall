@@ -50,7 +50,7 @@
                 </Grid.RowDefinitions>
                 <Button TouchDown="btnGoLeft_TouchDown" Click="btnGoLeft_Click" Margin="10" x:Name="btnGoLeft" Content="←"></Button>
                 <Button TouchDown="btnGoRight_TouchDown" Click="btnGoRight_Click" Margin="10" x:Name="btnGoRight" Grid.Row="1" Content="→"></Button>
-                <Button TouchDown="btnSave_TouchDown" Click="btnSave_Click" Margin="10" x:Name="btnSave" Grid.Row="2" Content="💾"></Button>
+                <Button TouchDown="btnSave_TouchDown" Click="btnSave_Click" Margin="10,10,10,29" x:Name="btnSave" Grid.Row="2" Content="💾"></Button>
             </Grid>
         </Grid>
     </Canvas>

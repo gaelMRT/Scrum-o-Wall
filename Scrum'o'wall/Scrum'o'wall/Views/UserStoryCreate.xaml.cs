@@ -39,9 +39,9 @@ namespace Scrum_o_wall.Views
             this.Close();
         }
 
-        private void btnAddProject_Click(object sender, RoutedEventArgs e)
+        private void btnConfirm_Click(object sender, RoutedEventArgs e)
         {
-            if (tbxDesc.Text.Length > 0)
+            if (tbxDesc.Text.Length > 0 && tbxComplexity.Text.Length > 0 && cbxPriority.SelectedIndex >= 0 && cbxType.SelectedIndex >= 0)
             {
                 this.DialogResult = true;
                 this.Close();
@@ -67,9 +67,9 @@ namespace Scrum_o_wall.Views
             this.Close();
         }
 
-        private void btnAddProject_TouchDown(object sender, TouchEventArgs e)
+        private void btnConfirm_TouchDown(object sender, TouchEventArgs e)
         {
-            if (tbxDesc.Text.Length > 0)
+            if (tbxDesc.Text.Length > 0 && tbxComplexity.Text.Length > 0 && cbxPriority.SelectedIndex >= 0 && cbxType.SelectedIndex >= 0)
             {
                 this.DialogResult = true;
                 this.Close();

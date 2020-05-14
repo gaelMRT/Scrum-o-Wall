@@ -95,12 +95,14 @@ namespace Scrum_o_wall
                 Classes.Type type = allTypes.First(t => t.Id == u.TypeId);
                 List<Activity> activities = allActivities.Where(a => a.UserStoryId == u.Id).ToList();
                 List<Classes.File> files = allFiles.Where(f => f.UserStoryId == u.Id).ToList();
+                List<Checklist> checklists = allChecklists.Where(c => c.UserStoryId == u.Id).ToList();
 
                 u.CurrentState = state;
                 u.Priority = priority;
                 u.Type = type;
                 u.Activities = activities;
                 u.Files = files;
+                u.Checklists = checklists;
                 project.AllUserStories.Add(u);
             }
             #endregion
@@ -122,6 +124,13 @@ namespace Scrum_o_wall
                 Project project = allProjects.First(p => p.Id == s.ProjectId);
                 s.Project = project;
                 project.Sprints.Add(s);
+            }
+            #endregion
+
+            #region Link Checklist with ChecklistItems
+            foreach (Checklist chk in allChecklists)
+            {
+                chk.ChecklistItems = allChecklistItems.Where(c => c.ChecklistId == chk.Id).ToList();
             }
             #endregion
 
@@ -162,6 +171,13 @@ namespace Scrum_o_wall
             priorities = allPriorities;
             fileTypes = allFileTypes;
             states = allStates;
+        }
+
+        internal void UpdateCheckListItem(string nameItem, bool done, ChecklistItem item)
+        {
+            DB.UpdateCheckListItem(nameItem, done, item);
+            item.NameItem = nameItem;
+            item.Done = done;
         }
 
         public void AddUserStoryToSprint(UserStory userStory, Sprint sprint)
@@ -336,7 +352,7 @@ namespace Scrum_o_wall
                 }
                 else
                 {
-                    DB.UpdateCheckListItem(item.NameItem, item.Done, item);
+                    this.UpdateCheckListItem(item.NameItem, item.Done, item);
                     checklist.ChecklistItems.Add(item);
                 }
             }

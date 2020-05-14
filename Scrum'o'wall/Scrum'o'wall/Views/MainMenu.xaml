@@ -11,7 +11,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Scrum_o_wall"
         mc:Ignorable="d"
-        Title="Scrum'o'Wall" ResizeMode="NoResize" WindowState="Maximized" WindowStartupLocation="CenterScreen" Width="1000" Height="1000" WindowStyle="None">
+        Title="Scrum'o'Wall" ResizeMode="NoResize" WindowState="Maximized" WindowStartupLocation="CenterScreen" Width="1000" Height="1000" WindowStyle="None" FontSize="16">
     <Window.ContextMenu >
         <ContextMenu >
             <MenuItem Header="Ajouter un projet" Name="AddProject" Click="AddProject_Click"/>

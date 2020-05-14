@@ -34,18 +34,18 @@ namespace Scrum_o_wall.Views
 
         private void Refresh()
         {
-            ColumnDefinition col1 = new ColumnDefinition();
-            col1.Width = new GridLength(30, GridUnitType.Star);
-            ColumnDefinition col2 = new ColumnDefinition();
-            col2.Width = new GridLength(67, GridUnitType.Star);
-
             foreach (Checklist chckLst in userStory.Checklists)
             {
+                ColumnDefinition col1 = new ColumnDefinition();
+                col1.Width = new GridLength(30, GridUnitType.Star);
+                ColumnDefinition col2 = new ColumnDefinition();
+                col2.Width = new GridLength(67, GridUnitType.Star);
+
                 //Create border
                 Border border = new Border();
                 border.BorderBrush = Brushes.Black;
                 border.BorderThickness = new Thickness(1);
-                border.Width = 408;
+                border.Width = 390;
                 border.Tag = chckLst;
                 border.TouchDown += Border_TouchDown;
 
@@ -54,6 +54,8 @@ namespace Scrum_o_wall.Views
                 grd.Name = "lst" + chckLst.Id.ToString();
                 grd.ColumnDefinitions.Add(col1);
                 grd.ColumnDefinitions.Add(col2);
+                grd.RowDefinitions.Add(new RowDefinition());
+                grd.RowDefinitions.Add(new RowDefinition());
 
                 //Create element for name
                 TextBlock textBlock = new TextBlock();
@@ -73,16 +75,26 @@ namespace Scrum_o_wall.Views
                     CheckBox checkBox = new CheckBox();
                     checkBox.IsChecked = item.Done;
                     checkBox.Content = item.NameItem;
+                    checkBox.Tag = item;
+                    checkBox.Checked += checklistItem_Checked;
                     lstView.Items.Add(checkBox);
                 }
 
                 grd.Children.Add(textBlock);
                 grd.Children.Add(lstView);
+                Grid.SetRowSpan(lstView, 2);
                 Grid.SetColumn(lstView, 1);
                 border.Child = grd;
 
                 lstLists.Items.Add(border);
             }
+        }
+
+        private void checklistItem_Checked(object sender, RoutedEventArgs e)
+        {
+            ChecklistItem item = (sender as CheckBox).Tag as ChecklistItem;
+            item.Done = (sender as CheckBox).IsChecked == true;
+            controller.UpdateCheckListItem(item.NameItem, item.Done, item);
         }
 
         private void Border_TouchDown(object sender, TouchEventArgs e)
@@ -117,9 +129,9 @@ namespace Scrum_o_wall.Views
             if(checklistCreate.ShowDialog() == true)
             {
                 Checklist checklist = controller.CreateCheckList(checklistCreate.tbxName.Text,userStory);
-                foreach (CheckBox item in checklistCreate.listItems.Items)
+                foreach (ChecklistItem item in checklistCreate.itemsToAdd)
                 {
-                    controller.CreateCheckListItem(item.Content.ToString(), checklist);
+                    controller.CreateCheckListItem(item.NameItem, checklist);
                 }
                 Refresh();
             }
@@ -136,9 +148,9 @@ namespace Scrum_o_wall.Views
             if (checklistCreate.ShowDialog() == true)
             {
                 Checklist checklist = controller.CreateCheckList(checklistCreate.tbxName.Text, userStory);
-                foreach (CheckBox item in checklistCreate.listItems.Items)
+                foreach (ChecklistItem item in checklistCreate.listItems.Items)
                 {
-                    controller.CreateCheckListItem(item.Content.ToString(), checklist);
+                    controller.CreateCheckListItem(item.NameItem, checklist);
                 }
                 Refresh();
             }

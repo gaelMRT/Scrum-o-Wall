@@ -53,8 +53,16 @@ namespace Scrum_o_wall.Views
 
         private void btnAddComment_Click(object sender, RoutedEventArgs e)
         {
+            AddComment();
+        }
+        
+        private void AddComment()
+        {
             CommentCreate commentCreate = new CommentCreate(userStory.GetUsers());
-            if(commentCreate.ShowDialog() == true)
+            if (userStory.GetUsers().Count == 0)
+            {
+                MessageBox.Show("Aucun utilisateur assigné", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            }else if (commentCreate.ShowDialog() == true)
             {
                 controller.CreateComment(commentCreate.tbxContent.Text, userStory);
                 Refresh();
@@ -68,12 +76,7 @@ namespace Scrum_o_wall.Views
 
         private void btnAddComment_TouchDown(object sender, TouchEventArgs e)
         {
-            CommentCreate commentCreate = new CommentCreate(userStory.GetUsers());
-            if (commentCreate.ShowDialog() == true)
-            {
-                controller.CreateComment(commentCreate.tbxContent.Text, userStory);
-                Refresh();
-            }
+            AddComment();
         }
     }
 }

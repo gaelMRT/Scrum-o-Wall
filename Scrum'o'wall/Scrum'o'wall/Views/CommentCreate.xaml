@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.ColumnSpan="2" TextAlignment="Center" FontSize="20" VerticalAlignment="Center" Margin="10">Poster un Commentaire</TextBlock>
         <TextBlock Grid.Row="1" TextAlignment="Right" VerticalAlignment="Center" Margin="10,45,10,50" Height="22" >Contenu :</TextBlock>
-        <TextBox x:Name="tbxContent" Grid.Row="1" Grid.Column="1" TextWrapping="WrapWithOverflow" Margin="10"></TextBox>
+        <TextBox x:Name="tbxContent" MaxLength="65535" Grid.Row="1" Grid.Column="1" TextWrapping="WrapWithOverflow" Margin="10"></TextBox>
         <TextBlock Grid.Row="2" TextAlignment="Right" VerticalAlignment="Center" Margin="10,12,10,18" Height="20" >Auteur :</TextBlock>
         <ComboBox Name="cbxAuthor" Grid.Row="2" Grid.Column="1" Margin="10">
         </ComboBox>

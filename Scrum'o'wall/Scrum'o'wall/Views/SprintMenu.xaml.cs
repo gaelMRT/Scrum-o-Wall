@@ -83,10 +83,14 @@ namespace Scrum_o_wall.Views
             GroupBox gbx = columns.Where(c => c.Tag == userStory.CurrentState).First();
 
             //Create userStory frame
+            TextBlock content = new TextBlock();
+            content.Text = userStory.ToString();
+            content.TextWrapping = TextWrapping.Wrap;
+
             UserControl userControl = new UserControl();
-            userControl.Content = userStory.ToString();
+            userControl.Content = content;
             userControl.Tag = userStory;
-            userControl.Height = 20;
+            userControl.Height = 50;
             userControl.Width = gbx.Width - 20;
             userControl.BorderBrush = Brushes.Black;
             userControl.Background = Brushes.LightGray;
@@ -101,7 +105,7 @@ namespace Scrum_o_wall.Views
             //Add to lists, positionning and return
             cnvsSprint.Children.Add(userControl);
             Canvas.SetLeft(userControl, Canvas.GetLeft(gbx) + 10);
-            Canvas.SetTop(userControl, Canvas.GetTop(gbx) + 30 + 30 * cptTop);
+            Canvas.SetTop(userControl, Canvas.GetTop(gbx) + 30 + 60 * cptTop);
             userStories.Add(userControl);
             return userControl;
         }

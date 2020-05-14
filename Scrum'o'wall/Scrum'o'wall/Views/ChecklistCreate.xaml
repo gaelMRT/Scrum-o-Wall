@@ -21,7 +21,7 @@
         <TextBlock Grid.Row="1" VerticalAlignment="Center" Margin="10" TextAlignment="Right" Height="20" >Nom :</TextBlock>
         <TextBlock Grid.Row="2" VerticalAlignment="Top" Margin="10,10,10,0" TextAlignment="Right" Height="21" >Objets :</TextBlock>
 
-        <TextBox Grid.Row="1" Grid.Column="1" Margin="10" Name="tbxName"></TextBox>
+        <TextBox Grid.Row="1" MaxLength="255" Grid.Column="1" Margin="10" Name="tbxName"></TextBox>
         <Grid Grid.Row="2" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="107*"></RowDefinition>

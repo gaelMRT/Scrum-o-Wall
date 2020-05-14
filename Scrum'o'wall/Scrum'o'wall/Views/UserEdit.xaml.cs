@@ -37,6 +37,10 @@ namespace Scrum_o_wall.Views
                 this.DialogResult = true;
                 this.Close();
             }
+            else
+            {
+                MessageBox.Show("Un ou plusieurs champ(s) n'est pas rempli !", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -55,6 +59,10 @@ namespace Scrum_o_wall.Views
             {
                 this.DialogResult = true;
                 this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Un ou plusieurs champ(s) n'est pas rempli !", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

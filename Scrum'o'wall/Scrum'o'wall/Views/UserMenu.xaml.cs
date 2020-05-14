@@ -93,6 +93,9 @@ namespace Scrum_o_wall.Views
             {
                 controller.RemoveUserFromIUsersAssigned(user, objectWithAssignedUsers);
             }
+            
+            MessageBox.Show("La sauvegarde s'est effectuée sans soucis.", "Confirmation", MessageBoxButton.OK, MessageBoxImage.None);
+            
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)

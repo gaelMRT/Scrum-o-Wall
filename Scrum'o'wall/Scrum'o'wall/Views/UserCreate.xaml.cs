@@ -40,7 +40,11 @@ namespace Scrum_o_wall.Views
 
         private void btnConfirm_TouchDown(object sender, TouchEventArgs e)
         {
-            this.Close();
+            if (tbxUserName.Text.Length > 0)
+            {
+                this.DialogResult = true;
+                this.Close();
+            }
         }
 
         private void btnCancel_TouchDown(object sender, TouchEventArgs e)

@@ -74,6 +74,9 @@ namespace Scrum_o_wall.Views
                 this.DialogResult = true;
                 this.Close();
             }
+            else
+            {
+            }
         }
 
         private void btnAddItem_TouchDown(object sender, TouchEventArgs e)

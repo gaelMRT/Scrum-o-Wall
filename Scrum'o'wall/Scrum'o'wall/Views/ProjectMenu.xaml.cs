@@ -84,11 +84,10 @@ namespace Scrum_o_wall.Views
                 UserControl userControl = new UserControl();
                 userControl.Content = sprint.ToString();
                 userControl.Width = cnvsSprints.Width - 40;
-                userControl.BorderBrush = Brushes.Black;
                 userControl.BorderThickness = new Thickness(1);
-                userControl.Background = Brushes.LightGray;
+                userControl.BorderBrush = Brushes.Black;
                 userControl.Cursor = Cursors.Hand;
-                userControl.Height = 20;
+                userControl.Height = 50;
                 userControl.Tag = sprint;
                 userControl.MouseLeftButtonUp += sprint_MouseLeftButtonUp;
                 userControl.TouchDown += usrCtrlSprint_TouchDown;
@@ -96,11 +95,28 @@ namespace Scrum_o_wall.Views
                 userControl.Drop += sprint_Drop;
                 userControl.DragEnter += sprint_DragEnter;
                 userControl.DragLeave += sprint_DragLeave;
+                //Change Color by DateRange
+                if(DateTime.Now > sprint.Begin && DateTime.Now < sprint.End)
+                {
+                    //Actual
+                    userControl.Background = Brushes.LightBlue;
+                }
+                else if(DateTime.Now < sprint.Begin)
+                {
+                    //Not beginned
+                    userControl.Background = Brushes.LightGray;
+                }
+                else
+                {
+                    //Already passed
+                    userControl.Background = Brushes.LightPink;
+                }
+
 
                 cnvsSprints.Children.Add(userControl);
 
                 Canvas.SetLeft(userControl, 5);
-                Canvas.SetTop(userControl, 30 * i);
+                Canvas.SetTop(userControl, 60 * i);
             }
 
             int nbUserStories = currentProject.AllUserStories.Count;
@@ -115,7 +131,7 @@ namespace Scrum_o_wall.Views
                 userControl.BorderThickness = new Thickness(1);
                 userControl.Background = Brushes.LightGray;
                 userControl.Cursor = Cursors.Hand;
-                userControl.Height = 20;
+                userControl.Height = 50;
                 userControl.Tag = userStory;
                 userControl.MouseLeftButtonUp += userStory_MouseLeftButtonUp;
                 userControl.PreviewTouchDown += userStory_PreviewTouchDown;
@@ -125,7 +141,7 @@ namespace Scrum_o_wall.Views
                 cnvsUserStories.Children.Add(userControl);
 
                 Canvas.SetLeft(userControl, 5);
-                Canvas.SetTop(userControl, 30 * i);
+                Canvas.SetTop(userControl, 60 * i);
             }
         }
 

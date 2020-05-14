@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Scrum_o_wall.Views"
         mc:Ignorable="d"
-           Title="Création d'un état" Height="159.532" Width="328.533">
+           Title="Création d'un état" Height="169.532" Width="500.533" FontSize="16">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="174"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.ColumnSpan="2" TextAlignment="Center" FontSize="20" VerticalAlignment="Center">Création d'un état</TextBlock>
         <TextBlock Grid.Row="1" TextAlignment="Right" VerticalAlignment="Center" Margin="10,13,10,14">Nom de l'état :</TextBlock>
-        <TextBox Grid.Row="1" Grid.Column="1" Margin="10" Name="tbxStateName"></TextBox>
+        <TextBox Grid.Row="1" Grid.Column="1" MaxLength="30" Margin="10" Name="tbxStateName"></TextBox>
         <Button TouchDown="btnCancel_TouchDown" x:Name="btnCancel" Grid.Row="2" Grid.Column="0" Margin="10" Click="btnCancel_Click">Annuler</Button>
         <Button TouchDown="btnConfirm_TouchDown" x:Name="btnConfirm" Grid.Row="2" Grid.Column="1" Margin="10" Click="btnConfirm_Click">Confirmer</Button>
     </Grid>

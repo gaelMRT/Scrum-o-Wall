@@ -331,3 +331,40 @@ Ayant un vocabulaire en français plus fourni que mon vocabulaire anglais, j'ai 
 - Faire le résumé
 - Faire l'abstract
 - Rendre le résumé et l'abstract
+
+## 13.05
+
+### Tâches à faire
+- Faire des tests
+- Régler les problèmes
+- Créer les fonctionnalités visuels
+
+### Liens utiles et idées
+Problèmes reglées : 
+- Le wrap du texte dans des textbox multiligne
+- Création de fichier (Mauvais nom de table)
+- Création de commentaires (DateTime = mot résérvé)
+- Création de checklist (Mauvais nom de table)
+- Checkbox to ChecklistItem 
+- Changement de la taille de la police de base pour plusieurs fenêtres
+- Liste de checklistItem non initialisée
+
+Fonctionalités visuels :
+- Couleur sur les sprints (Rouge = déjà passé, Bleu = en cours, Gris = à venir)
+- Augmentation de la taille des User Stories et des Sprints
+- Limiter les charactères
+
+Autres :
+- Mise en ordre de la classe DB
+
+Idées :
+- Suppression de fichier dans l'user story
+- Visuel des sprints sous forme de GANTT
+
+### Tâches accomplies
+- Tests effectués
+- Problèmes réglés
+- Rajout de couleur pour les sprints
+- Rajout d'une limitation sur l'interface utilisant
+- Augmentation de la hauteur des élèments
+- Création de la fenêtre ChecklistItemEdit

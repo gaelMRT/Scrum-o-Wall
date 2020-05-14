@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace Scrum_o_wall.Views
 {
     /// <summary>
-    /// Logique d'interaction pour StateCreate.xaml
+    /// Logique d'interaction pour ChecklistItemEdit.xaml
     /// </summary>
-    public partial class StateCreate : Window
+    public partial class ChecklistItemEdit : Window
     {
-        public StateCreate()
+        public ChecklistItemEdit()
         {
             InitializeComponent();
         }
@@ -31,20 +31,7 @@ namespace Scrum_o_wall.Views
 
         private void btnConfirm_Click(object sender, RoutedEventArgs e)
         {
-            if(tbxStateName.Text.Length > 1)
-            {
-                this.DialogResult = true;
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Un ou plusieurs champ(s) n'est pas rempli !", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void btnConfirm_TouchDown(object sender, TouchEventArgs e)
-        {
-            if (tbxStateName.Text.Length > 1)
+            if(tbxObjet.Text.Length > 0)
             {
                 this.DialogResult = true;
                 this.Close();
@@ -58,6 +45,19 @@ namespace Scrum_o_wall.Views
         private void btnCancel_TouchDown(object sender, TouchEventArgs e)
         {
             this.Close();
+        }
+
+        private void btnConfirm_TouchDown(object sender, TouchEventArgs e)
+        {
+            if (tbxObjet.Text.Length > 0)
+            {
+                this.DialogResult = true;
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Un ou plusieurs champ(s) n'est pas rempli !", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
