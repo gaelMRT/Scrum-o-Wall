@@ -223,7 +223,7 @@ namespace Scrum_o_wall.Views
 
         private void UserStoryEditing(UserStory userStory)
         {
-            UserStoryEdit userStoryEdit = new UserStoryEdit(userStory, controller);
+            UserStoryEdit userStoryEdit = new UserStoryEdit(userStory,currentProject, controller);
             if (userStoryEdit.ShowDialog() == true)
             {
                 controller.UpdateUserStory(userStoryEdit.tbxDesc.Text, userStoryEdit.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryEdit.tbxComplexity.Text), Convert.ToInt32(userStoryEdit.tbxCompletedComplexity.Text), userStoryEdit.chckBxBlocked.IsChecked == true, (Priority)userStoryEdit.cbxPriority.SelectedItem, (Classes.Type)userStoryEdit.cbxType.SelectedItem, userStory, currentProject);

@@ -21,20 +21,37 @@ namespace Scrum_o_wall.Views
     public partial class ChecklistEdit : Window
     {
         Checklist checklist;
-        Controller ctrl;
+        Controller controller;
+        UserStory userStory;
         List<ChecklistItem> itemsToAdd;
-        public ChecklistEdit(Checklist aChecklist,Controller aController)
+        public ChecklistEdit(Checklist aChecklist,UserStory aUserStory,Controller aController)
         {
             checklist = aChecklist;
-            ctrl = aController;
+            controller = aController;
+            userStory = aUserStory;
 
             InitializeComponent();
 
             itemsToAdd = new List<ChecklistItem>();
 
             tbxName.Text = checklist.Name;
+            listItems.MouseDoubleClick += ListItems_MouseDoubleClick;
 
             Refresh();
+        }
+
+        private void ListItems_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ListView lstView = sender as ListView;
+            ChecklistItem checklistItem = lstView.SelectedItem as ChecklistItem;
+            if(checklist.ChecklistItems.Contains(checklistItem))
+            {
+                ChecklistItemEdit checklistItemEdit = new ChecklistItemEdit(checklistItem,userStory, controller);
+                if(checklistItemEdit.ShowDialog() == true)
+                {
+                    controller.UpdateCheckListItem(checklistItemEdit.tbxObjet.Text, checklistItemEdit.chkbxDone.IsChecked == true, checklistItem);
+                }
+            }
         }
 
         private void Refresh()

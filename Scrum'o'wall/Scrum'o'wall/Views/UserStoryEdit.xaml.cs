@@ -22,11 +22,13 @@ namespace Scrum_o_wall.Views
     {
         UserStory userStory;
         Controller controller;
-        public UserStoryEdit(UserStory aUserStory,Controller aController)
+        Project project;
+        public UserStoryEdit(UserStory aUserStory,Project aProject,Controller aController)
         {
             InitializeComponent();
             userStory = aUserStory;
             controller = aController;
+            project = aProject;
 
             tbxDesc.Text = userStory.Text;
             dtpckrDateLimit.SelectedDate = userStory.DateLimit;
@@ -49,37 +51,37 @@ namespace Scrum_o_wall.Views
             chckBxBlocked.IsChecked = userStory.Blocked;
         }
 
-        private void btnActivities_Click(object sender, RoutedEventArgs e)
+        private void btnActivities_Click(object sender, EventArgs e)
         {
             ActivitiesMenu activitiesMenu = new ActivitiesMenu(userStory.Activities);
             activitiesMenu.ShowDialog();
         }
 
-        private void btnUserAssigned_Click(object sender, RoutedEventArgs e)
+        private void btnUserAssigned_Click(object sender, EventArgs e)
         {
-            UserMenu userMenu = new UserMenu(userStory, controller);
+            UserMenu userMenu = new UserMenu(userStory,project.GetUsers(), controller);
             userMenu.ShowDialog();
         }
 
-        private void btnChecklists_Click(object sender, RoutedEventArgs e)
+        private void btnChecklists_Click(object sender, EventArgs e)
         {
             ChecklistMenu checklistMenu = new ChecklistMenu(userStory, controller);
             checklistMenu.ShowDialog();
         }
 
-        private void btnComments_Click(object sender, RoutedEventArgs e)
+        private void btnComments_Click(object sender, EventArgs e)
         {
             CommentMenu commentMenu = new CommentMenu(userStory, controller);
             commentMenu.ShowDialog();
         }
 
-        private void btnFiles_Click(object sender, RoutedEventArgs e)
+        private void btnFiles_Click(object sender, EventArgs e)
         {
             FileMenu fileMenu = new FileMenu(userStory, controller);
             fileMenu.ShowDialog();
         }
 
-        private void btnConfirm_Click(object sender, RoutedEventArgs e)
+        private void btnConfirm_Click(object sender, EventArgs e)
         {
             if(tbxCompletedComplexity.Text.Length > 0 && tbxComplexity.Text.Length > 0 && tbxDesc.Text.Length > 0)
             {
@@ -100,57 +102,10 @@ namespace Scrum_o_wall.Views
             }
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void btnFiles_TouchDown(object sender, TouchEventArgs e)
-        {
-            FileMenu fileMenu = new FileMenu(userStory, controller);
-            fileMenu.ShowDialog();
-        }
-
-        private void btnComments_TouchDown(object sender, TouchEventArgs e)
-        {
-            CommentMenu commentMenu = new CommentMenu(userStory, controller);
-            commentMenu.ShowDialog();
-        }
-
-        private void btnChecklists_TouchDown(object sender, TouchEventArgs e)
-        {
-            ChecklistMenu checklistMenu = new ChecklistMenu(userStory, controller);
-            checklistMenu.ShowDialog();
-        }
-
-        private void btnActivities_TouchDown(object sender, TouchEventArgs e)
-        {
-            ActivitiesMenu activitiesMenu = new ActivitiesMenu(userStory.Activities);
-            activitiesMenu.ShowDialog();
-        }
-
-        private void btnUserAssigned_TouchDown(object sender, TouchEventArgs e)
-        {
-            UserMenu userMenu = new UserMenu(userStory, controller);
-            userMenu.ShowDialog();
-        }
-
-        private void btnConfirm_TouchDown(object sender, TouchEventArgs e)
-        {
-            if (tbxCompletedComplexity.Text.Length > 0 && tbxComplexity.Text.Length > 0 && tbxDesc.Text.Length > 0)
-            {
-                this.DialogResult = true;
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Un ou plusieurs champ(s) n'est pas rempli !", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void btnCancel_TouchDown(object sender, TouchEventArgs e)
-        {
-            this.Close();
-        }
     }
 }

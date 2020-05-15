@@ -23,10 +23,12 @@ namespace Scrum_o_wall.Views
     {
         Controller controller;
         IUsersAssigned objectWithAssignedUsers;
-        public UserMenu(IUsersAssigned anObjectWithAssignedUsers, Controller aController)
+        List<User> possibleUsers;
+        public UserMenu(IUsersAssigned anObjectWithAssignedUsers,List<User> possibilities, Controller aController)
         {
             controller = aController;
             objectWithAssignedUsers = anObjectWithAssignedUsers;
+            possibleUsers = possibilities;
 
             InitializeComponent();
 
@@ -37,7 +39,7 @@ namespace Scrum_o_wall.Views
         {
             lstAssignedUsers.Items.Clear();
             lstPossibleUsers.Items.Clear();
-            foreach (User user in controller.Users)
+            foreach (User user in possibleUsers)
             {
                 if (objectWithAssignedUsers.GetUsers().Contains(user))
                 {
@@ -50,7 +52,7 @@ namespace Scrum_o_wall.Views
             }
         }
 
-        private void btnGoLeft_Click(object sender, RoutedEventArgs e)
+        private void btnGoLeft_Click(object sender, EventArgs e)
         {
             User state = lstAssignedUsers.SelectedItem as User;
             if (state != null)
@@ -60,7 +62,7 @@ namespace Scrum_o_wall.Views
             }
         }
 
-        private void btnGoRight_Click(object sender, RoutedEventArgs e)
+        private void btnGoRight_Click(object sender, EventArgs e)
         {
             User state = lstPossibleUsers.SelectedItem as User;
             if (state != null)
@@ -98,12 +100,12 @@ namespace Scrum_o_wall.Views
             
         }
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
             Save();
         }
 
-        private void btnAddUser_Click(object sender, RoutedEventArgs e)
+        private void btnAddUser_Click(object sender, EventArgs e)
         {
             UserCreate userCreate = new UserCreate();
             if(userCreate.ShowDialog() == true)
@@ -111,41 +113,6 @@ namespace Scrum_o_wall.Views
                 controller.CreateUser(userCreate.tbxUserName.Text);
                 Refresh();
             }
-        }
-
-        private void btnAddUser_TouchDown(object sender, TouchEventArgs e)
-        {
-            UserCreate userCreate = new UserCreate();
-            if (userCreate.ShowDialog() == true)
-            {
-                controller.CreateUser(userCreate.tbxUserName.Text);
-                Refresh();
-            }
-        }
-
-        private void btnGoLeft_TouchDown(object sender, TouchEventArgs e)
-        {
-            User state = lstAssignedUsers.SelectedItem as User;
-            if (state != null)
-            {
-                lstAssignedUsers.Items.Remove(state);
-                lstPossibleUsers.Items.Add(state);
-            }
-        }
-
-        private void btnGoRight_TouchDown(object sender, TouchEventArgs e)
-        {
-            User state = lstPossibleUsers.SelectedItem as User;
-            if (state != null)
-            {
-                lstPossibleUsers.Items.Remove(state);
-                lstAssignedUsers.Items.Add(state);
-            }
-        }
-
-        private void btnSave_TouchDown(object sender, TouchEventArgs e)
-        {
-            Save();
         }
     }
 }

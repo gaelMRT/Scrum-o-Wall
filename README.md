@@ -332,7 +332,7 @@ Ayant un vocabulaire en français plus fourni que mon vocabulaire anglais, j'ai 
 - Faire l'abstract
 - Rendre le résumé et l'abstract
 
-## 13.05
+## 14.05
 
 ### Tâches à faire
 - Faire des tests
@@ -368,3 +368,25 @@ Idées :
 - Rajout d'une limitation sur l'interface utilisant
 - Augmentation de la hauteur des élèments
 - Création de la fenêtre ChecklistItemEdit
+
+## 15.05
+
+### Tâches à faire
+- Retoucher le résumé et l'abstract
+- Rendre la nouvelle version
+- Implémenter la fenêtre ChecklistItemEdit dans le fonctionnement : 
+ - Accès
+ - Modification après fermeture validée
+ 
+ ### Liens utiles et idées
+ J'ai d'abord commencé à faire le résumé et l'abstract puis j'ai rendu sur moodle. Cependant, l'heure de rendu était mise à minuit alors qu'elle était annoncée à 17h. J'ai donc envoyé un message à M. Garcia.
+ 
+ J'ai implémenter la fenêtre d'edition de la checklistItemEdit. J'en ai profité pour modifier quelques fonctions redondantes d'évènement en acceptant l'interface EventArgs au lieu d'accepter les évènements de type plus particulier.
+ 
+ ### Tâches accomplies
+- Retoucher le résumé et l'abstract
+- Rendre la nouvelle version
+- Implémenter la fenêtre ChecklistItemEdit dans le fonctionnement : 
+ - Accès
+ - Modification après fermeture validée
+- Ajout de limitations sur les utilisateurs assignés

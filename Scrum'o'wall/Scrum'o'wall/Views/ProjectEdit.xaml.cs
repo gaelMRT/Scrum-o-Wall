@@ -36,27 +36,17 @@ namespace Scrum_o_wall.Views
 
         private void btnConfirm_Click(object sender, RoutedEventArgs e)
         {
-            if(dtpckrDateBegin.SelectedDate != null && tbxDesc.Text.Length > 0 && tbxName.Text.Length > 0)
-            {
-                this.DialogResult = true;
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Un ou plusieurs champ(s) n'est pas rempli !", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            Confirm();
         }
 
         private void btnStates_Click(object sender, RoutedEventArgs e)
         {
-            StateMenu stateMenu = new StateMenu(project,controller);
-            stateMenu.ShowDialog();
+            OpenStateMenu();
         }
 
         private void btnUsers_Click(object sender, RoutedEventArgs e)
         {
-            UserMenu userMenu = new UserMenu(project,controller);
-            userMenu.ShowDialog();
+            OpenUserMenu();
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -64,16 +54,9 @@ namespace Scrum_o_wall.Views
             this.Close();
         }
 
-        private void btnStates_TouchDown(object sender, TouchEventArgs e)
-        {
-            StateMenu stateMenu = new StateMenu(project, controller);
-            stateMenu.ShowDialog();
-        }
-
         private void btnUsers_TouchDown(object sender, TouchEventArgs e)
         {
-            UserMenu userMenu = new UserMenu(project, controller);
-            userMenu.ShowDialog();
+            OpenUserMenu();
         }
 
         private void btnCancel_TouchDown(object sender, TouchEventArgs e)
@@ -82,6 +65,25 @@ namespace Scrum_o_wall.Views
         }
 
         private void btnConfirm_TouchDown(object sender, TouchEventArgs e)
+        {
+            Confirm();
+        }
+        private void OpenStateMenu()
+        {
+            StateMenu stateMenu = new StateMenu(project, controller);
+            stateMenu.ShowDialog();
+        }
+        private void btnStates_TouchDown(object sender, TouchEventArgs e)
+        {
+            OpenStateMenu();
+        }
+
+        private void OpenUserMenu()
+        {
+            UserMenu userMenu = new UserMenu(project, controller.Users, controller);
+            userMenu.ShowDialog();
+        }
+        private void Confirm()
         {
             if (dtpckrDateBegin.SelectedDate != null && tbxDesc.Text.Length > 0 && tbxName.Text.Length > 0)
             {

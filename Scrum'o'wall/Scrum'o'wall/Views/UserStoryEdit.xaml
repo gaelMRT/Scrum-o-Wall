@@ -52,20 +52,20 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button TouchDown="btnFiles_TouchDown" Grid.Column="0" x:Name="btnFiles" Click="btnFiles_Click" Margin="10">Fichiers</Button>
-            <Button TouchDown="btnComments_TouchDown" Grid.Column="1" x:Name="btnComments" Click="btnComments_Click" Margin="10">Commentaires</Button>
-            <Button TouchDown="btnChecklists_TouchDown" Grid.Column="2" x:Name="btnChecklists" Click="btnChecklists_Click" Margin="10">Checklists</Button>
+            <Button TouchDown="btnFiles_Click" Grid.Column="0" x:Name="btnFiles" Click="btnFiles_Click" Margin="10">Fichiers</Button>
+            <Button TouchDown="btnComments_Click" Grid.Column="1" x:Name="btnComments" Click="btnComments_Click" Margin="10">Commentaires</Button>
+            <Button TouchDown="btnChecklists_Click" Grid.Column="2" x:Name="btnChecklists" Click="btnChecklists_Click" Margin="10">Checklists</Button>
         </Grid>
         <Grid Grid.Row="9" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button TouchDown="btnActivities_TouchDown" Grid.Column="0" x:Name="btnActivities" Click="btnActivities_Click" Margin="10">Activités</Button>
-            <Button TouchDown="btnUserAssigned_TouchDown" Grid.Column="1" x:Name="btnUserAssigned" Click="btnUserAssigned_Click" Margin="10">Utilisateurs assignés</Button>
+            <Button TouchDown="btnActivities_Click" Grid.Column="0" x:Name="btnActivities" Click="btnActivities_Click" Margin="10">Activités</Button>
+            <Button TouchDown="btnUserAssigned_Click" Grid.Column="1" x:Name="btnUserAssigned" Click="btnUserAssigned_Click" Margin="10">Utilisateurs assignés</Button>
         </Grid>
 
-        <Button TouchDown="btnConfirm_TouchDown" x:Name="btnConfirm" Click="btnConfirm_Click" Grid.Row="10" Grid.Column="1" Margin="10">Confirmer</Button>
-        <Button TouchDown="btnCancel_TouchDown" x:Name="btnCancel" Click="btnCancel_Click" Grid.Row="10" Margin="10">Annuler</Button>
+        <Button TouchDown="btnConfirm_Click" x:Name="btnConfirm" Click="btnConfirm_Click" Grid.Row="10" Grid.Column="1" Margin="10">Confirmer</Button>
+        <Button TouchDown="btnCancel_Click" x:Name="btnCancel" Click="btnCancel_Click" Grid.Row="10" Margin="10">Annuler</Button>
     </Grid>
 </Window>

@@ -48,6 +48,7 @@ namespace Scrum_o_wall.Views
                 border.Width = 390;
                 border.Tag = chckLst;
                 border.TouchDown += Border_TouchDown;
+                border.MouseDown += Border_TouchDown;
 
                 //Create grid
                 Grid grd = new Grid();
@@ -97,10 +98,10 @@ namespace Scrum_o_wall.Views
             controller.UpdateCheckListItem(item.NameItem, item.Done, item);
         }
 
-        private void Border_TouchDown(object sender, TouchEventArgs e)
+        private void Border_TouchDown(object sender, EventArgs e)
         {
             Checklist checklist = (sender as Border).Tag as Checklist;
-            ChecklistEdit checklistEdit = new ChecklistEdit(checklist, controller);
+            ChecklistEdit checklistEdit = new ChecklistEdit(checklist,userStory, controller);
             if(checklistEdit.ShowDialog() == true)
             {
                 List<ChecklistItem> items = new List<ChecklistItem>();
@@ -113,17 +114,12 @@ namespace Scrum_o_wall.Views
             }
         }
 
-        private void Quit_Click(object sender, RoutedEventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnAddList_Click(object sender, RoutedEventArgs e)
+        private void btnAddList_Click(object sender, EventArgs e)
         {
             ChecklistCreate checklistCreate = new ChecklistCreate();
             if(checklistCreate.ShowDialog() == true)
@@ -137,23 +133,5 @@ namespace Scrum_o_wall.Views
             }
         }
 
-        private void btnCancel_TouchDown(object sender, TouchEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnAddList_TouchDown(object sender, TouchEventArgs e)
-        {
-            ChecklistCreate checklistCreate = new ChecklistCreate();
-            if (checklistCreate.ShowDialog() == true)
-            {
-                Checklist checklist = controller.CreateCheckList(checklistCreate.tbxName.Text, userStory);
-                foreach (ChecklistItem item in checklistCreate.listItems.Items)
-                {
-                    controller.CreateCheckListItem(item.NameItem, checklist);
-                }
-                Refresh();
-            }
-        }
     }
 }

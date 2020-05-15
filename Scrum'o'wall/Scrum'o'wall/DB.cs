@@ -1253,7 +1253,7 @@ namespace Scrum_o_wall
 
             //Read and put entries in a list of objects
             rdr = cmd.ExecuteReader();
-            values = new object[4];
+            values = new object[5];
             while (rdr.Read())
             {
                 rdr.GetValues(values);

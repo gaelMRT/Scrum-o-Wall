@@ -213,19 +213,13 @@ namespace Scrum_o_wall.Views
 
         private void UserStoryEditing(UserStory userStory)
         {
-            UserStoryEdit userStoryEdit = new UserStoryEdit(userStory, controller);
+            UserStoryEdit userStoryEdit = new UserStoryEdit(userStory,sprint.Project, controller);
             if (userStoryEdit.ShowDialog() == true)
             {
                 controller.UpdateUserStory(userStoryEdit.tbxDesc.Text, userStoryEdit.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryEdit.tbxComplexity.Text), Convert.ToInt32(userStoryEdit.tbxCompletedComplexity.Text), userStoryEdit.chckBxBlocked.IsChecked == true, (Priority)userStoryEdit.cbxPriority.SelectedItem, (Classes.Type)userStoryEdit.cbxType.SelectedItem, userStory, sprint.Project);
                 Refresh();
             }
         }
-
-        private void Quit_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
 
         private void addColumn_Click(object sender, RoutedEventArgs e)
         {
@@ -234,19 +228,12 @@ namespace Scrum_o_wall.Views
             Refresh();
         }
 
-        private void btnBurndownChart_Click(object sender, RoutedEventArgs e)
+        private void btnBurndownChart_Click(object sender, EventArgs e)
         {
             BurndownChart burndownChart = new BurndownChart(sprint);
             burndownChart.ShowDialog();
         }
-
-        private void btnBurndownChart_TouchDown(object sender, TouchEventArgs e)
-        {
-            BurndownChart burndownChart = new BurndownChart(sprint);
-            burndownChart.ShowDialog();
-        }
-
-        private void btnReturn_TouchDown(object sender, TouchEventArgs e)
+        private void btnReturn_Click(object sender, EventArgs e)
         {
             this.Close();
         }
