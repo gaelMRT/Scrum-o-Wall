@@ -88,14 +88,14 @@ namespace Scrum_o_wall
                 usrCntrl.Background = Brushes.LightGray;
                 usrCntrl.Cursor = Cursors.Hand;
                 usrCntrl.Tag = p;
-                usrCntrl.TouchDown += UsrCntrl_TouchDown;
-                usrCntrl.MouseDown += UsrCntrl_MouseDown;
+                usrCntrl.TouchDown += UsrCntrl_Click;
+                usrCntrl.MouseLeftButtonDown += UsrCntrl_Click;
 
                 //Positioning of control
                 Canvas.SetLeft(usrCntrl, (cnvsProject.Width - usrCntrl.Width) / 2.0 + ((usrCntrl.Width + usrCntrl.Width / 4) * (i % 3 - 1)));
                 Canvas.SetTop(usrCntrl, 20 + (usrCntrl.Height + usrCntrl.Height / 5) * (i / 3));
 
-                if(Canvas.GetTop(usrCntrl) + usrCntrl.Height > cnvsProject.Height)
+                if (Canvas.GetTop(usrCntrl) + usrCntrl.Height > cnvsProject.Height)
                 {
                     cnvsProject.Height = Canvas.GetTop(usrCntrl) + usrCntrl.Height;
                 }
@@ -104,6 +104,7 @@ namespace Scrum_o_wall
                 cnvsProject.Children.Add(usrCntrl);
             }
         }
+
         private void MainMenu_Loaded(object sender, RoutedEventArgs e)
         {
             //ActualWidth and ActualHeight measured when window is loaded minus border sizes
@@ -116,36 +117,20 @@ namespace Scrum_o_wall
             Refresh();
 
         }
-
-        private void UsrCntrl_MouseDown(object sender, MouseButtonEventArgs e)
+        private void UsrCntrl_Click(object sender, EventArgs e)
         {
-            if(e.ChangedButton == MouseButton.Left)
-            {
-                Project p = (sender as UserControl).Tag as Project;
-                OpenProject(p);
-            }
-        }
-
-        private void UsrCntrl_TouchDown(object sender, TouchEventArgs e)
-        {
-            /*
             Project p = (sender as UserControl).Tag as Project;
-            OpenProject(p);
-            */
-        }
-
-        private void OpenProject(Project p)
-        {
             ProjectMenu backlogMenu = new ProjectMenu(p, controller);
             backlogMenu.ShowDialog();
         }
-
-        private void Quit_Click(object sender, RoutedEventArgs e)
+        private void Quit_Click(object sender, EventArgs e)
         {
-            Application.Current.Shutdown();
+            if(MessageBox.Show("Vous allez quitter l'application.\nÊtes-vous sûr de vouloir continuer ?","Attention",MessageBoxButton.OKCancel,MessageBoxImage.Warning) == MessageBoxResult.OK)
+            {
+                Application.Current.Shutdown();
+            }
         }
-
-        private void AddProject_Click(object sender, RoutedEventArgs e)
+        private void AddProject_Click(object sender, EventArgs e)
         {
             ProjectCreate projectCreate = new ProjectCreate();
             if (projectCreate.ShowDialog() == true)
@@ -157,21 +142,6 @@ namespace Scrum_o_wall
 
                 Refresh();
             }
-        }
-
-        private void btnReturn_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
-
-        private void btnReturn_TouchDown(object sender, TouchEventArgs e)
-        {
-
-        }
-
-        private void btnAddProject_TouchDown(object sender, TouchEventArgs e)
-        {
-
         }
     }
 }

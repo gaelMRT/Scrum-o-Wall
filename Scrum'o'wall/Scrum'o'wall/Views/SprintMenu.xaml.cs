@@ -37,6 +37,7 @@ namespace Scrum_o_wall.Views
             lblProjectName.Content = sprint.Project.Name;
             lblSprintName.Content = aSprint.ToString();
         }
+
         private void CleanLists()
         {
             foreach (GroupBox gbx in columns)
@@ -49,6 +50,30 @@ namespace Scrum_o_wall.Views
                 cnvsSprint.Children.Remove(userControl);
             }
             userStories.Clear();
+        }
+        /// <summary>
+        /// Refresh the view with it content
+        /// </summary>
+        private void Refresh()
+        {
+            CleanLists();
+
+            //Declare variables for userstories positioning
+            Dictionary<State, int> userStoriesPerState = new Dictionary<State, int>();
+
+            foreach (KeyValuePair<int, State> keyValuePair in sprint.Project.States)
+            {
+                State state = keyValuePair.Value;
+                CreateStateColumn(state);
+                userStoriesPerState.Add(state, 0);
+            }
+            /// Place UserStories
+            foreach (KeyValuePair<int, UserStory> item in sprint.OrderedUserStories)
+            {
+                UserStory userStory = item.Value;
+                CreateUserStoryControl(userStory, userStoriesPerState[userStory.CurrentState]);
+                userStoriesPerState[userStory.CurrentState]++;
+            }
         }
         private GroupBox CreateStateColumn(State state)
         {
@@ -95,8 +120,8 @@ namespace Scrum_o_wall.Views
             userControl.BorderBrush = Brushes.Black;
             userControl.Background = Brushes.LightGray;
             userControl.Cursor = Cursors.Hand;
-            userControl.MouseUp += usrCtrlUserStory_MouseUp;
-            userControl.TouchUp += usrCtrlUserStory_TouchUp;
+            userControl.MouseUp += usrCtrlUserStory_Click;
+            userControl.TouchUp += usrCtrlUserStory_Click;
 
             //Events for drag'n'drop
             userControl.PreviewTouchDown += userStory_PreviewTouchDown;
@@ -109,6 +134,7 @@ namespace Scrum_o_wall.Views
             userStories.Add(userControl);
             return userControl;
         }
+
         private void SprintMenu_Loaded(object sender, RoutedEventArgs e)
         {
             cnvsSprint.Width = this.ActualWidth;
@@ -122,32 +148,6 @@ namespace Scrum_o_wall.Views
 
             Refresh();
         }
-
-        /// <summary>
-        /// Refresh the view with it content
-        /// </summary>
-        private void Refresh()
-        {
-            CleanLists();
-
-            //Declare variables for userstories positioning
-            Dictionary<State, int> userStoriesPerState = new Dictionary<State, int>();
-
-            foreach (KeyValuePair<int, State> keyValuePair in sprint.Project.States)
-            {
-                State state = keyValuePair.Value;
-                CreateStateColumn(state);
-                userStoriesPerState.Add(state, 0);
-            }
-            /// Place UserStories
-            foreach (KeyValuePair<int, UserStory> item in sprint.OrderedUserStories)
-            {
-                UserStory userStory = item.Value;
-                CreateUserStoryControl(userStory, userStoriesPerState[userStory.CurrentState]);
-                userStoriesPerState[userStory.CurrentState]++;
-            }
-        }
-
         private void userStory_PreviewTouchMove(object sender, TouchEventArgs e)
         {
             if (startPoint.ContainsKey(e.Device))
@@ -168,24 +168,20 @@ namespace Scrum_o_wall.Views
                 }
             }
         }
-
         private void userStory_PreviewTouchDown(object sender, TouchEventArgs e)
         {
             startPoint.Add(e.Device, e.GetTouchPoint(null).Position);
         }
-
         private void state_DragLeave(object sender, DragEventArgs e)
         {
             GroupBox gbx = sender as GroupBox;
             gbx.BorderThickness = new Thickness(1);
         }
-
         private void state_DragEnter(object sender, DragEventArgs e)
         {
             GroupBox gbx = sender as GroupBox;
             gbx.BorderThickness = new Thickness(5);
         }
-
         private void state_Drop(object sender, DragEventArgs e)
         {
             GroupBox gbx = sender as GroupBox;
@@ -198,36 +194,22 @@ namespace Scrum_o_wall.Views
 
             Refresh();
         }
-        private void usrCtrlUserStory_MouseUp(object sender, MouseButtonEventArgs e)
+        private void usrCtrlUserStory_Click(object sender, EventArgs e)
         {
             UserStory userStory = (sender as UserControl).Tag as UserStory;
-            UserStoryEditing(userStory);
-        }
-
-        private void usrCtrlUserStory_TouchUp(object sender, TouchEventArgs e)
-        {
-            UserStory userStory = (sender as UserControl).Tag as UserStory;
-            UserStoryEditing(userStory);
-        }
-
-
-        private void UserStoryEditing(UserStory userStory)
-        {
-            UserStoryEdit userStoryEdit = new UserStoryEdit(userStory,sprint.Project, controller);
+            UserStoryEdit userStoryEdit = new UserStoryEdit(userStory, sprint.Project, controller);
             if (userStoryEdit.ShowDialog() == true)
             {
-                controller.UpdateUserStory(userStoryEdit.tbxDesc.Text, userStoryEdit.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryEdit.tbxComplexity.Text), Convert.ToInt32(userStoryEdit.tbxCompletedComplexity.Text), userStoryEdit.chckBxBlocked.IsChecked == true, (Priority)userStoryEdit.cbxPriority.SelectedItem, (Classes.Type)userStoryEdit.cbxType.SelectedItem, userStory, sprint.Project);
+                controller.UpdateUserStory(userStoryEdit.tbxDesc.Text, userStoryEdit.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryEdit.tbxComplexity.Text), Convert.ToInt32(userStoryEdit.tbxCompletedComplexity.Text), userStoryEdit.chckBxBlocked.IsChecked == true, (Priority)userStoryEdit.cbxPriority.SelectedItem, (Classes.Type)userStoryEdit.cbxType.SelectedItem, userStory.CurrentState, userStory);
                 Refresh();
             }
         }
-
         private void addColumn_Click(object sender, RoutedEventArgs e)
         {
             StateMenu stateMenu = new StateMenu(sprint.Project, controller);
             stateMenu.ShowDialog();
             Refresh();
         }
-
         private void btnBurndownChart_Click(object sender, EventArgs e)
         {
             BurndownChart burndownChart = new BurndownChart(sprint);

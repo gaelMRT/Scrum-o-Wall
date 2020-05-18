@@ -24,12 +24,11 @@ namespace Scrum_o_wall.Views
             InitializeComponent();
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void btnCancel_Click(object sender,EventArgs e)
         {
             this.Close();
         }
-
-        private void btnConfirm_Click(object sender, RoutedEventArgs e)
+        private void btnConfirm_Click(object sender, EventArgs e)
         {
             if(tbxStateName.Text.Length > 1)
             {
@@ -42,22 +41,5 @@ namespace Scrum_o_wall.Views
             }
         }
 
-        private void btnConfirm_TouchDown(object sender, TouchEventArgs e)
-        {
-            if (tbxStateName.Text.Length > 1)
-            {
-                this.DialogResult = true;
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Un ou plusieurs champ(s) n'est pas rempli !", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void btnCancel_TouchDown(object sender, TouchEventArgs e)
-        {
-            this.Close();
-        }
     }
 }

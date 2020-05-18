@@ -61,7 +61,6 @@ namespace Scrum_o_wall.Views
                 lstPossibleUsers.Items.Add(state);
             }
         }
-
         private void btnGoRight_Click(object sender, EventArgs e)
         {
             User state = lstPossibleUsers.SelectedItem as User;
@@ -71,8 +70,7 @@ namespace Scrum_o_wall.Views
                 lstAssignedUsers.Items.Add(state);
             }
         }
-
-        private void Save()
+        private void btnSave_Click(object sender, EventArgs e)
         {
             List<User> toRemove = new List<User>();
             List<User> toAdd = new List<User>();
@@ -95,16 +93,9 @@ namespace Scrum_o_wall.Views
             {
                 controller.RemoveUserFromIUsersAssigned(user, objectWithAssignedUsers);
             }
-            
-            MessageBox.Show("La sauvegarde s'est effectuée sans soucis.", "Confirmation", MessageBoxButton.OK, MessageBoxImage.None);
-            
-        }
 
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            Save();
+            this.Close();
         }
-
         private void btnAddUser_Click(object sender, EventArgs e)
         {
             UserCreate userCreate = new UserCreate();

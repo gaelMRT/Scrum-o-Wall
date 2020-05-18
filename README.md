@@ -378,15 +378,35 @@ Idées :
  - Accès
  - Modification après fermeture validée
  
- ### Liens utiles et idées
+### Liens utiles et idées
  J'ai d'abord commencé à faire le résumé et l'abstract puis j'ai rendu sur moodle. Cependant, l'heure de rendu était mise à minuit alors qu'elle était annoncée à 17h. J'ai donc envoyé un message à M. Garcia.
  
  J'ai implémenter la fenêtre d'edition de la checklistItemEdit. J'en ai profité pour modifier quelques fonctions redondantes d'évènement en acceptant l'interface EventArgs au lieu d'accepter les évènements de type plus particulier.
- 
- ### Tâches accomplies
+
+### Tâches accomplies
 - Retoucher le résumé et l'abstract
 - Rendre la nouvelle version
 - Implémenter la fenêtre ChecklistItemEdit dans le fonctionnement : 
- - Accès
- - Modification après fermeture validée
+-- Accès
+-- Modification après fermeture validée
 - Ajout de limitations sur les utilisateurs assignés
+
+## 18.05
+
+### Tâches à faire
+- Implémenter l'ajout d'activités
+- Refactoriser le code
+ 
+### Liens utiles et idées
+ Pour implémenter l'ajout des activités, j'ai pensé qu'il serait mieux que rien ne soit lié à l'interface utilisateur. Cependant, j'ai jugé plus interessant que ce soit le controlleur qui s'occupe d'appeler la création des activités. J'ai donc rajouter dans chaque fonction changeant les User Stories un appel à la fonction rajoutant un enregistrement dans les activités.
+ 
+ Après cela, j'ai refactoriser le code en supprimant les fonction redondantes. J'ai ensuite séparé les fonction d'évènement de chaque vue des autres fonctions plus utiles et j'ai regrouper les fonctions dans le controller par leur but tel que la création, mise à jour ou supression d'enregistrement à la base de données.
+ 
+ J'ai commencé à vouloir faire des tests unitaires. Cependant, pour définir la base de données j'ai dû changé le fonctionnement de la classe DB. Il faut absoluement pouvoir définir une base de données sans interface graphique. C'est pourquoi j'ai créer une propriété qui peut être définie pour ouvrir une base de données sans avoir à utiliser l'interface utilisateur
+ 
+ Demain, je m'occuperais de la création des tests unitaires
+ 
+### Tâches accomplies
+- Implémenter l'ajout d'activités
+- Refactoriser le code
+- Définition des tests unitaires

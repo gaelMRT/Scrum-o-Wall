@@ -40,20 +40,6 @@ namespace Scrum_o_wall.Views
             Refresh();
         }
 
-        private void ListItems_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            ListView lstView = sender as ListView;
-            ChecklistItem checklistItem = lstView.SelectedItem as ChecklistItem;
-            if(checklist.ChecklistItems.Contains(checklistItem))
-            {
-                ChecklistItemEdit checklistItemEdit = new ChecklistItemEdit(checklistItem,userStory, controller);
-                if(checklistItemEdit.ShowDialog() == true)
-                {
-                    controller.UpdateCheckListItem(checklistItemEdit.tbxObjet.Text, checklistItemEdit.chkbxDone.IsChecked == true, checklistItem);
-                }
-            }
-        }
-
         private void Refresh()
         {
             listItems.Items.Clear();
@@ -67,7 +53,20 @@ namespace Scrum_o_wall.Views
             }
         }
 
-        private void btnAddItem_Click(object sender, RoutedEventArgs e)
+        private void ListItems_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ListView lstView = sender as ListView;
+            ChecklistItem checklistItem = lstView.SelectedItem as ChecklistItem;
+            if(checklist.ChecklistItems.Contains(checklistItem))
+            {
+                ChecklistItemEdit checklistItemEdit = new ChecklistItemEdit(checklistItem,userStory, controller);
+                if(checklistItemEdit.ShowDialog() == true)
+                {
+                    controller.UpdateCheckListItem(checklistItemEdit.tbxObjet.Text, checklistItemEdit.chkbxDone.IsChecked == true, checklistItem);
+                }
+            }
+        }
+        private void btnAddItem_Click(object sender, EventArgs e)
         {
             ChecklistItemCreate checklistItemCreate = new ChecklistItemCreate();
             if (checklistItemCreate.ShowDialog() == true)
@@ -78,13 +77,11 @@ namespace Scrum_o_wall.Views
                 Refresh();
             }
         }
-
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
-        private void btnConfirm_Click(object sender, RoutedEventArgs e)
+        private void btnConfirm_Click(object sender, EventArgs e)
         {
             if (tbxName.Text.Length > 0 && listItems.Items.Count > 0)
             {
@@ -93,32 +90,6 @@ namespace Scrum_o_wall.Views
             }
             else
             {
-            }
-        }
-
-        private void btnAddItem_TouchDown(object sender, TouchEventArgs e)
-        {
-            ChecklistItemCreate checklistItemCreate = new ChecklistItemCreate();
-            if (checklistItemCreate.ShowDialog() == true)
-            {
-                ChecklistItem checklistItem = new ChecklistItem(-1, checklistItemCreate.tbxObjet.Text, false, -1);
-
-                itemsToAdd.Add(checklistItem);
-                Refresh();
-            }
-        }
-
-        private void btnCancel_TouchDown(object sender, TouchEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnConfirm_TouchDown(object sender, TouchEventArgs e)
-        {
-            if (tbxName.Text.Length > 0 && listItems.Items.Count > 0)
-            {
-                this.DialogResult = true;
-                this.Close();
             }
         }
     }

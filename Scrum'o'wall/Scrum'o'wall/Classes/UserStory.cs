@@ -28,7 +28,7 @@ namespace Scrum_o_wall.Classes
         public UserStory(int anId, string aDesc, DateTime? aDateLimit, int aComplexity, int aCompletedComplexity, bool isBlocked, int aProjectId, int aStateId, int aTypeId, int aPriorityId)
         {
             id = anId;
-            Text = aDesc;
+            Description = aDesc;
             DateLimit = aDateLimit;
             ComplexityEstimation = aComplexity;
             CompletedComplexity = aCompletedComplexity;
@@ -44,7 +44,7 @@ namespace Scrum_o_wall.Classes
         public int ProjectId { get => projectId; }
         public int TypeId { get => typeId; }
         public int PriorityId { get => priorityId; }
-        public string Text { get; set; }
+        public string Description { get; set; }
         public State CurrentState { get => currentState; set { currentState = value; stateId = value.Id; } }
         public DateTime? DateLimit { get; set; }
         public int CompletedComplexity { get; set; }
@@ -74,7 +74,7 @@ namespace Scrum_o_wall.Classes
         }
         public override string ToString()
         {
-            return Text;
+            return Description;
         }
     }
 }

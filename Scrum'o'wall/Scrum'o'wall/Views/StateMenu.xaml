@@ -34,7 +34,7 @@
                     <ListBox Margin="10" Name="lstPossibleStates">
 
                     </ListBox>
-                    <Button TouchDown="btnAddState_TouchDown" Click="btnAddState_Click" x:Name="btnAddState" Margin="10" Grid.Row="1">+</Button>
+                    <Button TouchDown="btnAddState_Click" Click="btnAddState_Click" x:Name="btnAddState" Margin="10" Grid.Row="1">+</Button>
                 </Grid>
             </GroupBox>
             <GroupBox Grid.Column="2"  Margin="10" Header="États assignés" Grid.Row="1">
@@ -48,9 +48,9 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <Button TouchDown="btnGoLeft_TouchDown" Click="btnGoLeft_Click" Margin="10" x:Name="btnGoLeft" Content="←"></Button>
-                <Button TouchDown="btnGoRight_TouchDown" Click="btnGoRight_Click" Margin="10" x:Name="btnGoRight" Grid.Row="1" Content="→"></Button>
-                <Button TouchDown="btnSave_TouchDown" Click="btnSave_Click" Margin="10,10,10,29" x:Name="btnSave" Grid.Row="2" Content="💾"></Button>
+                <Button TouchDown="btnGoLeft_Click" Click="btnGoLeft_Click" Margin="10" x:Name="btnGoLeft" Content="←"></Button>
+                <Button TouchDown="btnGoRight_Click" Click="btnGoRight_Click" Margin="10" x:Name="btnGoRight" Grid.Row="1" Content="→"></Button>
+                <Button TouchDown="btnSave_Click" Click="btnSave_Click" Margin="10,10,10,29" x:Name="btnSave" Grid.Row="2" Content="💾"></Button>
             </Grid>
         </Grid>
     </Canvas>

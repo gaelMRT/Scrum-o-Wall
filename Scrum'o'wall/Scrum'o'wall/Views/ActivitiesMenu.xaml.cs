@@ -29,12 +29,7 @@ namespace Scrum_o_wall.Views
             }
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnCancel_TouchDown(object sender, TouchEventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }

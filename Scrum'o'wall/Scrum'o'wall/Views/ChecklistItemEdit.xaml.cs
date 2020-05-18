@@ -39,7 +39,6 @@ namespace Scrum_o_wall.Views
         {
             this.Close();
         }
-
         private void btnConfirm_Click(object sender, EventArgs e)
         {
             if(tbxObjet.Text.Length > 0)
@@ -52,7 +51,6 @@ namespace Scrum_o_wall.Views
                 MessageBox.Show("Un ou plusieurs champ(s) n'est pas rempli !", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
         private void btnAssignedUsers_Click(object sender, EventArgs e)
         {
             UserMenu userMenu = new UserMenu(checklistItem, userStory.GetUsers(), controller);

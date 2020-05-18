@@ -41,22 +41,11 @@ namespace Scrum_o_wall.Views
             }
         }
 
-        private void Quit_Click(object sender, RoutedEventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnAddComment_Click(object sender, RoutedEventArgs e)
-        {
-            AddComment();
-        }
-        
-        private void AddComment()
+        private void btnAddComment_Click(object sender, EventArgs e)
         {
             CommentCreate commentCreate = new CommentCreate(userStory.GetUsers());
             if (userStory.GetUsers().Count == 0)
@@ -64,19 +53,11 @@ namespace Scrum_o_wall.Views
                 MessageBox.Show("Aucun utilisateur assigné", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }else if (commentCreate.ShowDialog() == true)
             {
-                controller.CreateComment(commentCreate.tbxContent.Text, userStory);
+                
+                controller.CreateComment(commentCreate.tbxContent.Text,commentCreate.cbxAuthor.SelectedItem as User, userStory);
                 Refresh();
             }
         }
-
-        private void btnCancel_TouchDown(object sender, TouchEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnAddComment_TouchDown(object sender, TouchEventArgs e)
-        {
-            AddComment();
-        }
+        
     }
 }

@@ -62,20 +62,10 @@ namespace Scrum_o_wall.Views
             lnCurrent.Points = linePoints;
 
         }
-
-        private void Quit_Click(object sender, RoutedEventArgs e)
+        private void Quit_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnCancel_TouchDown(object sender, TouchEventArgs e)
-        {
-            this.Close();
-        }
     }
 }

@@ -22,6 +22,7 @@ namespace Scrum_o_wall.Views
     {
         Controller controller;
         File file;
+
         public FileEdit(File aFile, Controller aController)
         {
             file = aFile;
@@ -39,31 +40,11 @@ namespace Scrum_o_wall.Views
             tbxFileName.Text = file.Name;
         }
 
-
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
-        private void btnConfirm_Click(object sender, RoutedEventArgs e)
-        {
-            if (tbxDescription.Text.Length > 1 && tbxFileName.Text.Length > 1 && System.IO.File.Exists(tbxFileName.Text) && cbxFileTypes.SelectedItem != null)
-            {
-                this.DialogResult = true;
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Un ou plusieurs champ(s) n'est pas rempli !", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void btnCancel_TouchDown(object sender, TouchEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnConfirm_TouchDown(object sender, TouchEventArgs e)
+        private void btnConfirm_Click(object sender, EventArgs e)
         {
             if (tbxDescription.Text.Length > 1 && tbxFileName.Text.Length > 1 && System.IO.File.Exists(tbxFileName.Text) && cbxFileTypes.SelectedItem != null)
             {

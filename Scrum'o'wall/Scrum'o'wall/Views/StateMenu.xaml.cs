@@ -23,7 +23,7 @@ namespace Scrum_o_wall.Views
     {
         Project project;
         Controller controller;
-        public StateMenu(Project aProject,Controller aController)
+        public StateMenu(Project aProject, Controller aController)
         {
             project = aProject;
             controller = aController;
@@ -32,47 +32,46 @@ namespace Scrum_o_wall.Views
 
             Refresh();
         }
+
         private void Refresh()
         {
-            if(lstAssignedStates.Items.Count == 0)
+            if (lstAssignedStates.Items.Count == 0)
             {
-                foreach (KeyValuePair<int,State> keyValuePair  in project.States)
+                foreach (KeyValuePair<int, State> keyValuePair in project.States)
                 {
                     lstAssignedStates.Items.Add(keyValuePair.Value);
                 }
             }
             lstPossibleStates.Items.Clear();
-            foreach (State state in controller.States.Where(s=> !lstAssignedStates.Items.Contains(s)))
+            foreach (State state in controller.States.Where(s => !lstAssignedStates.Items.Contains(s)))
             {
                 lstPossibleStates.Items.Add(state);
             }
         }
-        private void Quit_Click(object sender, RoutedEventArgs e)
+
+        private void Quit_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
-        private void btnGoLeft_Click(object sender, RoutedEventArgs e)
+        private void btnGoLeft_Click(object sender, EventArgs e)
         {
             State state = lstAssignedStates.SelectedItem as State;
-            if(state != null)
+            if (state != null)
             {
                 lstAssignedStates.Items.Remove(state);
                 lstPossibleStates.Items.Add(state);
             }
         }
-
-        private void btnGoRight_Click(object sender, RoutedEventArgs e)
+        private void btnGoRight_Click(object sender, EventArgs e)
         {
             State state = lstPossibleStates.SelectedItem as State;
-            if(state != null)
+            if (state != null)
             {
                 lstPossibleStates.Items.Remove(state);
                 lstAssignedStates.Items.Add(state);
             }
         }
-
-        private void Save()
+        private void btnSave_Click(object sender, EventArgs e)
         {
             List<State> toRemove = new List<State>();
             List<State> toAdd = new List<State>();
@@ -89,32 +88,15 @@ namespace Scrum_o_wall.Views
             }
             foreach (State state in toAdd)
             {
-                controller.AddStateToProject(state,project);
+                controller.AddStateToProject(state, project);
             }
             foreach (State state in toRemove)
             {
                 controller.RemoveStateFromProject(state, project);
             }
-                MessageBox.Show("La sauvegarde s'est effectuée sans soucis.", "Confirmation", MessageBoxButton.OK, MessageBoxImage.None);
-            
+            this.Close();
         }
-
-        private void btnSave_Click(object sender, RoutedEventArgs e)
-        {
-            Save();            
-        }
-
-        private void btnAddState_Click(object sender, RoutedEventArgs e)
-        {
-            StateCreate stateCreate = new StateCreate();
-            if(stateCreate.ShowDialog() == true)
-            {
-                controller.CreateState(stateCreate.tbxStateName.Text);
-                Refresh();
-            }
-        }
-
-        private void btnAddState_TouchDown(object sender, TouchEventArgs e)
+        private void btnAddState_Click(object sender, EventArgs e)
         {
             StateCreate stateCreate = new StateCreate();
             if (stateCreate.ShowDialog() == true)
@@ -124,29 +106,5 @@ namespace Scrum_o_wall.Views
             }
         }
 
-        private void btnGoLeft_TouchDown(object sender, TouchEventArgs e)
-        {
-            State state = lstAssignedStates.SelectedItem as State;
-            if (state != null)
-            {
-                lstAssignedStates.Items.Remove(state);
-                lstPossibleStates.Items.Add(state);
-            }
-        }
-
-        private void btnGoRight_TouchDown(object sender, TouchEventArgs e)
-        {
-            State state = lstPossibleStates.SelectedItem as State;
-            if (state != null)
-            {
-                lstPossibleStates.Items.Remove(state);
-                lstAssignedStates.Items.Add(state);
-            }
-        }
-
-        private void btnSave_TouchDown(object sender, TouchEventArgs e)
-        {
-            Save();
-        }
     }
 }

@@ -22,15 +22,15 @@
         <TextBlock Grid.Row="1" VerticalAlignment="Center" Margin="10,14,10,21" TextAlignment="Right" Height="20" ><Run Text="Fichier :"/><LineBreak/><Run/><LineBreak/><Run/></TextBlock>
         <TextBlock Grid.Row="2" VerticalAlignment="Top" Margin="10,10,10,0" TextAlignment="Right" Height="21" >Description :</TextBlock>
         <TextBox x:Name="tbxFileName" MaxLength="65535" IsEnabled="False" Grid.Row="1" Grid.Column="1" Margin="10,10,100,10" ></TextBox>
-        <Button x:Name="btnFileSearch" TouchDown="btnFileSearch_TouchDown" Grid.Row="1" Grid.Column="1" Margin="0,10,10,10" Click="btnFileSearch_Click" HorizontalAlignment="Right" Width="87">+</Button>
+        <Button x:Name="btnFileSearch" TouchDown="btnFileSearch_Click" Grid.Row="1" Grid.Column="1" Margin="0,10,10,10" Click="btnFileSearch_Click" HorizontalAlignment="Right" Width="87">+</Button>
         <TextBox Margin="10" MaxLength="65535" TextWrapping="Wrap" Name="tbxDescription" Grid.Row="2" Grid.Column="1">
         </TextBox>
 
         <TextBlock Grid.Row="3" VerticalAlignment="Center" TextAlignment="Right" Height="20" Margin="10" >Type de fichier :</TextBlock>
         <ComboBox x:Name="cbxFileTypes" Grid.Column="1"  Margin="10" Grid.Row="3" />
 
-        <Button TouchDown="btnCancel_TouchDown" x:Name="btnCancel" Grid.Row="4" Margin="10" Click="btnCancel_Click">Annuler</Button>
-        <Button TouchDown="btnConfirm_TouchDown" x:Name="btnConfirm" Grid.Row="4" Grid.Column="1" Margin="10" Click="btnConfirm_Click">Confirmer</Button>
+        <Button TouchDown="btnCancel_Click" x:Name="btnCancel" Grid.Row="4" Margin="10" Click="btnCancel_Click">Annuler</Button>
+        <Button TouchDown="btnConfirm_Click" x:Name="btnConfirm" Grid.Row="4" Grid.Column="1" Margin="10" Click="btnConfirm_Click">Confirmer</Button>
     </Grid>
 </Window>
 

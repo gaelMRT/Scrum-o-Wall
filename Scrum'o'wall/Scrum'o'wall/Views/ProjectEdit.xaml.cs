@@ -34,56 +34,7 @@ namespace Scrum_o_wall.Views
             dtpckrDateBegin.SelectedDate = project.Begin;
         }
 
-        private void btnConfirm_Click(object sender, RoutedEventArgs e)
-        {
-            Confirm();
-        }
-
-        private void btnStates_Click(object sender, RoutedEventArgs e)
-        {
-            OpenStateMenu();
-        }
-
-        private void btnUsers_Click(object sender, RoutedEventArgs e)
-        {
-            OpenUserMenu();
-        }
-
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnUsers_TouchDown(object sender, TouchEventArgs e)
-        {
-            OpenUserMenu();
-        }
-
-        private void btnCancel_TouchDown(object sender, TouchEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnConfirm_TouchDown(object sender, TouchEventArgs e)
-        {
-            Confirm();
-        }
-        private void OpenStateMenu()
-        {
-            StateMenu stateMenu = new StateMenu(project, controller);
-            stateMenu.ShowDialog();
-        }
-        private void btnStates_TouchDown(object sender, TouchEventArgs e)
-        {
-            OpenStateMenu();
-        }
-
-        private void OpenUserMenu()
-        {
-            UserMenu userMenu = new UserMenu(project, controller.Users, controller);
-            userMenu.ShowDialog();
-        }
-        private void Confirm()
+        private void btnConfirm_Click(object sender, EventArgs e)
         {
             if (dtpckrDateBegin.SelectedDate != null && tbxDesc.Text.Length > 0 && tbxName.Text.Length > 0)
             {
@@ -95,5 +46,20 @@ namespace Scrum_o_wall.Views
                 MessageBox.Show("Un ou plusieurs champ(s) n'est pas rempli !", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        private void btnStates_Click(object sender, EventArgs e)
+        {
+            StateMenu stateMenu = new StateMenu(project, controller);
+            stateMenu.ShowDialog();
+        }
+        private void btnUsers_Click(object sender, EventArgs e)
+        {
+            UserMenu userMenu = new UserMenu(project, controller.Users, controller);
+            userMenu.ShowDialog();
+        }
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
     }
 }

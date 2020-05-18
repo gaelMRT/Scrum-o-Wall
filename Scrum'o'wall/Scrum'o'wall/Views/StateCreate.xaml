@@ -19,7 +19,7 @@
         <TextBlock Grid.ColumnSpan="2" TextAlignment="Center" FontSize="20" VerticalAlignment="Center">Création d'un état</TextBlock>
         <TextBlock Grid.Row="1" TextAlignment="Right" VerticalAlignment="Center" Margin="10,13,10,14">Nom de l'état :</TextBlock>
         <TextBox Grid.Row="1" Grid.Column="1" MaxLength="30" Margin="10" Name="tbxStateName"></TextBox>
-        <Button TouchDown="btnCancel_TouchDown" x:Name="btnCancel" Grid.Row="2" Grid.Column="0" Margin="10" Click="btnCancel_Click">Annuler</Button>
-        <Button TouchDown="btnConfirm_TouchDown" x:Name="btnConfirm" Grid.Row="2" Grid.Column="1" Margin="10" Click="btnConfirm_Click">Confirmer</Button>
+        <Button TouchDown="btnCancel_Click" x:Name="btnCancel" Grid.Row="2" Grid.Column="0" Margin="10" Click="btnCancel_Click">Annuler</Button>
+        <Button TouchDown="btnConfirm_Click" x:Name="btnConfirm" Grid.Row="2" Grid.Column="1" Margin="10" Click="btnConfirm_Click">Confirmer</Button>
     </Grid>
 </Window>

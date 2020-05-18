@@ -23,10 +23,11 @@ namespace Scrum_o_wall
 {
     public static class DB
     {
+        public static string DbFileName;
         private static OleDbConnection connection;
         private static OleDbConnection GetConnection()
         {
-            if (connection is null)
+            if (connection is null && DbFileName == null)
             {
                 OpenFileDialog opf = new OpenFileDialog();
                 opf.Title = "Quel base de données Access utiliser ?";
@@ -40,7 +41,11 @@ namespace Scrum_o_wall
                     }
                 } while (!opf.SafeFileName.Contains(".accdb"));
                 connection = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + opf.FileName + ";Persist Security Info=False;");
+            }else if(connection is null)
+            {
+                connection = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + DbFileName + ";Persist Security Info=False;");
             }
+
             return connection;
         }
 
@@ -369,6 +374,40 @@ namespace Scrum_o_wall
             Checklist checklist = new Checklist(id, aName, userStory.Id);
             return checklist;
         }
+
+        public static Activity CreateActivity(string description, DateTime now, UserStory userStory)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+            int id;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "INSERT INTO TActivities (Description,DateTimeActivity,IdUserStory) VALUES (?,?,?);";
+            cmd.Parameters.Add("Description", OleDbType.LongVarChar, 65535);
+            cmd.Parameters.Add("DateTimeActivity", OleDbType.Date);
+            cmd.Parameters.Add("IdUserStory", OleDbType.Integer);
+            cmd.Parameters[0].Value = description;
+            cmd.Parameters[1].Value = now;
+            cmd.Parameters[2].Value = userStory.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            //Get last inserted id
+            cmd.CommandText = "SELECT @@Identity;";
+            id = (int)cmd.ExecuteScalar();
+
+            //Close database
+            DB.GetConnection().Close();
+
+            //return created project
+            Activity activity = new Activity(id, description, now, userStory.Id);
+            return activity;
+        }
+
         public static UserStory CreateUserStory(string description, DateTime? selectedDate, int complexity, Priority priority, Classes.Type type, State state, Project project)
         {
             //Initialize variables

@@ -47,8 +47,8 @@ namespace Scrum_o_wall.Views
                 border.BorderThickness = new Thickness(1);
                 border.Width = 390;
                 border.Tag = chckLst;
-                border.TouchDown += Border_TouchDown;
-                border.MouseDown += Border_TouchDown;
+                border.TouchDown += checklist_Click;
+                border.MouseLeftButtonDown += checklist_Click;
 
                 //Create grid
                 Grid grd = new Grid();
@@ -97,8 +97,7 @@ namespace Scrum_o_wall.Views
             item.Done = (sender as CheckBox).IsChecked == true;
             controller.UpdateCheckListItem(item.NameItem, item.Done, item);
         }
-
-        private void Border_TouchDown(object sender, EventArgs e)
+        private void checklist_Click(object sender, EventArgs e)
         {
             Checklist checklist = (sender as Border).Tag as Checklist;
             ChecklistEdit checklistEdit = new ChecklistEdit(checklist,userStory, controller);
@@ -113,12 +112,10 @@ namespace Scrum_o_wall.Views
                 Refresh();
             }
         }
-
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
         private void btnAddList_Click(object sender, EventArgs e)
         {
             ChecklistCreate checklistCreate = new ChecklistCreate();

@@ -32,6 +32,7 @@ namespace Scrum_o_wall.Views
 
             Refresh();
         }
+
         public void Refresh()
         {
             lstFiles.Items.Clear();
@@ -44,7 +45,8 @@ namespace Scrum_o_wall.Views
                 border.BorderThickness = new Thickness(1);
                 border.Width = 408;
                 border.Tag = file;
-                border.TouchDown += FileInList_TouchDown;
+                border.TouchDown += FileInList_Click;
+                border.MouseLeftButtonDown += FileInList_Click;
 
                 //Create grid
                 Grid grd = new Grid();
@@ -77,7 +79,7 @@ namespace Scrum_o_wall.Views
             }
         }
 
-        private void FileInList_TouchDown(object sender, TouchEventArgs e)
+        private void FileInList_Click(object sender, EventArgs e)
         {
             File file = (sender as Border).Tag as File;
             FileEdit fileEdit = new FileEdit(file,controller);
@@ -87,18 +89,11 @@ namespace Scrum_o_wall.Views
                 Refresh();
             }
         }
-
-        private void Quit_Click(object sender, RoutedEventArgs e)
+        private void Quit_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnAddFile_Click(object sender, RoutedEventArgs e)
+        private void btnAddFile_Click(object sender, EventArgs e)
         {
             FileCreate fileCreate = new FileCreate(controller);
             if(fileCreate.ShowDialog() == true)
@@ -107,21 +102,6 @@ namespace Scrum_o_wall.Views
                 Refresh();
             }
 
-        }
-
-        private void btnCancel_TouchDown(object sender, TouchEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnAddFile_TouchDown(object sender, TouchEventArgs e)
-        {
-            FileCreate fileCreate = new FileCreate(controller);
-            if (fileCreate.ShowDialog() == true)
-            {
-                controller.CreateFile(fileCreate.tbxFileName.Text, fileCreate.tbxDescription.Text, fileCreate.cbxFileTypes.SelectedItem as FileType, userStory);
-                Refresh();
-            }
         }
     }
 }

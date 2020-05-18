@@ -22,8 +22,8 @@
             </ListView>
         </Border>
 
-        <Button TouchDown="btnCancel_TouchDown" x:Name="btnCancel" Grid.Row="2" Margin="10" Click="btnCancel_Click">Retour</Button>
-        <Button TouchDown="btnAddFile_TouchDown" x:Name="btnAddFile" Grid.Row="2" Grid.Column="1" Margin="10" Click="btnAddFile_Click">Ajouter</Button>
+        <Button TouchDown="Quit_Click" x:Name="btnCancel" Grid.Row="2" Margin="10" Click="Quit_Click">Retour</Button>
+        <Button TouchDown="btnAddFile_Click" x:Name="btnAddFile" Grid.Row="2" Grid.Column="1" Margin="10" Click="btnAddFile_Click">Ajouter</Button>
     </Grid>
 </Window>
 
