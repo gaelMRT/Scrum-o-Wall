@@ -41,7 +41,8 @@ namespace Scrum_o_wall
                     }
                 } while (!opf.SafeFileName.Contains(".accdb"));
                 connection = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + opf.FileName + ";Persist Security Info=False;");
-            }else if(connection is null)
+            }
+            else if (connection is null)
             {
                 connection = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + DbFileName + ";Persist Security Info=False;");
             }
@@ -93,7 +94,6 @@ namespace Scrum_o_wall
             //Close database
             DB.GetConnection().Close();
         }
-
         public static void UpdateFile(string fileDescription, FileType fileType, Classes.File file)
         {
 
@@ -118,7 +118,6 @@ namespace Scrum_o_wall
             //Close database
             DB.GetConnection().Close();
         }
-
         public static void UpdateCheckList(string name, Checklist checklist)
         {
             //Initialize variables
@@ -140,7 +139,6 @@ namespace Scrum_o_wall
             //Close database
             DB.GetConnection().Close();
         }
-
         public static void UpdateCheckListItem(string nameItem, bool done, ChecklistItem checklistItem)
         {
             //Initialize variables
@@ -164,7 +162,6 @@ namespace Scrum_o_wall
             //Close database
             DB.GetConnection().Close();
         }
-
         public static void UpdateProject(string name, string description, DateTime dateTime, Project project)
         {
             //Initialize variables
@@ -374,7 +371,6 @@ namespace Scrum_o_wall
             Checklist checklist = new Checklist(id, aName, userStory.Id);
             return checklist;
         }
-
         public static Activity CreateActivity(string description, DateTime now, UserStory userStory)
         {
             //Initialize variables
@@ -407,7 +403,6 @@ namespace Scrum_o_wall
             Activity activity = new Activity(id, description, now, userStory.Id);
             return activity;
         }
-
         public static UserStory CreateUserStory(string description, DateTime? selectedDate, int complexity, Priority priority, Classes.Type type, State state, Project project)
         {
             //Initialize variables
@@ -459,7 +454,7 @@ namespace Scrum_o_wall
             UserStory userStory = new UserStory(id, description, selectedDate, complexity, 0, false, project.Id, state.Id, type.Id, priority.Id);
             userStory.Priority = priority;
             userStory.Type = type;
-            userStory.CurrentState = state;
+            userStory.State = state;
             return userStory;
         }
         public static State CreateState(string name)
@@ -645,6 +640,238 @@ namespace Scrum_o_wall
         }
         #endregion
         #region REMOVE
+
+        public static bool DeleteActivity(Activity activity)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+            bool result;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "DELETE FROM TActivities WHERE IdActivity = ?;";
+            cmd.Parameters.Add("IdActivity", OleDbType.Integer);
+            cmd.Parameters[0].Value = activity.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            result = cmd.ExecuteNonQuery() == 1;
+
+            //Close database
+            DB.GetConnection().Close();
+            return result;
+        }
+        public static bool DeleteChecklistItem(ChecklistItem checklistItem)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+            bool result;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "DELETE FROM TChecklistItems WHERE IdChecklistItem = ?;";
+            cmd.Parameters.Add("IdChecklistItem", OleDbType.Integer);
+            cmd.Parameters[0].Value = checklistItem.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            result = cmd.ExecuteNonQuery() == 1;
+
+            //Close database
+            DB.GetConnection().Close();
+            return result;
+        }
+        public static bool DeleteChecklist(Checklist checklist)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+            bool result;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "DELETE FROM TChecklists WHERE IdChecklist = ?;";
+            cmd.Parameters.Add("IdChecklist", OleDbType.Integer);
+            cmd.Parameters[0].Value = checklist.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            result = cmd.ExecuteNonQuery() == 1;
+
+            //Close database
+            DB.GetConnection().Close();
+            return result;
+        }
+        public static bool DeleteFile(Classes.File File)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+            bool result;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "DELETE FROM TFiles WHERE IdFile = ?;";
+            cmd.Parameters.Add("IdFile", OleDbType.Integer);
+            cmd.Parameters[0].Value = File.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            result = cmd.ExecuteNonQuery() == 1;
+
+            //Close database
+            DB.GetConnection().Close();
+            return result;
+        }
+        public static bool DeleteMindmap(MindMap mindmap)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+            bool result;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "DELETE FROM TMindMaps WHERE IdMindMap = ?;";
+            cmd.Parameters.Add("IdMindMap", OleDbType.Integer);
+            cmd.Parameters[0].Value = mindmap.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            result = cmd.ExecuteNonQuery() == 1;
+
+            //Close database
+            DB.GetConnection().Close();
+            return result;
+        }
+        public static bool DeleteNode(Node node)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+            bool result;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "DELETE FROM TNodes WHERE IdNode = ?;";
+            cmd.Parameters.Add("IdNode", OleDbType.Integer);
+            cmd.Parameters[0].Value = node.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            result = cmd.ExecuteNonQuery() == 1;
+
+            //Close database
+            DB.GetConnection().Close();
+            return result;
+        }
+        public static bool DeleteProject(Project project)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+            bool result;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "DELETE FROM TProjects WHERE IdProject = ?;";
+            cmd.Parameters.Add("IdProject", OleDbType.Integer);
+            cmd.Parameters[0].Value = project.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            result = cmd.ExecuteNonQuery() == 1;
+
+            //Close database
+            DB.GetConnection().Close();
+            return result;
+        }
+        public static bool DeleteSprint(Sprint sprint)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+            bool result;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "DELETE FROM TSprints WHERE IdSprint = ?;";
+            cmd.Parameters.Add("IdSprint", OleDbType.Integer);
+            cmd.Parameters[0].Value = sprint.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            result = cmd.ExecuteNonQuery() == 1;
+
+            //Close database
+            DB.GetConnection().Close();
+            return result;
+        }
+        public static bool DeleteState(State state)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+            bool result;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "DELETE FROM TStates WHERE IdState = ?;";
+            cmd.Parameters.Add("IdState", OleDbType.Integer);
+            cmd.Parameters[0].Value = state.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            result = cmd.ExecuteNonQuery() == 1;
+
+            //Close database
+            DB.GetConnection().Close();
+            return result;
+        }
+        public static bool DeleteUser(User user)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+            bool result;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "DELETE FROM TUsers WHERE IdUser = ?;";
+            cmd.Parameters.Add("IdUser", OleDbType.Integer);
+            cmd.Parameters[0].Value = user.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            result = cmd.ExecuteNonQuery() == 1;
+
+            //Close database
+            DB.GetConnection().Close();
+            return result;
+        }
+        public static bool DeleteUserStory(UserStory userStory)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+            bool result;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "DELETE FROM TUserStories WHERE IdUserStory = ?;";
+            cmd.Parameters.Add("IdUserStory", OleDbType.Integer);
+            cmd.Parameters[0].Value = userStory.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            result = cmd.ExecuteNonQuery() == 1;
+
+            //Close database
+            DB.GetConnection().Close();
+            return result;
+        }
         public static void RemoveUserFromUserStory(User user, UserStory userStory)
         {
             //Initialize variables

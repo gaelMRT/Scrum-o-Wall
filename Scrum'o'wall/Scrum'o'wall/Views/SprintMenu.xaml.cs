@@ -71,8 +71,8 @@ namespace Scrum_o_wall.Views
             foreach (KeyValuePair<int, UserStory> item in sprint.OrderedUserStories)
             {
                 UserStory userStory = item.Value;
-                CreateUserStoryControl(userStory, userStoriesPerState[userStory.CurrentState]);
-                userStoriesPerState[userStory.CurrentState]++;
+                CreateUserStoryControl(userStory, userStoriesPerState[userStory.State]);
+                userStoriesPerState[userStory.State]++;
             }
         }
         private GroupBox CreateStateColumn(State state)
@@ -105,7 +105,7 @@ namespace Scrum_o_wall.Views
         }
         private UserControl CreateUserStoryControl(UserStory userStory, int cptTop = 0)
         {
-            GroupBox gbx = columns.Where(c => c.Tag == userStory.CurrentState).First();
+            GroupBox gbx = columns.Where(c => c.Tag == userStory.State).First();
 
             //Create userStory frame
             TextBlock content = new TextBlock();
@@ -200,7 +200,7 @@ namespace Scrum_o_wall.Views
             UserStoryEdit userStoryEdit = new UserStoryEdit(userStory, sprint.Project, controller);
             if (userStoryEdit.ShowDialog() == true)
             {
-                controller.UpdateUserStory(userStoryEdit.tbxDesc.Text, userStoryEdit.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryEdit.tbxComplexity.Text), Convert.ToInt32(userStoryEdit.tbxCompletedComplexity.Text), userStoryEdit.chckBxBlocked.IsChecked == true, (Priority)userStoryEdit.cbxPriority.SelectedItem, (Classes.Type)userStoryEdit.cbxType.SelectedItem, userStory.CurrentState, userStory);
+                controller.UpdateUserStory(userStoryEdit.tbxDesc.Text, userStoryEdit.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryEdit.tbxComplexity.Text), Convert.ToInt32(userStoryEdit.tbxCompletedComplexity.Text), userStoryEdit.chckBxBlocked.IsChecked == true, (Priority)userStoryEdit.cbxPriority.SelectedItem, (Classes.Type)userStoryEdit.cbxType.SelectedItem, userStory.State, userStory);
                 Refresh();
             }
         }

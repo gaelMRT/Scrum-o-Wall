@@ -389,7 +389,7 @@ Idées :
 - Implémenter la fenêtre ChecklistItemEdit dans le fonctionnement : 
 -- Accès
 -- Modification après fermeture validée
-- Ajout de limitations sur les utilisateurs assignés
+- Ajout de limitations sur les utilisateurs assignésw
 
 ## 18.05
 
@@ -410,3 +410,18 @@ Idées :
 - Implémenter l'ajout d'activités
 - Refactoriser le code
 - Définition des tests unitaires
+
+## 19.05
+
+### Tâches à faire
+- Implémenter les tests unitaires
+ 
+### Liens utiles et idées
+J'ai eu mon fameux problème de moteur de base de données en voulant lancer les tests. J'ai donc dû forcer l'application à se lancer en 64 bits pour que cela fonctionne.
+
+J'ai décider de tester uniquement la classe Controller et la classe DB.
+ 
+
+### Tâches accomplies
+- Tous les tests du controller
+- Les tests de lecture de la classe DB.

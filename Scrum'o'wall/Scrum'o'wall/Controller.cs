@@ -98,7 +98,7 @@ namespace Scrum_o_wall
                 List<Classes.File> files = allFiles.Where(f => f.UserStoryId == u.Id).ToList();
                 List<Checklist> checklists = allChecklists.Where(c => c.UserStoryId == u.Id).ToList();
 
-                u.CurrentState = state;
+                u.State = state;
                 u.Priority = priority;
                 u.Type = type;
                 u.Activities = activities;
@@ -175,7 +175,7 @@ namespace Scrum_o_wall
         }
 
         #region Remove Methods
-        public void RemoveStateFromProject(State state, Project project)
+        public bool RemoveStateFromProject(State state, Project project)
         {
             int order = -1;
             if(project.States.ContainsValue(state) && project.States.Count > 1)
@@ -187,7 +187,7 @@ namespace Scrum_o_wall
                         project.States.Remove(item.Key);
                         order = item.Key;
 
-                        foreach (UserStory userStory in project.AllUserStories.Where(u => u.CurrentState.Id == state.Id))
+                        foreach (UserStory userStory in project.AllUserStories.Where(u => u.State.Id == state.Id))
                         {
                             this.UserStorySwitchState(userStory, project.States.First().Value);
                         }
@@ -196,11 +196,13 @@ namespace Scrum_o_wall
                     }
                 }
                 DB.RemoveStateFromProject(project, order);
+                
             }
             else
             {
-                MessageBox.Show("Vous ne pouvez pas supprimer le dernier état d'un projet", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
             }
+            return true;
         }
         public bool RemoveUserFromIUsersAssigned(User user, IUsersAssigned usersAssigned)
         {
@@ -257,11 +259,11 @@ namespace Scrum_o_wall
         #region Update Methods
         public void UserStorySwitchState(UserStory userStory, State state)
         {
-            if(userStory.CurrentState != state)
+            if(userStory.State != state)
             {
-                this.CreateActivity(String.Format("Passé de l'état \"{0}\" à l'état \"{1}\"", userStory.CurrentState, state), userStory);
+                this.CreateActivity(String.Format("Passé de l'état \"{0}\" à l'état \"{1}\"", userStory.State, state), userStory);
                 DB.UpdateUserStory(userStory.Description, userStory.DateLimit, userStory.ComplexityEstimation, userStory.CompletedComplexity, userStory.Blocked, userStory.Priority, state, userStory.Type, userStory);
-                userStory.CurrentState = state;
+                userStory.State = state;
             }
         }
         internal void UpdateCheckListItem(string nameItem, bool done, ChecklistItem item)
@@ -279,7 +281,7 @@ namespace Scrum_o_wall
                 userStory.Blocked != blocked || 
                 userStory.Priority != aPriority || 
                 userStory.Type != aType || 
-                userStory.CurrentState != aState)
+                userStory.State != aState)
             {
                 this.CreateActivity("Les informations ont été mises à jour", userStory);
                 DB.UpdateUserStory(description, selectedDate, complexity, completedComplexity, blocked, aPriority, aState, aType, userStory);
@@ -287,7 +289,8 @@ namespace Scrum_o_wall
                 userStory.DateLimit = selectedDate;
                 userStory.ComplexityEstimation = complexity;
                 userStory.CompletedComplexity = completedComplexity;
-                userStory.CurrentState = aState;
+                userStory.Blocked = blocked;
+                userStory.State = aState;
                 userStory.Priority = aPriority;
                 userStory.Type = aType;
             }
@@ -296,6 +299,7 @@ namespace Scrum_o_wall
         {
             DB.UpdateFile(fileDescription, fileType, file);
             file.Description = fileDescription;
+            file.FileType = fileType;
         }
         public void UpdateCheckList(string name, List<ChecklistItem> items, Checklist checklist)
         {
@@ -325,7 +329,7 @@ namespace Scrum_o_wall
         #endregion
 
         #region Creation Methods
-        public void AddUserStoryToSprint(UserStory userStory, Sprint sprint)
+        public bool AddUserStoryToSprint(UserStory userStory, Sprint sprint)
         {
             if (!sprint.OrderedUserStories.ContainsValue(userStory))
             {
@@ -336,12 +340,12 @@ namespace Scrum_o_wall
                 }
                 sprint.addUserStory(order, userStory);
                 DB.AddUserStoryToSprint(userStory, sprint, order);
-                this.CreateActivity(String.Format("A été ajouté au sprint \"{0}\"", sprint),userStory);
-                MessageBox.Show("Enregistrement créé","Confirmation",MessageBoxButton.OK,MessageBoxImage.Information);
+                this.CreateActivity(String.Format("A été ajouté au sprint \"{0}\"", sprint), userStory);
+                return true;
             }
             else
             {
-                MessageBox.Show("Enregistrement déjà existant","Erreur",MessageBoxButton.OK,MessageBoxImage.Error);
+                return false;
             }
         }
         public void AddStateToProject(State state, Project project)
@@ -394,9 +398,9 @@ namespace Scrum_o_wall
         {
             userStory.Activities.Add(DB.CreateActivity(description, DateTime.Now, userStory));
         }
-        public void CreateUserStory(string description, DateTime? selectedDate, string complexity, Priority aPriority, Classes.Type aType, Project aProject)
+        public void CreateUserStory(string description, DateTime? selectedDate, int complexity, Priority aPriority, Classes.Type aType, Project aProject)
         {
-            UserStory userStory = DB.CreateUserStory(description, selectedDate, Convert.ToInt32(complexity), aPriority, aType, aProject.States.First().Value, aProject);
+            UserStory userStory = DB.CreateUserStory(description, selectedDate, complexity, aPriority, aType, aProject.States.First().Value, aProject);
             aProject.AllUserStories.Add(userStory);
             this.CreateActivity("A été créé", userStory);
         }

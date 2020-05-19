@@ -103,7 +103,7 @@ namespace Scrum_o_wall.Views
             UserStoryEdit userStoryEdit = new UserStoryEdit(userStory, currentProject, controller);
             if (userStoryEdit.ShowDialog() == true)
             {
-                controller.UpdateUserStory(userStoryEdit.tbxDesc.Text, userStoryEdit.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryEdit.tbxComplexity.Text), Convert.ToInt32(userStoryEdit.tbxCompletedComplexity.Text), userStoryEdit.chckBxBlocked.IsChecked == true, (Priority)userStoryEdit.cbxPriority.SelectedItem, (Classes.Type)userStoryEdit.cbxType.SelectedItem, userStory.CurrentState, userStory);
+                controller.UpdateUserStory(userStoryEdit.tbxDesc.Text, userStoryEdit.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryEdit.tbxComplexity.Text), Convert.ToInt32(userStoryEdit.tbxCompletedComplexity.Text), userStoryEdit.chckBxBlocked.IsChecked == true, (Priority)userStoryEdit.cbxPriority.SelectedItem, (Classes.Type)userStoryEdit.cbxType.SelectedItem, userStory.State, userStory);
                 Refresh();
             }
         }
@@ -165,7 +165,7 @@ namespace Scrum_o_wall.Views
             UserStoryCreate userStoryCreate = new UserStoryCreate(controller);
             if (userStoryCreate.ShowDialog() == true)
             {
-                controller.CreateUserStory(userStoryCreate.tbxDesc.Text, userStoryCreate.dtpckrDateLimit.SelectedDate, userStoryCreate.tbxComplexity.Text, (Priority)userStoryCreate.cbxPriority.SelectedItem, (Classes.Type)userStoryCreate.cbxType.SelectedItem, currentProject);
+                controller.CreateUserStory(userStoryCreate.tbxDesc.Text, userStoryCreate.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryCreate.tbxComplexity.Text), (Priority)userStoryCreate.cbxPriority.SelectedItem, (Classes.Type)userStoryCreate.cbxType.SelectedItem, currentProject);
                 Refresh();
             }
         }

@@ -5,268 +5,248 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Scrum_o_wall.Classes;
+using System.Reflection;
 
 namespace Scrum_o_wall.Tests
 {
     [TestClass()]
     public class DBTests
     {
-        [TestMethod()]
-        public void UpdateUserStoryTest()
+        [TestInitialize]
+        public void TestInitialize()
         {
-            Assert.Fail();
+            DB.DbFileName = @"C:\Users\redwo\OneDrive\Scrum-o-Wall\TestDB.accdb";
         }
-
-        [TestMethod()]
-        public void UpdateFileTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void UpdateCheckListTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void UpdateCheckListItemTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void UpdateProjectTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void CreateProjectTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void AddUserToChecklistItemTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void AddUserToUserStoryTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void AddUserToProjectTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void AddUserStoryToSprintTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void CreateCheckListItemTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void CreateCheckListTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void CreateActivityTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void CreateUserStoryTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void CreateStateTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void CreateFileTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void CreateUserTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void CreateCommentTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void CreateSprintTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void AddStateToProjectTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void RemoveUserFromUserStoryTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void RemoveUserFromProjectTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void RemoveUserFromChecklistItemTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void RemoveUserStoryFromSprintTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void RemoveStateFromProjectTest()
-        {
-            Assert.Fail();
-        }
-
         [TestMethod()]
         public void GetUserStoriesSprintTest()
         {
-            Assert.Fail();
+            Assert.IsNotNull(DB.GetUserStoriesSprint());
         }
 
         [TestMethod()]
         public void GetProjectStatesTest()
         {
-            Assert.Fail();
+            Assert.IsNotNull(DB.GetProjectStates());
         }
 
         [TestMethod()]
         public void GetUserProjectTest()
         {
-            Assert.Fail();
+            Assert.IsNotNull(DB.GetUserProject());
         }
 
         [TestMethod()]
         public void GetUserChecklistItemTest()
         {
-            Assert.Fail();
+            Assert.IsNotNull(DB.GetUserChecklistItem());
         }
 
         [TestMethod()]
         public void GetUserUserStoryTest()
         {
-            Assert.Fail();
+            Assert.IsNotNull(DB.GetUserUserStory());
         }
 
         [TestMethod()]
         public void GetProjectsTest()
         {
-            Assert.Fail();
+            Assert.IsNotNull(DB.GetProjects());
         }
 
         [TestMethod()]
         public void GetSprintsTest()
         {
-            Assert.Fail();
+            Assert.IsNotNull(DB.GetSprints());
         }
 
         [TestMethod()]
         public void GetUserStoriesTest()
         {
-            Assert.Fail();
+            Assert.IsNotNull(DB.GetUserStories());
         }
 
         [TestMethod()]
         public void GetUsersTest()
         {
-            Assert.Fail();
+            Assert.IsNotNull(DB.GetUsers());
         }
 
         [TestMethod()]
         public void GetTypesTest()
         {
-            Assert.Fail();
+            Assert.IsNotNull(DB.GetTypes());
         }
 
         [TestMethod()]
         public void GetPrioritiesTest()
         {
-            Assert.Fail();
+            Assert.IsNotNull(DB.GetPriorities());
         }
 
         [TestMethod()]
         public void GetFilesTest()
         {
-            Assert.Fail();
+            Assert.IsNotNull(DB.GetFiles());
         }
 
         [TestMethod()]
         public void GetFileTypesTest()
         {
-            Assert.Fail();
+            Assert.IsNotNull(DB.GetFileTypes());
         }
 
         [TestMethod()]
         public void GetActivitiesTest()
         {
-            Assert.Fail();
+            Assert.IsNotNull(DB.GetActivities());
         }
 
         [TestMethod()]
         public void GetChecklistsTest()
         {
-            Assert.Fail();
+            Assert.IsNotNull(DB.GetChecklists());
         }
 
         [TestMethod()]
         public void GetChecklistItemsTest()
         {
-            Assert.Fail();
+            Assert.IsNotNull(DB.GetChecklistItems());
         }
 
         [TestMethod()]
         public void GetCommentsTest()
         {
-            Assert.Fail();
+            Assert.IsNotNull(DB.GetComments());
         }
 
         [TestMethod()]
         public void GetStatesTest()
         {
-            Assert.Fail();
+            Assert.IsNotNull(DB.GetStates());
         }
+
+        [TestMethod]
+        public void CreateDeleteActivity()
+        {
+            string aDesc = "activity test";
+            DateTime eventTime = DateTime.Now;
+            UserStory userStory = DB.GetUserStories().Last();
+
+            Activity a = DB.CreateActivity(aDesc, eventTime, userStory);
+
+            Assert.AreEqual(aDesc, a.Description);
+            Assert.AreEqual(eventTime, a.DateTime);
+            Assert.AreEqual(userStory.Id,a.UserStoryId);
+
+            Assert.IsTrue(DB.DeleteActivity(a));
+        }
+        [TestMethod]
+        public void CreateUpdateDeleteChecklist()
+        {
+
+        }
+        [TestMethod]
+        public void CreateUpdateDeleteChecklistItem()
+        {
+
+        }
+        [TestMethod]
+        public void CreateUpdateDeleteComment()
+        {
+
+        }
+        [TestMethod]
+        public void CreateUpdateDeleteFile()
+        {
+
+        }
+        [TestMethod]
+        public void CreateUpdateDeleteMindmap()
+        {
+
+        }
+        [TestMethod]
+        public void CreateUpdateDeleteNode()
+        {
+
+        }
+        [TestMethod]
+        public void CreateUpdateDeleteProject()
+        {
+
+        }
+        [TestMethod]
+        public void CreateUpdateDeleteSprint()
+        {
+
+        }
+        [TestMethod]
+        public void CreateUpdateDeleteState()
+        {
+
+        }
+        [TestMethod]
+        public void CreateUpdateDeleteUser()
+        {
+
+        }
+
+        [TestMethod]
+        public void CreateUpdateDeleteUserStoryTest()
+        {
+            List<Priority> priorities = DB.GetPriorities();
+            List<State> states = DB.GetStates();
+            List<Classes.Type> types = DB.GetTypes();
+            List<Project> projects = DB.GetProjects();
+
+            string firstDesc = "aDesc";
+            DateTime? firstDate = DateTime.Now;
+            int firstComplexity = 2;
+            Priority firstPrio = priorities[0];
+            Classes.Type firstType = types[0];
+            State firstState = states[0];
+            Project firstProj = projects[0];
+
+
+            UserStory userStory = DB.CreateUserStory(firstDesc,firstDate,firstComplexity,firstPrio,firstType,firstState,firstProj);
+            
+            Assert.IsNotNull(userStory, "Exception in userStory creation");
+            Assert.AreEqual(firstDesc, userStory.Description);
+            Assert.AreEqual(firstDate, userStory.DateLimit);
+            Assert.AreEqual(firstComplexity, userStory.ComplexityEstimation);
+            Assert.AreEqual(firstPrio, userStory.Priority);
+            Assert.AreEqual(firstType, userStory.Type);
+            Assert.AreEqual(firstState, userStory.State);
+            Assert.AreEqual(firstProj.Id, userStory.ProjectId);
+            Assert.AreEqual(false, userStory.Blocked);
+            Assert.AreEqual(0, userStory.CompletedComplexity);
+
+
+            string secDesc = "aNewDesc";
+            DateTime? secDate = null;
+            int secComplexity = 3;
+            int secCompleted = 1;
+            bool secBlock = true;
+            Priority secPrio = priorities[1];
+            Classes.Type secType = types[1];
+            State secState = states[1];
+
+            DB.UpdateUserStory(secDesc,secDate,secComplexity,secCompleted,secBlock,secPrio,secState,secType, userStory);
+
+            userStory = DB.GetUserStories().First(u => u.Id == userStory.Id);
+
+            Assert.AreEqual(secDesc, userStory.Description);
+            Assert.AreEqual(secDate, userStory.DateLimit);
+            Assert.AreEqual(secComplexity, userStory.ComplexityEstimation);
+            Assert.AreEqual(secPrio.Id, userStory.PriorityId);
+            Assert.AreEqual(secType.Id, userStory.TypeId);
+            Assert.AreEqual(secState.Id, userStory.StateId);
+            Assert.AreEqual(secBlock, userStory.Blocked);
+            Assert.AreEqual(secCompleted, userStory.CompletedComplexity);
+
+            Assert.IsTrue(DB.DeleteUserStory(userStory));
+        }
+
     }
 }

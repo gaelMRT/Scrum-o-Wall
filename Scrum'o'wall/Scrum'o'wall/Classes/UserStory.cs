@@ -45,7 +45,7 @@ namespace Scrum_o_wall.Classes
         public int TypeId { get => typeId; }
         public int PriorityId { get => priorityId; }
         public string Description { get; set; }
-        public State CurrentState { get => currentState; set { currentState = value; stateId = value.Id; } }
+        public State State { get => currentState; set { currentState = value; stateId = value.Id; } }
         public DateTime? DateLimit { get; set; }
         public int CompletedComplexity { get; set; }
         public int ComplexityEstimation { get; set; }
