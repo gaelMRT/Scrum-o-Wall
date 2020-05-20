@@ -29,10 +29,12 @@ namespace Scrum_o_wall
         {
             if (connection is null && DbFileName == null)
             {
-                OpenFileDialog opf = new OpenFileDialog();
-                opf.Title = "Quel base de données Access utiliser ?";
-                opf.DefaultExt = ".accdb|*.accdb";
-                opf.Filter = "Fichier Acces (*.accdb)|*.accdb";
+                OpenFileDialog opf = new OpenFileDialog
+                {
+                    Title = "Quel base de données Access utiliser ?",
+                    DefaultExt = ".accdb|*.accdb",
+                    Filter = "Fichier Acces (*.accdb)|*.accdb"
+                };
                 do
                 {
                     if (opf.ShowDialog() != true)
@@ -187,6 +189,29 @@ namespace Scrum_o_wall
             //Close database
             DB.GetConnection().Close();
         }
+        public static void UpdateSprint(DateTime secBegin, DateTime secEnd, Sprint sprint)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "UPDATE TSprints SET DateEnd = ?,DateBegin = ? WHERE IdSprint = ?;";
+            cmd.Parameters.Add("DateEnd", OleDbType.Date);
+            cmd.Parameters.Add("DateBegin", OleDbType.Date);
+            cmd.Parameters.Add("IdProject", OleDbType.Integer);
+            cmd.Parameters[0].Value = secEnd;
+            cmd.Parameters[1].Value = secBegin;
+            cmd.Parameters[2].Value = sprint.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            //Close database
+            DB.GetConnection().Close();
+        }
         #endregion
         #region ADD
         public static Project CreateProject(string aName, string aDesc, DateTime aDate)
@@ -221,6 +246,8 @@ namespace Scrum_o_wall
             Project project = new Project(id, aName, aDesc, aDate);
             return project;
         }
+
+
         public static void AddUserToChecklistItem(User user, ChecklistItem checklistItem)
         {
             //Initialize variables
@@ -451,10 +478,12 @@ namespace Scrum_o_wall
             DB.GetConnection().Close();
 
             //return created project
-            UserStory userStory = new UserStory(id, description, selectedDate, complexity, 0, false, project.Id, state.Id, type.Id, priority.Id);
-            userStory.Priority = priority;
-            userStory.Type = type;
-            userStory.State = state;
+            UserStory userStory = new UserStory(id, description, selectedDate, complexity, 0, false, project.Id, state.Id, type.Id, priority.Id)
+            {
+                Priority = priority,
+                Type = type,
+                State = state
+            };
             return userStory;
         }
         public static State CreateState(string name)
@@ -516,8 +545,10 @@ namespace Scrum_o_wall
             DB.GetConnection().Close();
 
             //return created project
-            Classes.File file = new Classes.File(id, fileName, description, fileType.Id, userStory.Id);
-            file.FileType = fileType;
+            Classes.File file = new Classes.File(id, fileName, description, fileType.Id, userStory.Id)
+            {
+                FileType = fileType
+            };
             return file;
         }
         public static User CreateUser(string name)
@@ -610,8 +641,10 @@ namespace Scrum_o_wall
             //Close database
             DB.GetConnection().Close();
 
-            Sprint sprint = new Sprint(id, dateBegin, dateEnd, project.Id);
-            sprint.Project = project;
+            Sprint sprint = new Sprint(id, dateBegin, dateEnd, project.Id)
+            {
+                Project = project
+            };
             return sprint;
 
         }
@@ -695,6 +728,27 @@ namespace Scrum_o_wall
             cmd.CommandText = "DELETE FROM TChecklists WHERE IdChecklist = ?;";
             cmd.Parameters.Add("IdChecklist", OleDbType.Integer);
             cmd.Parameters[0].Value = checklist.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            result = cmd.ExecuteNonQuery() == 1;
+
+            //Close database
+            DB.GetConnection().Close();
+            return result;
+        }
+        public static bool DeleteComment(Comment comment)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+            bool result;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "DELETE FROM TComments WHERE IdComment = ?;";
+            cmd.Parameters.Add("IdComment", OleDbType.Integer);
+            cmd.Parameters[0].Value = comment.Id;
 
             //Execute sql statement
             cmd.Prepare();

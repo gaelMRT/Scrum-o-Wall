@@ -39,19 +39,18 @@ namespace Scrum_o_wall.Tests
         [TestMethod]
         public void ControllerTest()
         {
-            ctrl = new Controller();
             Assert.IsNotNull(ctrl);
         }
         [TestMethod]
         public void CreateProjectTest()
         {
-            int countBefore = DB.GetProjects().Count;
+            int countBefore = ctrl.Projects.Count;
             int countAfterExpected = countBefore + 1;
             int countAfter;
 
             ctrl.CreateProject("aName", "aDesc", DateTime.Now);
 
-            countAfter = DB.GetProjects().Count;
+            countAfter = ctrl.Projects.Count;
 
             project = ctrl.Projects.Last();
             Assert.AreEqual(countAfterExpected, countAfter);
@@ -59,13 +58,13 @@ namespace Scrum_o_wall.Tests
         [TestMethod]
         public void CreateUserTest()
         {
-            int countBefore = DB.GetUsers().Count;
+            int countBefore = ctrl.Users.Count;
             int countAfterExpected = countBefore + 1;
             int countAfter;
 
             ctrl.CreateUser("aName");
 
-            countAfter = DB.GetUsers().Count;
+            countAfter = ctrl.Users.Count;
 
             user = ctrl.Users.Last();
             Assert.AreEqual(countAfterExpected, countAfter);
@@ -73,10 +72,8 @@ namespace Scrum_o_wall.Tests
         [TestMethod]
         public void CreateUserStoryTest()
         {
-            if (project == null)
-            {
-                project = ctrl.Projects.Last();
-            }
+            project = ctrl.Projects.Last();
+
             int countBefore = project.AllUserStories.Count;
             int countAfterExpected = countBefore + 1;
             int countAfter;
@@ -91,10 +88,7 @@ namespace Scrum_o_wall.Tests
         [TestMethod]
         public void CreateActivityTest()
         {
-            if (userStory == null)
-            {
-                userStory = ctrl.Projects.Last().AllUserStories.First();
-            }
+            userStory = ctrl.Projects.Last(p => p.AllUserStories.Count > 0).AllUserStories.First();
             int countBefore = userStory.Activities.Count;
             int countAfterExpected = countBefore + 1;
             int countAfter;
@@ -109,10 +103,8 @@ namespace Scrum_o_wall.Tests
         [TestMethod]
         public void CreateSprintTest()
         {
-            if (project == null)
-            {
-                project = ctrl.Projects.Last();
-            }
+            project = ctrl.Projects.Last();
+
             int countBefore = project.Sprints.Count;
             int countAfterExpected = countBefore + 1;
             int countAfter;
@@ -127,10 +119,8 @@ namespace Scrum_o_wall.Tests
         [TestMethod]
         public void CreateFileTest()
         {
-            if (userStory == null)
-            {
-                userStory = ctrl.Projects.Last().AllUserStories.First();
-            }
+            userStory = ctrl.Projects.Last(p => p.AllUserStories.Count > 0).AllUserStories.First();
+
             int countBefore = userStory.Files.Count;
             int countAfterExpected = countBefore + 1;
             int countAfter;
@@ -159,14 +149,9 @@ namespace Scrum_o_wall.Tests
         [TestMethod]
         public void CreateCommentTest()
         {
-            if (user == null)
-            {
-                ctrl.Users.Last();
-            }
-            if (userStory == null)
-            {
-                userStory = ctrl.Projects.Last().AllUserStories.First();
-            }
+            user = ctrl.Users.Last();
+            userStory = ctrl.Projects.Last(p => p.AllUserStories.Count > 0).AllUserStories.First();
+
             int countBefore = userStory.Comments.Count;
             int countAfterExpected = countBefore + 1;
             int countAfter;
@@ -181,10 +166,8 @@ namespace Scrum_o_wall.Tests
         [TestMethod]
         public void CreateCheckListTest()
         {
-            if (userStory == null)
-            {
-                userStory = ctrl.Projects.Last().AllUserStories.First();
-            }
+            userStory = ctrl.Projects.Last(p => p.AllUserStories.Count > 0).AllUserStories.First();
+
             int countBefore = userStory.Checklists.Count;
             int countAfterExpected = countBefore + 1;
             int countAfter;
@@ -199,10 +182,8 @@ namespace Scrum_o_wall.Tests
         [TestMethod]
         public void CreateCheckListItemTest()
         {
-            if (checklist == null)
-            {
-                checklist = ctrl.Projects.Last().AllUserStories.Last(u => u.Checklists.Count > 0).Checklists[0];
-            }
+            checklist = ctrl.Projects.Last(p => p.AllUserStories.Count(u => u.Checklists.Count > 0) > 0).AllUserStories.Last(u => u.Checklists.Count > 0).Checklists.First();
+
             int countBefore = checklist.ChecklistItems.Count;
             int countAfterExpected = countBefore + 1;
             int countAfter;
@@ -217,14 +198,10 @@ namespace Scrum_o_wall.Tests
         [TestMethod]
         public void AddUserStoryToSprintTest()
         {
-            if (userStory == null)
-            {
-                userStory = ctrl.Projects.Last().AllUserStories.Last();
-            }
-            if (sprint == null)
-            {
-                sprint = ctrl.Projects.Last().Sprints.Last();
-            }
+            project = ctrl.Projects.Last(p => p.AllUserStories.Count > 0 && p.Sprints.Count > 0);
+            userStory = project.AllUserStories.Last();
+            sprint = project.Sprints.Last();
+
             int countBefore = sprint.OrderedUserStories.Count;
             int countAfterExpected = countBefore + 1;
             int countAfter;
@@ -238,14 +215,8 @@ namespace Scrum_o_wall.Tests
         [TestMethod]
         public void AddStateToProjectTest()
         {
-            if (state == null)
-            {
-                state = ctrl.States.Last();
-            }
-            if (project == null)
-            {
-                project = ctrl.Projects.Last();
-            }
+            project = ctrl.Projects.Last();
+            state = ctrl.States.Last(s => !project.States.ContainsValue(s));
             int countBefore = project.States.Count;
             int countAfterExpected = countBefore + 1;
             int countAfter;
@@ -259,10 +230,10 @@ namespace Scrum_o_wall.Tests
         [TestMethod]
         public void AddUserToIUsersAssignedTest()
         {
-            user = ctrl.Users[0];
-            project = ctrl.Projects.Last(p => p.AllUserStories.Count > 0 && p.AllUserStories.Count(u => u.Checklists.Count > 0 && u.Checklists.Count(c => c.ChecklistItems.Count > 0) > 0) > 0);
-            userStory = project.AllUserStories.First(u => u.Checklists.Count > 0 && u.Checklists.Count(c => c.ChecklistItems.Count > 0) > 0);
+            project = ctrl.Projects.Last(p => p.AllUserStories.Count(u => u.Checklists.Count(c => c.ChecklistItems.Count > 0) > 0) > 0);
+            userStory = project.AllUserStories.First(u => u.Checklists.Count(c => c.ChecklistItems.Count > 0) > 0);
             checklistItem = userStory.Checklists.First().ChecklistItems.First();
+            user = ctrl.Users.First(u => !project.GetUsers().Contains(u) && !userStory.GetUsers().Contains(u) && !checklistItem.GetUsers().Contains(u)) ;
 
             //Test Project
             int countBefore = project.GetUsers().Count;
@@ -298,9 +269,7 @@ namespace Scrum_o_wall.Tests
         [TestMethod]
         public void UserStorySwitchStateTest()
         {
-            if (userStory == null)
-                userStory = ctrl.Projects.Last().AllUserStories.First();
-            if (state == null)
+                userStory = ctrl.Projects.Last(p => p.AllUserStories.Count > 0).AllUserStories.First();
                 state = ctrl.States.Last();
             State expected = state;
 
@@ -313,8 +282,8 @@ namespace Scrum_o_wall.Tests
         [TestMethod]
         public void UpdateUserStoryTest()
         {
-            if (userStory == null)
-                userStory = ctrl.Projects.Last().AllUserStories.First();
+
+            userStory = ctrl.Projects.Last(p => p.AllUserStories.Count > 0).AllUserStories.First();
 
 
             string afterDesc = "another description";
@@ -340,8 +309,7 @@ namespace Scrum_o_wall.Tests
         [TestMethod]
         public void UpdateFileTest()
         {
-            if (file == null)
-                file = ctrl.Projects.Last().AllUserStories.Last().Files.Last();
+                file = ctrl.Projects.Last(p => p.AllUserStories.Count(u => u.Files.Count > 0) > 0).AllUserStories.Last(u => u.Files.Count > 0).Files.Last();
 
             string newFileDesc = "this is a new file description";
             FileType newFileType = ctrl.FileTypes.First(ft => file.FileType != ft);
@@ -354,10 +322,8 @@ namespace Scrum_o_wall.Tests
         [TestMethod]
         public void UpdateCheckListTest()
         {
-            if (checklist == null)
-            {
-                checklist = ctrl.Projects.Last().AllUserStories.Last(u => u.Checklists.Count > 0).Checklists.Last();
-            }
+            checklist = ctrl.Projects.Last().AllUserStories.Last(u => u.Checklists.Count > 0).Checklists.Last();
+
 
             string afterName = "this is a new name";
 
@@ -368,8 +334,7 @@ namespace Scrum_o_wall.Tests
         [TestMethod]
         public void UpdateProjectTest()
         {
-            if (project == null)
-                project = ctrl.Projects.Last();
+            project = ctrl.Projects.Last();
 
             string afterName = "new project name";
             string afterDesc = project.Description + " no u";
@@ -385,14 +350,9 @@ namespace Scrum_o_wall.Tests
         [TestMethod]
         public void RemoveStateFromProjectTest()
         {
-            if (project == null)
-            {
-                project = ctrl.Projects.Last();
-            }
-            if (state == null || !project.States.ContainsValue(state))
-            {
-                state = project.States.Last().Value;
-            }
+            project = ctrl.Projects.Last();
+            state = project.States.Last(s => project.States.ContainsValue(s.Value)).Value;
+
             while (project.States.Count <= 1)
             {
                 State addState = ctrl.States.First(s => !project.States.ContainsValue(s));
@@ -411,24 +371,12 @@ namespace Scrum_o_wall.Tests
         [TestMethod]
         public void RemoveUserFromIUsersAssignedTest()
         {
-            if (user == null)
-                user = ctrl.Users.Last();
-            if (project == null)
-                project = ctrl.Projects.Last();
-            if (userStory == null)
-                userStory = project.AllUserStories.First();
-            if (checklistItem == null)
-            {
-                if (userStory.Checklists.Count == 0)
-                {
-                    ctrl.CreateCheckList("new Checklist", userStory);
-                }
-                if (userStory.Checklists.Last().ChecklistItems.Count == 0)
-                {
-                    ctrl.CreateCheckListItem("new checklistItem", userStory.Checklists.Last());
-                }
-                checklistItem = userStory.Checklists.Last().ChecklistItems.Last();
-            }
+
+            project = ctrl.Projects.Last(p => p.AllUserStories.Count(u => u.Checklists.Count(c => c.ChecklistItems.Count > 0) > 0) > 0);
+            userStory = project.AllUserStories.First(u => u.Checklists.Count(c => c.ChecklistItems.Count > 0) > 0);
+            checklistItem = userStory.Checklists.First().ChecklistItems.First();
+
+            user = ctrl.Users.First(u => project.GetUsers().Contains(u) && userStory.GetUsers().Contains(u) && checklistItem.GetUsers().Contains(u));
 
             //Test Project
             if (!project.GetUsers().Contains(user))

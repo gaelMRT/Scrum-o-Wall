@@ -425,3 +425,22 @@ J'ai décider de tester uniquement la classe Controller et la classe DB.
 ### Tâches accomplies
 - Tous les tests du controller
 - Les tests de lecture de la classe DB.
+
+
+## 20.05
+
+### Tâches à faire
+- Finir les test unitaires
+- Rendre le drag'n'drop multipoint
+ 
+### Liens utiles et idées
+J'ai fini de faire les tests unitaires pour la DB et j'ai corrigé quelques problèmes sur le controller.
+
+Afin de rendre le drag'n'drop multipoint, plusieurs posts stackoverflow (https://stackoverflow.com/questions/3191084/wpf-4-multi-touch-drag-and-drop , https://stackoverflow.com/questions/3044834/drag-and-drop-as-multitouch-event-in-wpf , https://stackoverflow.com/questions/8444998/multi-touch-screen-and-wpf-listbox , et bien d'autres)  me disent d'utiliser le "Surface Toolkit for Windows Touch". Je vais donc faire un git push et essayer en installant le surface toolkit.
+
+Résumé de la visioconférence : 
+Faire un flag pour supprimer quelque chose plutôt que de le supprimer totalement
+
+
+### Tâches accomplies
+- tests unitaires finis
