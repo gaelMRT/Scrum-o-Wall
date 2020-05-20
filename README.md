@@ -441,6 +441,14 @@ Afin de rendre le drag'n'drop multipoint, plusieurs posts stackoverflow (https:/
 Résumé de la visioconférence : 
 Faire un flag pour supprimer quelque chose plutôt que de le supprimer totalement
 
+J'ai essayer de trouver comment importer le Surface Toolkit mais après un moment à essayer de trouver sans succès comment l'importer, je suis parti sur une solution personnalisée.<br/>
+Je garde en mémoire les informations de l'objet à drag'n'drop dans des listes. J'ai également rajouté une petite boite qui suit le curseur pour avoir un support visuel.
+
+J'ai eu des soucis sur le PreviewTouchDown qui ne s'activaient pas. Après des recherches, le post de stackoverflow : https://stackoverflow.com/questions/36656709/wpf-touchscreen-events-not-working-properly m'a permis de découvrir que le problème était dû au fait que WPF s'attend à la réaction d'un stylet et non à réagir rapidement sur une touche d'utilisateur. Pour changer cela, il a fallut que je désactive cette propriété sur le contrôle voulu.
+
+J'ai également rajouté un style au drag and drop en affichant une petite boite à l'endroit ou on bouge la boite. Le message de confirmation s'affiche maintenant de manière asynchrone pour ne pas perturber le drag'n'drop des autres gens.
 
 ### Tâches accomplies
 - tests unitaires finis
+- Drag'n'drop multipoint sur ProjectMenu
+- Drag'n'drop stylisé
