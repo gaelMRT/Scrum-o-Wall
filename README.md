@@ -452,3 +452,17 @@ J'ai également rajouté un style au drag and drop en affichant une petite boite
 - tests unitaires finis
 - Drag'n'drop multipoint sur ProjectMenu
 - Drag'n'drop stylisé
+## 21.05
+
+### Tâches à faire
+ - Changer le drag'n'drop sur SprintMenu en multipoint
+ - Retoucher la documentation
+ 
+### Liens utiles et idées
+Pour pouvoir changer le drag'n'drop, j'ai refais comme dans la fenêtre ProjectMenu.
+Pour ce qui est du déplacement, j'ai tout mis dans l'évènement de la fenêtre directement. Cependant, la zone qui est détéctée par l'UI comme étant la zone du groupbox est uniquement sur les bords. C'est pourquoi j'ai récupéré les limites du groupbox et j'ai vérifié si le drag se situait dans la limite du groupbox.
+
+De plus, relacher le drag'n'drop avec un autre drag'n'drop actif recharge bien l'emplacement des userStories sans pour autant casser le drag'n'drop actuel.
+
+
+### Tâches accomplies

@@ -262,24 +262,11 @@ namespace Scrum_o_wall.Views
             if (currentPoint.ContainsKey(e.Device))
             {
                 currentPoint[e.Device] = e.GetTouchPoint(null).Position;
-                Vector diff = currentPoint[e.Device] - currentPoint[e.Device];
                 Console.WriteLine(String.Format("Point :{0},{1}", currentPoint[e.Device].X, currentPoint[e.Device].Y));
 
 
                 Canvas.SetLeft(borders[e.Device], currentPoint[e.Device].X - borders[e.Device].Width / 2.0);
                 Canvas.SetTop(borders[e.Device], currentPoint[e.Device].Y - borders[e.Device].Height / 2.0);
-                /*
-                if (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance || Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance)
-                {
-                    //extract data
-                    UserControl userControl = sender as UserControl;
-                    UserStory userStory = userControl.Tag as UserStory;
-
-                    //Drag'n'drop init
-                    DataObject dragData = new DataObject("drag", userStory);
-                    DragDrop.DoDragDrop(userControl, dragData, DragDropEffects.Move);
-                }
-                */
             }
         }
         private void usrCtrlUserStory_TouchUp(object sender, TouchEventArgs e)
@@ -287,6 +274,8 @@ namespace Scrum_o_wall.Views
             if (currentPoint.ContainsKey(e.Device))
             {
                 currentPoint.Remove(e.Device);
+                borders.Remove(e.Device);
+                infos.Remove(e.Device);
             }
             else
             {

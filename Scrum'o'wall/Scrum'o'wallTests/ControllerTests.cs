@@ -199,8 +199,8 @@ namespace Scrum_o_wall.Tests
         public void AddUserStoryToSprintTest()
         {
             project = ctrl.Projects.Last(p => p.AllUserStories.Count > 0 && p.Sprints.Count > 0);
-            userStory = project.AllUserStories.Last();
             sprint = project.Sprints.Last();
+            userStory = project.AllUserStories.Last(u => !sprint.OrderedUserStories.ContainsValue(u));
 
             int countBefore = sprint.OrderedUserStories.Count;
             int countAfterExpected = countBefore + 1;
@@ -233,7 +233,7 @@ namespace Scrum_o_wall.Tests
             project = ctrl.Projects.Last(p => p.AllUserStories.Count(u => u.Checklists.Count(c => c.ChecklistItems.Count > 0) > 0) > 0);
             userStory = project.AllUserStories.First(u => u.Checklists.Count(c => c.ChecklistItems.Count > 0) > 0);
             checklistItem = userStory.Checklists.First().ChecklistItems.First();
-            user = ctrl.Users.First(u => !project.GetUsers().Contains(u) && !userStory.GetUsers().Contains(u) && !checklistItem.GetUsers().Contains(u)) ;
+            user = ctrl.Users.First(u => !project.GetUsers().Contains(u) && !userStory.GetUsers().Contains(u) && !checklistItem.GetUsers().Contains(u));
 
             //Test Project
             int countBefore = project.GetUsers().Count;
@@ -269,8 +269,8 @@ namespace Scrum_o_wall.Tests
         [TestMethod]
         public void UserStorySwitchStateTest()
         {
-                userStory = ctrl.Projects.Last(p => p.AllUserStories.Count > 0).AllUserStories.First();
-                state = ctrl.States.Last();
+            userStory = ctrl.Projects.Last(p => p.AllUserStories.Count > 0).AllUserStories.First();
+            state = ctrl.States.Last();
             State expected = state;
 
             ctrl.UserStorySwitchState(userStory, state);
@@ -309,7 +309,7 @@ namespace Scrum_o_wall.Tests
         [TestMethod]
         public void UpdateFileTest()
         {
-                file = ctrl.Projects.Last(p => p.AllUserStories.Count(u => u.Files.Count > 0) > 0).AllUserStories.Last(u => u.Files.Count > 0).Files.Last();
+            file = ctrl.Projects.Last(p => p.AllUserStories.Count(u => u.Files.Count > 0) > 0).AllUserStories.Last(u => u.Files.Count > 0).Files.Last();
 
             string newFileDesc = "this is a new file description";
             FileType newFileType = ctrl.FileTypes.First(ft => file.FileType != ft);
@@ -322,7 +322,7 @@ namespace Scrum_o_wall.Tests
         [TestMethod]
         public void UpdateCheckListTest()
         {
-            checklist = ctrl.Projects.Last().AllUserStories.Last(u => u.Checklists.Count > 0).Checklists.Last();
+            checklist = ctrl.Projects.Last(p => p.AllUserStories.Count(u => u.Checklists.Count > 0) > 0).AllUserStories.Last(u => u.Checklists.Count > 0).Checklists.Last();
 
 
             string afterName = "this is a new name";

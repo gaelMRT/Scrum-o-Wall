@@ -24,15 +24,19 @@ namespace Scrum_o_wall.Views
     {
         Sprint sprint;
         Controller controller;
-        Dictionary<InputDevice, Point> startPoint = new Dictionary<InputDevice, Point>();
         List<GroupBox> columns = new List<GroupBox>();
         List<UserControl> userStories = new List<UserControl>();
+
+        Dictionary<InputDevice, Point> currentPoint = new Dictionary<InputDevice, Point>();
+        Dictionary<InputDevice, UserControl> infos = new Dictionary<InputDevice, UserControl>();
+        Dictionary<InputDevice, Border> borders = new Dictionary<InputDevice, Border>();
         public SprintMenu(Sprint aSprint, Controller aController)
         {
             InitializeComponent();
             sprint = aSprint;
             controller = aController;
             Loaded += SprintMenu_Loaded;
+            PreviewTouchMove += sprintMenu_PreviewTouchMove;
 
             lblProjectName.Content = sprint.Project.Name;
             lblSprintName.Content = aSprint.ToString();
@@ -74,6 +78,7 @@ namespace Scrum_o_wall.Views
                 CreateUserStoryControl(userStory, userStoriesPerState[userStory.State]);
                 userStoriesPerState[userStory.State]++;
             }
+            TouchUp += userStory_PreviewTouchUp;
         }
         private GroupBox CreateStateColumn(State state)
         {
@@ -87,12 +92,6 @@ namespace Scrum_o_wall.Views
             gbx.BorderBrush = Brushes.Black;
             gbx.BorderThickness = new Thickness(1);
 
-            //Needed for the drag'n'drop
-            gbx.AllowDrop = true;
-            gbx.Drop += state_Drop;
-            gbx.DragEnter += state_DragEnter;
-            gbx.DragLeave += state_DragLeave;
-
             //Positioning and put into canvas
             cnvsSprint.Children.Add(gbx);
             Canvas.SetTop(gbx, 100);
@@ -103,6 +102,8 @@ namespace Scrum_o_wall.Views
             columns.Add(gbx);
             return gbx;
         }
+
+
         private UserControl CreateUserStoryControl(UserStory userStory, int cptTop = 0)
         {
             GroupBox gbx = columns.Where(c => c.Tag == userStory.State).First();
@@ -125,7 +126,7 @@ namespace Scrum_o_wall.Views
 
             //Events for drag'n'drop
             userControl.PreviewTouchDown += userStory_PreviewTouchDown;
-            userControl.PreviewTouchMove += userStory_PreviewTouchMove;
+            Stylus.SetIsPressAndHoldEnabled(userControl, false);
 
             //Add to lists, positionning and return
             cnvsSprint.Children.Add(userControl);
@@ -148,29 +149,97 @@ namespace Scrum_o_wall.Views
 
             Refresh();
         }
-        private void userStory_PreviewTouchMove(object sender, TouchEventArgs e)
+        private void userStory_PreviewTouchUp(object sender, TouchEventArgs e)
         {
-            if (startPoint.ContainsKey(e.Device))
+            if (currentPoint.ContainsKey(e.Device))
             {
-                Point position = e.GetTouchPoint(null).Position;
-                Vector diff = startPoint[e.Device] - position;
-
-                if (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance || Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance)
+                //Search the contained groupbox
+                Point p = e.GetTouchPoint(null).Position;
+                GroupBox gbxState = null;
+                foreach (GroupBox col in columns)
                 {
-                    //extract data
-                    UserControl userControl = sender as UserControl;
-                    UserStory userStory = userControl.Tag as UserStory;
+                    double leftBound = Canvas.GetLeft(col);
+                    double rightBound = leftBound + col.Width;
+                    double topBound = Canvas.GetTop(col);
+                    double bottomBound = topBound + col.Height;
+                    if (p.X > leftBound && p.X < rightBound &&
+                        p.Y > topBound && p.Y < bottomBound)
+                    {
+                        gbxState = col;
+                        break;
+                    }
+                }
+                //if release in a groupbox, change state
+                if(gbxState != null)
+                {
+                    gbxState.BorderThickness = new Thickness(1);
 
-                    //Drag'n'drop init
-                    DataObject dragData = new DataObject("drag", userStory);
-                    DragDrop.DoDragDrop(userControl, dragData, DragDropEffects.Move);
+                    State state = gbxState.Tag as State;
+                    UserStory userStory = (infos[e.Device] as UserControl).Tag as UserStory;
+                    controller.UserStorySwitchState(userStory, state);
 
+                    currentPoint.Remove(e.Device);
+                    infos.Remove(e.Device);
+                    cnvsSprint.Children.Remove(borders[e.Device]);
+                    borders.Remove(e.Device);
+                    Refresh();
+                }
+            }
+        }
+        private void sprintMenu_PreviewTouchMove(object sender, TouchEventArgs e)
+        {
+
+            if (currentPoint.ContainsKey(e.Device))
+            {
+                currentPoint[e.Device] = e.GetTouchPoint(null).Position;
+
+                Canvas.SetLeft(borders[e.Device], currentPoint[e.Device].X - borders[e.Device].Width / 2.0);
+                Canvas.SetTop(borders[e.Device], currentPoint[e.Device].Y - borders[e.Device].Height / 2.0);
+            }
+
+            foreach (GroupBox col in columns)
+            {
+                col.BorderThickness = new Thickness(1);
+
+            }
+            foreach (KeyValuePair<InputDevice, Point> keyValuePair in currentPoint)
+            {
+                Point p = keyValuePair.Value;
+                foreach (GroupBox col in columns)
+                {
+                    double leftBound = Canvas.GetLeft(col);
+                    double rightBound = leftBound + col.Width;
+                    double topBound = Canvas.GetTop(col);
+                    double bottomBound = topBound + col.Height;
+
+                    if (p.X > leftBound && p.X < rightBound &&
+                        p.Y > topBound && p.Y < bottomBound)
+                    {
+                        col.BorderThickness = new Thickness(3);
+                    }
                 }
             }
         }
         private void userStory_PreviewTouchDown(object sender, TouchEventArgs e)
         {
-            startPoint.Add(e.Device, e.GetTouchPoint(null).Position);
+            if (currentPoint.ContainsKey(e.Device))
+            {
+                currentPoint.Remove(e.Device);
+                borders.Remove(e.Device);
+                infos.Remove(e.Device);
+            }
+
+            Border border = new Border()
+            {
+                Height = 40,
+                Width = 100,
+                BorderBrush = Brushes.Black,
+                BorderThickness = new Thickness(2)
+            };
+            cnvsSprint.Children.Add(border);
+            currentPoint.Add(e.Device, e.GetTouchPoint(null).Position);
+            infos.Add(e.Device, sender as UserControl);
+            borders.Add(e.Device, border);
         }
         private void state_DragLeave(object sender, DragEventArgs e)
         {
