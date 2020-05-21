@@ -464,5 +464,8 @@ Pour ce qui est du déplacement, j'ai tout mis dans l'évènement de la fenêtre
 
 De plus, relacher le drag'n'drop avec un autre drag'n'drop actif recharge bien l'emplacement des userStories sans pour autant casser le drag'n'drop actuel.
 
+Pour la documentation, j'ai vérifié que toutes les images possédaient bien une légende et j'ai rajouté les fonctionnalités et le résultat de mes tests unitaires. Il faudra que je mette à jour le diagramme de classes demain.
 
 ### Tâches accomplies
+ - Changer le drag'n'drop sur SprintMenu en multipoint
+ - Retoucher la documentation
