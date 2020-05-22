@@ -96,7 +96,7 @@ namespace Scrum_o_wall
             //Close database
             DB.GetConnection().Close();
         }
-        public static void UpdateFile(string fileDescription, FileType fileType, Classes.File file)
+        public static void UpdateFile(string fileDescription, Classes.File file)
         {
 
             //Initialize variables
@@ -105,13 +105,11 @@ namespace Scrum_o_wall
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
             cmd = DB.GetConnection().CreateCommand();
-            cmd.CommandText = "UPDATE TFiles SET DescriptionFile = ?, IdFileType = ? WHERE IdFile = ?;";
+            cmd.CommandText = "UPDATE TFiles SET DescriptionFile = ? WHERE IdFile = ?;";
             cmd.Parameters.Add("DescriptionFile", OleDbType.LongVarChar, 65535);
-            cmd.Parameters.Add("IdFileType", OleDbType.Integer);
             cmd.Parameters.Add("IdFile", OleDbType.Integer);
             cmd.Parameters[0].Value = fileDescription;
-            cmd.Parameters[1].Value = fileType.Id;
-            cmd.Parameters[2].Value = file.Id;
+            cmd.Parameters[1].Value = file.Id;
 
             //Execute sql statement
             cmd.Prepare();
@@ -514,7 +512,7 @@ namespace Scrum_o_wall
             State state = new State(id, name);
             return state;
         }
-        public static Classes.File CreateFile(string fileName, string description, FileType fileType, UserStory userStory)
+        public static Classes.File CreateFile(string fileName, string description,  UserStory userStory)
         {
             //Initialize variables
             OleDbCommand cmd;
@@ -523,15 +521,13 @@ namespace Scrum_o_wall
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
             cmd = DB.GetConnection().CreateCommand();
-            cmd.CommandText = "INSERT INTO TFiles (NameFile,DescriptionFile,IdFileType,IdUserStory) VALUES (?,?,?,?);";
+            cmd.CommandText = "INSERT INTO TFiles (NameFile,DescriptionFile,IdUserStory) VALUES (?,?,?);";
             cmd.Parameters.Add("NameState", OleDbType.LongVarChar, 65535);
             cmd.Parameters.Add("DescriptionFile", OleDbType.LongVarChar, 65535);
-            cmd.Parameters.Add("IdFileType", OleDbType.Integer);
             cmd.Parameters.Add("IdUserStory", OleDbType.Integer);
             cmd.Parameters[0].Value = fileName;
             cmd.Parameters[1].Value = description;
-            cmd.Parameters[2].Value = fileType.Id;
-            cmd.Parameters[3].Value = userStory.Id;
+            cmd.Parameters[2].Value = userStory.Id;
 
             //Execute sql statement
             cmd.Prepare();
@@ -545,10 +541,7 @@ namespace Scrum_o_wall
             DB.GetConnection().Close();
 
             //return created project
-            Classes.File file = new Classes.File(id, fileName, description, fileType.Id, userStory.Id)
-            {
-                FileType = fileType
-            };
+            Classes.File file = new Classes.File(id, fileName, description, userStory.Id);
             return file;
         }
         public static User CreateUser(string name)
@@ -1408,12 +1401,12 @@ namespace Scrum_o_wall
 
             //Read and put entries in a list of objects
             rdr = cmd.ExecuteReader();
-            values = new object[5];
+            values = new object[4];
             while (rdr.Read())
             {
                 rdr.GetValues(values);
-                // 0:idFile,1:nameFile,2:DescFile,3:IdFileType,4:idUserStory
-                Classes.File f = new Classes.File((int)values[0], (string)values[1], (string)values[2], (int)values[3], (int)values[4]);
+                // 0:idFile,1:nameFile,2:DescFile,3:idUserStory
+                Classes.File f = new Classes.File((int)values[0], (string)values[1], (string)values[2], (int)values[3]);
                 files.Add(f);
             }
 
@@ -1422,39 +1415,6 @@ namespace Scrum_o_wall
             GetConnection().Close();
 
             return files;
-        }
-        public static List<FileType> GetFileTypes()
-        {
-            //Declare variables
-            OleDbCommand cmd;
-            OleDbDataReader rdr;
-            object[] values;
-            List<FileType> fileTypes = new List<FileType>();
-
-            //Open Database
-            DB.GetConnection().Open();
-            cmd = DB.GetConnection().CreateCommand();
-
-            //Execute SQL Command
-            cmd.CommandText = "SELECT * FROM TFileTypes;";
-            cmd.Connection = DB.GetConnection();
-
-            //Read and put entries in a list of objects
-            rdr = cmd.ExecuteReader();
-            values = new object[2];
-            while (rdr.Read())
-            {
-                rdr.GetValues(values);
-                // 0:idFileType,1:nameFileType
-                FileType f = new FileType((int)values[0], (string)values[1]);
-                fileTypes.Add(f);
-            }
-
-            //Close database and reader
-            rdr.Close();
-            GetConnection().Close();
-
-            return fileTypes;
         }
         public static List<Activity> GetActivities()
         {

@@ -125,7 +125,7 @@ namespace Scrum_o_wall.Tests
             int countAfterExpected = countBefore + 1;
             int countAfter;
 
-            ctrl.CreateFile("ce n'est pas un vrai nom de fichier", "Ce fichier n'existe pas et n'a jamais existé que ce soit dans le monde réel ou dans l'oblivion le plus total", ctrl.FileTypes.Last(), userStory);
+            ctrl.CreateFile("ce n'est pas un vrai nom de fichier", "Ce fichier n'existe pas et n'a jamais existé que ce soit dans le monde réel ou dans l'oblivion le plus total", userStory);
 
             countAfter = userStory.Files.Count;
 
@@ -312,12 +312,10 @@ namespace Scrum_o_wall.Tests
             file = ctrl.Projects.Last(p => p.AllUserStories.Count(u => u.Files.Count > 0) > 0).AllUserStories.Last(u => u.Files.Count > 0).Files.Last();
 
             string newFileDesc = "this is a new file description";
-            FileType newFileType = ctrl.FileTypes.First(ft => file.FileType != ft);
 
-            ctrl.UpdateFile(newFileDesc, newFileType, file);
+            ctrl.UpdateFile(newFileDesc, file);
 
             Assert.AreEqual(newFileDesc, file.Description);
-            Assert.AreEqual(newFileType, file.FileType);
         }
         [TestMethod]
         public void UpdateCheckListTest()

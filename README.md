@@ -452,11 +452,12 @@ J'ai également rajouté un style au drag and drop en affichant une petite boite
 - tests unitaires finis
 - Drag'n'drop multipoint sur ProjectMenu
 - Drag'n'drop stylisé
+
 ## 21.05
 
 ### Tâches à faire
- - Changer le drag'n'drop sur SprintMenu en multipoint
- - Retoucher la documentation
+- Changer le drag'n'drop sur SprintMenu en multipoint
+- Retoucher la documentation
  
 ### Liens utiles et idées
 Pour pouvoir changer le drag'n'drop, j'ai refais comme dans la fenêtre ProjectMenu.
@@ -467,5 +468,24 @@ De plus, relacher le drag'n'drop avec un autre drag'n'drop actif recharge bien l
 Pour la documentation, j'ai vérifié que toutes les images possédaient bien une légende et j'ai rajouté les fonctionnalités et le résultat de mes tests unitaires. Il faudra que je mette à jour le diagramme de classes demain.
 
 ### Tâches accomplies
- - Changer le drag'n'drop sur SprintMenu en multipoint
- - Retoucher la documentation
+- Changer le drag'n'drop sur SprintMenu en multipoint
+- Retoucher la documentation
+ 
+## 22.05
+
+### Tâches à faire
+- Mettre à jour les figures
+- Mettre à jour la doc
+ 
+### Liens utiles et idées
+En mettant à jour les différentes figures, il m'est venu à l'idée de commencer l'implémentation dont j'avais parlé avec Mme. Terrier. J'ai donc rajouté un champ "deletedFlag" dans les tables qui me semblaient pertinentes. J'ai donc omis de le mettre dans les tables de liaison. Je n'ai pas encore implémenter l'utilisation de ce flag mais je le ferais Lundi.
+
+J'ai refais une base de données entièrement vierge et je la garde de côté pour ne pas avoir trop de données.
+
+J'ai restructuré le github car il était un peu trop brouillon. J'ai créé un dossier Documentation pour tout ce qui est documentation et illustrations. Un dossier Installation pour la base de données vierge et, qui sera rajouté à la fin, l'executable de l'application. Le dossier Scrum'o'Wall est toujours mon projet C#.
+
+### Tâches accomplies
+- Mise à jour des figures
+- Mise à jour de la doc
+- Changement dans la base de données (Rajout de flag pour la suppression)
+- Restructuration du github

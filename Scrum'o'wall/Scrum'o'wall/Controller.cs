@@ -18,14 +18,12 @@ namespace Scrum_o_wall
 
         private List<Classes.Type> types;
         private List<Priority> priorities;
-        private List<FileType> fileTypes;
         private List<State> states;
 
         public List<Project> Projects { get => projects; }
         public List<User> Users { get => users; }
         public List<Classes.Type> Types { get => types; }
         public List<Priority> Priorities { get => priorities; }
-        public List<FileType> FileTypes { get => fileTypes; }
         public List<State> States { get => states; }
 
         public Controller()
@@ -46,7 +44,6 @@ namespace Scrum_o_wall
             List<State> allStates;
             List<User> allUsers;
             List<Classes.File> allFiles;
-            List<FileType> allFileTypes;
             List<Activity> allActivities;
             List<Checklist> allChecklists;
             List<ChecklistItem> allChecklistItems;
@@ -67,7 +64,6 @@ namespace Scrum_o_wall
             allStates = DB.GetStates();
             allUsers = DB.GetUsers();
             allFiles = DB.GetFiles();
-            allFileTypes = DB.GetFileTypes();
             allActivities = DB.GetActivities();
             allChecklists = DB.GetChecklists();
             allChecklistItems = DB.GetChecklistItems();
@@ -170,7 +166,6 @@ namespace Scrum_o_wall
             users = allUsers;
             types = allTypes;
             priorities = allPriorities;
-            fileTypes = allFileTypes;
             states = allStates;
         }
 
@@ -295,11 +290,10 @@ namespace Scrum_o_wall
                 userStory.Type = aType;
             }
         }
-        public void UpdateFile(string fileDescription, FileType fileType, Classes.File file)
+        public void UpdateFile(string fileDescription, Classes.File file)
         {
-            DB.UpdateFile(fileDescription, fileType, file);
+            DB.UpdateFile(fileDescription, file);
             file.Description = fileDescription;
-            file.FileType = fileType;
         }
         public void UpdateCheckList(string name, List<ChecklistItem> items, Checklist checklist)
         {
@@ -408,9 +402,9 @@ namespace Scrum_o_wall
         {
             aProject.Sprints.Add(DB.CreateSprint(dateBegin, dateEnd, aProject));
         }
-        public void CreateFile(string fileName, string description, FileType fileType, UserStory userStory)
+        public void CreateFile(string fileName, string description, UserStory userStory)
         {
-            Classes.File file = DB.CreateFile(fileName, description, fileType, userStory);
+            Classes.File file = DB.CreateFile(fileName, description, userStory);
             userStory.Files.Add(file);
             this.CreateActivity(String.Format("\"{0}\" a été lié", file), userStory);
         }

@@ -82,10 +82,10 @@ namespace Scrum_o_wall.Views
         private void FileInList_Click(object sender, EventArgs e)
         {
             File file = (sender as Border).Tag as File;
-            FileEdit fileEdit = new FileEdit(file,controller);
+            FileEdit fileEdit = new FileEdit(file);
             if(fileEdit.ShowDialog() == true)
             {
-                controller.UpdateFile(fileEdit.tbxDescription.Text,fileEdit.cbxFileTypes.SelectedItem as FileType, file);
+                controller.UpdateFile(fileEdit.tbxDescription.Text, file);
                 Refresh();
             }
         }
@@ -95,10 +95,10 @@ namespace Scrum_o_wall.Views
         }
         private void btnAddFile_Click(object sender, EventArgs e)
         {
-            FileCreate fileCreate = new FileCreate(controller);
+            FileCreate fileCreate = new FileCreate();
             if(fileCreate.ShowDialog() == true)
             {
-                controller.CreateFile(fileCreate.tbxFileName.Text, fileCreate.tbxDescription.Text,fileCreate.cbxFileTypes.SelectedItem as FileType, userStory);
+                controller.CreateFile(fileCreate.tbxFileName.Text, fileCreate.tbxDescription.Text, userStory);
                 Refresh();
             }
 
