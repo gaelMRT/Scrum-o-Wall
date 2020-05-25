@@ -676,9 +676,11 @@ namespace Scrum_o_wall
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
             cmd = DB.GetConnection().CreateCommand();
-            cmd.CommandText = "DELETE FROM TActivities WHERE IdActivity = ?;";
+            cmd.CommandText = "UPDATE TActivities SET deletedFlag = ? WHERE IdActivity = ?;";
+            cmd.Parameters.Add("deletedFlag", OleDbType.Boolean);
             cmd.Parameters.Add("IdActivity", OleDbType.Integer);
-            cmd.Parameters[0].Value = activity.Id;
+            cmd.Parameters[0].Value = true;
+            cmd.Parameters[1].Value = activity.Id;
 
             //Execute sql statement
             cmd.Prepare();
@@ -697,9 +699,11 @@ namespace Scrum_o_wall
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
             cmd = DB.GetConnection().CreateCommand();
-            cmd.CommandText = "DELETE FROM TChecklistItems WHERE IdChecklistItem = ?;";
+            cmd.CommandText = "UPDATE TChecklistItems SET deletedFlag = ? WHERE IdChecklistItem = ?;";
+            cmd.Parameters.Add("deletedFlag", OleDbType.Boolean);
             cmd.Parameters.Add("IdChecklistItem", OleDbType.Integer);
-            cmd.Parameters[0].Value = checklistItem.Id;
+            cmd.Parameters[0].Value = true;
+            cmd.Parameters[1].Value = checklistItem.Id;
 
             //Execute sql statement
             cmd.Prepare();
@@ -718,9 +722,11 @@ namespace Scrum_o_wall
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
             cmd = DB.GetConnection().CreateCommand();
-            cmd.CommandText = "DELETE FROM TChecklists WHERE IdChecklist = ?;";
+            cmd.CommandText = "UPDATE TChecklists SET deletedFlag = ? WHERE IdChecklist = ?;";
+            cmd.Parameters.Add("deletedFlag", OleDbType.Boolean);
             cmd.Parameters.Add("IdChecklist", OleDbType.Integer);
-            cmd.Parameters[0].Value = checklist.Id;
+            cmd.Parameters[0].Value = true;
+            cmd.Parameters[1].Value = checklist.Id;
 
             //Execute sql statement
             cmd.Prepare();
@@ -739,9 +745,11 @@ namespace Scrum_o_wall
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
             cmd = DB.GetConnection().CreateCommand();
-            cmd.CommandText = "DELETE FROM TComments WHERE IdComment = ?;";
+            cmd.CommandText = "UPDATE TComments SET deletedFlag = ? WHERE IdComment = ?;";
+            cmd.Parameters.Add("deletedFlag", OleDbType.Boolean);
             cmd.Parameters.Add("IdComment", OleDbType.Integer);
-            cmd.Parameters[0].Value = comment.Id;
+            cmd.Parameters[0].Value = true;
+            cmd.Parameters[1].Value = comment.Id;
 
             //Execute sql statement
             cmd.Prepare();
@@ -760,9 +768,11 @@ namespace Scrum_o_wall
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
             cmd = DB.GetConnection().CreateCommand();
-            cmd.CommandText = "DELETE FROM TFiles WHERE IdFile = ?;";
+            cmd.CommandText = "UPDATE TFiles SET deletedFlag = ? WHERE IdFile = ?;";
+            cmd.Parameters.Add("deletedFlag", OleDbType.Boolean);
             cmd.Parameters.Add("IdFile", OleDbType.Integer);
-            cmd.Parameters[0].Value = File.Id;
+            cmd.Parameters[0].Value = true;
+            cmd.Parameters[1].Value = File.Id;
 
             //Execute sql statement
             cmd.Prepare();
@@ -781,9 +791,11 @@ namespace Scrum_o_wall
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
             cmd = DB.GetConnection().CreateCommand();
-            cmd.CommandText = "DELETE FROM TMindMaps WHERE IdMindMap = ?;";
+            cmd.CommandText = "UPDATE TMindMaps SET deletedFlag = ? WHERE IdMindMap = ?;";
+            cmd.Parameters.Add("deletedFlag", OleDbType.Boolean);
             cmd.Parameters.Add("IdMindMap", OleDbType.Integer);
-            cmd.Parameters[0].Value = mindmap.Id;
+            cmd.Parameters[0].Value = true;
+            cmd.Parameters[1].Value = mindmap.Id;
 
             //Execute sql statement
             cmd.Prepare();
@@ -802,9 +814,11 @@ namespace Scrum_o_wall
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
             cmd = DB.GetConnection().CreateCommand();
-            cmd.CommandText = "DELETE FROM TNodes WHERE IdNode = ?;";
+            cmd.CommandText = "UPDATE TNodes SET deletedFlag = ? WHERE IdNode = ?;";
+            cmd.Parameters.Add("deletedFlag", OleDbType.Boolean);
             cmd.Parameters.Add("IdNode", OleDbType.Integer);
-            cmd.Parameters[0].Value = node.Id;
+            cmd.Parameters[0].Value = true;
+            cmd.Parameters[1].Value = node.Id;
 
             //Execute sql statement
             cmd.Prepare();
@@ -823,9 +837,11 @@ namespace Scrum_o_wall
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
             cmd = DB.GetConnection().CreateCommand();
-            cmd.CommandText = "DELETE FROM TProjects WHERE IdProject = ?;";
+            cmd.CommandText = "UPDATE TProjects SET deletedFlag = ? WHERE IdProject = ?;";
+            cmd.Parameters.Add("deletedFlag", OleDbType.Boolean);
             cmd.Parameters.Add("IdProject", OleDbType.Integer);
-            cmd.Parameters[0].Value = project.Id;
+            cmd.Parameters[0].Value = true;
+            cmd.Parameters[1].Value = project.Id;
 
             //Execute sql statement
             cmd.Prepare();
@@ -844,9 +860,11 @@ namespace Scrum_o_wall
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
             cmd = DB.GetConnection().CreateCommand();
-            cmd.CommandText = "DELETE FROM TSprints WHERE IdSprint = ?;";
+            cmd.CommandText = "UPDATE TSprints SET deletedFlag = ? WHERE IdSprint = ?;";
+            cmd.Parameters.Add("deletedFlag", OleDbType.Boolean);
             cmd.Parameters.Add("IdSprint", OleDbType.Integer);
-            cmd.Parameters[0].Value = sprint.Id;
+            cmd.Parameters[0].Value = true;
+            cmd.Parameters[1].Value = sprint.Id;
 
             //Execute sql statement
             cmd.Prepare();
@@ -865,9 +883,11 @@ namespace Scrum_o_wall
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
             cmd = DB.GetConnection().CreateCommand();
-            cmd.CommandText = "DELETE FROM TStates WHERE IdState = ?;";
+            cmd.CommandText = "UPDATE TStates SET deletedFlag = ? WHERE IdState = ?;";
+            cmd.Parameters.Add("deletedFlag", OleDbType.Boolean);
             cmd.Parameters.Add("IdState", OleDbType.Integer);
-            cmd.Parameters[0].Value = state.Id;
+            cmd.Parameters[0].Value = true;
+            cmd.Parameters[1].Value = state.Id;
 
             //Execute sql statement
             cmd.Prepare();
@@ -886,9 +906,11 @@ namespace Scrum_o_wall
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
             cmd = DB.GetConnection().CreateCommand();
-            cmd.CommandText = "DELETE FROM TUsers WHERE IdUser = ?;";
-            cmd.Parameters.Add("IdUser", OleDbType.Integer);
-            cmd.Parameters[0].Value = user.Id;
+            cmd.CommandText = "UPDATE TUsers SET deletedFlag = ? WHERE IdUser = ?;";
+            cmd.Parameters.Add("deletedFlag", OleDbType.Boolean);
+            cmd.Parameters.Add("IdUserStory", OleDbType.Integer);
+            cmd.Parameters[0].Value = true;
+            cmd.Parameters[1].Value = user.Id;
 
             //Execute sql statement
             cmd.Prepare();
@@ -907,9 +929,11 @@ namespace Scrum_o_wall
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
             cmd = DB.GetConnection().CreateCommand();
-            cmd.CommandText = "DELETE FROM TUserStories WHERE IdUserStory = ?;";
+            cmd.CommandText = "UPDATE TUserStories SET deletedFlag = ? WHERE IdUserStory = ?;";
+            cmd.Parameters.Add("deletedFlag", OleDbType.Boolean);
             cmd.Parameters.Add("IdUserStory", OleDbType.Integer);
-            cmd.Parameters[0].Value = userStory.Id;
+            cmd.Parameters[0].Value = true;
+            cmd.Parameters[1].Value = userStory.Id;
 
             //Execute sql statement
             cmd.Prepare();
@@ -1198,7 +1222,7 @@ namespace Scrum_o_wall
             cmd = DB.GetConnection().CreateCommand();
 
             //Execute SQL Command
-            cmd.CommandText = "SELECT * FROM TProjects;";
+            cmd.CommandText = "SELECT * FROM TProjects WHERE deletedFlag = FALSE;";
             cmd.Connection = DB.GetConnection();
 
             //Read and put projects in a list
@@ -1231,7 +1255,7 @@ namespace Scrum_o_wall
             cmd = DB.GetConnection().CreateCommand();
 
             //Execute SQL Command
-            cmd.CommandText = "SELECT * FROM TSprints;";
+            cmd.CommandText = "SELECT * FROM TSprints WHERE deletedFlag = FALSE;";
             cmd.Connection = DB.GetConnection();
 
             //Read and put entries in a list of objects
@@ -1264,7 +1288,7 @@ namespace Scrum_o_wall
             cmd = DB.GetConnection().CreateCommand();
 
             //Execute SQL Command
-            cmd.CommandText = "SELECT * FROM TUserStories;";
+            cmd.CommandText = "SELECT * FROM TUserStories WHERE deletedFlag = FALSE;";
             cmd.Connection = DB.GetConnection();
 
             //Read and put entries in a list of objects
@@ -1297,7 +1321,7 @@ namespace Scrum_o_wall
             cmd = DB.GetConnection().CreateCommand();
 
             //Execute SQL Command
-            cmd.CommandText = "SELECT * FROM TUsers;";
+            cmd.CommandText = "SELECT * FROM TUsers WHERE deletedFlag = FALSE;";
             cmd.Connection = DB.GetConnection();
 
             //Read and put entries in a list of objects
@@ -1330,7 +1354,7 @@ namespace Scrum_o_wall
             cmd = DB.GetConnection().CreateCommand();
 
             //Execute SQL Command
-            cmd.CommandText = "SELECT * FROM TTypes;";
+            cmd.CommandText = "SELECT * FROM TTypes WHERE deletedFlag = FALSE;";
             cmd.Connection = DB.GetConnection();
 
             //Read and put entries in a list of objects
@@ -1363,7 +1387,7 @@ namespace Scrum_o_wall
             cmd = DB.GetConnection().CreateCommand();
 
             //Execute SQL Command
-            cmd.CommandText = "SELECT * FROM TPriorities;";
+            cmd.CommandText = "SELECT * FROM TPriorities WHERE deletedFlag = FALSE;";
             cmd.Connection = DB.GetConnection();
 
             //Read and put entries in a list of objects
@@ -1396,7 +1420,7 @@ namespace Scrum_o_wall
             cmd = DB.GetConnection().CreateCommand();
 
             //Execute SQL Command
-            cmd.CommandText = "SELECT * FROM TFiles;";
+            cmd.CommandText = "SELECT * FROM TFiles WHERE deletedFlag = FALSE;";
             cmd.Connection = DB.GetConnection();
 
             //Read and put entries in a list of objects
@@ -1429,7 +1453,7 @@ namespace Scrum_o_wall
             cmd = DB.GetConnection().CreateCommand();
 
             //Execute SQL Command
-            cmd.CommandText = "SELECT * FROM TActivities;";
+            cmd.CommandText = "SELECT * FROM TActivities WHERE deletedFlag = FALSE;";
             cmd.Connection = DB.GetConnection();
 
             //Read and put entries in a list of objects
@@ -1462,7 +1486,7 @@ namespace Scrum_o_wall
             cmd = DB.GetConnection().CreateCommand();
 
             //Execute SQL Command
-            cmd.CommandText = "SELECT * FROM TChecklists;";
+            cmd.CommandText = "SELECT * FROM TChecklists WHERE deletedFlag = FALSE;";
             cmd.Connection = DB.GetConnection();
 
             //Read and put entries in a list of objects
@@ -1495,7 +1519,7 @@ namespace Scrum_o_wall
             cmd = DB.GetConnection().CreateCommand();
 
             //Execute SQL Command
-            cmd.CommandText = "SELECT * FROM TChecklistItems;";
+            cmd.CommandText = "SELECT * FROM TChecklistItems WHERE deletedFlag = FALSE;";
             cmd.Connection = DB.GetConnection();
 
             //Read and put entries in a list of objects
@@ -1528,7 +1552,7 @@ namespace Scrum_o_wall
             cmd = DB.GetConnection().CreateCommand();
 
             //Execute SQL Command
-            cmd.CommandText = "SELECT * FROM TComments;";
+            cmd.CommandText = "SELECT * FROM TComments WHERE deletedFlag = FALSE;";
             cmd.Connection = DB.GetConnection();
 
             //Read and put entries in a list of objects
@@ -1561,7 +1585,7 @@ namespace Scrum_o_wall
             cmd = DB.GetConnection().CreateCommand();
 
             //Execute SQL Command
-            cmd.CommandText = "SELECT * FROM TStates;";
+            cmd.CommandText = "SELECT * FROM TStates WHERE deletedFlag = FALSE;";
             cmd.Connection = DB.GetConnection();
 
             //Read and put entries in a list of objects

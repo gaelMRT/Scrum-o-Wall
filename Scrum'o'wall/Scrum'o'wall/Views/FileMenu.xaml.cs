@@ -82,12 +82,12 @@ namespace Scrum_o_wall.Views
         private void FileInList_Click(object sender, EventArgs e)
         {
             File file = (sender as Border).Tag as File;
-            FileEdit fileEdit = new FileEdit(file);
+            FileEdit fileEdit = new FileEdit(file,controller);
             if(fileEdit.ShowDialog() == true)
             {
                 controller.UpdateFile(fileEdit.tbxDescription.Text, file);
-                Refresh();
             }
+            Refresh();
         }
         private void Quit_Click(object sender, EventArgs e)
         {

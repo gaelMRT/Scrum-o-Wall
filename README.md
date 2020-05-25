@@ -489,3 +489,26 @@ J'ai restructuré le github car il était un peu trop brouillon. J'ai créé un 
 - Mise à jour de la doc
 - Changement dans la base de données (Rajout de flag pour la suppression)
 - Restructuration du github
+
+## 22.05
+
+### Tâches à faire
+- Implémenter l'utilisation du flag de suppression (Modification de DB - GET, Liaison et DELETE)
+ 
+### Liens utiles et idées
+Le problème principal que je trouve avec l'implémentation de flag contre la suppression dans la base, je dois donc changer les méthodes du controller pour faire des suppressions en cascade. Je vérifie également que les objets existent bien avant d'effectuer les liaisons au lancement de l'application.
+
+Pour ce qui est de l'acquisition des données, j'ai rajouté pour chaque table pertinente une condition me permettant de récupérer uniquement les bonnes valeurs.
+
+Comme il me restait du temps, j'ai commencé à réaliser l'interface utilisateur pour la suppression. J'ai déjà effectué ce qu'il faut sur la fenetre d'edition des fichiers en rajoutant un bouton supprimer. J'ai trouvé plus pertinent de rajouter un champ "UserStory" contenant l'objet parent du File dans le fichier plutôt que de passer le userStory en paramètre à travers toutes les vues.
+
+J'ai retapé un peu la documentation. Cependant, il y a quelques petites modification que j'ai préféré ne pas changé. Par exemple:
+Les faiblesses dans le SWOT sont obligatoires sinon le SWOT ne serait pas complet.
+Pour le commentaires sur le Modèle de classe (description de la communication) je pense rajouter un schema afin d'exemplifier plus facilement.
+
+J'ai donc: supprimer le manuel utilisateur, déplacer le manuel d'installation, déplacer le planning
+
+### Tâches accomplies
+- Implémentation du flag de suppression dans DB
+- Implémentation de la suppression des fichiers
+- Retouche de la documentation

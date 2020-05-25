@@ -77,30 +77,53 @@ namespace Scrum_o_wall
             // 0:IdProject,1:IdState,2:order
             foreach (int[] item in projectStates)
             {
-                Project project = allProjects.First(p => p.Id == item[0]);
-                State state = allStates.First(s => s.Id == item[1]);
-                project.States.Add(item[2], state);
+                List<Project> project = allProjects.Where(p => p.Id == item[0]).ToList();
+                List<State> state = allStates.Where(s => s.Id == item[1]).ToList();
+
+                if (project.Count == 1 && state.Count == 1)
+                {
+                    project[0].States.Add(item[2], state[0]);
+                }
+
             }
             #endregion
 
             #region Link UserStory with other classes
             foreach (UserStory u in allUserStories)
             {
-                Project project = allProjects.First(p => p.Id == u.ProjectId);
-                State state = allStates.First(s => s.Id == u.StateId);
-                Priority priority = allPriorities.First(p => p.Id == u.PriorityId);
-                Classes.Type type = allTypes.First(t => t.Id == u.TypeId);
+                List<Project> project = allProjects.Where(p => p.Id == u.ProjectId).ToList();
+                List<State> state = allStates.Where(s => s.Id == u.StateId).ToList();
+                List<Priority> priority = allPriorities.Where(p => p.Id == u.PriorityId).ToList();
+                List<Classes.Type> type = allTypes.Where(t => t.Id == u.TypeId).ToList();
+
                 List<Activity> activities = allActivities.Where(a => a.UserStoryId == u.Id).ToList();
                 List<Classes.File> files = allFiles.Where(f => f.UserStoryId == u.Id).ToList();
                 List<Checklist> checklists = allChecklists.Where(c => c.UserStoryId == u.Id).ToList();
 
-                u.State = state;
-                u.Priority = priority;
-                u.Type = type;
+                if (state.Count == 1)
+                {
+                    u.State = state[0];
+                }
+                if (priority.Count == 1)
+                {
+                    u.Priority = priority[0];
+                }
+                if (type.Count == 1)
+                {
+                    u.Type = type[0];
+                }
+                if (project.Count == 1)
+                {
+                    project[0].AllUserStories.Add(u);
+                }
                 u.Activities = activities;
-                u.Files = files;
                 u.Checklists = checklists;
-                project.AllUserStories.Add(u);
+
+                u.Files = files;
+                foreach (Classes.File f in files)
+                {
+                    f.UserStory = u;
+                }
             }
             #endregion
 
@@ -109,18 +132,24 @@ namespace Scrum_o_wall
             // 0:IdUserStory,1:IdSprint,2:Order
             foreach (int[] item in userStoriesSprint)
             {
-                UserStory userStory = allUserStories.First(u => u.Id == item[0]);
-                Sprint sprint = allSprints.First(s => s.Id == item[1]);
-                sprint.addUserStory(item[2], userStory);
+                List<UserStory> userStory = allUserStories.Where(u => u.Id == item[0]).ToList();
+                List<Sprint> sprint = allSprints.Where(s => s.Id == item[1]).ToList();
+                if (userStory.Count == 1 && sprint.Count == 1)
+                {
+                    sprint[0].addUserStory(item[2], userStory[0]);
+                }
             }
             #endregion
 
             #region Link Sprint with Project
             foreach (Sprint s in allSprints)
             {
-                Project project = allProjects.First(p => p.Id == s.ProjectId);
-                s.Project = project;
-                project.Sprints.Add(s);
+                List<Project> project = allProjects.Where(p => p.Id == s.ProjectId).ToList();
+                if (project.Count == 1)
+                {
+                    s.Project = project[0];
+                    project[0].Sprints.Add(s);
+                }
             }
             #endregion
 
@@ -136,9 +165,12 @@ namespace Scrum_o_wall
             foreach (int[] item in userUserStories)
             {
                 // 0:IdUser,1:IdUserStories
-                User user = allUsers.First(u => u.Id == item[0]);
-                UserStory userStory = allUserStories.First(us => us.Id == item[1]);
-                userStory.AddUser(user);
+                List<User> user = allUsers.Where(u => u.Id == item[0]).ToList();
+                List<UserStory> userStory = allUserStories.Where(us => us.Id == item[1]).ToList();
+                if (userStory.Count == 1 && user.Count == 1)
+                {
+                    userStory[0].AddUser(user[0]);
+                }
             }
             #endregion
             #region Link user with CheckListItem
@@ -146,9 +178,12 @@ namespace Scrum_o_wall
             foreach (int[] item in userChecklistItem)
             {
                 // 0:IdUser,1:IdChecklistItem
-                User user = allUsers.First(u => u.Id == item[0]);
-                ChecklistItem checklistItem = allChecklistItems.First(c => c.Id == item[1]);
-                checklistItem.AddUser(user);
+                List<User> user = allUsers.Where(u => u.Id == item[0]).ToList();
+                List<ChecklistItem> checklistItem = allChecklistItems.Where(c => c.Id == item[1]).ToList();
+                if(checklistItem.Count == 1 && user.Count == 1)
+                {
+                    checklistItem[0].AddUser(user[0]);
+                }
             }
             #endregion
             #region Link user with Project
@@ -156,9 +191,12 @@ namespace Scrum_o_wall
             foreach (int[] item in userProjects)
             {
                 // 0:IdUser,1:IdProject
-                User user = allUsers.First(u => u.Id == item[0]);
-                Project project = allProjects.First(p => p.Id == item[1]);
-                project.AddUser(user);
+                List<User> user = allUsers.Where(u => u.Id == item[0]).ToList();
+                List<Project> project = allProjects.Where(p => p.Id == item[1]).ToList();
+                if (project.Count == 1 && user.Count == 1)
+                {
+                    project[0].AddUser(user[0]);
+                }
             }
             #endregion
 
@@ -169,11 +207,18 @@ namespace Scrum_o_wall
             states = allStates;
         }
 
+
         #region Remove Methods
+
+        public void DeleteFile(Classes.File file)
+        {
+            DB.DeleteFile(file);
+            file.UserStory.Files.Remove(file);
+        }
         public bool RemoveStateFromProject(State state, Project project)
         {
             int order = -1;
-            if(project.States.ContainsValue(state) && project.States.Count > 1)
+            if (project.States.ContainsValue(state) && project.States.Count > 1)
             {
                 foreach (KeyValuePair<int, State> item in project.States)
                 {
@@ -191,7 +236,7 @@ namespace Scrum_o_wall
                     }
                 }
                 DB.RemoveStateFromProject(project, order);
-                
+
             }
             else
             {
@@ -254,7 +299,7 @@ namespace Scrum_o_wall
         #region Update Methods
         public void UserStorySwitchState(UserStory userStory, State state)
         {
-            if(userStory.State != state)
+            if (userStory.State != state)
             {
                 this.CreateActivity(String.Format("Passé de l'état \"{0}\" à l'état \"{1}\"", userStory.State, state), userStory);
                 DB.UpdateUserStory(userStory.Description, userStory.DateLimit, userStory.ComplexityEstimation, userStory.CompletedComplexity, userStory.Blocked, userStory.Priority, state, userStory.Type, userStory);
@@ -267,15 +312,15 @@ namespace Scrum_o_wall
             item.NameItem = nameItem;
             item.Done = done;
         }
-        public void UpdateUserStory(string description, DateTime? selectedDate, int complexity, int completedComplexity, bool blocked, Priority aPriority, Classes.Type aType,State aState, UserStory userStory)
+        public void UpdateUserStory(string description, DateTime? selectedDate, int complexity, int completedComplexity, bool blocked, Priority aPriority, Classes.Type aType, State aState, UserStory userStory)
         {
-            if(userStory.Description != description || 
-                userStory.DateLimit != selectedDate || 
-                userStory.ComplexityEstimation != complexity || 
-                userStory.CompletedComplexity != completedComplexity || 
-                userStory.Blocked != blocked || 
-                userStory.Priority != aPriority || 
-                userStory.Type != aType || 
+            if (userStory.Description != description ||
+                userStory.DateLimit != selectedDate ||
+                userStory.ComplexityEstimation != complexity ||
+                userStory.CompletedComplexity != completedComplexity ||
+                userStory.Blocked != blocked ||
+                userStory.Priority != aPriority ||
+                userStory.Type != aType ||
                 userStory.State != aState)
             {
                 this.CreateActivity("Les informations ont été mises à jour", userStory);
@@ -450,7 +495,7 @@ namespace Scrum_o_wall
             DB.AddStateToProject(states[2], project, 2);
 
             projects.Add(project);
-        } 
+        }
         #endregion
 
     }

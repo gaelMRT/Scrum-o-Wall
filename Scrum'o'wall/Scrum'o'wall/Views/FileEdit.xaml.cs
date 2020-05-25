@@ -21,11 +21,12 @@ namespace Scrum_o_wall.Views
     public partial class FileEdit : Window
     {
         File file;
+        Controller controller;
 
-        public FileEdit(File aFile)
+        public FileEdit(File aFile,Controller aController)
         {
             file = aFile;
-
+            controller = aController;
 
             InitializeComponent();
 
@@ -47,6 +48,15 @@ namespace Scrum_o_wall.Views
             else
             {
                 MessageBox.Show("Un ou plusieurs champ(s) n'est pas rempli !", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Le fichier sera supprimé.\nÊtes-vous sûr(e)?", "Attention", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                controller.DeleteFile(file);
+                this.Close();
             }
         }
     }

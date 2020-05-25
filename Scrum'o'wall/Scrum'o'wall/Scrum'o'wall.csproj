@@ -84,7 +84,6 @@
     <Compile Include="Classes\ChecklistItem.cs" />
     <Compile Include="Classes\Comment.cs" />
     <Compile Include="Classes\File.cs" />
-    <Compile Include="Classes\FileType.cs" />
     <Compile Include="Classes\IUsersAssigned.cs" />
     <Compile Include="Classes\MindMap.cs" />
     <Compile Include="Classes\Node.cs" />
