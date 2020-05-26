@@ -92,12 +92,6 @@ namespace Scrum_o_wall.Tests
         }
 
         [TestMethod()]
-        public void GetFileTypesTest()
-        {
-            Assert.IsNotNull(DB.GetFileTypes());
-        }
-
-        [TestMethod()]
         public void GetActivitiesTest()
         {
             Assert.IsNotNull(DB.GetActivities());
@@ -214,25 +208,21 @@ namespace Scrum_o_wall.Tests
             //Test Create
             string aName = "file first name";
             string aDesc = "this is a description";
-            FileType fileType = DB.GetFileTypes().Last();
             UserStory userStory = DB.GetUserStories().Last();
 
-            File file = DB.CreateFile(aName,aDesc,fileType,userStory);
+            File file = DB.CreateFile(aName,aDesc,userStory);
 
             Assert.AreEqual(aName, file.Name);
             Assert.AreEqual(aDesc, file.Description);
-            Assert.AreEqual(fileType.Id, file.FileType.Id);
             Assert.AreEqual(userStory.Id, file.UserStoryId);
 
             //Test Update
             string afterDesc = "file second name";
-            FileType newFileType = DB.GetFileTypes().First();
 
-            DB.UpdateFile(afterDesc,newFileType, file);
+            DB.UpdateFile(afterDesc, file);
             file = DB.GetFiles().First(f => f.Id == file.Id);
 
             Assert.AreEqual(afterDesc, file.Description);
-            Assert.AreEqual(newFileType.Id, file.FileTypeId);
 
             //Test Remove
             Assert.IsTrue(DB.DeleteFile(file));

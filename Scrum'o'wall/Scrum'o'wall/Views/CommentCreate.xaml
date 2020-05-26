@@ -23,7 +23,7 @@
         <TextBlock Grid.Row="2" TextAlignment="Right" VerticalAlignment="Center" Margin="10,12,10,18" Height="20" >Auteur :</TextBlock>
         <ComboBox Name="cbxAuthor" Grid.Row="2" Grid.Column="1" Margin="10">
         </ComboBox>
-        <Button x:Name="btnCancel" Grid.Row="3" Grid.Column="0" Margin="10" Click="btnCancel_Click" TouchDown="btnCancel_Click">Annuler</Button>
-        <Button x:Name="btnConfirm" Grid.Row="3" Grid.Column="1" Margin="10" Click="btnConfirm_Click" TouchDown="btnConfirm_Click">Confirmer</Button>
+        <Button x:Name="btnCancel" Grid.Row="3" Grid.Column="0" Margin="10" Click="BtnCancel_Click" TouchDown="BtnCancel_Click">Annuler</Button>
+        <Button x:Name="btnConfirm" Grid.Row="3" Grid.Column="1" Margin="10" Click="BtnConfirm_Click" TouchDown="BtnConfirm_Click">Confirmer</Button>
     </Grid>
 </Window>

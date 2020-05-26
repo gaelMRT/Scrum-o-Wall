@@ -490,7 +490,7 @@ J'ai restructuré le github car il était un peu trop brouillon. J'ai créé un 
 - Changement dans la base de données (Rajout de flag pour la suppression)
 - Restructuration du github
 
-## 22.05
+## 25.05
 
 ### Tâches à faire
 - Implémenter l'utilisation du flag de suppression (Modification de DB - GET, Liaison et DELETE)
@@ -512,3 +512,36 @@ J'ai donc: supprimer le manuel utilisateur, déplacer le manuel d'installation, 
 - Implémentation du flag de suppression dans DB
 - Implémentation de la suppression des fichiers
 - Retouche de la documentation
+
+
+## 26.05
+
+### Tâches à faire
+- Rajouter la suppression sur les vues
+- Faire le diagrame de communication vers la base de données
+- Faire le point avec Mme. Terrier
+ 
+### Liens utiles et idées
+
+J'ai commencé par faire le diagramme de communication. J'ai choisi de faire un diagramme de séquence. Cela permet de mieux montrer quels actions provoque un accès à la base de données.
+
+J'ai ensuite eu une réunion avec Mme Terrier.
+
+Mettre en évidence des points subtiles :
+- La communication avec Access
+- Expliquer le WPF
+- Drag'n'drop
+
+Chapitre sur l'apport personnel :
+- Préciser ce qui est récupérer et pas
+
+Conclusion :
+- Personnel de comment vécu le travailler
+- Points d'améliorations
+
+J'ai finalement travailler sur l'ajout de suppression dans les vues. J'ai eu le temps de créer tous les boutons sur toutes les vues et de créer les liaisons entre les vues. Il me manque à implémenter les fonctions dans le controller
+
+### Tâches accomplies
+- Rajouter la suppression sur les vues
+- Faire le diagrame de communication vers la base de données
+- Faire le point avec Mme. Terrier

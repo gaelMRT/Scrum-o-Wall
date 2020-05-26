@@ -21,12 +21,11 @@ namespace Scrum_o_wall.Views
     public partial class FileEdit : Window
     {
         File file;
-        Controller controller;
 
-        public FileEdit(File aFile,Controller aController)
+
+        public FileEdit(File aFile)
         {
             file = aFile;
-            controller = aController;
 
             InitializeComponent();
 
@@ -34,11 +33,11 @@ namespace Scrum_o_wall.Views
             tbxFileName.Text = file.Name;
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-        private void btnConfirm_Click(object sender, EventArgs e)
+        private void BtnConfirm_Click(object sender, EventArgs e)
         {
             if (tbxDescription.Text.Length > 1 && tbxFileName.Text.Length > 1 && System.IO.File.Exists(tbxFileName.Text))
             {
@@ -51,11 +50,11 @@ namespace Scrum_o_wall.Views
             }
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        private void BtnDelete_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Le fichier sera supprimé.\nÊtes-vous sûr(e)?", "Attention", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                controller.DeleteFile(file);
+                this.DialogResult = false;
                 this.Close();
             }
         }

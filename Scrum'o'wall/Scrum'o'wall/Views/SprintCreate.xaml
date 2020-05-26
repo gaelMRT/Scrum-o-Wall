@@ -20,10 +20,10 @@
         <Label Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" Margin="10">Créer un sprint</Label>
         <Label Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" >Date de début :</Label>
         <Label Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" >Date de fin :</Label>
-        <Button TouchDown="btnCancel_Click" x:Name="btnCancel" Click="btnCancel_Click" Grid.Row="3" Margin="10">Annuler</Button>
+        <Button TouchDown="BtnCancel_Click" x:Name="btnCancel" Click="BtnCancel_Click" Grid.Row="3" Margin="10">Annuler</Button>
 
         <DatePicker Grid.Row="1" Name="dtpckDateBegin" Grid.Column="1" Margin="10"/>
         <DatePicker Grid.Row="2" Name="dtpckDateEnd" Grid.Column="1" Margin="10"/>
-        <Button TouchDown="btnAddProject_Click" x:Name="btnAddProject" Click="btnAddProject_Click" Grid.Row="3" Grid.Column="1" Margin="10">Confirmer</Button>
+        <Button TouchDown="BtnAddProject_Click" x:Name="btnAddProject" Click="BtnAddProject_Click" Grid.Row="3" Grid.Column="1" Margin="10">Confirmer</Button>
     </Grid>
 </Window>

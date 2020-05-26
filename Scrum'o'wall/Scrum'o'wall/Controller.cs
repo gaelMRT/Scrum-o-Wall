@@ -207,6 +207,42 @@ namespace Scrum_o_wall
             states = allStates;
         }
 
+        internal void UpdateState(string text, State state)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void DeleteUser(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void UpdateUser(string text, User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void DeleteState(State state)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void DeleteSprint(Sprint sprint)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void DeleteChecklistItem(ChecklistItem checklistItem)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteProject(Project project)
+        {
+            DB.DeleteProject(project);
+            projects.Remove(project);
+        }
+
 
         #region Remove Methods
 
@@ -293,6 +329,16 @@ namespace Scrum_o_wall
                 sprint.removeUserStoryByOrder(order);
                 DB.RemoveUserStoryFromSprint(userStory, sprint, order);
             }
+        }
+
+        internal void DeleteUserStory(UserStory userStory)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void UpdateSprint(DateTime? selectedDate1, DateTime? selectedDate2, Sprint sprint)
+        {
+            throw new NotImplementedException();
         }
         #endregion
 

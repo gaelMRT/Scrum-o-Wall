@@ -40,14 +40,14 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="btnAddUserStory" TouchDown="btnAddUserStory_Click" Click="btnAddUserStory_Click" Content="+" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="40" Height="40" BorderBrush="Black" FontSize="23" Canvas.Top="320" Canvas.Left="193">
+        <Button x:Name="btnAddUserStory" TouchDown="BtnAddUserStory_Click" Click="BtnAddUserStory_Click" Content="+" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="40" Height="40" BorderBrush="Black" FontSize="23" Canvas.Top="320" Canvas.Left="193">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="50"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="btnAddSprint" TouchDown="btnAddSprint_Click" Click="btnAddSprint_Click" Content="+" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="40" Height="40" BorderBrush="Black" FontSize="23" Canvas.Top="320" Canvas.Left="588">
+        <Button x:Name="btnAddSprint" TouchDown="BtnAddSprint_Click" Click="BtnAddSprint_Click" Content="+" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="40" Height="40" BorderBrush="Black" FontSize="23" Canvas.Top="320" Canvas.Left="588">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="50"/>

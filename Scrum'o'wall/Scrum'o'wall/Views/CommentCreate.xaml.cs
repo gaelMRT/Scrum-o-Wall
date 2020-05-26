@@ -29,11 +29,11 @@ namespace Scrum_o_wall.Views
             }
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-        private void btnConfirm_Click(object sender, EventArgs e)
+        private void BtnConfirm_Click(object sender, EventArgs e)
         {
             if(cbxAuthor.SelectedItem != null && tbxContent.Text.Length > 0)
             {

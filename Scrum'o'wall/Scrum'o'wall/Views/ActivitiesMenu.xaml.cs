@@ -29,7 +29,7 @@ namespace Scrum_o_wall.Views
             }
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }

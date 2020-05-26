@@ -35,11 +35,11 @@ namespace Scrum_o_wall.Views
             chkbxDone.IsChecked = checklistItem.Done;
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-        private void btnConfirm_Click(object sender, EventArgs e)
+        private void BtnConfirm_Click(object sender, EventArgs e)
         {
             if(tbxObjet.Text.Length > 0)
             {
@@ -51,7 +51,15 @@ namespace Scrum_o_wall.Views
                 MessageBox.Show("Un ou plusieurs champ(s) n'est pas rempli !", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        private void btnAssignedUsers_Click(object sender, EventArgs e)
+        private void BtnDelete_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("L'objet de la liste sera supprimé.\nÊtes-vous sûr(e)?", "Attention", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                this.DialogResult = false;
+                this.Close();
+            }
+        }
+        private void BtnAssignedUsers_Click(object sender, EventArgs e)
         {
             UserMenu userMenu = new UserMenu(checklistItem, userStory.GetUsers(), controller);
             userMenu.ShowDialog();

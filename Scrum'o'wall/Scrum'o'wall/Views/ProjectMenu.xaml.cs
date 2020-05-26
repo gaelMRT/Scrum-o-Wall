@@ -16,32 +16,32 @@ namespace Scrum_o_wall.Views
     /// </summary>
     public partial class ProjectMenu : Window
     {
-        Project currentProject;
+        Project project;
         Controller controller;
         List<UserControl> sprintUserControls = new List<UserControl>();
         Dictionary<InputDevice, Point> currentPoint = new Dictionary<InputDevice, Point>();
         Dictionary<InputDevice, UserControl> infos = new Dictionary<InputDevice, UserControl>();
         Dictionary<InputDevice, Border> borders = new Dictionary<InputDevice, Border>();
 
-        public ProjectMenu(Project p, Controller ctrl)
+        public ProjectMenu(Project aProject, Controller aController)
         {
             InitializeComponent();
-            currentProject = p;
-            controller = ctrl;
+            project = aProject;
+            controller = aController;
 
-            lblProjectName.Content = p.Name;
+            lblProjectName.Content = aProject.Name;
 
             Loaded += ProjectMenu_Loaded;
-            PreviewTouchMove += userStory_PreviewTouchMove;
+            PreviewTouchMove += UserStory_PreviewTouchMove;
         }
 
         private void Refresh()
         {
-            int nbSprints = currentProject.Sprints.Count;
+            int nbSprints = project.Sprints.Count;
             sprintUserControls.Clear();
             for (int i = 0; i < nbSprints; i++)
             {
-                Sprint sprint = currentProject.Sprints[i];
+                Sprint sprint = project.Sprints[i];
                 //Create Sprint frame
                 UserControl sprintControl = new UserControl();
                 sprintControl.Content = sprint.ToString();
@@ -51,11 +51,11 @@ namespace Scrum_o_wall.Views
                 sprintControl.Cursor = Cursors.Hand;
                 sprintControl.Height = 50;
                 sprintControl.Tag = sprint;
-                sprintControl.MouseLeftButtonDown += sprint_Click;
-                sprintControl.TouchDown += sprint_Click;
-                sprintControl.TouchUp += sprint_TouchUp;
-                sprintControl.TouchEnter += sprint_TouchEnter;
-                sprintControl.TouchLeave += sprint_TouchLeave;
+                sprintControl.MouseLeftButtonDown += Sprint_Click;
+                sprintControl.TouchDown += Sprint_Click;
+                sprintControl.TouchUp += Sprint_TouchUp;
+                sprintControl.TouchEnter += Sprint_TouchEnter;
+                sprintControl.TouchLeave += Sprint_TouchLeave;
                 sprintControl.AllowDrop = true;
                 //Change Color by DateRange
                 if (DateTime.Now > sprint.Begin && DateTime.Now < sprint.End)
@@ -82,10 +82,10 @@ namespace Scrum_o_wall.Views
                 Canvas.SetTop(sprintControl, 60 * i);
             }
 
-            int nbUserStories = currentProject.AllUserStories.Count;
+            int nbUserStories = project.AllUserStories.Count;
             for (int i = 0; i < nbUserStories; i++)
             {
-                UserStory userStory = currentProject.AllUserStories[i];
+                UserStory userStory = project.AllUserStories[i];
                 //Create userStory frame
                 UserControl userStoryControl = new UserControl();
                 userStoryControl.Content = userStory.ToString();
@@ -96,9 +96,9 @@ namespace Scrum_o_wall.Views
                 userStoryControl.Cursor = Cursors.Hand;
                 userStoryControl.Height = 50;
                 userStoryControl.Tag = userStory;
-                userStoryControl.MouseLeftButtonUp += userStory_MouseLeftButtonUp;
-                userStoryControl.PreviewTouchDown += userStory_PreviewTouchDown;
-                userStoryControl.TouchUp += usrCtrlUserStory_TouchUp;
+                userStoryControl.MouseLeftButtonUp += UserStory_MouseLeftButtonUp;
+                userStoryControl.PreviewTouchDown += UserStory_PreviewTouchDown;
+                userStoryControl.TouchUp += UsrCtrlUserStory_TouchUp;
 
                 Stylus.SetIsPressAndHoldEnabled(userStoryControl, false);
 
@@ -109,14 +109,14 @@ namespace Scrum_o_wall.Views
             }
         }
 
-        private void sprint_TouchEnter(object sender, TouchEventArgs e)
+        private void Sprint_TouchEnter(object sender, TouchEventArgs e)
         {
             if (currentPoint.ContainsKey(e.Device))
             {
                 (sender as UserControl).BorderThickness = new Thickness(3);
             }
         }
-        private void sprint_TouchLeave(object sender, TouchEventArgs e)
+        private void Sprint_TouchLeave(object sender, TouchEventArgs e)
         {
             if (currentPoint.ContainsKey(e.Device))
             {
@@ -127,11 +127,18 @@ namespace Scrum_o_wall.Views
 
         private void UserStoryEditing(UserStory userStory)
         {
-            UserStoryEdit userStoryEdit = new UserStoryEdit(userStory, currentProject, controller);
-            if (userStoryEdit.ShowDialog() == true)
+            UserStoryEdit userStoryEdit = new UserStoryEdit(userStory, project, controller);
+            switch (userStoryEdit.ShowDialog())
             {
-                controller.UpdateUserStory(userStoryEdit.tbxDesc.Text, userStoryEdit.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryEdit.tbxComplexity.Text), Convert.ToInt32(userStoryEdit.tbxCompletedComplexity.Text), userStoryEdit.chckBxBlocked.IsChecked == true, (Priority)userStoryEdit.cbxPriority.SelectedItem, (Classes.Type)userStoryEdit.cbxType.SelectedItem, userStory.State, userStory);
-                Refresh();
+                case true:
+                    controller.UpdateUserStory(userStoryEdit.tbxDesc.Text, userStoryEdit.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryEdit.tbxComplexity.Text), Convert.ToInt32(userStoryEdit.tbxCompletedComplexity.Text), userStoryEdit.chckBxBlocked.IsChecked == true, (Priority)userStoryEdit.cbxPriority.SelectedItem, (Classes.Type)userStoryEdit.cbxType.SelectedItem, userStory.State, userStory);
+                    Refresh();
+                    break;
+                case false:
+                    controller.DeleteUserStory(userStory);
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -172,12 +179,12 @@ namespace Scrum_o_wall.Views
             //Refresh the window
             Refresh();
         }
-        private void userStory_MouseLeftButtonUp(object sender, EventArgs e)
+        private void UserStory_MouseLeftButtonUp(object sender, EventArgs e)
         {
             UserStory userStory = (sender as UserControl).Tag as UserStory;
             UserStoryEditing(userStory);
         }
-        private void sprint_Click(object sender, EventArgs e)
+        private void Sprint_Click(object sender, EventArgs e)
         {
             Sprint s = (sender as UserControl).Tag as Sprint;
             SprintMenu sprintMenu = new SprintMenu(s, controller);
@@ -187,25 +194,25 @@ namespace Scrum_o_wall.Views
         {
             this.Close();
         }
-        private void btnAddUserStory_Click(object sender, EventArgs e)
+        private void BtnAddUserStory_Click(object sender, EventArgs e)
         {
             UserStoryCreate userStoryCreate = new UserStoryCreate(controller);
             if (userStoryCreate.ShowDialog() == true)
             {
-                controller.CreateUserStory(userStoryCreate.tbxDesc.Text, userStoryCreate.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryCreate.tbxComplexity.Text), (Priority)userStoryCreate.cbxPriority.SelectedItem, (Classes.Type)userStoryCreate.cbxType.SelectedItem, currentProject);
+                controller.CreateUserStory(userStoryCreate.tbxDesc.Text, userStoryCreate.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryCreate.tbxComplexity.Text), (Priority)userStoryCreate.cbxPriority.SelectedItem, (Classes.Type)userStoryCreate.cbxType.SelectedItem, project);
                 Refresh();
             }
         }
-        private void btnAddSprint_Click(object sender, EventArgs e)
+        private void BtnAddSprint_Click(object sender, EventArgs e)
         {
             SprintCreate sprintCreate = new SprintCreate();
             if (sprintCreate.ShowDialog() == true)
             {
-                controller.CreateSprint((DateTime)sprintCreate.dtpckDateBegin.SelectedDate, (DateTime)sprintCreate.dtpckDateEnd.SelectedDate, currentProject);
+                controller.CreateSprint((DateTime)sprintCreate.dtpckDateBegin.SelectedDate, (DateTime)sprintCreate.dtpckDateEnd.SelectedDate, project);
                 Refresh();
             }
         }
-        private void sprint_TouchUp(object sender, TouchEventArgs e)
+        private void Sprint_TouchUp(object sender, TouchEventArgs e)
         {
             if (currentPoint.ContainsKey(e.Device))
             {
@@ -235,9 +242,8 @@ namespace Scrum_o_wall.Views
                 borders.Remove(e.Device);
             }
         }
-        private void userStory_PreviewTouchDown(object sender, TouchEventArgs e)
+        private void UserStory_PreviewTouchDown(object sender, TouchEventArgs e)
         {
-            Console.WriteLine("OK");
             if (currentPoint.ContainsKey(e.Device) || currentPoint.ContainsKey(e.Device) || infos.ContainsKey(e.Device))
             {
                 currentPoint.Remove(e.Device);
@@ -257,19 +263,18 @@ namespace Scrum_o_wall.Views
             infos.Add(e.Device, sender as UserControl);
             borders.Add(e.Device, border);
         }
-        private void userStory_PreviewTouchMove(object sender, TouchEventArgs e)
+        private void UserStory_PreviewTouchMove(object sender, TouchEventArgs e)
         {
             if (currentPoint.ContainsKey(e.Device))
             {
                 currentPoint[e.Device] = e.GetTouchPoint(null).Position;
-                Console.WriteLine(String.Format("Point :{0},{1}", currentPoint[e.Device].X, currentPoint[e.Device].Y));
 
 
                 Canvas.SetLeft(borders[e.Device], currentPoint[e.Device].X - borders[e.Device].Width / 2.0);
                 Canvas.SetTop(borders[e.Device], currentPoint[e.Device].Y - borders[e.Device].Height / 2.0);
             }
         }
-        private void usrCtrlUserStory_TouchUp(object sender, TouchEventArgs e)
+        private void UsrCtrlUserStory_TouchUp(object sender, TouchEventArgs e)
         {
             if (currentPoint.ContainsKey(e.Device))
             {
@@ -285,11 +290,23 @@ namespace Scrum_o_wall.Views
         }
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            ProjectEdit projectEdit = new ProjectEdit(currentProject, controller);
+            ProjectEdit projectEdit = new ProjectEdit(project, controller);
+            switch (projectEdit.ShowDialog())
+            {
+                case true:
+                    controller.UpdateProject(projectEdit.tbxName.Text, projectEdit.tbxDesc.Text, (DateTime)projectEdit.dtpckrDateBegin.SelectedDate, project);
+                    Refresh();
+                    break;
+                case false:
+                    controller.DeleteProject(project);
+                    this.DialogResult = false;
+                    this.Close();
+                    break;
+                default:
+                    break;
+            }
             if (projectEdit.ShowDialog() == true)
             {
-                controller.UpdateProject(projectEdit.tbxName.Text, projectEdit.tbxDesc.Text, (DateTime)projectEdit.dtpckrDateBegin.SelectedDate, currentProject);
-                Refresh();
             }
         }
     }

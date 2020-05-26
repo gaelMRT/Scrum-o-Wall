@@ -1,4 +1,5 @@
-﻿using Scrum_o_wall.Classes;
+﻿using Microsoft.Win32;
+using Scrum_o_wall.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -82,7 +83,20 @@ namespace Scrum_o_wall.Views
         private void FileInList_Click(object sender, EventArgs e)
         {
             File file = (sender as Border).Tag as File;
-            FileEdit fileEdit = new FileEdit(file,controller);
+            FileEdit fileEdit = new FileEdit(file);
+            switch (fileEdit.ShowDialog())
+            {
+                case true:
+                    controller.UpdateFile(fileEdit.tbxDescription.Text, file);
+                    Refresh();
+                    break;
+                case false:
+                    controller.DeleteFile(file);
+                    Refresh();
+                    break;
+                default:
+                    break;
+            }
             if(fileEdit.ShowDialog() == true)
             {
                 controller.UpdateFile(fileEdit.tbxDescription.Text, file);
@@ -93,7 +107,7 @@ namespace Scrum_o_wall.Views
         {
             this.Close();
         }
-        private void btnAddFile_Click(object sender, EventArgs e)
+        private void BtnAddFile_Click(object sender, EventArgs e)
         {
             FileCreate fileCreate = new FileCreate();
             if(fileCreate.ShowDialog() == true)

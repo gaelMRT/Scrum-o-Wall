@@ -52,7 +52,7 @@ namespace Scrum_o_wall.Views
             chckBxBlocked.IsChecked = userStory.Blocked;
         }
 
-        private void tbxComplexity_KeyDown(object sender, KeyEventArgs e)
+        private void TbxComplexity_KeyDown(object sender, KeyEventArgs e)
         {
             bool isNumber = (e.Key >= Key.D0 && e.Key <= Key.D9);
             if (!isNumber)
@@ -60,32 +60,32 @@ namespace Scrum_o_wall.Views
                 e.Handled = true;
             }
         }
-        private void btnActivities_Click(object sender, EventArgs e)
+        private void BtnActivities_Click(object sender, EventArgs e)
         {
             ActivitiesMenu activitiesMenu = new ActivitiesMenu(userStory.Activities);
             activitiesMenu.ShowDialog();
         }
-        private void btnUserAssigned_Click(object sender, EventArgs e)
+        private void BtnUserAssigned_Click(object sender, EventArgs e)
         {
             UserMenu userMenu = new UserMenu(userStory,project.GetUsers(), controller);
             userMenu.ShowDialog();
         }
-        private void btnChecklists_Click(object sender, EventArgs e)
+        private void BtnChecklists_Click(object sender, EventArgs e)
         {
             ChecklistMenu checklistMenu = new ChecklistMenu(userStory, controller);
             checklistMenu.ShowDialog();
         }
-        private void btnComments_Click(object sender, EventArgs e)
+        private void BtnComments_Click(object sender, EventArgs e)
         {
             CommentMenu commentMenu = new CommentMenu(userStory, controller);
             commentMenu.ShowDialog();
         }
-        private void btnFiles_Click(object sender, EventArgs e)
+        private void BtnFiles_Click(object sender, EventArgs e)
         {
             FileMenu fileMenu = new FileMenu(userStory, controller);
             fileMenu.ShowDialog();
         }
-        private void btnConfirm_Click(object sender, EventArgs e)
+        private void BtnConfirm_Click(object sender, EventArgs e)
         {
             if(tbxCompletedComplexity.Text.Length > 0 && tbxComplexity.Text.Length > 0 && tbxDesc.Text.Length > 0)
             {
@@ -97,9 +97,17 @@ namespace Scrum_o_wall.Views
                 MessageBox.Show("Un ou plusieurs champ(s) n'est pas rempli !", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+        private void BtnDelete_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("La liste sera supprimée.\nÊtes-vous sûr(e)?", "Attention", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                this.DialogResult = false;
+                this.Close();
+            }
         }
 
     }

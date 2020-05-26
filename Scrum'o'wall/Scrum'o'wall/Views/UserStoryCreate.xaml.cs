@@ -34,7 +34,7 @@ namespace Scrum_o_wall.Views
             }
         }
 
-        private void tbxComplexity_KeyDown(object sender, KeyEventArgs e)
+        private void TbxComplexity_KeyDown(object sender, KeyEventArgs e)
         {
             bool isNumber = (e.Key >= Key.D0 && e.Key <= Key.D9);
             if (!isNumber)
@@ -42,11 +42,11 @@ namespace Scrum_o_wall.Views
                 e.Handled = true;
             }
         }
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-        private void btnConfirm_Click(object sender, EventArgs e)
+        private void BtnConfirm_Click(object sender, EventArgs e)
         {
             if (tbxDesc.Text.Length > 0 && tbxComplexity.Text.Length > 0 && cbxPriority.SelectedIndex >= 0 && cbxType.SelectedIndex >= 0)
             {

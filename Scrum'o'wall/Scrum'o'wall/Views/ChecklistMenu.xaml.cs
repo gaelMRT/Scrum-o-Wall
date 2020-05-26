@@ -47,8 +47,8 @@ namespace Scrum_o_wall.Views
                 border.BorderThickness = new Thickness(1);
                 border.Width = 390;
                 border.Tag = chckLst;
-                border.TouchDown += checklist_Click;
-                border.MouseLeftButtonDown += checklist_Click;
+                border.TouchDown += Checklist_Click;
+                border.MouseLeftButtonDown += Checklist_Click;
 
                 //Create grid
                 Grid grd = new Grid();
@@ -77,7 +77,7 @@ namespace Scrum_o_wall.Views
                     checkBox.IsChecked = item.Done;
                     checkBox.Content = item.NameItem;
                     checkBox.Tag = item;
-                    checkBox.Checked += checklistItem_Checked;
+                    checkBox.Checked += ChecklistItem_Checked;
                     lstView.Items.Add(checkBox);
                 }
 
@@ -91,13 +91,13 @@ namespace Scrum_o_wall.Views
             }
         }
 
-        private void checklistItem_Checked(object sender, RoutedEventArgs e)
+        private void ChecklistItem_Checked(object sender, RoutedEventArgs e)
         {
             ChecklistItem item = (sender as CheckBox).Tag as ChecklistItem;
             item.Done = (sender as CheckBox).IsChecked == true;
             controller.UpdateCheckListItem(item.NameItem, item.Done, item);
         }
-        private void checklist_Click(object sender, EventArgs e)
+        private void Checklist_Click(object sender, EventArgs e)
         {
             Checklist checklist = (sender as Border).Tag as Checklist;
             ChecklistEdit checklistEdit = new ChecklistEdit(checklist,userStory, controller);
@@ -112,11 +112,11 @@ namespace Scrum_o_wall.Views
                 Refresh();
             }
         }
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-        private void btnAddList_Click(object sender, EventArgs e)
+        private void BtnAddList_Click(object sender, EventArgs e)
         {
             ChecklistCreate checklistCreate = new ChecklistCreate();
             if(checklistCreate.ShowDialog() == true)

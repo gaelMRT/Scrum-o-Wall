@@ -29,7 +29,7 @@
         <DatePicker x:Name="dtpckrDateLimit" Grid.Column="1" Margin="10" Grid.Row="2"/>
 
         <Label Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center">Estimation de complexité :</Label>
-        <TextBox Grid.Row="3" Name="tbxComplexity" MaxLength="5" Grid.Column="1" KeyDown="tbxComplexity_KeyDown" Margin="10"/>
+        <TextBox Grid.Row="3" Name="tbxComplexity" MaxLength="5" Grid.Column="1" KeyDown="TbxComplexity_KeyDown" Margin="10"/>
 
         <Label Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center">Priorité</Label>
         <ComboBox Name="cbxPriority" Grid.Row="4" Margin="10" Grid.Column="10"></ComboBox>
@@ -37,7 +37,7 @@
         <Label Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center">Type</Label>
         <ComboBox Name="cbxType" Grid.Row="5" Margin="10" Grid.Column="10"></ComboBox>
 
-        <Button TouchDown="btnConfirm_Click" x:Name="btnConfirm" Click="btnConfirm_Click" Grid.Row="6" Grid.Column="1" Margin="10">Confirmer</Button>
-        <Button TouchDown="btnCancel_Click" x:Name="btnCancel" Click="btnCancel_Click" Grid.Row="6" Margin="10">Annuler</Button>
+        <Button TouchDown="BtnConfirm_Click" x:Name="btnConfirm" Click="BtnConfirm_Click" Grid.Row="6" Grid.Column="1" Margin="10">Confirmer</Button>
+        <Button TouchDown="BtnCancel_Click" x:Name="btnCancel" Click="BtnCancel_Click" Grid.Row="6" Margin="10">Annuler</Button>
     </Grid>
 </Window>

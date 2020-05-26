@@ -24,11 +24,11 @@ namespace Scrum_o_wall.Views
             InitializeComponent();
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-        private void btnAddProject_Click(object sender, EventArgs e)
+        private void BtnAddProject_Click(object sender, EventArgs e)
         {
             if (dtpckDateBegin.SelectedDate != null  && dtpckDateEnd.SelectedDate != null)
             {

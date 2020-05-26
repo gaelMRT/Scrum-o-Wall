@@ -22,7 +22,7 @@
             </ListView>
         </Border>
 
-        <Button TouchDown="btnCancel_Click" x:Name="btnCancel" Grid.Row="2" Margin="10" Click="btnCancel_Click">Retour</Button>
-        <Button TouchDown="btnAddComment_Click" x:Name="btnAddComment" Grid.Row="2" Grid.Column="1" Margin="10" Click="btnAddComment_Click">Ajouter</Button>
+        <Button TouchDown="BtnCancel_Click" x:Name="btnCancel" Grid.Row="2" Margin="10" Click="BtnCancel_Click">Retour</Button>
+        <Button TouchDown="BtnAddComment_Click" x:Name="btnAddComment" Grid.Row="2" Grid.Column="1" Margin="10" Click="BtnAddComment_Click">Ajouter</Button>
     </Grid>
 </Window>

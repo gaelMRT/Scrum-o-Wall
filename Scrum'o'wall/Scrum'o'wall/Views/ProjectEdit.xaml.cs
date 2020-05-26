@@ -21,8 +21,9 @@ namespace Scrum_o_wall.Views
     public partial class ProjectEdit : Window
     {
         Project project;
+
         Controller controller;
-        public ProjectEdit(Project aProject, Controller aController)
+        public ProjectEdit(Project aProject,Controller aController)
         {
             project = aProject;
             controller = aController;
@@ -34,7 +35,7 @@ namespace Scrum_o_wall.Views
             dtpckrDateBegin.SelectedDate = project.Begin;
         }
 
-        private void btnConfirm_Click(object sender, EventArgs e)
+        private void BtnConfirm_Click(object sender, EventArgs e)
         {
             if (dtpckrDateBegin.SelectedDate != null && tbxDesc.Text.Length > 0 && tbxName.Text.Length > 0)
             {
@@ -46,19 +47,27 @@ namespace Scrum_o_wall.Views
                 MessageBox.Show("Un ou plusieurs champ(s) n'est pas rempli !", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        private void btnStates_Click(object sender, EventArgs e)
+        private void BtnStates_Click(object sender, EventArgs e)
         {
             StateMenu stateMenu = new StateMenu(project, controller);
             stateMenu.ShowDialog();
         }
-        private void btnUsers_Click(object sender, EventArgs e)
+        private void BtnUsers_Click(object sender, EventArgs e)
         {
             UserMenu userMenu = new UserMenu(project, controller.Users, controller);
             userMenu.ShowDialog();
         }
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+        private void BtnDelete_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Le projet sera supprimé.\nÊtes-vous sûr(e)?", "Attention", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                this.DialogResult = false;
+                this.Close();
+            }
         }
 
     }

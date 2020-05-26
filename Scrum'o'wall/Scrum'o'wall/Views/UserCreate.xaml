@@ -19,7 +19,7 @@
         <TextBlock Grid.ColumnSpan="2" TextAlignment="Center" FontSize="20" VerticalAlignment="Center">Création d'un utilisateur</TextBlock>
         <TextBlock Grid.Row="1" TextAlignment="Right" VerticalAlignment="Center" Margin="10,13,10,14">Nom de l'utilisateur :</TextBlock>
         <TextBox Grid.Row="1" Name="tbxUserName" Grid.Column="1" MaxLength="255" Margin="10"></TextBox>
-        <Button TouchDown="btnCancel_Click" x:Name="btnCancel" Click="btnCancel_Click" Grid.Row="2" Grid.Column="0" Margin="10">Annuler</Button>
-        <Button TouchDown="btnConfirm_Click" x:Name="btnConfirm" Click="btnConfirm_Click" Grid.Row="2" Grid.Column="1" Margin="10">Confirmer</Button>
+        <Button TouchDown="BtnCancel_Click" x:Name="btnCancel" Click="BtnCancel_Click" Grid.Row="2" Grid.Column="0" Margin="10">Annuler</Button>
+        <Button TouchDown="BtnConfirm_Click" x:Name="btnConfirm" Click="BtnConfirm_Click" Grid.Row="2" Grid.Column="1" Margin="10">Confirmer</Button>
     </Grid>
 </Window>

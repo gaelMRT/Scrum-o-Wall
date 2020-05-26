@@ -39,7 +39,7 @@ namespace Scrum_o_wall.Views
             }
         }
 
-        private void btnAddItem_Click(object sender, EventArgs e)
+        private void BtnAddItem_Click(object sender, EventArgs e)
         {
             ChecklistItemCreate checklistItemCreate = new ChecklistItemCreate();
             if(checklistItemCreate.ShowDialog() == true)
@@ -50,11 +50,11 @@ namespace Scrum_o_wall.Views
                 Refresh();
             }
         }
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-        private void btnConfirm_Click(object sender, EventArgs e)
+        private void BtnConfirm_Click(object sender, EventArgs e)
         {
             if(tbxName.Text.Length > 0 && listItems.Items.Count > 0)
             {

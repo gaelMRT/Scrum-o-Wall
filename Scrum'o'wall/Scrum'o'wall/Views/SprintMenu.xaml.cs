@@ -267,10 +267,17 @@ namespace Scrum_o_wall.Views
         {
             UserStory userStory = (sender as UserControl).Tag as UserStory;
             UserStoryEdit userStoryEdit = new UserStoryEdit(userStory, sprint.Project, controller);
-            if (userStoryEdit.ShowDialog() == true)
+            switch (userStoryEdit.ShowDialog())
             {
-                controller.UpdateUserStory(userStoryEdit.tbxDesc.Text, userStoryEdit.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryEdit.tbxComplexity.Text), Convert.ToInt32(userStoryEdit.tbxCompletedComplexity.Text), userStoryEdit.chckBxBlocked.IsChecked == true, (Priority)userStoryEdit.cbxPriority.SelectedItem, (Classes.Type)userStoryEdit.cbxType.SelectedItem, userStory.State, userStory);
-                Refresh();
+                case true:
+                    controller.UpdateUserStory(userStoryEdit.tbxDesc.Text, userStoryEdit.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryEdit.tbxComplexity.Text), Convert.ToInt32(userStoryEdit.tbxCompletedComplexity.Text), userStoryEdit.chckBxBlocked.IsChecked == true, (Priority)userStoryEdit.cbxPriority.SelectedItem, (Classes.Type)userStoryEdit.cbxType.SelectedItem, userStory.State, userStory);
+                    Refresh();
+                    break;
+                case false:
+                    controller.DeleteUserStory(userStory);
+                    break;
+                default:
+                    break;
             }
         }
         private void addColumn_Click(object sender, RoutedEventArgs e)
@@ -279,14 +286,33 @@ namespace Scrum_o_wall.Views
             stateMenu.ShowDialog();
             Refresh();
         }
-        private void btnBurndownChart_Click(object sender, EventArgs e)
+        private void BtnBurndownChart_Click(object sender, EventArgs e)
         {
             BurndownChart burndownChart = new BurndownChart(sprint);
             burndownChart.ShowDialog();
         }
-        private void btnReturn_Click(object sender, EventArgs e)
+        private void BtnReturn_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnEditSprint_Click(object sender, RoutedEventArgs e)
+        {
+            SprintEdit sprintEdit = new SprintEdit(sprint);
+            switch (sprintEdit.ShowDialog())
+            {
+                case true:
+                    controller.UpdateSprint(sprintEdit.dtpckDateBegin.SelectedDate, sprintEdit.dtpckDateEnd.SelectedDate, sprint);
+                    Refresh();
+                    break;
+                case false:
+                    controller.DeleteSprint(sprint);
+                    this.DialogResult = false;
+                    this.Close();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

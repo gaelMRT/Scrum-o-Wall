@@ -9,22 +9,23 @@
     <Window.ContextMenu >
         <ContextMenu >
             <MenuItem Header="Ajouter une colonne" Name="addColumn" Click="addColumn_Click"/>
-            <MenuItem Header="Ouvrir le calendrier" Name="btnBurndownChartMenu" Click="btnBurndownChart_Click"/>
+            <MenuItem Header="Ouvrir le calendrier" Name="btnBurndownChartMenu" Click="BtnBurndownChart_Click"/>
+            <MenuItem Header="Editer le sprint" Name="btnEditSprint" Click="btnEditSprint_Click"/>
             <Separator/>
-            <MenuItem Header="Quitter" Name="Quit" Click="btnReturn_Click"/>
+            <MenuItem Header="Quitter" Name="Quit" Click="BtnReturn_Click"/>
         </ContextMenu>
     </Window.ContextMenu>
     <Canvas x:Name="cnvsSprint">
         <Label Name="lblProjectName" Content="Nom du projet" FontSize="30" Height="60"/>
         <Label Name="lblSprintName" Content="Nom du sprint" Canvas.Top="65" Height="30"/>
-        <Button TouchDown="btnReturn_Click" x:Name="btnReturn" Click="btnReturn_Click"  Content="←" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="75" Height="75" BorderBrush="Black" FontSize="45" Canvas.Left="80">
+        <Button TouchDown="BtnReturn_Click" x:Name="btnReturn" Click="BtnReturn_Click"  Content="←" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="75" Height="75" BorderBrush="Black" FontSize="45" Canvas.Left="80">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="50"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button TouchDown="btnBurndownChart_Click" x:Name="btnBurndownChart" Click="btnBurndownChart_Click" Content="📅" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="75" Height="75" BorderBrush="Black" FontSize="45">
+        <Button TouchDown="BtnBurndownChart_Click" x:Name="btnBurndownChart" Click="BtnBurndownChart_Click" Content="📅" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="75" Height="75" BorderBrush="Black" FontSize="45">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="50"/>

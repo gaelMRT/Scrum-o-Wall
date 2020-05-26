@@ -33,10 +33,10 @@
         <DatePicker x:Name="dtpckrDateLimit" Grid.Column="1" Margin="10" Grid.Row="2"/>
 
         <Label Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" >Estimation de complexité :</Label>
-        <TextBox Grid.Row="3" Name="tbxComplexity" MaxLength="5" Grid.Column="1" KeyDown="tbxComplexity_KeyDown" Margin="10"/>
+        <TextBox Grid.Row="3" Name="tbxComplexity" MaxLength="5" Grid.Column="1" KeyDown="TbxComplexity_KeyDown" Margin="10"/>
 
         <Label Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" >Complexité accomplie:</Label>
-        <TextBox Grid.Row="4" Name="tbxCompletedComplexity" MaxLength="5"  Grid.Column="1" KeyDown="tbxComplexity_KeyDown" Margin="10"/>
+        <TextBox Grid.Row="4" Name="tbxCompletedComplexity" MaxLength="5"  Grid.Column="1" KeyDown="TbxComplexity_KeyDown" Margin="10"/>
 
         <Label Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center" >Priorité :</Label>
         <ComboBox Name="cbxPriority" Grid.Row="5" Margin="10" Grid.Column="1"></ComboBox>
@@ -52,20 +52,28 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button TouchDown="btnFiles_Click" Grid.Column="0" x:Name="btnFiles" Click="btnFiles_Click" Margin="10">Fichiers</Button>
-            <Button TouchDown="btnComments_Click" Grid.Column="1" x:Name="btnComments" Click="btnComments_Click" Margin="10">Commentaires</Button>
-            <Button TouchDown="btnChecklists_Click" Grid.Column="2" x:Name="btnChecklists" Click="btnChecklists_Click" Margin="10">Checklists</Button>
+            <Button TouchDown="BtnFiles_Click" Grid.Column="0" x:Name="btnFiles" Click="BtnFiles_Click" Margin="10">Fichiers</Button>
+            <Button TouchDown="BtnComments_Click" Grid.Column="1" x:Name="btnComments" Click="BtnComments_Click" Margin="10">Commentaires</Button>
+            <Button TouchDown="BtnChecklists_Click" Grid.Column="2" x:Name="btnChecklists" Click="BtnChecklists_Click" Margin="10">Checklists</Button>
         </Grid>
         <Grid Grid.Row="9" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button TouchDown="btnActivities_Click" Grid.Column="0" x:Name="btnActivities" Click="btnActivities_Click" Margin="10">Activités</Button>
-            <Button TouchDown="btnUserAssigned_Click" Grid.Column="1" x:Name="btnUserAssigned" Click="btnUserAssigned_Click" Margin="10">Utilisateurs assignés</Button>
+            <Button TouchDown="BtnActivities_Click" Grid.Column="0" x:Name="btnActivities" Click="BtnActivities_Click" Margin="10">Activités</Button>
+            <Button TouchDown="BtnUserAssigned_Click" Grid.Column="1" x:Name="btnUserAssigned" Click="BtnUserAssigned_Click" Margin="10">Utilisateurs assignés</Button>
         </Grid>
 
-        <Button TouchDown="btnConfirm_Click" x:Name="btnConfirm" Click="btnConfirm_Click" Grid.Row="10" Grid.Column="1" Margin="10">Confirmer</Button>
-        <Button TouchDown="btnCancel_Click" x:Name="btnCancel" Click="btnCancel_Click" Grid.Row="10" Margin="10">Annuler</Button>
+        <Grid Grid.Row="10" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnCancel"  Margin="10" Click="BtnCancel_Click" TouchDown="BtnCancel_Click">Annuler</Button>
+            <Button x:Name="btnDelete"  Grid.Column="1" Margin="10" Click="BtnDelete_Click" TouchDown="BtnDelete_Click">Supprimer</Button>
+            <Button x:Name="btnConfirm"  Grid.Column="2" Margin="10" Click="BtnConfirm_Click" TouchDown="BtnConfirm_Click">Confirmer</Button>
+        </Grid>
     </Grid>
 </Window>

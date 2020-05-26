@@ -31,14 +31,14 @@
                         <RowDefinition></RowDefinition>
                         <RowDefinition Height="70"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <ListBox Margin="10" Name="lstPossibleUsers">
+                    <ListBox Margin="10" Name="lstPossibleUsers" MouseDoubleClick="Lst_MouseDoubleClick">
 
                     </ListBox>
-                    <Button TouchDown="btnAddUser_Click" Click="btnAddUser_Click" x:Name="btnAddUser" Margin="10" Grid.Row="1">+</Button>
+                    <Button TouchDown="BtnAddUser_Click" Click="BtnAddUser_Click" x:Name="btnAddUser" Margin="10" Grid.Row="1">+</Button>
                 </Grid>
             </GroupBox>
             <GroupBox Grid.Column="2"  Margin="10" Header="Utilisateurs assignés" Grid.Row="1">
-                <ListBox Margin="10" Name="lstAssignedUsers">
+                <ListBox Margin="10" Name="lstAssignedUsers" MouseDoubleClick="Lst_MouseDoubleClick">
 
                 </ListBox>
             </GroupBox>
@@ -48,9 +48,9 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <Button TouchDown="btnGoLeft_Click" Click="btnGoLeft_Click" Margin="10" x:Name="btnGoLeft" Content="←"></Button>
-                <Button TouchDown="btnGoRight_Click" Click="btnGoRight_Click" Margin="10" x:Name="btnGoRight" Grid.Row="1" Content="→"></Button>
-                <Button TouchDown="btnSave_Click" Click="btnSave_Click" Margin="10,10,10,28" x:Name="btnSave" Grid.Row="2" Content="💾"></Button>
+                <Button TouchDown="BtnGoLeft_Click" Click="BtnGoLeft_Click" Margin="10" x:Name="btnGoLeft" Content="←"></Button>
+                <Button TouchDown="BtnGoRight_Click" Click="BtnGoRight_Click" Margin="10" x:Name="btnGoRight" Grid.Row="1" Content="→"></Button>
+                <Button TouchDown="BtnSave_Click" Click="BtnSave_Click" Margin="10,10,10,28" x:Name="btnSave" Grid.Row="2" Content="💾"></Button>
             </Grid>
         </Grid>
     </Canvas>

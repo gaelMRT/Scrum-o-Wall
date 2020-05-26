@@ -19,7 +19,7 @@
         <TextBlock Grid.ColumnSpan="2" TextAlignment="Center" FontSize="20" VerticalAlignment="Center" Height="28" Margin="0,10,0,9">Création d'un mindmap</TextBlock>
         <TextBlock Grid.Row="1" TextAlignment="Right" VerticalAlignment="Center" Margin="10">Nom :</TextBlock>
         <TextBox x:Name="tbxName" Grid.Row="1" MaxLength="100" Grid.Column="1" Margin="10"></TextBox>
-        <Button TouchDown="btnCancel_Click" x:Name="btnCancel" Grid.Row="2" Grid.Column="0" Margin="10" Click="btnCancel_Click">Annuler</Button>
-        <Button TouchDown="btnConfirm_Click" x:Name="btnConfirm" Grid.Row="2" Grid.Column="1" Margin="10" Click="btnConfirm_Click">Confirmer</Button>
+        <Button TouchDown="BtnCancel_Click" x:Name="btnCancel" Grid.Row="2" Grid.Column="0" Margin="10" Click="BtnCancel_Click">Annuler</Button>
+        <Button TouchDown="BtnConfirm_Click" x:Name="btnConfirm" Grid.Row="2" Grid.Column="1" Margin="10" Click="BtnConfirm_Click">Confirmer</Button>
     </Grid>
 </Window>

@@ -27,7 +27,7 @@ namespace Scrum_o_wall.Views
             InitializeComponent();
         }
 
-        private void btnFileSearch_Click(object sender, EventArgs e)
+        private void BtnFileSearch_Click(object sender, EventArgs e)
         {
             OpenFileDialog opf = new OpenFileDialog();
             opf.Multiselect = false;
@@ -36,11 +36,11 @@ namespace Scrum_o_wall.Views
                 tbxFileName.Text = opf.FileName;
             }
         }
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-        private void btnConfirm_Click(object sender, EventArgs e)
+        private void BtnConfirm_Click(object sender, EventArgs e)
         {
             if(tbxDescription.Text.Length > 1 && tbxFileName.Text.Length > 1 && System.IO.File.Exists(tbxFileName.Text) )
             {

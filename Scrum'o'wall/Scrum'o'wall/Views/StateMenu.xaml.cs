@@ -53,7 +53,7 @@ namespace Scrum_o_wall.Views
         {
             this.Close();
         }
-        private void btnGoLeft_Click(object sender, EventArgs e)
+        private void BtnGoLeft_Click(object sender, EventArgs e)
         {
             State state = lstAssignedStates.SelectedItem as State;
             if (state != null)
@@ -62,7 +62,7 @@ namespace Scrum_o_wall.Views
                 lstPossibleStates.Items.Add(state);
             }
         }
-        private void btnGoRight_Click(object sender, EventArgs e)
+        private void BtnGoRight_Click(object sender, EventArgs e)
         {
             State state = lstPossibleStates.SelectedItem as State;
             if (state != null)
@@ -71,7 +71,7 @@ namespace Scrum_o_wall.Views
                 lstAssignedStates.Items.Add(state);
             }
         }
-        private void btnSave_Click(object sender, EventArgs e)
+        private void BtnSave_Click(object sender, EventArgs e)
         {
             List<State> toRemove = new List<State>();
             List<State> toAdd = new List<State>();
@@ -96,7 +96,7 @@ namespace Scrum_o_wall.Views
             }
             this.Close();
         }
-        private void btnAddState_Click(object sender, EventArgs e)
+        private void BtnAddState_Click(object sender, EventArgs e)
         {
             StateCreate stateCreate = new StateCreate();
             if (stateCreate.ShowDialog() == true)
@@ -106,5 +106,23 @@ namespace Scrum_o_wall.Views
             }
         }
 
+        private void Lst_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            State state = (sender as ListBox).SelectedItem as State;
+            StateEdit stateEdit = new StateEdit(state);
+            switch (stateEdit.ShowDialog())
+            {
+                case true:
+                    controller.UpdateState(stateEdit.tbxStateName.Text, state);
+                    Refresh();
+                    break;
+                case false:
+                    controller.DeleteState(state);
+                    Refresh();
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

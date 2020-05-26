@@ -65,3 +65,7 @@ C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\C
 C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\UserCreate.baml
 C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\ChecklistItemEdit.g.cs
 C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\ChecklistItemEdit.baml
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\SprintEdit.g.cs
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\StateEdit.g.cs
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\SprintEdit.baml
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\StateEdit.baml

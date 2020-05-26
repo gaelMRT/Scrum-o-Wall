@@ -25,11 +25,11 @@ namespace Scrum_o_wall.Views
             InitializeComponent();
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
-        private void btnAddProject_Click(object sender, RoutedEventArgs e)
+        private void BtnAddProject_Click(object sender, RoutedEventArgs e)
         {
             if(tbxName.Text.Length > 0 && tbxDesc.Text.Length > 0 &&  tbxDate.SelectedDate != null)
             {

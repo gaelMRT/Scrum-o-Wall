@@ -145,11 +145,17 @@
     <Compile Include="Views\ProjectCreate.xaml.cs">
       <DependentUpon>ProjectCreate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SprintEdit.xaml.cs">
+      <DependentUpon>SprintEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SprintCreate.xaml.cs">
       <DependentUpon>SprintCreate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SprintMenu.xaml.cs">
       <DependentUpon>SprintMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StateEdit.xaml.cs">
+      <DependentUpon>StateEdit.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StateCreate.xaml.cs">
       <DependentUpon>StateCreate.xaml</DependentUpon>
@@ -280,6 +286,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\SprintEdit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\SprintCreate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -287,6 +297,10 @@
     <Page Include="Views\SprintMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StateEdit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\StateCreate.xaml">
       <SubType>Designer</SubType>

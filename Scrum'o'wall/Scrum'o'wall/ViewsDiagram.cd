@@ -24,9 +24,9 @@
   <Class Name="Scrum_o_wall.Views.ChecklistCreate" BaseTypeListCollapsed="true">
     <Position X="4" Y="0.5" Width="1.5" />
     <Members>
-      <Method Name="btnAddItem_Click" Hidden="true" />
-      <Method Name="btnCancel_Click" Hidden="true" />
-      <Method Name="btnConfirm_Click" Hidden="true" />
+      <Method Name="BtnAddItem_Click" Hidden="true" />
+      <Method Name="BtnCancel_Click" Hidden="true" />
+      <Method Name="BtnConfirm_Click" Hidden="true" />
       <Method Name="ChecklistCreate" Hidden="true" />
     </Members>
     <TypeIdentifier>
@@ -38,14 +38,14 @@
   <Class Name="Scrum_o_wall.Views.ChecklistEdit" BaseTypeListCollapsed="true">
     <Position X="0.5" Y="2.5" Width="1.5" />
     <Members>
-      <Method Name="btnAddItem_Click" Hidden="true" />
-      <Method Name="btnCancel_Click" Hidden="true" />
-      <Method Name="btnConfirm_Click" Hidden="true" />
+      <Method Name="BtnAddItem_Click" Hidden="true" />
+      <Method Name="BtnCancel_Click" Hidden="true" />
+      <Method Name="BtnConfirm_Click" Hidden="true" />
       <Method Name="ChecklistEdit" Hidden="true" />
       <Method Name="ListItems_MouseDoubleClick" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAABAACkAAQAAAEBAAAAAAAABgAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAABAICEAAQAAAABAAAEAAAAAgAAAAEAAAAA=</HashCode>
       <FileName>Views\ChecklistEdit.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -53,7 +53,7 @@
   <Class Name="Scrum_o_wall.Views.ChecklistItemCreate" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="5.75" Y="0.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAgAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
       <FileName>Views\ChecklistItemCreate.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -61,8 +61,8 @@
   <Class Name="Scrum_o_wall.Views.ChecklistMenu" BaseTypeListCollapsed="true">
     <Position X="4" Y="6.75" Width="1.5" />
     <Members>
-      <Method Name="btnAddList_Click" Hidden="true" />
-      <Method Name="btnCancel_Click" Hidden="true" />
+      <Method Name="BtnAddList_Click" Hidden="true" />
+      <Method Name="BtnCancel_Click" Hidden="true" />
       <Method Name="checklist_Click" Hidden="true" />
       <Method Name="checklistItem_Checked" Hidden="true" />
       <Method Name="ChecklistMenu" Hidden="true" />
@@ -84,8 +84,8 @@
   <Class Name="Scrum_o_wall.Views.CommentMenu" BaseTypeListCollapsed="true">
     <Position X="0.5" Y="5" Width="1.5" />
     <Members>
-      <Method Name="btnAddComment_Click" Hidden="true" />
-      <Method Name="btnCancel_Click" Hidden="true" />
+      <Method Name="BtnAddComment_Click" Hidden="true" />
+      <Method Name="BtnCancel_Click" Hidden="true" />
       <Method Name="CommentMenu" Hidden="true" />
     </Members>
     <TypeIdentifier>
@@ -105,7 +105,7 @@
   <Class Name="Scrum_o_wall.Views.FileEdit" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="0.5" Y="8" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAgAAAAAAEAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAkAAAAAAEAAAAAAAAAABAAAAAAAAQA=</HashCode>
       <FileName>Views\FileEdit.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -113,7 +113,7 @@
   <Class Name="Scrum_o_wall.Views.FileMenu" BaseTypeListCollapsed="true">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <Members>
-      <Method Name="btnAddFile_Click" Hidden="true" />
+      <Method Name="BtnAddFile_Click" Hidden="true" />
       <Method Name="FileInList_Click" Hidden="true" />
       <Method Name="FileMenu" Hidden="true" />
       <Method Name="Quit_Click" Hidden="true" />
@@ -155,7 +155,7 @@
   <Class Name="Scrum_o_wall.Views.ProjectEdit" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="0.5" Y="9" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAQAkAAAAAAEAAAAgABAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAQAkAAAAAAEAAAAgABAAAAAAAAAAAAQA=</HashCode>
       <FileName>Views\ProjectEdit.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -163,8 +163,8 @@
   <Class Name="Scrum_o_wall.Views.ProjectMenu" BaseTypeListCollapsed="true">
     <Position X="5.75" Y="1.5" Width="2" />
     <Members>
-      <Method Name="btnAddSprint_Click" Hidden="true" />
-      <Method Name="btnAddUserStory_Click" Hidden="true" />
+      <Method Name="BtnAddSprint_Click" Hidden="true" />
+      <Method Name="BtnAddUserStory_Click" Hidden="true" />
       <Method Name="Edit_Click" Hidden="true" />
       <Method Name="ProjectMenu" Hidden="true" />
       <Method Name="ProjectMenu_Loaded" Hidden="true" />
@@ -184,20 +184,12 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="Scrum_o_wall.Views.SprintCreate" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="2.25" Y="9" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAACAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Views\SprintCreate.xaml.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
   <Class Name="Scrum_o_wall.Views.SprintMenu" BaseTypeListCollapsed="true">
     <Position X="5.75" Y="4.75" Width="2" />
     <Members>
       <Method Name="addColumn_Click" Hidden="true" />
-      <Method Name="btnBurndownChart_Click" Hidden="true" />
-      <Method Name="btnReturn_Click" Hidden="true" />
+      <Method Name="BtnBurndownChart_Click" Hidden="true" />
+      <Method Name="BtnReturn_Click" Hidden="true" />
       <Method Name="SprintMenu" Hidden="true" />
       <Method Name="SprintMenu_Loaded" Hidden="true" />
       <Method Name="sprintMenu_PreviewTouchMove" Hidden="true" />
@@ -214,21 +206,22 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="Scrum_o_wall.Views.StateCreate" Collapsed="true" BaseTypeListCollapsed="true">
+  <Class Name="Scrum_o_wall.Views.StateEdit" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="2.25" Y="6" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAgAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Views\StateCreate.xaml.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAkAAAAAAEAAAAAAAAAEAAAAAAAAAQA=</HashCode>
+      <FileName>Views\StateEdit.xaml.cs</FileName>
+      <NewMemberFileName>Views\StateCreate.xaml.cs</NewMemberFileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Scrum_o_wall.Views.StateMenu" BaseTypeListCollapsed="true">
     <Position X="4" Y="2.5" Width="1.5" />
     <Members>
-      <Method Name="btnAddState_Click" Hidden="true" />
-      <Method Name="btnGoLeft_Click" Hidden="true" />
-      <Method Name="btnGoRight_Click" Hidden="true" />
-      <Method Name="btnSave_Click" Hidden="true" />
+      <Method Name="BtnAddState_Click" Hidden="true" />
+      <Method Name="BtnGoLeft_Click" Hidden="true" />
+      <Method Name="BtnGoRight_Click" Hidden="true" />
+      <Method Name="BtnSave_Click" Hidden="true" />
       <Method Name="Quit_Click" Hidden="true" />
       <Method Name="StateMenu" Hidden="true" />
     </Members>
@@ -257,10 +250,10 @@
   <Class Name="Scrum_o_wall.Views.UserMenu" BaseTypeListCollapsed="true">
     <Position X="5.75" Y="8.5" Width="2" />
     <Members>
-      <Method Name="btnAddUser_Click" Hidden="true" />
-      <Method Name="btnGoLeft_Click" Hidden="true" />
-      <Method Name="btnGoRight_Click" Hidden="true" />
-      <Method Name="btnSave_Click" Hidden="true" />
+      <Method Name="BtnAddUser_Click" Hidden="true" />
+      <Method Name="BtnGoLeft_Click" Hidden="true" />
+      <Method Name="BtnGoRight_Click" Hidden="true" />
+      <Method Name="BtnSave_Click" Hidden="true" />
       <Method Name="UserMenu" Hidden="true" />
     </Members>
     <TypeIdentifier>
@@ -280,18 +273,18 @@
   <Class Name="Scrum_o_wall.Views.UserStoryEdit" BaseTypeListCollapsed="true">
     <Position X="2.25" Y="4" Width="1.5" />
     <Members>
-      <Method Name="btnActivities_Click" Hidden="true" />
-      <Method Name="btnCancel_Click" Hidden="true" />
-      <Method Name="btnChecklists_Click" Hidden="true" />
-      <Method Name="btnComments_Click" Hidden="true" />
-      <Method Name="btnConfirm_Click" Hidden="true" />
-      <Method Name="btnFiles_Click" Hidden="true" />
-      <Method Name="btnUserAssigned_Click" Hidden="true" />
+      <Method Name="BtnActivities_Click" Hidden="true" />
+      <Method Name="BtnCancel_Click" Hidden="true" />
+      <Method Name="BtnChecklists_Click" Hidden="true" />
+      <Method Name="BtnComments_Click" Hidden="true" />
+      <Method Name="BtnConfirm_Click" Hidden="true" />
+      <Method Name="BtnFiles_Click" Hidden="true" />
+      <Method Name="BtnUserAssigned_Click" Hidden="true" />
       <Method Name="tbxComplexity_KeyDown" Hidden="true" />
       <Method Name="UserStoryEdit" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAQAAQAAAAAACAkAAQAAAEEAAAgAAAAAAAAIAAAAQAA=</HashCode>
+      <HashCode>AAQAAQAAAAAACAkAAQAAAEEAAAgAAAAAAAAIAAAAQQA=</HashCode>
       <FileName>Views\UserStoryEdit.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -308,6 +301,15 @@
     <TypeIdentifier>
       <HashCode>AAAAAAEAAABAAAkAAAAAAAAAAAAAAAAAAAAAACAABAA=</HashCode>
       <FileName>Views\MainMenu.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Scrum_o_wall.Views.SprintEdit" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAACAAAEAAAABAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Views\SprintEdit.xaml.cs</FileName>
+      <NewMemberFileName>Views\SprintCreate.xaml.cs</NewMemberFileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>

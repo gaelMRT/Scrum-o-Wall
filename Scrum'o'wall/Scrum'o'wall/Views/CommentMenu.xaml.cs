@@ -41,11 +41,11 @@ namespace Scrum_o_wall.Views
             }
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-        private void btnAddComment_Click(object sender, EventArgs e)
+        private void BtnAddComment_Click(object sender, EventArgs e)
         {
             CommentCreate commentCreate = new CommentCreate(userStory.GetUsers());
             if (userStory.GetUsers().Count == 0)
