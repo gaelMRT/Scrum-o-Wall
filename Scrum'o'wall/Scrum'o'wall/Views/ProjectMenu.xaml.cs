@@ -19,6 +19,7 @@ namespace Scrum_o_wall.Views
         Project project;
         Controller controller;
         List<UserControl> sprintUserControls = new List<UserControl>();
+        List<UserControl> userStoriesControls = new List<UserControl>();
         Dictionary<InputDevice, Point> currentPoint = new Dictionary<InputDevice, Point>();
         Dictionary<InputDevice, UserControl> infos = new Dictionary<InputDevice, UserControl>();
         Dictionary<InputDevice, Border> borders = new Dictionary<InputDevice, Border>();
@@ -38,6 +39,10 @@ namespace Scrum_o_wall.Views
         private void Refresh()
         {
             int nbSprints = project.Sprints.Count;
+            foreach (UserControl sprintControl in sprintUserControls)
+            {
+                cnvsSprints.Children.Remove(sprintControl);
+            }
             sprintUserControls.Clear();
             for (int i = 0; i < nbSprints; i++)
             {
@@ -83,6 +88,11 @@ namespace Scrum_o_wall.Views
             }
 
             int nbUserStories = project.AllUserStories.Count;
+            foreach (UserControl userStoryControl in userStoriesControls)
+            {
+                cnvsUserStories.Children.Remove(userStoryControl);
+            }
+            userStoriesControls.Clear();
             for (int i = 0; i < nbUserStories; i++)
             {
                 UserStory userStory = project.AllUserStories[i];
@@ -103,6 +113,7 @@ namespace Scrum_o_wall.Views
                 Stylus.SetIsPressAndHoldEnabled(userStoryControl, false);
 
                 cnvsUserStories.Children.Add(userStoryControl);
+                userStoriesControls.Add(userStoryControl);
 
                 Canvas.SetLeft(userStoryControl, 5);
                 Canvas.SetTop(userStoryControl, 60 * i);
@@ -128,17 +139,18 @@ namespace Scrum_o_wall.Views
         private void UserStoryEditing(UserStory userStory)
         {
             UserStoryEdit userStoryEdit = new UserStoryEdit(userStory, project, controller);
-            switch (userStoryEdit.ShowDialog())
+
+            if (userStoryEdit.ShowDialog() == true)
             {
-                case true:
-                    controller.UpdateUserStory(userStoryEdit.tbxDesc.Text, userStoryEdit.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryEdit.tbxComplexity.Text), Convert.ToInt32(userStoryEdit.tbxCompletedComplexity.Text), userStoryEdit.chckBxBlocked.IsChecked == true, (Priority)userStoryEdit.cbxPriority.SelectedItem, (Classes.Type)userStoryEdit.cbxType.SelectedItem, userStory.State, userStory);
-                    Refresh();
-                    break;
-                case false:
+                if (userStoryEdit.Deleted)
+                {
                     controller.DeleteUserStory(userStory);
-                    break;
-                default:
-                    break;
+                }
+                else
+                {
+                    controller.UpdateUserStory(userStoryEdit.tbxDesc.Text, userStoryEdit.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryEdit.tbxComplexity.Text), Convert.ToInt32(userStoryEdit.tbxCompletedComplexity.Text), userStoryEdit.chckBxBlocked.IsChecked == true, (Priority)userStoryEdit.cbxPriority.SelectedItem, (Classes.Type)userStoryEdit.cbxType.SelectedItem, userStory.State, userStory);
+                }
+                Refresh();
             }
         }
 
@@ -189,9 +201,11 @@ namespace Scrum_o_wall.Views
             Sprint s = (sender as UserControl).Tag as Sprint;
             SprintMenu sprintMenu = new SprintMenu(s, controller);
             sprintMenu.ShowDialog();
+            Refresh();
         }
         private void Quit_Click(object sender, EventArgs e)
         {
+            this.DialogResult = null;
             this.Close();
         }
         private void BtnAddUserStory_Click(object sender, EventArgs e)
@@ -291,22 +305,19 @@ namespace Scrum_o_wall.Views
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
             ProjectEdit projectEdit = new ProjectEdit(project, controller);
-            switch (projectEdit.ShowDialog())
-            {
-                case true:
-                    controller.UpdateProject(projectEdit.tbxName.Text, projectEdit.tbxDesc.Text, (DateTime)projectEdit.dtpckrDateBegin.SelectedDate, project);
-                    Refresh();
-                    break;
-                case false:
-                    controller.DeleteProject(project);
-                    this.DialogResult = false;
-                    this.Close();
-                    break;
-                default:
-                    break;
-            }
             if (projectEdit.ShowDialog() == true)
             {
+                if (projectEdit.Deleted)
+                {
+                    controller.DeleteProject(project);
+                    this.DialogResult = true;
+                    this.Close();
+                }
+                else
+                {
+                    controller.UpdateProject(projectEdit.tbxName.Text, projectEdit.tbxDesc.Text, (DateTime)projectEdit.dtpckrDateBegin.SelectedDate, project);
+                    Refresh();
+                }
             }
         }
     }

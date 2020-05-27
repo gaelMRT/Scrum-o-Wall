@@ -21,6 +21,7 @@ namespace Scrum_o_wall.Views
     public partial class FileEdit : Window
     {
         File file;
+        public bool Deleted = false;
 
 
         public FileEdit(File aFile)
@@ -35,6 +36,7 @@ namespace Scrum_o_wall.Views
 
         private void BtnCancel_Click(object sender, EventArgs e)
         {
+            this.DialogResult = null;
             this.Close();
         }
         private void BtnConfirm_Click(object sender, EventArgs e)
@@ -54,7 +56,8 @@ namespace Scrum_o_wall.Views
         {
             if (MessageBox.Show("Le fichier sera supprimé.\nÊtes-vous sûr(e)?", "Attention", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                this.DialogResult = false;
+                this.DialogResult = true;
+                Deleted = true;
                 this.Close();
             }
         }

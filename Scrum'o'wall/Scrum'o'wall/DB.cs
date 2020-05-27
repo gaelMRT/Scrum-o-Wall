@@ -210,6 +210,50 @@ namespace Scrum_o_wall
             //Close database
             DB.GetConnection().Close();
         }
+
+        public static void UpdateUser(string text, User user)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "UPDATE TUsers SET NameUser = ? WHERE IdUser = ?;";
+            cmd.Parameters.Add("NameUser", OleDbType.Date);
+            cmd.Parameters.Add("IdUser", OleDbType.Integer);
+            cmd.Parameters[0].Value = text;
+            cmd.Parameters[1].Value = user.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            //Close database
+            DB.GetConnection().Close();
+        }
+
+        public static void UpdateState(string text, State state)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "UPDATE TStates SET NameState = ? WHERE IdState = ?;";
+            cmd.Parameters.Add("NameState", OleDbType.Date);
+            cmd.Parameters.Add("IdState", OleDbType.Integer);
+            cmd.Parameters[0].Value = text;
+            cmd.Parameters[1].Value = state.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            //Close database
+            DB.GetConnection().Close();
+        }
         #endregion
         #region ADD
         public static Project CreateProject(string aName, string aDesc, DateTime aDate)
@@ -476,12 +520,7 @@ namespace Scrum_o_wall
             DB.GetConnection().Close();
 
             //return created project
-            UserStory userStory = new UserStory(id, description, selectedDate, complexity, 0, false, project.Id, state.Id, type.Id, priority.Id)
-            {
-                Priority = priority,
-                Type = type,
-                State = state
-            };
+            UserStory userStory = new UserStory(id, description, selectedDate, complexity, 0, false, project.Id, state.Id, type.Id, priority.Id);
             return userStory;
         }
         public static State CreateState(string name)
@@ -634,10 +673,7 @@ namespace Scrum_o_wall
             //Close database
             DB.GetConnection().Close();
 
-            Sprint sprint = new Sprint(id, dateBegin, dateEnd, project.Id)
-            {
-                Project = project
-            };
+            Sprint sprint = new Sprint(id, dateBegin, dateEnd, project.Id);
             return sprint;
 
         }

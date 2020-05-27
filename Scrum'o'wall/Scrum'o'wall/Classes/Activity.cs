@@ -16,6 +16,7 @@ namespace Scrum_o_wall.Classes
     {
         private int id;
         private int userStoryId;
+        private UserStory userStory;
 
         public Activity(int id, string description, DateTime dateTime, int userStoryId)
         {
@@ -29,6 +30,15 @@ namespace Scrum_o_wall.Classes
         public string Description { get; set; }
         public DateTime DateTime { get; set; }
         public int UserStoryId { get => userStoryId; }
+        public UserStory UserStory
+        {
+            get => userStory; set
+            {
+                userStory = value;
+                userStoryId = value.Id;
+            }
+        }
+
         public override string ToString()
         {
             return Description;

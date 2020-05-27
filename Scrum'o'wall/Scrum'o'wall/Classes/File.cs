@@ -16,6 +16,7 @@ namespace Scrum_o_wall.Classes
     {
         int id;
         int userStoryId;
+        private UserStory userStory;
 
 
         public File(int id, string name, string description,  int userStoryId)
@@ -29,7 +30,14 @@ namespace Scrum_o_wall.Classes
         public int Id { get => id; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public UserStory UserStory { get; set; }
+        public UserStory UserStory
+        {
+            get => userStory; set
+            {
+                userStory = value;
+                userStoryId = value.Id;
+            }
+        }
         public int UserStoryId { get => userStoryId; }
 
         public override string ToString()

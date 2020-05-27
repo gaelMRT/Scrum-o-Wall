@@ -16,31 +16,40 @@ namespace Scrum_o_wall.Classes
     {
         private int id;
         private int projectId;
+        private Project project;
 
-        public Sprint(int anId, DateTime aBegin, DateTime anEnd,int aProjectId)
+        public Sprint(int anId, DateTime aBegin, DateTime anEnd, int aProjectId)
         {
             id = anId;
             Begin = aBegin;
             End = anEnd;
             projectId = aProjectId;
         }
-        public int Id { get => id;  }
+        public int Id { get => id; }
         public DateTime Begin { get; set; }
         public DateTime End { get; set; }
-        public int ProjectId { get => projectId;  }
-        public Project Project { get; set; }
+        public int ProjectId { get => projectId; }
+        public Project Project
+        {
+            get => project;
+            set
+            {
+                project = value;
+                projectId = value.Id;
+            }
+        }
         public Dictionary<int, UserStory> OrderedUserStories { get; } = new Dictionary<int, UserStory>();
 
         #region Add/Remove userStories
-        public void addUserStory(int order,UserStory toAdd)
+        public void addUserStory(int order, UserStory toAdd)
         {
-            OrderedUserStories.Add(order,toAdd);
+            OrderedUserStories.Add(order, toAdd);
         }
         public void addListUserStories(Dictionary<int, UserStory> ListToAdd)
         {
-            foreach (KeyValuePair<int,UserStory> item in ListToAdd)
+            foreach (KeyValuePair<int, UserStory> item in ListToAdd)
             {
-                OrderedUserStories.Add(item.Key,item.Value);
+                OrderedUserStories.Add(item.Key, item.Value);
             }
         }
         public void removeUserStoryByOrder(int order)

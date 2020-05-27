@@ -18,6 +18,7 @@ namespace Scrum_o_wall.Classes
         int id;
         int? previousId;
         int mindmapId;
+        MindMap mindMap;
 
         public Node(int anId, string aName, int? aPreviousId, int aMindmapId)
         {
@@ -31,6 +32,15 @@ namespace Scrum_o_wall.Classes
         public string Name { get; set; }
         public int PreviousId { get => (previousId == null ? 0 : (int)previousId);  }
         public int MindmapId { get => mindmapId;  }
+        public MindMap MindMap
+        {
+            get => mindMap;
+            set
+            {
+                mindMap = value;
+                mindmapId = value.Id;
+            }
+        }
         public List<Node> Childrens { get; set; } = new List<Node>();
         public override string ToString()
         {

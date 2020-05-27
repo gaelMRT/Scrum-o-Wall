@@ -51,6 +51,7 @@ namespace Scrum_o_wall.Views
 
         private void Quit_Click(object sender, EventArgs e)
         {
+            this.DialogResult = null;
             this.Close();
         }
         private void BtnGoLeft_Click(object sender, EventArgs e)
@@ -110,18 +111,17 @@ namespace Scrum_o_wall.Views
         {
             State state = (sender as ListBox).SelectedItem as State;
             StateEdit stateEdit = new StateEdit(state);
-            switch (stateEdit.ShowDialog())
+            if (stateEdit.ShowDialog() == true)
             {
-                case true:
-                    controller.UpdateState(stateEdit.tbxStateName.Text, state);
-                    Refresh();
-                    break;
-                case false:
+                if (stateEdit.Deleted)
+                {
                     controller.DeleteState(state);
-                    Refresh();
-                    break;
-                default:
-                    break;
+                }
+                else
+                {
+                    controller.UpdateState(stateEdit.tbxStateName.Text, state);
+                }
+                Refresh();
             }
         }
     }

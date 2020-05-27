@@ -545,3 +545,19 @@ J'ai finalement travailler sur l'ajout de suppression dans les vues. J'ai eu le 
 - Rajouter la suppression sur les vues
 - Faire le diagrame de communication vers la base de données
 - Faire le point avec Mme. Terrier
+
+## 27.05
+
+### Tâches à faire
+- Implémenter les fonctions de suppression dans le controller.
+ 
+### Liens utiles et idées
+J'ai implémenter les fonctions en les reliant aux fonctions correspondantes et j'ai créé les fonctions manquantes dans DB. J'ai également changé la structure des classes afin de contenir directement un objet parent (La user story pour le commentaire ou le projet pour le user story)
+
+J'ai également rajouter un attribut "Deleted" dans les vues de modifications pour pouvoir savoir à la fermeture si l'utilisateur à appuyé sur le bouton de confirmation ou le bouton de suppression.
+
+
+### Tâches accomplies
+- Implémenter les fonctions de suppression dans le controller.
+- Implémentation des fonctions manquantes dans la DB.
+- Modification des vues pour intégrer la suppression.

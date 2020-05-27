@@ -30,6 +30,7 @@ namespace Scrum_o_wall
     public partial class MainMenu : Window
     {
         Controller controller;
+        List<UserControl> projectControls = new List<UserControl>();
         public MainMenu()
         {
             InitializeComponent();
@@ -39,9 +40,13 @@ namespace Scrum_o_wall
 
         private void Refresh()
         {
-
             //Create controls for the projects
             int maxProj = controller.Projects.Count;
+            foreach (UserControl project in projectControls)
+            {
+                cnvsProject.Children.Remove(project);
+            }
+            projectControls.Clear();
             for (int i = 0; i < maxProj; i++)
             {
                 Project p = controller.Projects[i];
@@ -102,6 +107,7 @@ namespace Scrum_o_wall
 
                 //Add project frame to canvas
                 cnvsProject.Children.Add(usrCntrl);
+                projectControls.Add(usrCntrl);
             }
         }
 
@@ -120,8 +126,9 @@ namespace Scrum_o_wall
         private void UsrCntrl_Click(object sender, EventArgs e)
         {
             Project p = (sender as UserControl).Tag as Project;
-            ProjectMenu backlogMenu = new ProjectMenu(p, controller);
-            backlogMenu.ShowDialog();
+            ProjectMenu projectMenu = new ProjectMenu(p, controller);
+            projectMenu.ShowDialog();
+            Refresh();
         }
         private void Quit_Click(object sender, EventArgs e)
         {

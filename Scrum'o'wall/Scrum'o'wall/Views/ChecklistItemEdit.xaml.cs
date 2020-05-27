@@ -23,7 +23,9 @@ namespace Scrum_o_wall.Views
         ChecklistItem checklistItem;
         Controller controller;
         UserStory userStory;
-        public ChecklistItemEdit(ChecklistItem aChecklistItem,UserStory aUserStory, Controller aController)
+        public bool Deleted = false;
+
+        public ChecklistItemEdit(ChecklistItem aChecklistItem, UserStory aUserStory, Controller aController)
         {
             checklistItem = aChecklistItem;
             controller = aController;
@@ -37,11 +39,12 @@ namespace Scrum_o_wall.Views
 
         private void BtnCancel_Click(object sender, EventArgs e)
         {
+            this.DialogResult = null;
             this.Close();
         }
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
-            if(tbxObjet.Text.Length > 0)
+            if (tbxObjet.Text.Length > 0)
             {
                 this.DialogResult = true;
                 this.Close();
@@ -55,7 +58,8 @@ namespace Scrum_o_wall.Views
         {
             if (MessageBox.Show("L'objet de la liste sera supprimé.\nÊtes-vous sûr(e)?", "Attention", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                this.DialogResult = false;
+                this.DialogResult = true;
+                Deleted = true;
                 this.Close();
             }
         }

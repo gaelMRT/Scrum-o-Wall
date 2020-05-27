@@ -16,6 +16,7 @@ namespace Scrum_o_wall.Classes
     {
         int id;
         int checklistId;
+        Checklist checklist;
         private List<User> assignedUsers = new List<User>();
 
         public ChecklistItem(int id, string nameItem, bool done, int checklistId)
@@ -30,6 +31,11 @@ namespace Scrum_o_wall.Classes
         public string NameItem { get; set; }
         public bool Done { get; set; }
         public int ChecklistId { get => checklistId; }
+        public Checklist Checklist { get => checklist; set {
+                checklist = value;
+                checklistId = value.Id;
+            }
+        }
 
         public void AddUser(User user)
         {

@@ -170,7 +170,7 @@ namespace Scrum_o_wall.Views
                     }
                 }
                 //if release in a groupbox, change state
-                if(gbxState != null)
+                if (gbxState != null)
                 {
                     gbxState.BorderThickness = new Thickness(1);
 
@@ -267,17 +267,17 @@ namespace Scrum_o_wall.Views
         {
             UserStory userStory = (sender as UserControl).Tag as UserStory;
             UserStoryEdit userStoryEdit = new UserStoryEdit(userStory, sprint.Project, controller);
-            switch (userStoryEdit.ShowDialog())
+            if (userStoryEdit.ShowDialog() == true)
             {
-                case true:
-                    controller.UpdateUserStory(userStoryEdit.tbxDesc.Text, userStoryEdit.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryEdit.tbxComplexity.Text), Convert.ToInt32(userStoryEdit.tbxCompletedComplexity.Text), userStoryEdit.chckBxBlocked.IsChecked == true, (Priority)userStoryEdit.cbxPriority.SelectedItem, (Classes.Type)userStoryEdit.cbxType.SelectedItem, userStory.State, userStory);
-                    Refresh();
-                    break;
-                case false:
+                if (userStoryEdit.Deleted)
+                {
                     controller.DeleteUserStory(userStory);
-                    break;
-                default:
-                    break;
+                }
+                else
+                {
+                    controller.UpdateUserStory(userStoryEdit.tbxDesc.Text, userStoryEdit.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryEdit.tbxComplexity.Text), Convert.ToInt32(userStoryEdit.tbxCompletedComplexity.Text), userStoryEdit.chckBxBlocked.IsChecked == true, (Priority)userStoryEdit.cbxPriority.SelectedItem, (Classes.Type)userStoryEdit.cbxType.SelectedItem, userStory.State, userStory);
+                }
+                Refresh();
             }
         }
         private void addColumn_Click(object sender, RoutedEventArgs e)
@@ -293,25 +293,28 @@ namespace Scrum_o_wall.Views
         }
         private void BtnReturn_Click(object sender, EventArgs e)
         {
+            this.DialogResult = null;
             this.Close();
         }
 
         private void btnEditSprint_Click(object sender, RoutedEventArgs e)
         {
             SprintEdit sprintEdit = new SprintEdit(sprint);
-            switch (sprintEdit.ShowDialog())
+            if (sprintEdit.ShowDialog() == true)
             {
-                case true:
-                    controller.UpdateSprint(sprintEdit.dtpckDateBegin.SelectedDate, sprintEdit.dtpckDateEnd.SelectedDate, sprint);
-                    Refresh();
-                    break;
-                case false:
+                if (sprintEdit.Deleted)
+                {
                     controller.DeleteSprint(sprint);
-                    this.DialogResult = false;
+                    this.DialogResult = true;
                     this.Close();
-                    break;
-                default:
-                    break;
+                }
+                else
+                {
+                    DateTime begin = sprintEdit.dtpckDateBegin.SelectedDate == null ? DateTime.Now : sprintEdit.dtpckDateBegin.SelectedDate.Value;
+                    DateTime end = sprintEdit.dtpckDateEnd.SelectedDate == null ? DateTime.Now + new TimeSpan(7, 0, 0, 0) : sprintEdit.dtpckDateEnd.SelectedDate.Value;
+                    controller.UpdateSprint(begin, end, sprint);
+                    Refresh();
+                }
             }
         }
     }

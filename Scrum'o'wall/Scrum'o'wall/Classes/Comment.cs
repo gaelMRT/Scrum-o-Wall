@@ -17,6 +17,8 @@ namespace Scrum_o_wall.Classes
         int id;
         int userStoryId;
         int userId;
+        private UserStory userStory;
+        private User user;
 
         public Comment(int id, string description, DateTime dateTime, int userStoryId, int userId)
         {
@@ -27,11 +29,28 @@ namespace Scrum_o_wall.Classes
             this.userId = userId;
         }
 
-        public int Id { get => id;  }
+        public int Id { get => id; }
         public string Description { get; set; }
         public DateTime DateTime { get; set; }
         public int UserStoryId { get => userStoryId; }
+        public UserStory UserStory
+        {
+            get => userStory; set
+            {
+                userStory = value;
+                userStoryId = value.Id;
+            }
+        }
         public int UserId { get => userId; }
+        public User User
+        {
+            get => user;
+            set
+            {
+                user = value;
+                userId = value.Id;
+            }
+        }
         public override string ToString()
         {
             return Description;

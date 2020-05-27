@@ -21,7 +21,7 @@ namespace Scrum_o_wall.Views
     public partial class ProjectEdit : Window
     {
         Project project;
-
+        public bool Deleted= false;
         Controller controller;
         public ProjectEdit(Project aProject,Controller aController)
         {
@@ -59,13 +59,15 @@ namespace Scrum_o_wall.Views
         }
         private void BtnCancel_Click(object sender, EventArgs e)
         {
+            this.DialogResult = null;
             this.Close();
         }
         private void BtnDelete_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Le projet sera supprimé.\nÊtes-vous sûr(e)?", "Attention", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                this.DialogResult = false;
+                this.DialogResult = true;
+                Deleted = true;
                 this.Close();
             }
         }

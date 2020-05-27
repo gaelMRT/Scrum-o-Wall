@@ -115,9 +115,18 @@ namespace Scrum_o_wall
                 if (project.Count == 1)
                 {
                     project[0].AllUserStories.Add(u);
+                    u.Project = project[0];
                 }
                 u.Activities = activities;
+                foreach (Activity a in activities)
+                {
+                    a.UserStory = u;
+                }
                 u.Checklists = checklists;
+                foreach (Checklist c in checklists)
+                {
+                    c.UserStory = u;
+                }
 
                 u.Files = files;
                 foreach (Classes.File f in files)
@@ -207,34 +216,61 @@ namespace Scrum_o_wall
             states = allStates;
         }
 
-        internal void UpdateState(string text, State state)
+        public void UpdateState(string text, State state)
         {
-            throw new NotImplementedException();
+            DB.UpdateState(text, state);
+            state.Name = text;
         }
 
-        internal void DeleteUser(User user)
+        public void UpdateSprint(DateTime begin, DateTime end, Sprint sprint)
         {
-            throw new NotImplementedException();
+            DB.UpdateSprint(begin, end, sprint);
+            sprint.Begin = begin;
+            sprint.End = end;
+        }
+        public void UpdateUser(string text, User user)
+        {
+            DB.UpdateUser(text, user);
+            user.Name = text;
         }
 
-        internal void UpdateUser(string text, User user)
+        public void DeleteUser(User user)
         {
-            throw new NotImplementedException();
+            DB.DeleteUser(user);
+            users.Remove(user);
         }
 
-        internal void DeleteState(State state)
+
+        public void DeleteState(State state)
         {
-            throw new NotImplementedException();
+            List<Project> removingState = projects.Where(p => p.States.ContainsValue(state)).ToList();
+            foreach (Project project in removingState)
+            {
+                this.RemoveStateFromProject(state, project);
+            }
+            DB.DeleteState(state);
         }
 
-        internal void DeleteSprint(Sprint sprint)
+        public void DeleteSprint(Sprint sprint)
         {
-            throw new NotImplementedException();
+            sprint.Project.Sprints.Remove(sprint);
+            DB.DeleteSprint(sprint);
         }
 
-        internal void DeleteChecklistItem(ChecklistItem checklistItem)
+        public void DeleteChecklistItem(ChecklistItem checklistItem)
         {
-            throw new NotImplementedException();
+            checklistItem.Checklist.ChecklistItems.Remove(checklistItem);
+            DB.DeleteChecklistItem(checklistItem);
+        }
+        public void DeleteUserStory(UserStory userStory)
+        {
+            List<Sprint> sprintRemoveUserStory = userStory.Project.Sprints.Where(s => s.OrderedUserStories.ContainsValue(userStory)).ToList();
+            foreach (Sprint sprint in sprintRemoveUserStory)
+            {
+                this.RemoveUserStoryFromSprint(userStory, sprint);
+            }
+            userStory.Project.AllUserStories.Remove(userStory);
+            DB.DeleteUserStory(userStory);
         }
 
         public void DeleteProject(Project project)
@@ -272,7 +308,6 @@ namespace Scrum_o_wall
                     }
                 }
                 DB.RemoveStateFromProject(project, order);
-
             }
             else
             {
@@ -321,7 +356,7 @@ namespace Scrum_o_wall
             if (sprint.OrderedUserStories.ContainsValue(userStory))
             {
                 int order = 0;
-                while (sprint.OrderedUserStories[order] != userStory)
+                while (!sprint.OrderedUserStories.ContainsKey(order) || sprint.OrderedUserStories[order] != userStory)
                 {
                     order++;
                 }
@@ -331,15 +366,6 @@ namespace Scrum_o_wall
             }
         }
 
-        internal void DeleteUserStory(UserStory userStory)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal void UpdateSprint(DateTime? selectedDate1, DateTime? selectedDate2, Sprint sprint)
-        {
-            throw new NotImplementedException();
-        }
         #endregion
 
         #region Update Methods
@@ -352,7 +378,7 @@ namespace Scrum_o_wall
                 userStory.State = state;
             }
         }
-        internal void UpdateCheckListItem(string nameItem, bool done, ChecklistItem item)
+        public void UpdateCheckListItem(string nameItem, bool done, ChecklistItem item)
         {
             DB.UpdateCheckListItem(nameItem, done, item);
             item.NameItem = nameItem;
@@ -481,22 +507,33 @@ namespace Scrum_o_wall
         }
         public void CreateActivity(string description, UserStory userStory)
         {
-            userStory.Activities.Add(DB.CreateActivity(description, DateTime.Now, userStory));
+            Activity activity = DB.CreateActivity(description, DateTime.Now, userStory);
+            userStory.Activities.Add(activity);
+            activity.UserStory = userStory;
         }
         public void CreateUserStory(string description, DateTime? selectedDate, int complexity, Priority aPriority, Classes.Type aType, Project aProject)
         {
             UserStory userStory = DB.CreateUserStory(description, selectedDate, complexity, aPriority, aType, aProject.States.First().Value, aProject);
+
+            userStory.Priority = aPriority;
+            userStory.Type = aType;
+            userStory.State = aProject.States.First().Value;
+            userStory.Project = aProject;
+
             aProject.AllUserStories.Add(userStory);
             this.CreateActivity("A été créé", userStory);
         }
         public void CreateSprint(DateTime dateBegin, DateTime dateEnd, Project aProject)
         {
-            aProject.Sprints.Add(DB.CreateSprint(dateBegin, dateEnd, aProject));
+            Sprint sprint = DB.CreateSprint(dateBegin, dateEnd, aProject);
+            sprint.Project = aProject;
+            aProject.Sprints.Add(sprint);
         }
         public void CreateFile(string fileName, string description, UserStory userStory)
         {
             Classes.File file = DB.CreateFile(fileName, description, userStory);
             userStory.Files.Add(file);
+            file.UserStory = userStory;
             this.CreateActivity(String.Format("\"{0}\" a été lié", file), userStory);
         }
         public void CreateUser(string name)
@@ -509,17 +546,23 @@ namespace Scrum_o_wall
         }
         public void CreateComment(string text, User user, UserStory userStory)
         {
-            userStory.Comments.Add(DB.CreateComment(text, userStory, user));
+            Comment comment = DB.CreateComment(text, userStory, user);
+            comment.UserStory = userStory;
+            userStory.Comments.Add(comment);
+            
             this.CreateActivity(String.Format("\"{0}\" a commenté", user), userStory);
         }
         public void CreateCheckListItem(string aName, Checklist checklist)
         {
-            checklist.ChecklistItems.Add(DB.CreateCheckListItem(aName, checklist));
+            ChecklistItem checklistItem = DB.CreateCheckListItem(aName, checklist);
+            checklistItem.Checklist = checklist;
+            checklist.ChecklistItems.Add(checklistItem);
         }
         public Checklist CreateCheckList(string aName, UserStory aUserStory)
         {
             Checklist checklist = DB.CreateCheckList(aName, aUserStory);
             aUserStory.Checklists.Add(checklist);
+            checklist.UserStory = aUserStory;
             this.CreateActivity(String.Format("La checklist \"{0}\" a été créée", checklist), aUserStory);
             return checklist;
         }
@@ -531,7 +574,8 @@ namespace Scrum_o_wall
         /// <param name="aDate"></param>
         public void CreateProject(string aName, string aDesc, DateTime aDate)
         {
-            Project project = (DB.CreateProject(aName, aDesc, aDate));
+            Project project = DB.CreateProject(aName, aDesc, aDate);
+
             project.States.Add(0, states[0]);
             project.States.Add(1, states[1]);
             project.States.Add(2, states[2]);

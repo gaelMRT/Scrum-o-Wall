@@ -16,7 +16,8 @@ namespace Scrum_o_wall.Classes
     {
         private int id;
         private int projectId;
-        public MindMap(int anId,string aName,int aProjectId)
+        private Project project;
+        public MindMap(int anId, string aName, int aProjectId)
         {
             id = anId;
             Name = aName;
@@ -25,8 +26,18 @@ namespace Scrum_o_wall.Classes
 
         public Node Root { get; set; }
         public string Name { get; set; }
-        public int Id { get => id;  }
+        public int Id { get => id; }
         public int ProjectId { get => projectId; }
+        public Project Project
+        {
+            get => project;
+            set
+            {
+                project = value;
+                projectId = value.Id;
+            }
+        }
+
         public override string ToString()
         {
             return Name;

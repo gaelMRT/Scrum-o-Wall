@@ -38,6 +38,7 @@ namespace Scrum_o_wall.Views
 
         private void Quit_Click(object sender, RoutedEventArgs e)
         {
+            this.DialogResult = null;
             this.Close();
         }
 

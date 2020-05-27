@@ -21,6 +21,7 @@ namespace Scrum_o_wall.Views
     public partial class SprintEdit : Window
     {
         Sprint sprint;
+        public bool Deleted = false;
         public SprintEdit(Sprint aSprint)
         {
             sprint = aSprint;
@@ -37,7 +38,7 @@ namespace Scrum_o_wall.Views
         }
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
-            if (dtpckDateBegin.SelectedDate != null  && dtpckDateEnd.SelectedDate != null)
+            if (dtpckDateBegin.SelectedDate != null && dtpckDateEnd.SelectedDate != null)
             {
                 this.DialogResult = true;
                 this.Close();
@@ -51,7 +52,8 @@ namespace Scrum_o_wall.Views
         {
             if (MessageBox.Show("Le sprint sera supprimé.\nÊtes-vous sûr(e)?", "Attention", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                this.DialogResult = false;
+                this.DialogResult = true;
+                Deleted = true;
                 this.Close();
             }
         }

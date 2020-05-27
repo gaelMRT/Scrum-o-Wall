@@ -1,6 +1,7 @@
 ﻿using Scrum_o_wall.Classes;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,7 @@ namespace Scrum_o_wall.Views
         UserStory userStory;
         Controller controller;
         Project project;
+        public bool Deleted = false;
 
         public UserStoryEdit(UserStory aUserStory,Project aProject,Controller aController)
         {
@@ -99,13 +101,15 @@ namespace Scrum_o_wall.Views
         }
         private void BtnCancel_Click(object sender, EventArgs e)
         {
+            this.DialogResult = null;
             this.Close();
         }
         private void BtnDelete_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("La liste sera supprimée.\nÊtes-vous sûr(e)?", "Attention", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            if (MessageBox.Show("La user story sera supprimée.\nÊtes-vous sûr(e)?", "Attention", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                this.DialogResult = false;
+                this.DialogResult = true;
+                Deleted = true;
                 this.Close();
             }
         }

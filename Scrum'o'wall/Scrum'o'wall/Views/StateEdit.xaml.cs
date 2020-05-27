@@ -21,6 +21,7 @@ namespace Scrum_o_wall.Views
     public partial class StateEdit : Window
     {
         State state;
+        public bool Deleted= false;
         public StateEdit(State aState)
         {
             state = aState;
@@ -31,6 +32,7 @@ namespace Scrum_o_wall.Views
 
         private void BtnCancel_Click(object sender,EventArgs e)
         {
+            this.DialogResult = null;
             this.Close();
         }
         private void BtnConfirm_Click(object sender, EventArgs e)
@@ -49,7 +51,8 @@ namespace Scrum_o_wall.Views
         {
             if (MessageBox.Show("L'état sera supprimé.\nÊtes-vous sûr(e)?", "Attention", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                this.DialogResult = false;
+                this.DialogResult = true;
+                Deleted = true;
                 this.Close();
             }
         }

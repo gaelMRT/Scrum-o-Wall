@@ -16,6 +16,7 @@ namespace Scrum_o_wall.Classes
     {
         int id;
         int userStoryId;
+        private UserStory userStory;
 
         public Checklist(int id, string name, int userStoryId)
         {
@@ -26,7 +27,15 @@ namespace Scrum_o_wall.Classes
 
         public int Id { get => id;  }
         public string Name { get; set; }
-        public int UserStoryId { get => userStoryId;  }
+        public int UserStoryId { get => userStoryId; }
+        public UserStory UserStory
+        {
+            get => userStory; set
+            {
+                userStory = value;
+                userStoryId = value.Id;
+            }
+        }
         public List<ChecklistItem> ChecklistItems { get; set; } = new List<ChecklistItem>();
         public override string ToString()
         {

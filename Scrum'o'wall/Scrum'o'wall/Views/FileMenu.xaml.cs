@@ -84,18 +84,17 @@ namespace Scrum_o_wall.Views
         {
             File file = (sender as Border).Tag as File;
             FileEdit fileEdit = new FileEdit(file);
-            switch (fileEdit.ShowDialog())
+            if (fileEdit.ShowDialog() == true)
             {
-                case true:
-                    controller.UpdateFile(fileEdit.tbxDescription.Text, file);
-                    Refresh();
-                    break;
-                case false:
+                if (fileEdit.Deleted)
+                {
                     controller.DeleteFile(file);
-                    Refresh();
-                    break;
-                default:
-                    break;
+                }
+                else
+                {
+                    controller.UpdateFile(fileEdit.tbxDescription.Text, file);
+                }
+                Refresh();
             }
             if(fileEdit.ShowDialog() == true)
             {
@@ -105,6 +104,7 @@ namespace Scrum_o_wall.Views
         }
         private void Quit_Click(object sender, EventArgs e)
         {
+            this.DialogResult = null;
             this.Close();
         }
         private void BtnAddFile_Click(object sender, EventArgs e)

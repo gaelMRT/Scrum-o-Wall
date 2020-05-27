@@ -26,6 +26,7 @@ namespace Scrum_o_wall.Views
 
         private void BtnCancel_Click(object sender,EventArgs e)
         {
+            this.DialogResult = null;
             this.Close();
         }
         private void BtnConfirm_Click(object sender, EventArgs e)

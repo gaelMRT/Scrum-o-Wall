@@ -60,18 +60,17 @@ namespace Scrum_o_wall.Views
             if(checklist.ChecklistItems.Contains(checklistItem))
             {
                 ChecklistItemEdit checklistItemEdit = new ChecklistItemEdit(checklistItem,userStory, controller);
-                switch(checklistItemEdit.ShowDialog())
+                if (checklistItemEdit.ShowDialog() == true)
                 {
-                    case true:
+                    if (checklistItemEdit.Deleted)
+                    {
                         controller.UpdateCheckListItem(checklistItemEdit.tbxObjet.Text, checklistItemEdit.chkbxDone.IsChecked == true, checklistItem);
-                        Refresh();
-                        break;
-                    case false:
+                    }
+                    else
+                    {
                         controller.DeleteChecklistItem(checklistItem);
-                        Refresh();
-                        break;
-                    default:
-                        break;
+                    }
+                    Refresh();
                 }
             }
         }
@@ -88,6 +87,7 @@ namespace Scrum_o_wall.Views
         }
         private void BtnCancel_Click(object sender, EventArgs e)
         {
+            this.DialogResult = null;
             this.Close();
         }
         private void BtnConfirm_Click(object sender, EventArgs e)
@@ -99,7 +99,7 @@ namespace Scrum_o_wall.Views
             }
             else
             {
-
+                MessageBox.Show("Le nom n'est pas rempli ou il n'y a aucun objet dans la liste.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -107,7 +107,7 @@ namespace Scrum_o_wall.Views
         {
             if (MessageBox.Show("La liste sera supprimée.\nÊtes-vous sûr(e)?", "Attention", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                this.DialogResult = false;
+                this.DialogResult = true;
                 this.Close();
             }
         }

@@ -24,7 +24,7 @@ namespace Scrum_o_wall.Views
         Controller controller;
         IUsersAssigned objectWithAssignedUsers;
         List<User> possibleUsers;
-        public UserMenu(IUsersAssigned anObjectWithAssignedUsers,List<User> possibilities, Controller aController)
+        public UserMenu(IUsersAssigned anObjectWithAssignedUsers, List<User> possibilities, Controller aController)
         {
             controller = aController;
             objectWithAssignedUsers = anObjectWithAssignedUsers;
@@ -94,12 +94,13 @@ namespace Scrum_o_wall.Views
                 controller.RemoveUserFromIUsersAssigned(user, objectWithAssignedUsers);
             }
 
+            this.DialogResult = null;
             this.Close();
         }
         private void BtnAddUser_Click(object sender, EventArgs e)
         {
             UserCreate userCreate = new UserCreate();
-            if(userCreate.ShowDialog() == true)
+            if (userCreate.ShowDialog() == true)
             {
                 controller.CreateUser(userCreate.tbxUserName.Text);
                 Refresh();
@@ -110,18 +111,17 @@ namespace Scrum_o_wall.Views
         {
             User user = (sender as ListBox).SelectedItem as User;
             UserEdit userEdit = new UserEdit(user);
-            switch (userEdit.ShowDialog())
+            if (userEdit.ShowDialog() == true)
             {
-                case true:
-                    controller.UpdateUser(userEdit.tbxUserName.Text, user);
-                    Refresh();
-                    break;
-                case false:
+                if (userEdit.Deleted)
+                {
                     controller.DeleteUser(user);
-                    Refresh();
-                    break;
-                default:
-                    break;
+                }
+                else
+                {
+                    controller.UpdateUser(userEdit.tbxUserName.Text, user);
+                }
+                Refresh();
             }
         }
     }

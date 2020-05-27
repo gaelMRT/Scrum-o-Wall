@@ -21,6 +21,7 @@ namespace Scrum_o_wall.Views
     public partial class UserEdit : Window
     {
         User user;
+        public bool Deleted= false;
         public UserEdit(User aUser)
         {
             user = aUser;
@@ -44,13 +45,15 @@ namespace Scrum_o_wall.Views
         }
         private void BtnCancel_Click(object sender, EventArgs e)
         {
+            this.DialogResult = null;
             this.Close();
         }
         private void BtnDelete_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("L'utilisateur sera supprimé.\nÊtes-vous sûr(e)?", "Attention", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                this.DialogResult = false;
+                Deleted = true;
+                this.DialogResult = true;
                 this.Close();
             }
         }
