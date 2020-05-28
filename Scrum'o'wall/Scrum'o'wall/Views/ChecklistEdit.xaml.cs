@@ -68,7 +68,7 @@ namespace Scrum_o_wall.Views
                     }
                     else
                     {
-                        controller.DeleteChecklistItem(checklistItem);
+                        controller.Delete(checklistItem);
                     }
                     Refresh();
                 }

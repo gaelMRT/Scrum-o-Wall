@@ -28,7 +28,7 @@
             </Grid.RowDefinitions>
             <ListView x:Name="listItems" Margin="10">
             </ListView>
-            <Button x:Name="btnAddItem" Grid.Row="1" Margin="10" TouchDown="BtnAddItem_Click" Click="BtnAddItem_Click">Ajouter un objet</Button>
+            <Button x:Name="btnAddItem" Grid.Row="1" Margin="10" TouchUp="BtnAddItem_Click" Click="BtnAddItem_Click">Ajouter un objet</Button>
         </Grid>
 
         <Grid Grid.Row="3" Grid.ColumnSpan="2">
@@ -37,9 +37,9 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition Width="2*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnCancel"  Margin="10" Click="BtnCancel_Click" TouchDown="BtnCancel_Click">Annuler</Button>
-            <Button x:Name="btnDelete"  Grid.Column="1" Margin="10" Click="BtnDelete_Click" TouchDown="BtnDelete_Click">Supprimer</Button>
-            <Button x:Name="btnConfirm"  Grid.Column="2" Margin="10" Click="BtnConfirm_Click" TouchDown="BtnConfirm_Click">Confirmer</Button>
+            <Button x:Name="btnCancel"  Margin="10" Click="BtnCancel_Click" TouchUp="BtnCancel_Click">Annuler</Button>
+            <Button x:Name="btnDelete"  Grid.Column="1" Margin="10" Click="BtnDelete_Click" TouchUp="BtnDelete_Click">Supprimer</Button>
+            <Button x:Name="btnConfirm"  Grid.Column="2" Margin="10" Click="BtnConfirm_Click" TouchUp="BtnConfirm_Click">Confirmer</Button>
         </Grid>
     </Grid>
 </Window>

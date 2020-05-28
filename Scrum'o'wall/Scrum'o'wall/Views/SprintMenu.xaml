@@ -18,14 +18,14 @@
     <Canvas x:Name="cnvsSprint">
         <Label Name="lblProjectName" Content="Nom du projet" FontSize="30" Height="60"/>
         <Label Name="lblSprintName" Content="Nom du sprint" Canvas.Top="65" Height="30"/>
-        <Button TouchDown="BtnReturn_Click" x:Name="btnReturn" Click="BtnReturn_Click"  Content="←" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="75" Height="75" BorderBrush="Black" FontSize="45" Canvas.Left="80">
+        <Button TouchUp="BtnReturn_Click" x:Name="btnReturn" Click="BtnReturn_Click"  Content="←" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="75" Height="75" BorderBrush="Black" FontSize="45" Canvas.Left="80">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="50"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button TouchDown="BtnBurndownChart_Click" x:Name="btnBurndownChart" Click="BtnBurndownChart_Click" Content="📅" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="75" Height="75" BorderBrush="Black" FontSize="45">
+        <Button TouchUp="BtnBurndownChart_Click" x:Name="btnBurndownChart" Click="BtnBurndownChart_Click" Content="📅" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="75" Height="75" BorderBrush="Black" FontSize="45">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="50"/>

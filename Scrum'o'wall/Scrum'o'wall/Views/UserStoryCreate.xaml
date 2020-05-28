@@ -37,7 +37,7 @@
         <Label Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center">Type</Label>
         <ComboBox Name="cbxType" Grid.Row="5" Margin="10" Grid.Column="10"></ComboBox>
 
-        <Button TouchDown="BtnConfirm_Click" x:Name="btnConfirm" Click="BtnConfirm_Click" Grid.Row="6" Grid.Column="1" Margin="10">Confirmer</Button>
-        <Button TouchDown="BtnCancel_Click" x:Name="btnCancel" Click="BtnCancel_Click" Grid.Row="6" Margin="10">Annuler</Button>
+        <Button TouchUp="BtnConfirm_Click" x:Name="btnConfirm" Click="BtnConfirm_Click" Grid.Row="6" Grid.Column="1" Margin="10">Confirmer</Button>
+        <Button TouchUp="BtnCancel_Click" x:Name="btnCancel" Click="BtnCancel_Click" Grid.Row="6" Margin="10">Annuler</Button>
     </Grid>
 </Window>

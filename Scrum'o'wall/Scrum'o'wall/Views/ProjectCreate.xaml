@@ -30,7 +30,7 @@
         <DatePicker Grid.Row="3" VerticalAlignment="Center" Name="tbxDate" Grid.Column="1" Margin="10"/>
 
 
-        <Button TouchDown="BtnCancel_Click" x:Name="btnCancel" Click="BtnCancel_Click" Grid.Row="4" Margin="10">Annuler</Button>
-        <Button TouchDown="BtnAddProject_Click" x:Name="btnAddProject" Click="BtnAddProject_Click" Grid.Row="4" Grid.Column="1" Margin="10">Confirmer</Button>
+        <Button TouchUp="BtnCancel_Click" x:Name="btnCancel" Click="BtnCancel_Click" Grid.Row="4" Margin="10">Annuler</Button>
+        <Button TouchUp="BtnAddProject_Click" x:Name="btnAddProject" Click="BtnAddProject_Click" Grid.Row="4" Grid.Column="1" Margin="10">Confirmer</Button>
     </Grid>
 </Window>

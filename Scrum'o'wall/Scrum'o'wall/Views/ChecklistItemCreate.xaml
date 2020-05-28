@@ -19,7 +19,7 @@
         <TextBlock Grid.ColumnSpan="2" TextAlignment="Center" FontSize="20" VerticalAlignment="Center" Margin="10">Création d'un objet de liste</TextBlock>
         <TextBlock Grid.Row="1" TextAlignment="Right" VerticalAlignment="Center" Margin="10" >Objet :</TextBlock>
         <TextBox Grid.Row="1" Grid.Column="1" MaxLength="255" Margin="10" Name="tbxObjet"></TextBox>
-        <Button x:Name="btnCancel" Grid.Row="2" Grid.Column="0" Margin="10" Click="BtnCancel_Click" TouchDown="BtnCancel_Click">Annuler</Button>
-        <Button x:Name="btnConfirm" Grid.Row="2" Grid.Column="1" Margin="10" Click="BtnConfirm_Click" TouchDown="BtnConfirm_Click">Confirmer</Button>
+        <Button x:Name="btnCancel" Grid.Row="2" Grid.Column="0" Margin="10" Click="BtnCancel_Click" TouchUp="BtnCancel_Click">Annuler</Button>
+        <Button x:Name="btnConfirm" Grid.Row="2" Grid.Column="1" Margin="10" Click="BtnConfirm_Click" TouchUp="BtnConfirm_Click">Confirmer</Button>
     </Grid>
 </Window>

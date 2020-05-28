@@ -115,7 +115,7 @@ namespace Scrum_o_wall.Views
             {
                 if (stateEdit.Deleted)
                 {
-                    controller.DeleteState(state);
+                    controller.Delete(state);
                 }
                 else
                 {

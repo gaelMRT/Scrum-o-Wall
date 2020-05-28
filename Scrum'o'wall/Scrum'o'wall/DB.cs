@@ -54,10 +54,11 @@ namespace Scrum_o_wall
 
 
         #region UPDATE
-        public static void UpdateUserStory(string description, DateTime? selectedDate, int complexity, int completedComplexity, bool blocked, Priority priority, State state, Classes.Type type, UserStory userStory)
+        public static bool UpdateUserStory(string description, DateTime? selectedDate, int complexity, int completedComplexity, bool blocked, Priority priority, State state, Classes.Type type, UserStory userStory)
         {
             //Initialize variables
             OleDbCommand cmd;
+            bool result;
 
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
@@ -91,16 +92,18 @@ namespace Scrum_o_wall
 
             //Execute sql statement
             cmd.Prepare();
-            cmd.ExecuteNonQuery();
+            result = cmd.ExecuteNonQuery() == 1;
 
             //Close database
             DB.GetConnection().Close();
+            return result;
         }
-        public static void UpdateFile(string fileDescription, Classes.File file)
+        public static bool UpdateFile(string fileDescription, Classes.File file)
         {
 
             //Initialize variables
             OleDbCommand cmd;
+            bool result;
 
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
@@ -113,15 +116,17 @@ namespace Scrum_o_wall
 
             //Execute sql statement
             cmd.Prepare();
-            cmd.ExecuteNonQuery();
+            result = cmd.ExecuteNonQuery() == 1;
 
             //Close database
             DB.GetConnection().Close();
+            return result;
         }
-        public static void UpdateCheckList(string name, Checklist checklist)
+        public static bool UpdateCheckList(string name, Checklist checklist)
         {
             //Initialize variables
             OleDbCommand cmd;
+            bool result;
 
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
@@ -134,15 +139,17 @@ namespace Scrum_o_wall
 
             //Execute sql statement
             cmd.Prepare();
-            cmd.ExecuteNonQuery();
+            result = cmd.ExecuteNonQuery() == 1;
 
             //Close database
             DB.GetConnection().Close();
+            return result;
         }
-        public static void UpdateCheckListItem(string nameItem, bool done, ChecklistItem checklistItem)
+        public static bool UpdateCheckListItem(string nameItem, bool done, ChecklistItem checklistItem)
         {
             //Initialize variables
             OleDbCommand cmd;
+            bool result;
 
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
@@ -157,15 +164,17 @@ namespace Scrum_o_wall
 
             //Execute sql statement
             cmd.Prepare();
-            cmd.ExecuteNonQuery();
+            result = cmd.ExecuteNonQuery() == 1;
 
             //Close database
             DB.GetConnection().Close();
+            return result;
         }
-        public static void UpdateProject(string name, string description, DateTime dateTime, Project project)
+        public static bool UpdateProject(string name, string description, DateTime dateTime, Project project)
         {
             //Initialize variables
             OleDbCommand cmd;
+            bool result;
 
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
@@ -182,15 +191,17 @@ namespace Scrum_o_wall
 
             //Execute sql statement
             cmd.Prepare();
-            cmd.ExecuteNonQuery();
+            result = cmd.ExecuteNonQuery() == 1;
 
             //Close database
             DB.GetConnection().Close();
+            return result;
         }
-        public static void UpdateSprint(DateTime secBegin, DateTime secEnd, Sprint sprint)
+        public static bool UpdateSprint(DateTime secBegin, DateTime secEnd, Sprint sprint)
         {
             //Initialize variables
             OleDbCommand cmd;
+            bool result;
 
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
@@ -205,16 +216,18 @@ namespace Scrum_o_wall
 
             //Execute sql statement
             cmd.Prepare();
-            cmd.ExecuteNonQuery();
+            result = cmd.ExecuteNonQuery() == 1;
 
             //Close database
             DB.GetConnection().Close();
+            return result;
         }
 
-        public static void UpdateUser(string text, User user)
+        public static bool UpdateUser(string text, User user)
         {
             //Initialize variables
             OleDbCommand cmd;
+            bool result;
 
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
@@ -227,16 +240,18 @@ namespace Scrum_o_wall
 
             //Execute sql statement
             cmd.Prepare();
-            cmd.ExecuteNonQuery();
+            result = cmd.ExecuteNonQuery() == 1;
 
             //Close database
             DB.GetConnection().Close();
+            return result;
         }
 
-        public static void UpdateState(string text, State state)
+        public static bool UpdateState(string text, State state)
         {
             //Initialize variables
             OleDbCommand cmd;
+            bool result;
 
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
@@ -249,10 +264,11 @@ namespace Scrum_o_wall
 
             //Execute sql statement
             cmd.Prepare();
-            cmd.ExecuteNonQuery();
+            result = cmd.ExecuteNonQuery() == 1;
 
             //Close database
             DB.GetConnection().Close();
+            return result;
         }
         #endregion
         #region ADD
@@ -290,10 +306,11 @@ namespace Scrum_o_wall
         }
 
 
-        public static void AddUserToChecklistItem(User user, ChecklistItem checklistItem)
+        public static bool AddUserToChecklistItem(User user, ChecklistItem checklistItem)
         {
             //Initialize variables
             OleDbCommand cmd;
+            bool result;
 
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
@@ -306,15 +323,18 @@ namespace Scrum_o_wall
 
             //Execute sql statement
             cmd.Prepare();
-            cmd.ExecuteNonQuery();
+            result = cmd.ExecuteNonQuery() == 1;
 
             //Close database
             DB.GetConnection().Close();
+            return result;
         }
-        public static void AddUserToUserStory(User user, UserStory userStory)
+        public static bool AddUserToUserStory(User user, UserStory userStory)
         {
+            
             //Initialize variables
             OleDbCommand cmd;
+            bool result;
 
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
@@ -327,15 +347,17 @@ namespace Scrum_o_wall
 
             //Execute sql statement
             cmd.Prepare();
-            cmd.ExecuteNonQuery();
+            result = cmd.ExecuteNonQuery() == 1;
 
             //Close database
             DB.GetConnection().Close();
+            return result;
         }
-        public static void AddUserToProject(User user, Project project)
+        public static bool AddUserToProject(User user, Project project)
         {
             //Initialize variables
             OleDbCommand cmd;
+            bool result;
 
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
@@ -348,15 +370,17 @@ namespace Scrum_o_wall
 
             //Execute sql statement
             cmd.Prepare();
-            cmd.ExecuteNonQuery();
+            result = cmd.ExecuteNonQuery() == 1;
 
             //Close database
             DB.GetConnection().Close();
+            return result;
         }
-        public static void AddUserStoryToSprint(UserStory userStory, Sprint sprint, int order)
+        public static bool AddUserStoryToSprint(UserStory userStory, Sprint sprint, int order)
         {
             //Initialize variables
             OleDbCommand cmd;
+            bool result;
 
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
@@ -373,10 +397,11 @@ namespace Scrum_o_wall
 
             //Execute sql statement
             cmd.Prepare();
-            cmd.ExecuteNonQuery();
+            result = cmd.ExecuteNonQuery() == 1;
 
             //Close database
             DB.GetConnection().Close();
+            return result;
         }
         public static ChecklistItem CreateCheckListItem(string aName, Checklist checklist)
         {
@@ -677,10 +702,11 @@ namespace Scrum_o_wall
             return sprint;
 
         }
-        public static void AddStateToProject(State state, Project project, int order)
+        public static bool AddStateToProject(State state, Project project, int order)
         {
             //Initialize variables
             OleDbCommand cmd;
+            bool result;
 
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
@@ -695,15 +721,16 @@ namespace Scrum_o_wall
 
             //Execute sql statement
             cmd.Prepare();
-            cmd.ExecuteNonQuery();
+            result = cmd.ExecuteNonQuery() == 1;
 
             //Close database
             DB.GetConnection().Close();
+            return result;
         }
         #endregion
         #region REMOVE
 
-        public static bool DeleteActivity(Activity activity)
+        public static bool Delete(Activity activity)
         {
             //Initialize variables
             OleDbCommand cmd;
@@ -726,7 +753,7 @@ namespace Scrum_o_wall
             DB.GetConnection().Close();
             return result;
         }
-        public static bool DeleteChecklistItem(ChecklistItem checklistItem)
+        public static bool Delete(ChecklistItem checklistItem)
         {
             //Initialize variables
             OleDbCommand cmd;
@@ -749,7 +776,7 @@ namespace Scrum_o_wall
             DB.GetConnection().Close();
             return result;
         }
-        public static bool DeleteChecklist(Checklist checklist)
+        public static bool Delete(Checklist checklist)
         {
             //Initialize variables
             OleDbCommand cmd;
@@ -772,7 +799,7 @@ namespace Scrum_o_wall
             DB.GetConnection().Close();
             return result;
         }
-        public static bool DeleteComment(Comment comment)
+        public static bool Delete(Comment comment)
         {
             //Initialize variables
             OleDbCommand cmd;
@@ -795,7 +822,7 @@ namespace Scrum_o_wall
             DB.GetConnection().Close();
             return result;
         }
-        public static bool DeleteFile(Classes.File File)
+        public static bool Delete(Classes.File File)
         {
             //Initialize variables
             OleDbCommand cmd;
@@ -818,7 +845,7 @@ namespace Scrum_o_wall
             DB.GetConnection().Close();
             return result;
         }
-        public static bool DeleteMindmap(MindMap mindmap)
+        public static bool Delete(MindMap mindmap)
         {
             //Initialize variables
             OleDbCommand cmd;
@@ -841,7 +868,7 @@ namespace Scrum_o_wall
             DB.GetConnection().Close();
             return result;
         }
-        public static bool DeleteNode(Node node)
+        public static bool Delete(Node node)
         {
             //Initialize variables
             OleDbCommand cmd;
@@ -864,7 +891,7 @@ namespace Scrum_o_wall
             DB.GetConnection().Close();
             return result;
         }
-        public static bool DeleteProject(Project project)
+        public static bool Delete(Project project)
         {
             //Initialize variables
             OleDbCommand cmd;
@@ -887,7 +914,7 @@ namespace Scrum_o_wall
             DB.GetConnection().Close();
             return result;
         }
-        public static bool DeleteSprint(Sprint sprint)
+        public static bool Delete(Sprint sprint)
         {
             //Initialize variables
             OleDbCommand cmd;
@@ -910,7 +937,7 @@ namespace Scrum_o_wall
             DB.GetConnection().Close();
             return result;
         }
-        public static bool DeleteState(State state)
+        public static bool Delete(State state)
         {
             //Initialize variables
             OleDbCommand cmd;
@@ -933,7 +960,7 @@ namespace Scrum_o_wall
             DB.GetConnection().Close();
             return result;
         }
-        public static bool DeleteUser(User user)
+        public static bool Delete(User user)
         {
             //Initialize variables
             OleDbCommand cmd;
@@ -956,7 +983,7 @@ namespace Scrum_o_wall
             DB.GetConnection().Close();
             return result;
         }
-        public static bool DeleteUserStory(UserStory userStory)
+        public static bool Delete(UserStory userStory)
         {
             //Initialize variables
             OleDbCommand cmd;
@@ -979,10 +1006,11 @@ namespace Scrum_o_wall
             DB.GetConnection().Close();
             return result;
         }
-        public static void RemoveUserFromUserStory(User user, UserStory userStory)
+        public static bool RemoveUserFromUserStory(User user, UserStory userStory)
         {
             //Initialize variables
             OleDbCommand cmd;
+            bool result;
 
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
@@ -995,15 +1023,17 @@ namespace Scrum_o_wall
 
             //Execute sql statement
             cmd.Prepare();
-            cmd.ExecuteNonQuery();
+            result = cmd.ExecuteNonQuery() == 1;
 
             //Close database
             DB.GetConnection().Close();
+            return result;
         }
-        public static void RemoveUserFromProject(User user, Project project)
+        public static bool RemoveUserFromProject(User user, Project project)
         {
             //Initialize variables
             OleDbCommand cmd;
+            bool result;
 
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
@@ -1016,15 +1046,17 @@ namespace Scrum_o_wall
 
             //Execute sql statement
             cmd.Prepare();
-            cmd.ExecuteNonQuery();
+            result = cmd.ExecuteNonQuery() == 1;
 
             //Close database
             DB.GetConnection().Close();
+            return result;
         }
-        public static void RemoveUserFromChecklistItem(User user, ChecklistItem checklistItem)
+        public static bool RemoveUserFromChecklistItem(User user, ChecklistItem checklistItem)
         {
             //Initialize variables
             OleDbCommand cmd;
+            bool result;
 
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
@@ -1037,15 +1069,17 @@ namespace Scrum_o_wall
 
             //Execute sql statement
             cmd.Prepare();
-            cmd.ExecuteNonQuery();
+            result = cmd.ExecuteNonQuery() == 1;
 
             //Close database
             DB.GetConnection().Close();
+            return result;
         }
-        public static void RemoveUserStoryFromSprint(UserStory userStory, Sprint sprint, int order)
+        public static bool RemoveUserStoryFromSprint(UserStory userStory, Sprint sprint, int order)
         {
             //Initialize variables
             OleDbCommand cmd;
+            bool result;
 
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
@@ -1062,15 +1096,17 @@ namespace Scrum_o_wall
 
             //Execute sql statement
             cmd.Prepare();
-            cmd.ExecuteNonQuery();
+            result = cmd.ExecuteNonQuery() == 1;
 
             //Close database
             DB.GetConnection().Close();
+            return result;
         }
-        public static void RemoveStateFromProject(Project project, int order)
+        public static bool RemoveStateFromProject(Project project, int order)
         {
             //Initialize variables
             OleDbCommand cmd;
+            bool result;
 
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
@@ -1083,10 +1119,11 @@ namespace Scrum_o_wall
 
             //Execute sql statement
             cmd.Prepare();
-            cmd.ExecuteNonQuery();
+            result = cmd.ExecuteNonQuery() == 1;
 
             //Close database
             DB.GetConnection().Close();
+            return result;
         }
         #endregion
         #region GET

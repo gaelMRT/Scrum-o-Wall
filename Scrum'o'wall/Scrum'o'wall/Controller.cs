@@ -234,35 +234,35 @@ namespace Scrum_o_wall
             user.Name = text;
         }
 
-        public void DeleteUser(User user)
+        public void Delete(User user)
         {
-            DB.DeleteUser(user);
+            DB.Delete(user);
             users.Remove(user);
         }
 
 
-        public void DeleteState(State state)
+        public void Delete(State state)
         {
             List<Project> removingState = projects.Where(p => p.States.ContainsValue(state)).ToList();
             foreach (Project project in removingState)
             {
                 this.RemoveStateFromProject(state, project);
             }
-            DB.DeleteState(state);
+            DB.Delete(state);
         }
 
-        public void DeleteSprint(Sprint sprint)
+        public void Delete(Sprint sprint)
         {
             sprint.Project.Sprints.Remove(sprint);
-            DB.DeleteSprint(sprint);
+            DB.Delete(sprint);
         }
 
-        public void DeleteChecklistItem(ChecklistItem checklistItem)
+        public void Delete(ChecklistItem checklistItem)
         {
             checklistItem.Checklist.ChecklistItems.Remove(checklistItem);
-            DB.DeleteChecklistItem(checklistItem);
+            DB.Delete(checklistItem);
         }
-        public void DeleteUserStory(UserStory userStory)
+        public void Delete(UserStory userStory)
         {
             List<Sprint> sprintRemoveUserStory = userStory.Project.Sprints.Where(s => s.OrderedUserStories.ContainsValue(userStory)).ToList();
             foreach (Sprint sprint in sprintRemoveUserStory)
@@ -270,21 +270,21 @@ namespace Scrum_o_wall
                 this.RemoveUserStoryFromSprint(userStory, sprint);
             }
             userStory.Project.AllUserStories.Remove(userStory);
-            DB.DeleteUserStory(userStory);
+            DB.Delete(userStory);
         }
 
-        public void DeleteProject(Project project)
+        public void Delete(Project project)
         {
-            DB.DeleteProject(project);
+            DB.Delete(project);
             projects.Remove(project);
         }
 
 
         #region Remove Methods
 
-        public void DeleteFile(Classes.File file)
+        public void Delete(Classes.File file)
         {
-            DB.DeleteFile(file);
+            DB.Delete(file);
             file.UserStory.Files.Remove(file);
         }
         public bool RemoveStateFromProject(State state, Project project)

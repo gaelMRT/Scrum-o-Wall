@@ -35,8 +35,8 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button TouchDown="BtnStates_Click" Margin="10" Name="btnStates" Click="BtnStates_Click">Colonnes</Button>
-            <Button TouchDown="BtnUsers_Click" Grid.Column="1" Margin="10" Name="btnUsers" Click="BtnUsers_Click">Utilisateurs assignés</Button>
+            <Button TouchUp="BtnStates_Click" Margin="10" Name="btnStates" Click="BtnStates_Click">Colonnes</Button>
+            <Button TouchUp="BtnUsers_Click" Grid.Column="1" Margin="10" Name="btnUsers" Click="BtnUsers_Click">Utilisateurs assignés</Button>
         </Grid>
         <Grid Grid.Row="5" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
@@ -44,9 +44,9 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition Width="2*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnCancel"  Margin="10" Click="BtnCancel_Click" TouchDown="BtnCancel_Click">Annuler</Button>
-            <Button x:Name="btnDelete"  Grid.Column="1" Margin="10" Click="BtnDelete_Click" TouchDown="BtnDelete_Click">Supprimer</Button>
-            <Button x:Name="btnConfirm"  Grid.Column="2" Margin="10" Click="BtnConfirm_Click" TouchDown="BtnConfirm_Click">Confirmer</Button>
+            <Button x:Name="btnCancel"  Margin="10" Click="BtnCancel_Click" TouchUp="BtnCancel_Click">Annuler</Button>
+            <Button x:Name="btnDelete"  Grid.Column="1" Margin="10" Click="BtnDelete_Click" TouchUp="BtnDelete_Click">Supprimer</Button>
+            <Button x:Name="btnConfirm"  Grid.Column="2" Margin="10" Click="BtnConfirm_Click" TouchUp="BtnConfirm_Click">Confirmer</Button>
         </Grid>
     </Grid>
 </Window>

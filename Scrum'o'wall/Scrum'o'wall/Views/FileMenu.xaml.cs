@@ -88,7 +88,7 @@ namespace Scrum_o_wall.Views
             {
                 if (fileEdit.Deleted)
                 {
-                    controller.DeleteFile(file);
+                    controller.Delete(file);
                 }
                 else
                 {

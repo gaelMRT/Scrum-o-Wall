@@ -19,59 +19,134 @@ namespace Scrum_o_wall.Tests
         {
             DB.DbFileName = @"C:\Users\redwo\OneDrive\Scrum-o-Wall\TestDB.accdb";
         }
+
         [TestMethod()]
-        public void GetUserStoriesSprintTest()
+        public void CRDUserStoriesSprintTest()
         {
+            Project project = DB.CreateProject("aname", "adesc", DateTime.Now);
+
+            //Create UserStory
+            UserStory userStory;
+            List<Priority> priorities = DB.GetPriorities();
+            List<State> states = DB.GetStates();
+            List<Classes.Type> types = DB.GetTypes();
+            if (states.Count == 0)
+            {
+                DB.CreateState("AStateName");
+                states = DB.GetStates();
+            }
+            userStory = DB.CreateUserStory("aDescription", null, 2, priorities[0], types[0], states[0], project);
+
+            //Create Sprint
+            Sprint sprint;
+            sprint = DB.CreateSprint(DateTime.Now, DateTime.Now, project);
+            int order = 0;
+
+            //Link,test,unlink
+            Assert.IsTrue(DB.AddUserStoryToSprint(userStory, sprint, order));
             Assert.IsNotNull(DB.GetUserStoriesSprint());
-        }
+            Assert.IsTrue(DB.RemoveUserStoryFromSprint(userStory, sprint, order));
 
+            DB.Delete(project);
+            DB.Delete(userStory);
+            DB.Delete(sprint);
+        }
         [TestMethod()]
-        public void GetProjectStatesTest()
+        public void CRDProjectStatesTest()
         {
+            Project project = DB.CreateProject("aProjectName", "A Description for my project", DateTime.Now);
+            State state = DB.CreateState("a new state");
+            int order = 0;
+
+            Assert.IsTrue(DB.AddStateToProject(state, project, order));
             Assert.IsNotNull(DB.GetProjectStates());
+            Assert.IsTrue(DB.RemoveStateFromProject(project, order));
+
+            DB.Delete(project);
+            DB.Delete(state);
         }
 
         [TestMethod()]
-        public void GetUserProjectTest()
+        public void CRDUserProjectTest()
         {
+            Project project = DB.CreateProject("aname", "adesc", DateTime.Now);
+            User user = DB.CreateUser("a user name");
+
+            Assert.IsTrue(DB.AddUserToProject(user, project));
             Assert.IsNotNull(DB.GetUserProject());
+            Assert.IsTrue(DB.RemoveUserFromProject(user, project));
+
+            DB.Delete(user);
+            DB.Delete(project);
         }
 
         [TestMethod()]
-        public void GetUserChecklistItemTest()
+        public void CRDUserChecklistItemTest()
         {
+            //CreateChecklistItem
+            List<Priority> priorities = DB.GetPriorities();
+            List<State> states = DB.GetStates();
+            List<Classes.Type> types = DB.GetTypes();
+            List<Project> projects = DB.GetProjects();
+            if (states.Count == 0)
+            {
+                DB.CreateState("AStateName");
+                states = DB.GetStates();
+            }
+            if (projects.Count == 0)
+            {
+                DB.CreateProject("aProjectName", "A Description for my project", DateTime.Now);
+                projects = DB.GetProjects();
+            }
+            UserStory userStory = DB.CreateUserStory("aDescription", null, 2, priorities[0], types[0], states[0], projects[0]);
+            Checklist checklist = DB.CreateCheckList("a bioutifoul name", userStory);
+            ChecklistItem checklistItem = DB.CreateCheckListItem("a better name", checklist);
+
+            //CreateUser
+            User user = DB.CreateUser("a user name");
+
+            Assert.IsTrue(DB.AddUserToChecklistItem(user, checklistItem));
             Assert.IsNotNull(DB.GetUserChecklistItem());
+            Assert.IsTrue(DB.RemoveUserFromChecklistItem(user, checklistItem));
+
+            DB.Delete(user);
+            DB.Delete(userStory);
+            DB.Delete(checklistItem);
+            DB.Delete(checklist);
         }
 
         [TestMethod()]
-        public void GetUserUserStoryTest()
+        public void CRDUserUserStoryTest()
         {
+            //Create User Story
+            List<Priority> priorities = DB.GetPriorities();
+            List<State> states = DB.GetStates();
+            List<Classes.Type> types = DB.GetTypes();
+            List<Project> projects = DB.GetProjects();
+            if (states.Count == 0)
+            {
+                DB.CreateState("AStateName");
+                states = DB.GetStates();
+            }
+            if (projects.Count == 0)
+            {
+                DB.CreateProject("aProjectName", "A Description for my project", DateTime.Now);
+                projects = DB.GetProjects();
+            }
+            UserStory userStory = DB.CreateUserStory("aDescription", null, 2, priorities[0], types[0], states[0], projects[0]);
+
+            //Create User
+            User user = DB.CreateUser("a user name");
+
+            Assert.IsTrue(DB.AddUserToUserStory(user, userStory));
             Assert.IsNotNull(DB.GetUserUserStory());
+            Assert.IsTrue(DB.RemoveUserFromUserStory(user, userStory));
+
+            DB.Delete(userStory);
+            DB.Delete(user);
         }
 
-        [TestMethod()]
-        public void GetProjectsTest()
-        {
-            Assert.IsNotNull(DB.GetProjects());
-        }
 
-        [TestMethod()]
-        public void GetSprintsTest()
-        {
-            Assert.IsNotNull(DB.GetSprints());
-        }
-
-        [TestMethod()]
-        public void GetUserStoriesTest()
-        {
-            Assert.IsNotNull(DB.GetUserStories());
-        }
-
-        [TestMethod()]
-        public void GetUsersTest()
-        {
-            Assert.IsNotNull(DB.GetUsers());
-        }
 
         [TestMethod()]
         public void GetTypesTest()
@@ -85,63 +160,84 @@ namespace Scrum_o_wall.Tests
             Assert.IsNotNull(DB.GetPriorities());
         }
 
-        [TestMethod()]
-        public void GetFilesTest()
-        {
-            Assert.IsNotNull(DB.GetFiles());
-        }
 
-        [TestMethod()]
-        public void GetActivitiesTest()
-        {
-            Assert.IsNotNull(DB.GetActivities());
-        }
 
-        [TestMethod()]
-        public void GetChecklistsTest()
-        {
-            Assert.IsNotNull(DB.GetChecklists());
-        }
-
-        [TestMethod()]
-        public void GetChecklistItemsTest()
-        {
-            Assert.IsNotNull(DB.GetChecklistItems());
-        }
-
-        [TestMethod()]
-        public void GetCommentsTest()
-        {
-            Assert.IsNotNull(DB.GetComments());
-        }
-
-        [TestMethod()]
-        public void GetStatesTest()
-        {
-            Assert.IsNotNull(DB.GetStates());
-        }
 
         [TestMethod]
-        public void CreateDeleteActivity()
+        public void CRDActivity()
         {
             string aDesc = "activity test";
             DateTime eventTime = DateTime.Now;
-            UserStory userStory = DB.GetUserStories().Last();
+            List<UserStory> userStories = DB.GetUserStories();
+            UserStory userStory;
+            if (userStories.Count == 0)
+            {
+                List<Priority> priorities = DB.GetPriorities();
+                List<State> states = DB.GetStates();
+                List<Classes.Type> types = DB.GetTypes();
+                List<Project> projects = DB.GetProjects();
+                if (states.Count == 0)
+                {
+                    DB.CreateState("AStateName");
+                    states = DB.GetStates();
+                }
+                if (projects.Count == 0)
+                {
+                    DB.CreateProject("aProjectName", "A Description for my project", DateTime.Now);
+                    projects = DB.GetProjects();
+                }
+
+
+                userStory = DB.CreateUserStory("aDescription", null, 2, priorities[0], types[0], states[0], projects[0]);
+            }
+            else
+            {
+                userStory = userStories.Last();
+            }
+
 
             Activity a = DB.CreateActivity(aDesc, eventTime, userStory);
 
             Assert.AreEqual(aDesc, a.Description);
             Assert.AreEqual(eventTime, a.DateTime);
-            Assert.AreEqual(userStory.Id,a.UserStoryId);
+            Assert.AreEqual(userStory.Id, a.UserStoryId);
 
-            Assert.IsTrue(DB.DeleteActivity(a));
+            Assert.IsNotNull(DB.GetActivities());
+
+            Assert.IsTrue(DB.Delete(a));
         }
         [TestMethod]
-        public void CreateUpdateDeleteChecklist()
+        public void CRUDChecklist()
         {
             //Test Create
             string aName = "checlist first name";
-            UserStory userStory = DB.GetUserStories().Last();
+            List<UserStory> userStories = DB.GetUserStories();
+            UserStory userStory;
+            if (userStories.Count == 0)
+            {
+                List<Priority> priorities = DB.GetPriorities();
+                List<State> states = DB.GetStates();
+                List<Classes.Type> types = DB.GetTypes();
+                List<Project> projects = DB.GetProjects();
+                if (states.Count == 0)
+                {
+                    DB.CreateState("AStateName");
+                    states = DB.GetStates();
+                }
+                if (projects.Count == 0)
+                {
+                    DB.CreateProject("aProjectName", "A Description for my project", DateTime.Now);
+                    projects = DB.GetProjects();
+                }
+
+
+                userStory = DB.CreateUserStory("aDescription", null, 2, priorities[0], types[0], states[0], projects[0]);
+            }
+            else
+            {
+                userStory = userStories.Last();
+            }
+
 
             Checklist checklist = DB.CreateCheckList(aName, userStory);
 
@@ -157,16 +253,52 @@ namespace Scrum_o_wall.Tests
             Assert.AreEqual(afterName, checklist.Name);
 
             //Test Remove
-            Assert.IsTrue(DB.DeleteChecklist(checklist));
+            Assert.IsTrue(DB.Delete(checklist));
 
         }
         [TestMethod]
-        public void CreateUpdateDeleteChecklistItem()
+        public void CRUDChecklistItem()
         {
             //Test Create
             string aName = "checlistItem first name";
-            Checklist checklist = DB.GetChecklists().Last();
+            List<Checklist> checklists = DB.GetChecklists();
+            Checklist checklist;
+            if (checklists.Count == 0)
+            {
+                List<UserStory> userStories = DB.GetUserStories();
+                UserStory userStory;
+                if (userStories.Count == 0)
+                {
+                    List<Priority> priorities = DB.GetPriorities();
+                    List<State> states = DB.GetStates();
+                    List<Classes.Type> types = DB.GetTypes();
+                    List<Project> projects = DB.GetProjects();
+                    if (states.Count == 0)
+                    {
+                        DB.CreateState("AStateName");
+                        states = DB.GetStates();
+                    }
+                    if (projects.Count == 0)
+                    {
+                        DB.CreateProject("aProjectName", "A Description for my project", DateTime.Now);
+                        projects = DB.GetProjects();
+                    }
 
+
+                    userStory = DB.CreateUserStory("aDescription", null, 2, priorities[0], types[0], states[0], projects[0]);
+                }
+                else
+                {
+                    userStory = userStories.Last();
+                }
+
+                checklist = DB.CreateCheckList("the name of a checklist", userStory);
+
+            }
+            else
+            {
+                checklist = checklists[0];
+            }
             ChecklistItem checklistItem = DB.CreateCheckListItem(aName, checklist);
 
             Assert.AreEqual(aName, checklistItem.NameItem);
@@ -176,41 +308,94 @@ namespace Scrum_o_wall.Tests
             //Test Update
             string afterName = "checklistItem second name";
 
-            DB.UpdateCheckListItem(afterName,true, checklistItem);
+            DB.UpdateCheckListItem(afterName, true, checklistItem);
             checklistItem = DB.GetChecklistItems().First(c => c.Id == checklistItem.Id);
 
             Assert.AreEqual(afterName, checklistItem.NameItem);
             Assert.IsTrue(checklistItem.Done);
 
             //Test Remove
-            Assert.IsTrue(DB.DeleteChecklistItem(checklistItem));
+            Assert.IsTrue(DB.Delete(checklistItem));
         }
         [TestMethod]
-        public void CreateDeleteComment()
+        public void CRDComment()
         {
             //Test Create
             string aName = "comment first name";
-            UserStory userStory = DB.GetUserStories().Last();
+            List<UserStory> userStories = DB.GetUserStories();
+            UserStory userStory;
+            if (userStories.Count == 0)
+            {
+                List<Priority> priorities = DB.GetPriorities();
+                List<State> states = DB.GetStates();
+                List<Classes.Type> types = DB.GetTypes();
+                List<Project> projects = DB.GetProjects();
+                if (states.Count == 0)
+                {
+                    DB.CreateState("AStateName");
+                    states = DB.GetStates();
+                }
+                if (projects.Count == 0)
+                {
+                    DB.CreateProject("aProjectName", "A Description for my project", DateTime.Now);
+                    projects = DB.GetProjects();
+                }
+
+
+                userStory = DB.CreateUserStory("aDescription", null, 2, priorities[0], types[0], states[0], projects[0]);
+            }
+            else
+            {
+                userStory = userStories.Last();
+            }
+
             User user = DB.GetUsers().Last();
 
-            Comment comment = DB.CreateComment(aName, userStory,user);
+            Comment comment = DB.CreateComment(aName, userStory, user);
 
             Assert.AreEqual(aName, comment.Description);
             Assert.AreEqual(userStory.Id, comment.UserStoryId);
             Assert.AreEqual(user.Id, comment.UserId);
 
+            Assert.IsNotNull(DB.GetComments());
+
             //Test Remove
-            Assert.IsTrue(DB.DeleteComment(comment));
+            Assert.IsTrue(DB.Delete(comment));
         }
         [TestMethod]
-        public void CreateUpdateDeleteFile()
+        public void CRUDFile()
         {
             //Test Create
             string aName = "file first name";
             string aDesc = "this is a description";
-            UserStory userStory = DB.GetUserStories().Last();
+            List<UserStory> userStories = DB.GetUserStories();
+            UserStory userStory;
+            if (userStories.Count == 0)
+            {
+                List<Priority> priorities = DB.GetPriorities();
+                List<State> states = DB.GetStates();
+                List<Classes.Type> types = DB.GetTypes();
+                List<Project> projects = DB.GetProjects();
+                if (states.Count == 0)
+                {
+                    DB.CreateState("AStateName");
+                    states = DB.GetStates();
+                }
+                if (projects.Count == 0)
+                {
+                    DB.CreateProject("aProjectName", "A Description for my project", DateTime.Now);
+                    projects = DB.GetProjects();
+                }
 
-            File file = DB.CreateFile(aName,aDesc,userStory);
+
+                userStory = DB.CreateUserStory("aDescription", null, 2, priorities[0], types[0], states[0], projects[0]);
+            }
+            else
+            {
+                userStory = userStories.Last();
+            }
+
+            File file = DB.CreateFile(aName, aDesc, userStory);
 
             Assert.AreEqual(aName, file.Name);
             Assert.AreEqual(aDesc, file.Description);
@@ -225,17 +410,17 @@ namespace Scrum_o_wall.Tests
             Assert.AreEqual(afterDesc, file.Description);
 
             //Test Remove
-            Assert.IsTrue(DB.DeleteFile(file));
+            Assert.IsTrue(DB.Delete(file));
         }
         [TestMethod]
-        public void CreateUpdateDeleteProject()
+        public void CRUDProject()
         {
             //Test Create
             string firstName = "the project first Name";
             string firstDesc = "the project first description";
             DateTime firstDate = DateTime.Now;
 
-            Project project = DB.CreateProject(firstName,firstDesc,firstDate);
+            Project project = DB.CreateProject(firstName, firstDesc, firstDate);
 
             Assert.AreEqual(firstName, project.Name);
             Assert.AreEqual(firstDesc, project.Description);
@@ -244,9 +429,9 @@ namespace Scrum_o_wall.Tests
             //Test Update
             string secName = "the project sec Name";
             string secDesc = "the project sec description";
-            DateTime secDate = DateTime.Now + new TimeSpan(7,0,0,0);
+            DateTime secDate = DateTime.Now + new TimeSpan(7, 0, 0, 0);
 
-            DB.UpdateProject(secName, secDesc, secDate,project);
+            DB.UpdateProject(secName, secDesc, secDate, project);
             project = DB.GetProjects().First(p => p.Id == project.Id);
 
             Assert.AreEqual(secName, project.Name);
@@ -254,17 +439,17 @@ namespace Scrum_o_wall.Tests
             Assert.AreEqual(secDate.ToString(), project.Begin.ToString());
 
             //Test Remove
-            Assert.IsTrue(DB.DeleteProject(project));
+            Assert.IsTrue(DB.Delete(project));
         }
         [TestMethod]
-        public void CreateUpdateDeleteSprint()
+        public void CRUDSprint()
         {
             //Test Create
             DateTime firstBegin = DateTime.Now;
             DateTime firstEnd = firstBegin + new TimeSpan(7, 0, 0, 0);
             Project project = DB.GetProjects().Last();
 
-            Sprint sprint = DB.CreateSprint(firstBegin,firstEnd,project);
+            Sprint sprint = DB.CreateSprint(firstBegin, firstEnd, project);
 
             Assert.AreEqual(firstBegin.ToString(), sprint.Begin.ToString());
             Assert.AreEqual(firstEnd.ToString(), sprint.End.ToString());
@@ -273,17 +458,17 @@ namespace Scrum_o_wall.Tests
             DateTime secBegin = firstEnd;
             DateTime secEnd = secBegin + new TimeSpan(7, 0, 0, 0);
 
-            DB.UpdateSprint(secBegin,secEnd,sprint);
+            DB.UpdateSprint(secBegin, secEnd, sprint);
             sprint = DB.GetSprints().First(s => s.Id == sprint.Id);
 
             Assert.AreEqual(secBegin.ToString(), sprint.Begin.ToString());
             Assert.AreEqual(secEnd.ToString(), sprint.End.ToString());
 
             //Test Remove
-            Assert.IsTrue(DB.DeleteSprint(sprint));
+            Assert.IsTrue(DB.Delete(sprint));
         }
         [TestMethod]
-        public void CreateUpdateDeleteState()
+        public void CRUDState()
         {
             //Test Create
             string firstName = "first state name";
@@ -294,10 +479,10 @@ namespace Scrum_o_wall.Tests
 
 
             //Test Remove
-            Assert.IsTrue(DB.DeleteState(state));
+            Assert.IsTrue(DB.Delete(state));
         }
         [TestMethod]
-        public void CreateUpdateDeleteUser()
+        public void CRUDUser()
         {
             //Test Create
             string firstName = "first user name";
@@ -307,16 +492,25 @@ namespace Scrum_o_wall.Tests
             Assert.AreEqual(firstName, user.Name);
 
             //Test Remove
-            Assert.IsTrue(DB.DeleteUser(user));
+            Assert.IsTrue(DB.Delete(user));
         }
-
         [TestMethod]
-        public void CreateUpdateDeleteUserStoryTest()
+        public void CRUDUserStoryTest()
         {
             List<Priority> priorities = DB.GetPriorities();
             List<State> states = DB.GetStates();
             List<Classes.Type> types = DB.GetTypes();
             List<Project> projects = DB.GetProjects();
+            if (states.Count == 0)
+            {
+                DB.CreateState("AStateName");
+                states = DB.GetStates();
+            }
+            if (projects.Count == 0)
+            {
+                DB.CreateProject("aProjectName", "A Description for my project", DateTime.Now);
+                projects = DB.GetProjects();
+            }
 
             string firstDesc = "aDesc";
             DateTime? firstDate = DateTime.Now;
@@ -327,15 +521,15 @@ namespace Scrum_o_wall.Tests
             Project firstProj = projects[0];
 
 
-            UserStory userStory = DB.CreateUserStory(firstDesc,firstDate,firstComplexity,firstPrio,firstType,firstState,firstProj);
-            
+            UserStory userStory = DB.CreateUserStory(firstDesc, firstDate, firstComplexity, firstPrio, firstType, firstState, firstProj);
+
             Assert.IsNotNull(userStory, "Exception in userStory creation");
             Assert.AreEqual(firstDesc, userStory.Description);
             Assert.AreEqual(firstDate, userStory.DateLimit);
             Assert.AreEqual(firstComplexity, userStory.ComplexityEstimation);
-            Assert.AreEqual(firstPrio, userStory.Priority);
-            Assert.AreEqual(firstType, userStory.Type);
-            Assert.AreEqual(firstState, userStory.State);
+            Assert.AreEqual(firstPrio.Id, userStory.PriorityId);
+            Assert.AreEqual(firstType.Id, userStory.TypeId);
+            Assert.AreEqual(firstState.Id, userStory.StateId);
             Assert.AreEqual(firstProj.Id, userStory.ProjectId);
             Assert.AreEqual(false, userStory.Blocked);
             Assert.AreEqual(0, userStory.CompletedComplexity);
@@ -348,9 +542,14 @@ namespace Scrum_o_wall.Tests
             bool secBlock = true;
             Priority secPrio = priorities[1];
             Classes.Type secType = types[1];
+            while (states.Count < 2)
+            {
+                DB.CreateState("An additional state name");
+                states = DB.GetStates();
+            }
             State secState = states[1];
 
-            DB.UpdateUserStory(secDesc,secDate,secComplexity,secCompleted,secBlock,secPrio,secState,secType, userStory);
+            DB.UpdateUserStory(secDesc, secDate, secComplexity, secCompleted, secBlock, secPrio, secState, secType, userStory);
 
             userStory = DB.GetUserStories().First(u => u.Id == userStory.Id);
 
@@ -363,7 +562,7 @@ namespace Scrum_o_wall.Tests
             Assert.AreEqual(secBlock, userStory.Blocked);
             Assert.AreEqual(secCompleted, userStory.CompletedComplexity);
 
-            Assert.IsTrue(DB.DeleteUserStory(userStory));
+            Assert.IsTrue(DB.Delete(userStory));
         }
 
     }

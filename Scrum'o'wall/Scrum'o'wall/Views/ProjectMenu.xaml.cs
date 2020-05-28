@@ -144,7 +144,7 @@ namespace Scrum_o_wall.Views
             {
                 if (userStoryEdit.Deleted)
                 {
-                    controller.DeleteUserStory(userStory);
+                    controller.Delete(userStory);
                 }
                 else
                 {
@@ -293,8 +293,9 @@ namespace Scrum_o_wall.Views
             if (currentPoint.ContainsKey(e.Device))
             {
                 currentPoint.Remove(e.Device);
-                borders.Remove(e.Device);
                 infos.Remove(e.Device);
+                cnvsBacklog.Children.Remove(borders[e.Device]);
+                borders.Remove(e.Device);
             }
             else
             {
@@ -309,7 +310,7 @@ namespace Scrum_o_wall.Views
             {
                 if (projectEdit.Deleted)
                 {
-                    controller.DeleteProject(project);
+                    controller.Delete(project);
                     this.DialogResult = true;
                     this.Close();
                 }

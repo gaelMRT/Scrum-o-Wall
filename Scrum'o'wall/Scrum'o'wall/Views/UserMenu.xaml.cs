@@ -115,7 +115,7 @@ namespace Scrum_o_wall.Views
             {
                 if (userEdit.Deleted)
                 {
-                    controller.DeleteUser(user);
+                    controller.Delete(user);
                 }
                 else
                 {

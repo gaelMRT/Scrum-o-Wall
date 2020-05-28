@@ -27,6 +27,6 @@
         <Label VerticalAlignment="Top"    Margin="90,60,0,0"  HorizontalAlignment="Left" Name="lblComplexityMax"> XX</Label>
         <Label VerticalAlignment="Bottom" Margin="100,0,0,60"    HorizontalAlignment="Left" Name="lblComplexityZero">0</Label>
 
-        <Button x:Name="btnCancel" Click="Quit_Click" TouchDown="Quit_Click" Content="Retour" HorizontalAlignment="Left" Margin="10,0,0,10" Width="75" Height="25" VerticalAlignment="Bottom"/>
+        <Button x:Name="btnCancel" Click="Quit_Click" TouchUp="Quit_Click" Content="Retour" HorizontalAlignment="Left" Margin="10,0,0,10" Width="75" Height="25" VerticalAlignment="Bottom"/>
     </Grid>
 </Window>

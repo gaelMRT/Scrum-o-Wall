@@ -33,9 +33,9 @@
                 <ColumnDefinition Width="1*"></ColumnDefinition>
                 <ColumnDefinition Width="3*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button TouchDown="BtnCancel_Click" x:Name="btnCancel"  Margin="10" Click="BtnCancel_Click">Annuler</Button>
-            <Button TouchDown="BtnDelete_Click" x:Name="btnDelete" Grid.Column="1" Margin="10" Click="BtnDelete_Click">Supprimer</Button>
-            <Button TouchDown="BtnConfirm_Click" x:Name="btnConfirm" Grid.Column="2" Margin="10" Click="BtnConfirm_Click">Confirmer</Button>
+            <Button TouchUp="BtnCancel_Click" x:Name="btnCancel"  Margin="10" Click="BtnCancel_Click">Annuler</Button>
+            <Button TouchUp="BtnDelete_Click" x:Name="btnDelete" Grid.Column="1" Margin="10" Click="BtnDelete_Click">Supprimer</Button>
+            <Button TouchUp="BtnConfirm_Click" x:Name="btnConfirm" Grid.Column="2" Margin="10" Click="BtnConfirm_Click">Confirmer</Button>
         </Grid>
     </Grid>
 </Window>

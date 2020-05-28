@@ -554,10 +554,27 @@ J'ai finalement travailler sur l'ajout de suppression dans les vues. J'ai eu le 
 ### Liens utiles et idées
 J'ai implémenter les fonctions en les reliant aux fonctions correspondantes et j'ai créé les fonctions manquantes dans DB. J'ai également changé la structure des classes afin de contenir directement un objet parent (La user story pour le commentaire ou le projet pour le user story)
 
-J'ai également rajouter un attribut "Deleted" dans les vues de modifications pour pouvoir savoir à la fermeture si l'utilisateur à appuyé sur le bouton de confirmation ou le bouton de suppression.
+J'ai également rajouter un attribut "Deleted" dans les vues de modifications pour pouvoir savoir à la fermeture si l'utilisateur à appuyé sur le bouton de confirmation ou le bouton de suppression. En effet, j'avais commencé par utiliser l'attribut DialogResult des fenêtres car il utilise un booléen nullable ce qui, dans ma première idée permettait de renvoyer 3 types de données différentes avec "Vrai,Faux et Null". Cependant, à la fermeture et avec un dialogResult égal à null, les
 
 
 ### Tâches accomplies
 - Implémenter les fonctions de suppression dans le controller.
 - Implémentation des fonctions manquantes dans la DB.
 - Modification des vues pour intégrer la suppression.
+
+## 28.05
+
+### Tâches à faire
+- Refaire les tests unitaires
+- Régler les problèmes de boutons qui s'intèrclickent entre les vues
+ 
+### Liens utiles et idées
+Gräce au site https://wpf.2000things.com/tag/touchdown/ j'ai découvert l'ordre de lancement des évènements liés au Touch ce qui me permet de déterminé quel évènement il faut appeler.
+
+J'ai réglé le problème des cliques non-attendus en utilisant la méthode TouchUp à la place de TouchDown pour les boutons.
+
+Refaire les tests m'a pris bien plus de temps que prévu. Je ne reussirais pas à terminer à temps. J'ai renommé certaines fonction et je les ai retravaillés pour qu'il n'y ait plus d'erreur peu importe le cas. Je dois encore repasser sur les méthodes de la classe Controller.
+
+### Tâches accomplies
+- Problèmes des boutons régler
+- Tests unitaires de la classe DB refait et documentés.

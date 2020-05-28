@@ -271,7 +271,7 @@ namespace Scrum_o_wall.Views
             {
                 if (userStoryEdit.Deleted)
                 {
-                    controller.DeleteUserStory(userStory);
+                    controller.Delete(userStory);
                 }
                 else
                 {
@@ -304,7 +304,7 @@ namespace Scrum_o_wall.Views
             {
                 if (sprintEdit.Deleted)
                 {
-                    controller.DeleteSprint(sprint);
+                    controller.Delete(sprint);
                     this.DialogResult = true;
                     this.Close();
                 }
