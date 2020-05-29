@@ -114,7 +114,6 @@ namespace Scrum_o_wall.Tests
             DB.Delete(checklistItem);
             DB.Delete(checklist);
         }
-
         [TestMethod()]
         public void CRDUserUserStoryTest()
         {
@@ -145,24 +144,16 @@ namespace Scrum_o_wall.Tests
             DB.Delete(userStory);
             DB.Delete(user);
         }
-
-
-
         [TestMethod()]
         public void GetTypesTest()
         {
             Assert.IsNotNull(DB.GetTypes());
         }
-
         [TestMethod()]
         public void GetPrioritiesTest()
         {
             Assert.IsNotNull(DB.GetPriorities());
         }
-
-
-
-
         [TestMethod]
         public void CRDActivity()
         {

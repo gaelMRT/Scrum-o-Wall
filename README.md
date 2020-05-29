@@ -578,3 +578,17 @@ Refaire les tests m'a pris bien plus de temps que prévu. Je ne reussirais pas �
 ### Tâches accomplies
 - Problèmes des boutons régler
 - Tests unitaires de la classe DB refait et documentés.
+
+## 29.05
+
+### Tâches à faire
+- Finir les tests unitaires pour le Controller
+ 
+### Liens utiles et idées
+J'ai commencé directement par changé les tests unitaires du Controller. Ce qui m'a fait perdre beaucoup des méthodes que j'avais avant en passant le nombre de tests de plus d'une trentaine à 17. J'ai également fait attention à ce que les tests ne puissent pas échouer si aucun enregistrement non nécessaire (autre que les type et le priorité) n'est présent dans la base.
+
+Après cela, j'ai mis à jour différents élèments de la documentation tel que les illustrations.
+
+### Tâches accomplies
+- Finir les tests unitaires pour le Controller et les documenter
+- Mise à jour des illustrations de la doc

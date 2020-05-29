@@ -189,7 +189,7 @@ namespace Scrum_o_wall
                 // 0:IdUser,1:IdChecklistItem
                 List<User> user = allUsers.Where(u => u.Id == item[0]).ToList();
                 List<ChecklistItem> checklistItem = allChecklistItems.Where(c => c.Id == item[1]).ToList();
-                if(checklistItem.Count == 1 && user.Count == 1)
+                if (checklistItem.Count == 1 && user.Count == 1)
                 {
                     checklistItem[0].AddUser(user[0]);
                 }
@@ -216,53 +216,52 @@ namespace Scrum_o_wall
             states = allStates;
         }
 
-        public void UpdateState(string text, State state)
-        {
-            DB.UpdateState(text, state);
-            state.Name = text;
-        }
 
-        public void UpdateSprint(DateTime begin, DateTime end, Sprint sprint)
-        {
-            DB.UpdateSprint(begin, end, sprint);
-            sprint.Begin = begin;
-            sprint.End = end;
-        }
-        public void UpdateUser(string text, User user)
-        {
-            DB.UpdateUser(text, user);
-            user.Name = text;
-        }
 
-        public void Delete(User user)
+        #region Remove Methods
+
+
+        public bool Delete(Project project)
         {
-            DB.Delete(user);
+            bool result = DB.Delete(project);
+            projects.Remove(project);
+            return result;
+        }
+        public bool Delete(Checklist checklist)
+        {
+            bool result = DB.Delete(checklist);
+            checklist.UserStory.Checklists.Remove(checklist);
+            return result;
+        }
+        public bool Delete(User user)
+        {
+            bool result = DB.Delete(user);
             users.Remove(user);
+            return result;
         }
-
-
-        public void Delete(State state)
+        public bool Delete(State state)
         {
             List<Project> removingState = projects.Where(p => p.States.ContainsValue(state)).ToList();
             foreach (Project project in removingState)
             {
                 this.RemoveStateFromProject(state, project);
             }
-            DB.Delete(state);
+            bool result = DB.Delete(state);
+            return result;
         }
-
-        public void Delete(Sprint sprint)
+        public bool Delete(Sprint sprint)
         {
             sprint.Project.Sprints.Remove(sprint);
-            DB.Delete(sprint);
+            bool result = DB.Delete(sprint);
+            return result;
         }
-
-        public void Delete(ChecklistItem checklistItem)
+        public bool Delete(ChecklistItem checklistItem)
         {
             checklistItem.Checklist.ChecklistItems.Remove(checklistItem);
-            DB.Delete(checklistItem);
+            bool result = DB.Delete(checklistItem);
+            return result;
         }
-        public void Delete(UserStory userStory)
+        public bool Delete(UserStory userStory)
         {
             List<Sprint> sprintRemoveUserStory = userStory.Project.Sprints.Where(s => s.OrderedUserStories.ContainsValue(userStory)).ToList();
             foreach (Sprint sprint in sprintRemoveUserStory)
@@ -270,23 +269,26 @@ namespace Scrum_o_wall
                 this.RemoveUserStoryFromSprint(userStory, sprint);
             }
             userStory.Project.AllUserStories.Remove(userStory);
-            DB.Delete(userStory);
+            bool result = DB.Delete(userStory);
+            return result;
         }
-
-        public void Delete(Project project)
+        public bool Delete(Comment comment)
         {
-            DB.Delete(project);
-            projects.Remove(project);
+            bool result = DB.Delete(comment);
+            return result;
         }
-
-
-        #region Remove Methods
-
-        public void Delete(Classes.File file)
+        public bool Delete(Activity activity)
         {
-            DB.Delete(file);
+            bool result = DB.Delete(activity);
+            return result;
+        }
+        public bool Delete(Classes.File file)
+        {
+            bool result = DB.Delete(file);
             file.UserStory.Files.Remove(file);
+            return result;
         }
+
         public bool RemoveStateFromProject(State state, Project project)
         {
             int order = -1;
@@ -335,24 +337,28 @@ namespace Scrum_o_wall
             }
             return true;
         }
-        private void RemoveUserFromChecklistItem(User user, ChecklistItem checklistItem)
+        private bool RemoveUserFromChecklistItem(User user, ChecklistItem checklistItem)
         {
-            DB.RemoveUserFromChecklistItem(user, checklistItem);
+            bool result = DB.RemoveUserFromChecklistItem(user, checklistItem);
             checklistItem.RemoveUser(user);
+            return result;
         }
-        private void RemoveUserFromUserStory(User user, UserStory userStory)
+        private bool RemoveUserFromUserStory(User user, UserStory userStory)
         {
-            DB.RemoveUserFromUserStory(user, userStory);
+            bool result = DB.RemoveUserFromUserStory(user, userStory);
             this.CreateActivity(String.Format("\"{0}\" a été désassigné", user), userStory);
             userStory.RemoveUser(user);
+            return result;
         }
-        private void RemoveUserFromProject(User user, Project project)
+        private bool RemoveUserFromProject(User user, Project project)
         {
-            DB.RemoveUserFromProject(user, project);
+            bool result = DB.RemoveUserFromProject(user, project);
             project.RemoveUser(user);
+            return result;
         }
-        public void RemoveUserStoryFromSprint(UserStory userStory, Sprint sprint)
+        public bool RemoveUserStoryFromSprint(UserStory userStory, Sprint sprint)
         {
+            bool result = false;
             if (sprint.OrderedUserStories.ContainsValue(userStory))
             {
                 int order = 0;
@@ -362,30 +368,35 @@ namespace Scrum_o_wall
                 }
                 this.CreateActivity(String.Format("A été supprimé du sprint \"{0}\"", sprint), userStory);
                 sprint.removeUserStoryByOrder(order);
-                DB.RemoveUserStoryFromSprint(userStory, sprint, order);
+                result = DB.RemoveUserStoryFromSprint(userStory, sprint, order);
             }
+            return result;
         }
 
         #endregion
 
         #region Update Methods
-        public void UserStorySwitchState(UserStory userStory, State state)
+        public bool UserStorySwitchState(UserStory userStory, State state)
         {
+            bool result = false;
             if (userStory.State != state)
             {
                 this.CreateActivity(String.Format("Passé de l'état \"{0}\" à l'état \"{1}\"", userStory.State, state), userStory);
-                DB.UpdateUserStory(userStory.Description, userStory.DateLimit, userStory.ComplexityEstimation, userStory.CompletedComplexity, userStory.Blocked, userStory.Priority, state, userStory.Type, userStory);
+                result = DB.UpdateUserStory(userStory.Description, userStory.DateLimit, userStory.ComplexityEstimation, userStory.CompletedComplexity, userStory.Blocked, userStory.Priority, state, userStory.Type, userStory);
                 userStory.State = state;
             }
+            return result;
         }
-        public void UpdateCheckListItem(string nameItem, bool done, ChecklistItem item)
+        public bool UpdateCheckListItem(string nameItem, bool done, ChecklistItem item)
         {
-            DB.UpdateCheckListItem(nameItem, done, item);
+            bool result = DB.UpdateCheckListItem(nameItem, done, item);
             item.NameItem = nameItem;
             item.Done = done;
+            return result;
         }
-        public void UpdateUserStory(string description, DateTime? selectedDate, int complexity, int completedComplexity, bool blocked, Priority aPriority, Classes.Type aType, State aState, UserStory userStory)
+        public bool UpdateUserStory(string description, DateTime? selectedDate, int complexity, int completedComplexity, bool blocked, Priority aPriority, Classes.Type aType, State aState, UserStory userStory)
         {
+            bool result = false;
             if (userStory.Description != description ||
                 userStory.DateLimit != selectedDate ||
                 userStory.ComplexityEstimation != complexity ||
@@ -396,7 +407,7 @@ namespace Scrum_o_wall
                 userStory.State != aState)
             {
                 this.CreateActivity("Les informations ont été mises à jour", userStory);
-                DB.UpdateUserStory(description, selectedDate, complexity, completedComplexity, blocked, aPriority, aState, aType, userStory);
+                result = DB.UpdateUserStory(description, selectedDate, complexity, completedComplexity, blocked, aPriority, aState, aType, userStory);
                 userStory.Description = description;
                 userStory.DateLimit = selectedDate;
                 userStory.ComplexityEstimation = complexity;
@@ -406,15 +417,17 @@ namespace Scrum_o_wall
                 userStory.Priority = aPriority;
                 userStory.Type = aType;
             }
+            return result;
         }
-        public void UpdateFile(string fileDescription, Classes.File file)
+        public bool UpdateFile(string fileDescription, Classes.File file)
         {
-            DB.UpdateFile(fileDescription, file);
+            bool result = DB.UpdateFile(fileDescription, file);
             file.Description = fileDescription;
+            return result;
         }
-        public void UpdateCheckList(string name, List<ChecklistItem> items, Checklist checklist)
+        public bool UpdateCheckList(string name, List<ChecklistItem> items, Checklist checklist)
         {
-            DB.UpdateCheckList(name, checklist);
+            bool result = DB.UpdateCheckList(name, checklist);
             checklist.Name = name;
             checklist.ChecklistItems.Clear();
             foreach (ChecklistItem item in items)
@@ -429,13 +442,34 @@ namespace Scrum_o_wall
                     checklist.ChecklistItems.Add(item);
                 }
             }
+            return result;
         }
-        public void UpdateProject(string name, string description, DateTime dateTime, Project aProject)
+        public bool UpdateProject(string name, string description, DateTime dateTime, Project aProject)
         {
-            DB.UpdateProject(name, description, dateTime, aProject);
+            bool result = DB.UpdateProject(name, description, dateTime, aProject);
             aProject.Name = name;
             aProject.Description = description;
             aProject.Begin = dateTime;
+            return result;
+        }
+        public bool UpdateState(string text, State state)
+        {
+            bool result = DB.UpdateState(text, state);
+            state.Name = text;
+            return result;
+        }
+        public bool UpdateSprint(DateTime begin, DateTime end, Sprint sprint)
+        {
+            bool result = DB.UpdateSprint(begin, end, sprint);
+            sprint.Begin = begin;
+            sprint.End = end;
+            return result;
+        }
+        public bool UpdateUser(string text, User user)
+        {
+            bool result = DB.UpdateUser(text, user);
+            user.Name = text;
+            return result;
         }
         #endregion
 
@@ -459,15 +493,16 @@ namespace Scrum_o_wall
                 return false;
             }
         }
-        public void AddStateToProject(State state, Project project)
+        public bool AddStateToProject(State state, Project project)
         {
             int i = 0;
             while (project.States.ContainsKey(i))
             {
                 i++;
             }
-            DB.AddStateToProject(state, project, i);
+            bool result = DB.AddStateToProject(state, project, i);
             project.States.Add(i, state);
+            return result;
         }
         public bool AddUserToIUsersAssigned(User user, IUsersAssigned usersAssigned)
         {
@@ -489,31 +524,37 @@ namespace Scrum_o_wall
             }
             return true;
         }
-        private void AddUserToUserStory(User user, UserStory userStory)
+        private bool AddUserToUserStory(User user, UserStory userStory)
         {
-            DB.AddUserToUserStory(user, userStory);
+            bool result = DB.AddUserToUserStory(user, userStory);
             this.CreateActivity(String.Format("\"{0}\" a été assigné", user), userStory);
             userStory.AddUser(user);
+            return result;
         }
-        private void AddUserToChecklistItem(User user, ChecklistItem checklistItem)
+        private bool AddUserToChecklistItem(User user, ChecklistItem checklistItem)
         {
-            DB.AddUserToChecklistItem(user, checklistItem);
+            bool result = DB.AddUserToChecklistItem(user, checklistItem);
             checklistItem.AddUser(user);
+            return result;
         }
-        private void AddUserToProject(User user, Project project)
+        private bool AddUserToProject(User user, Project project)
         {
-            DB.AddUserToProject(user, project);
+            bool result = DB.AddUserToProject(user, project);
             project.AddUser(user);
+            return result;
         }
-        public void CreateActivity(string description, UserStory userStory)
+        public bool CreateActivity(string description, UserStory userStory)
         {
             Activity activity = DB.CreateActivity(description, DateTime.Now, userStory);
+            bool result = activity != null;
             userStory.Activities.Add(activity);
             activity.UserStory = userStory;
+            return result;
         }
-        public void CreateUserStory(string description, DateTime? selectedDate, int complexity, Priority aPriority, Classes.Type aType, Project aProject)
+        public bool CreateUserStory(string description, DateTime? selectedDate, int complexity, Priority aPriority, Classes.Type aType, Project aProject)
         {
             UserStory userStory = DB.CreateUserStory(description, selectedDate, complexity, aPriority, aType, aProject.States.First().Value, aProject);
+            bool result = userStory != null;
 
             userStory.Priority = aPriority;
             userStory.Type = aType;
@@ -522,41 +563,56 @@ namespace Scrum_o_wall
 
             aProject.AllUserStories.Add(userStory);
             this.CreateActivity("A été créé", userStory);
+            return result;
         }
-        public void CreateSprint(DateTime dateBegin, DateTime dateEnd, Project aProject)
+        public bool CreateSprint(DateTime dateBegin, DateTime dateEnd, Project aProject)
         {
             Sprint sprint = DB.CreateSprint(dateBegin, dateEnd, aProject);
+            bool result = sprint != null;
             sprint.Project = aProject;
             aProject.Sprints.Add(sprint);
+            return result;
         }
-        public void CreateFile(string fileName, string description, UserStory userStory)
+        public bool CreateFile(string fileName, string description, UserStory userStory)
         {
             Classes.File file = DB.CreateFile(fileName, description, userStory);
+            bool result = file != null;
             userStory.Files.Add(file);
             file.UserStory = userStory;
             this.CreateActivity(String.Format("\"{0}\" a été lié", file), userStory);
+            return result;
         }
-        public void CreateUser(string name)
+        public bool CreateUser(string name)
         {
+            User user = DB.CreateUser(name);
+            bool result = user != null;
             users.Add(DB.CreateUser(name));
+            return result;
         }
-        public void CreateState(string name)
+        public bool CreateState(string name)
         {
+            State state = DB.CreateState(name);
+            bool result = state != null;
             states.Add(DB.CreateState(name));
+            return result;
         }
-        public void CreateComment(string text, User user, UserStory userStory)
+        public bool CreateComment(string text, User user, UserStory userStory)
         {
             Comment comment = DB.CreateComment(text, userStory, user);
+            bool result = comment != null;
             comment.UserStory = userStory;
             userStory.Comments.Add(comment);
-            
+
             this.CreateActivity(String.Format("\"{0}\" a commenté", user), userStory);
+            return result;
         }
-        public void CreateCheckListItem(string aName, Checklist checklist)
+        public bool CreateCheckListItem(string aName, Checklist checklist)
         {
             ChecklistItem checklistItem = DB.CreateCheckListItem(aName, checklist);
+            bool result = checklistItem != null;
             checklistItem.Checklist = checklist;
             checklist.ChecklistItems.Add(checklistItem);
+            return result;
         }
         public Checklist CreateCheckList(string aName, UserStory aUserStory)
         {
@@ -572,10 +628,17 @@ namespace Scrum_o_wall
         /// <param name="aName"></param>
         /// <param name="aDesc"></param>
         /// <param name="aDate"></param>
-        public void CreateProject(string aName, string aDesc, DateTime aDate)
+        public bool CreateProject(string aName, string aDesc, DateTime aDate)
         {
             Project project = DB.CreateProject(aName, aDesc, aDate);
 
+            bool result = project != null;
+            if (states.Count < 3)
+            {
+                this.CreateState("A faire");
+                this.CreateState("En cours");
+                this.CreateState("Accompli");
+            }
             project.States.Add(0, states[0]);
             project.States.Add(1, states[1]);
             project.States.Add(2, states[2]);
@@ -585,6 +648,7 @@ namespace Scrum_o_wall
             DB.AddStateToProject(states[2], project, 2);
 
             projects.Add(project);
+            return result;
         }
         #endregion
 

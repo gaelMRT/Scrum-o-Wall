@@ -13,20 +13,6 @@ namespace Scrum_o_wall.Tests
     public class ControllerTests
     {
         public static Controller ctrl;
-
-        public static Activity activity;
-        public static Checklist checklist;
-        public static ChecklistItem checklistItem;
-        public static Comment comment;
-        public static Classes.File file;
-        public static MindMap mindMap;
-        public static Node node;
-        public static Project project;
-        public static Sprint sprint;
-        public static State state;
-        public static User user;
-        public static UserStory userStory;
-
         [TestInitialize]
         public void TestInitialize()
         {
@@ -41,408 +27,359 @@ namespace Scrum_o_wall.Tests
         {
             Assert.IsNotNull(ctrl);
         }
-        [TestMethod]
-        public void CreateProjectTest()
+
+        [TestMethod()]
+        public void CRDUserStoriesSprintTest()
         {
-            int countBefore = ctrl.Projects.Count;
-            int countAfterExpected = countBefore + 1;
-            int countAfter;
+            ctrl.CreateProject("a name for a project", "a desc for a project", DateTime.Now);
+            Project project = ctrl.Projects.Last();
 
-            ctrl.CreateProject("aName", "aDesc", DateTime.Now);
+            ctrl.CreateSprint(DateTime.Now, DateTime.Now, project);
+            Sprint sprint = project.Sprints[0];
 
-            countAfter = ctrl.Projects.Count;
+            //if not exists, the database is incorrect
+            Priority prio = ctrl.Priorities[0];
+            Classes.Type type = ctrl.Types[0];
+            ctrl.CreateUserStory("a description", null, 2, prio, type, project);
+            UserStory userStory = project.AllUserStories[0];
 
-            project = ctrl.Projects.Last();
-            Assert.AreEqual(countAfterExpected, countAfter);
+            Assert.IsTrue(ctrl.AddUserStoryToSprint(userStory, sprint));
+            Assert.IsTrue(sprint.OrderedUserStories.ContainsValue(userStory));
+            Assert.IsTrue(ctrl.RemoveUserStoryFromSprint(userStory, sprint));
+
+            ctrl.Delete(userStory);
+            ctrl.Delete(sprint);
+            ctrl.Delete(project);
+        }
+        [TestMethod()]
+        public void CRDProjectStatesTest()
+        {
+            ctrl.CreateProject("aProjectName", "A Description for my project", DateTime.Now);
+            Project project = ctrl.Projects.Last();
+
+            ctrl.CreateState("a new state");
+            State state = ctrl.States.Last();
+
+
+            Assert.IsTrue(ctrl.AddStateToProject(state, project));
+            Assert.IsTrue(project.States.ContainsValue(state));
+            Assert.IsTrue(ctrl.RemoveStateFromProject(state, project));
+
+            ctrl.Delete(project);
+            ctrl.Delete(state);
+        }
+
+        [TestMethod()]
+        public void CRDUserIUsersAssignedTest()
+        {
+            ctrl.CreateProject("aProjectName", "A Description for my project", DateTime.Now);
+            Project project = ctrl.Projects.Last();
+
+            ctrl.CreateUser("a user name");
+            User user = ctrl.Users.Last();
+
+            Assert.IsTrue(ctrl.AddUserToIUsersAssigned(user, project));
+            Assert.IsTrue(project.GetUsers().Contains(user));
+            Assert.IsTrue(ctrl.RemoveUserFromIUsersAssigned(user, project));
+
+
+            ctrl.CreateUserStory("aDescription", null, 2, ctrl.Priorities[0], ctrl.Types[0], project);
+            UserStory userStory = project.AllUserStories[0];
+
+            Assert.IsTrue(ctrl.AddUserToIUsersAssigned(user, userStory));
+            Assert.IsTrue(userStory.GetUsers().Contains(user));
+            Assert.IsTrue(ctrl.RemoveUserFromIUsersAssigned(user, userStory));
+
+            Checklist checklist = ctrl.CreateCheckList("a bioutifoul name", userStory);
+            ctrl.CreateCheckListItem("a better name", checklist);
+            ChecklistItem checklistItem = checklist.ChecklistItems[0];
+
+            Assert.IsTrue(ctrl.AddUserToIUsersAssigned(user, checklistItem));
+            Assert.IsTrue(checklistItem.GetUsers().Contains(user));
+            Assert.IsTrue(ctrl.RemoveUserFromIUsersAssigned(user, checklistItem));
+
+            ctrl.Delete(user);
+            ctrl.Delete(checklistItem);
+            ctrl.Delete(checklist);
+            ctrl.Delete(userStory);
+            ctrl.Delete(project);
         }
         [TestMethod]
-        public void CreateUserTest()
+        public void CRDActivity()
         {
-            int countBefore = ctrl.Users.Count;
-            int countAfterExpected = countBefore + 1;
-            int countAfter;
+            ctrl.CreateProject("aProjectName", "A Description for my project", DateTime.Now);
+            Project project = ctrl.Projects.Last();
+            ctrl.CreateUserStory("aDescription", null, 2, ctrl.Priorities[0], ctrl.Types[0], project);
+            UserStory userStory = project.AllUserStories[0];
+            string aDesc = "a desc for my activity";
 
-            ctrl.CreateUser("aName");
-
-            countAfter = ctrl.Users.Count;
-
-            user = ctrl.Users.Last();
-            Assert.AreEqual(countAfterExpected, countAfter);
+            Assert.IsTrue(ctrl.CreateActivity(aDesc, userStory));
+            Activity activity = userStory.Activities.Last();
+            Assert.AreEqual(aDesc, activity.Description);
+            Assert.IsTrue(ctrl.Delete(activity));
+            
+            ctrl.Delete(userStory);
+            ctrl.Delete(project);
         }
+
         [TestMethod]
-        public void CreateUserStoryTest()
+        public void CRUDChecklist()
         {
-            project = ctrl.Projects.Last();
+            //Test Create
+            ctrl.CreateProject("aProjectName", "A Description for my project", DateTime.Now);
+            Project project = ctrl.Projects.Last();
+            ctrl.CreateUserStory("aDescription", null, 2, ctrl.Priorities[0], ctrl.Types[0], project);
+            UserStory userStory = project.AllUserStories[0];
+            string aName = "a first name";
 
-            int countBefore = project.AllUserStories.Count;
-            int countAfterExpected = countBefore + 1;
-            int countAfter;
+            Checklist checklist = ctrl.CreateCheckList(aName, userStory);
 
-            ctrl.CreateUserStory("A description", null, 3, ctrl.Priorities.First(), ctrl.Types.First(), project);
+            Assert.AreEqual(aName, checklist.Name);
+            Assert.AreEqual(userStory.Id, checklist.UserStoryId);
 
-            countAfter = project.AllUserStories.Count;
+            //Test Update
+            string afterName = "checklist second name";
 
-            userStory = project.AllUserStories.Last();
-            Assert.AreEqual(countAfterExpected, countAfter);
-        }
-        [TestMethod]
-        public void CreateActivityTest()
-        {
-            userStory = ctrl.Projects.Last(p => p.AllUserStories.Count > 0).AllUserStories.First();
-            int countBefore = userStory.Activities.Count;
-            int countAfterExpected = countBefore + 1;
-            int countAfter;
-
-            ctrl.CreateActivity("aDescription", userStory);
-
-            countAfter = userStory.Activities.Count;
-
-            activity = userStory.Activities.Last();
-            Assert.AreEqual(countAfterExpected, countAfter);
-        }
-        [TestMethod]
-        public void CreateSprintTest()
-        {
-            project = ctrl.Projects.Last();
-
-            int countBefore = project.Sprints.Count;
-            int countAfterExpected = countBefore + 1;
-            int countAfter;
-
-            ctrl.CreateSprint(DateTime.Now, DateTime.Now + new TimeSpan(7, 0, 0, 0, 0), project);
-
-            countAfter = project.Sprints.Count;
-
-            sprint = project.Sprints.Last();
-            Assert.AreEqual(countAfterExpected, countAfter);
-        }
-        [TestMethod]
-        public void CreateFileTest()
-        {
-            userStory = ctrl.Projects.Last(p => p.AllUserStories.Count > 0).AllUserStories.First();
-
-            int countBefore = userStory.Files.Count;
-            int countAfterExpected = countBefore + 1;
-            int countAfter;
-
-            ctrl.CreateFile("ce n'est pas un vrai nom de fichier", "Ce fichier n'existe pas et n'a jamais existé que ce soit dans le monde réel ou dans l'oblivion le plus total", userStory);
-
-            countAfter = userStory.Files.Count;
-
-            file = userStory.Files.Last();
-            Assert.AreEqual(countAfterExpected, countAfter);
-        }
-        [TestMethod]
-        public void CreateStateTest()
-        {
-            int countBefore = ctrl.States.Count;
-            int countAfterExpected = countBefore + 1;
-            int countAfter;
-
-            ctrl.CreateState("Nom d'état");
-
-            countAfter = ctrl.States.Count;
-
-            state = ctrl.States.Last();
-            Assert.AreEqual(countAfterExpected, countAfter);
-        }
-        [TestMethod]
-        public void CreateCommentTest()
-        {
-            user = ctrl.Users.Last();
-            userStory = ctrl.Projects.Last(p => p.AllUserStories.Count > 0).AllUserStories.First();
-
-            int countBefore = userStory.Comments.Count;
-            int countAfterExpected = countBefore + 1;
-            int countAfter;
-
-            ctrl.CreateComment("Ceci est un commentaire", user, userStory);
-
-            countAfter = userStory.Comments.Count;
-
-            comment = userStory.Comments.Last();
-            Assert.AreEqual(countAfterExpected, countAfter);
-        }
-        [TestMethod]
-        public void CreateCheckListTest()
-        {
-            userStory = ctrl.Projects.Last(p => p.AllUserStories.Count > 0).AllUserStories.First();
-
-            int countBefore = userStory.Checklists.Count;
-            int countAfterExpected = countBefore + 1;
-            int countAfter;
-
-            ctrl.CreateCheckList("a checklist name", userStory);
-
-            countAfter = userStory.Checklists.Count;
-
-            checklist = userStory.Checklists.Last();
-            Assert.AreEqual(countAfterExpected, countAfter);
-        }
-        [TestMethod]
-        public void CreateCheckListItemTest()
-        {
-            checklist = ctrl.Projects.Last(p => p.AllUserStories.Count(u => u.Checklists.Count > 0) > 0).AllUserStories.Last(u => u.Checklists.Count > 0).Checklists.First();
-
-            int countBefore = checklist.ChecklistItems.Count;
-            int countAfterExpected = countBefore + 1;
-            int countAfter;
-
-            ctrl.CreateCheckListItem("ceci est un checklist Item", checklist);
-
-            countAfter = checklist.ChecklistItems.Count;
-
-            checklistItem = checklist.ChecklistItems.Last();
-            Assert.AreEqual(countAfterExpected, countAfter);
-        }
-        [TestMethod]
-        public void AddUserStoryToSprintTest()
-        {
-            project = ctrl.Projects.Last(p => p.AllUserStories.Count > 0 && p.Sprints.Count > 0);
-            sprint = project.Sprints.Last();
-            userStory = project.AllUserStories.Last(u => !sprint.OrderedUserStories.ContainsValue(u));
-
-            int countBefore = sprint.OrderedUserStories.Count;
-            int countAfterExpected = countBefore + 1;
-            int countAfter;
-
-            ctrl.AddUserStoryToSprint(userStory, sprint);
-
-            countAfter = sprint.OrderedUserStories.Count;
-
-            Assert.AreEqual(countAfterExpected, countAfter);
-        }
-        [TestMethod]
-        public void AddStateToProjectTest()
-        {
-            project = ctrl.Projects.Last();
-            state = ctrl.States.Last(s => !project.States.ContainsValue(s));
-            int countBefore = project.States.Count;
-            int countAfterExpected = countBefore + 1;
-            int countAfter;
-
-            ctrl.AddStateToProject(state, project);
-
-            countAfter = project.States.Count;
-
-            Assert.AreEqual(countAfterExpected, countAfter);
-        }
-        [TestMethod]
-        public void AddUserToIUsersAssignedTest()
-        {
-            project = ctrl.Projects.Last(p => p.AllUserStories.Count(u => u.Checklists.Count(c => c.ChecklistItems.Count > 0) > 0) > 0);
-            userStory = project.AllUserStories.First(u => u.Checklists.Count(c => c.ChecklistItems.Count > 0) > 0);
-            checklistItem = userStory.Checklists.First().ChecklistItems.First();
-            user = ctrl.Users.First(u => !project.GetUsers().Contains(u) && !userStory.GetUsers().Contains(u) && !checklistItem.GetUsers().Contains(u));
-
-            //Test Project
-            int countBefore = project.GetUsers().Count;
-            int countAfterExpected = countBefore + 1;
-            int countAfter;
-
-            ctrl.AddUserToIUsersAssigned(user, project);
-
-            countAfter = project.GetUsers().Count;
-
-            Assert.AreEqual(countAfterExpected, countAfter);
-
-            //Test UserStory
-            countBefore = userStory.GetUsers().Count;
-            countAfterExpected = countBefore + 1;
-
-            ctrl.AddUserToIUsersAssigned(user, userStory);
-
-            countAfter = userStory.GetUsers().Count;
-
-            Assert.AreEqual(countAfterExpected, countAfter);
-
-            //Test ChecklistItem
-            countBefore = checklistItem.GetUsers().Count;
-            countAfterExpected = countBefore + 1;
-
-            ctrl.AddUserToIUsersAssigned(user, checklistItem);
-
-            countAfter = checklistItem.GetUsers().Count;
-
-            Assert.AreEqual(countAfterExpected, countAfter);
-        }
-        [TestMethod]
-        public void UserStorySwitchStateTest()
-        {
-            userStory = ctrl.Projects.Last(p => p.AllUserStories.Count > 0).AllUserStories.First();
-            state = ctrl.States.Last();
-            State expected = state;
-
-            ctrl.UserStorySwitchState(userStory, state);
-
-            State end = userStory.State;
-
-            Assert.AreEqual(expected, end);
-        }
-        [TestMethod]
-        public void UpdateUserStoryTest()
-        {
-
-            userStory = ctrl.Projects.Last(p => p.AllUserStories.Count > 0).AllUserStories.First();
-
-
-            string afterDesc = "another description";
-            DateTime? afterTime = DateTime.Now;
-            int afterComplexity = userStory.ComplexityEstimation + 1;
-            int afterCompleted = userStory.CompletedComplexity + 2;
-            bool afterBlocked = !userStory.Blocked;
-            Priority afterPrio = ctrl.Priorities.First(p => p != userStory.Priority);
-            Classes.Type afterType = ctrl.Types.First(t => t != userStory.Type);
-            State afterState = ctrl.States.First(s => s != userStory.State);
-
-            ctrl.UpdateUserStory(afterDesc, afterTime, afterComplexity, afterCompleted, afterBlocked, afterPrio, afterType, afterState, userStory);
-
-            Assert.AreEqual(afterDesc, userStory.Description);
-            Assert.AreEqual(afterTime, userStory.DateLimit);
-            Assert.AreEqual(afterComplexity, userStory.ComplexityEstimation);
-            Assert.AreEqual(afterCompleted, userStory.CompletedComplexity);
-            Assert.AreEqual(afterBlocked, userStory.Blocked);
-            Assert.AreEqual(afterPrio, userStory.Priority);
-            Assert.AreEqual(afterType, userStory.Type);
-            Assert.AreEqual(afterState, userStory.State);
-        }
-        [TestMethod]
-        public void UpdateFileTest()
-        {
-            file = ctrl.Projects.Last(p => p.AllUserStories.Count(u => u.Files.Count > 0) > 0).AllUserStories.Last(u => u.Files.Count > 0).Files.Last();
-
-            string newFileDesc = "this is a new file description";
-
-            ctrl.UpdateFile(newFileDesc, file);
-
-            Assert.AreEqual(newFileDesc, file.Description);
-        }
-        [TestMethod]
-        public void UpdateCheckListTest()
-        {
-            checklist = ctrl.Projects.Last(p => p.AllUserStories.Count(u => u.Checklists.Count > 0) > 0).AllUserStories.Last(u => u.Checklists.Count > 0).Checklists.Last();
-
-
-            string afterName = "this is a new name";
-
-            ctrl.UpdateCheckList(afterName, checklist.ChecklistItems, checklist);
+            Assert.IsTrue(ctrl.UpdateCheckList(afterName, new List<ChecklistItem>(), checklist));
 
             Assert.AreEqual(afterName, checklist.Name);
+
+            //Test Remove
+            Assert.IsTrue(ctrl.Delete(checklist));
+
+            ctrl.Delete(userStory);
+            ctrl.Delete(project);
         }
         [TestMethod]
-        public void UpdateProjectTest()
+        public void CRUDChecklistItem()
         {
-            project = ctrl.Projects.Last();
+            //Test Create
+            string aName = "checlistItem first name";
+            ctrl.CreateProject("aProjectName", "A Description for my project", DateTime.Now);
+            Project project = ctrl.Projects.Last();
+            ctrl.CreateUserStory("aDescription", null, 2, ctrl.Priorities[0], ctrl.Types[0], project);
+            UserStory userStory = project.AllUserStories[0];
+            ctrl.CreateCheckList("aCheck", userStory);
+            Checklist checklist = userStory.Checklists[0]; 
 
-            string afterName = "new project name";
-            string afterDesc = project.Description + " no u";
-            DateTime afterBegin = project.Begin + new TimeSpan(7, 0, 0, 0, 0);
+            Assert.IsTrue(ctrl.CreateCheckListItem(aName, checklist));
+            ChecklistItem checklistItem = checklist.ChecklistItems[0];
 
-            ctrl.UpdateProject(afterName, afterDesc, afterBegin, project);
+            Assert.AreEqual(aName, checklistItem.NameItem);
+            Assert.IsFalse(checklistItem.Done);
+            Assert.AreEqual(checklist, checklistItem.Checklist);
 
-            Assert.AreEqual(afterName, project.Name);
-            Assert.AreEqual(afterDesc, project.Description);
-            Assert.AreEqual(afterBegin, project.Begin);
+            //Test Update
+            string afterName = "checklistItem second name";
 
+            Assert.IsTrue(ctrl.UpdateCheckListItem(afterName, true, checklistItem));
+
+            Assert.AreEqual(afterName, checklistItem.NameItem);
+            Assert.IsTrue(checklistItem.Done);
+
+            //Test Remove
+            Assert.IsTrue(ctrl.Delete(checklistItem));
+
+            ctrl.Delete(checklist);
+            ctrl.Delete(userStory);
+            ctrl.Delete(project);
         }
         [TestMethod]
-        public void RemoveStateFromProjectTest()
+        public void CRDComment()
         {
-            project = ctrl.Projects.Last();
-            state = project.States.Last(s => project.States.ContainsValue(s.Value)).Value;
+            //Test Create
+            string aName = "comment first name";
+            ctrl.CreateProject("aProjectName", "A Description for my project", DateTime.Now);
+            Project project = ctrl.Projects.Last();
+            ctrl.CreateUserStory("aDescription", null, 2, ctrl.Priorities[0], ctrl.Types[0], project);
+            UserStory userStory = project.AllUserStories[0];
 
-            while (project.States.Count <= 1)
-            {
-                State addState = ctrl.States.First(s => !project.States.ContainsValue(s));
-                ctrl.AddStateToProject(addState, project);
-            }
-            int countBefore = project.States.Count;
-            int countAfterExpected = countBefore - 1;
-            int countAfter;
+            ctrl.CreateUser("a user name");
+            User user = ctrl.Users.Last();
 
-            ctrl.RemoveStateFromProject(state, project);
+            Assert.IsTrue(ctrl.CreateComment(aName, user, userStory));
+            Comment comment = userStory.Comments[0];
 
-            countAfter = project.States.Count;
+            Assert.AreEqual(aName, comment.Description);
+            Assert.AreEqual(userStory.Id, comment.UserStoryId);
+            Assert.AreEqual(user.Id, comment.UserId);
 
-            Assert.AreEqual(countAfterExpected, countAfter);
+            Assert.IsTrue(ctrl.Delete(comment));
+
+            ctrl.Delete(user);
+            ctrl.Delete(userStory);
+            ctrl.Delete(project);
         }
         [TestMethod]
-        public void RemoveUserFromIUsersAssignedTest()
+        public void CRUDFile()
         {
+            //Declare needed variables
+            string afterDesc = "file second name";
+            string aName = "file first name";
+            string aDesc = "this is a description";
+            ctrl.CreateProject("aProjectName", "A Description for my project", DateTime.Now);
+            Project project = ctrl.Projects.Last();
+            ctrl.CreateUserStory("aDescription", null, 2, ctrl.Priorities[0], ctrl.Types[0], project);
+            UserStory userStory = project.AllUserStories[0];
 
-            project = ctrl.Projects.Last(p => p.AllUserStories.Count(u => u.Checklists.Count(c => c.ChecklistItems.Count > 0) > 0) > 0);
-            userStory = project.AllUserStories.First(u => u.Checklists.Count(c => c.ChecklistItems.Count > 0) > 0);
-            checklistItem = userStory.Checklists.First().ChecklistItems.First();
+            //Test Create
+            Assert.IsTrue(ctrl.CreateFile(aName, aDesc, userStory));
+            File file = userStory.Files[0];
 
-            user = ctrl.Users.First(u => project.GetUsers().Contains(u) && userStory.GetUsers().Contains(u) && checklistItem.GetUsers().Contains(u));
+            Assert.AreEqual(aName, file.Name);
+            Assert.AreEqual(aDesc, file.Description);
+            Assert.AreEqual(userStory.Id, file.UserStoryId);
 
-            //Test Project
-            if (!project.GetUsers().Contains(user))
-            {
-                ctrl.AddUserToIUsersAssigned(user, project);
-            }
-            int countBefore = project.GetUsers().Count;
-            int countAfterExpected = countBefore - 1;
-            int countAfter;
+            //Test Update
+            Assert.IsTrue(ctrl.UpdateFile(afterDesc, file));
+            Assert.AreEqual(afterDesc, file.Description);
 
-            ctrl.RemoveUserFromIUsersAssigned(user, project);
+            //Test Remove
+            Assert.IsTrue(ctrl.Delete(file));
 
-            countAfter = project.GetUsers().Count;
-
-            Assert.AreEqual(countAfterExpected, countAfter);
-
-            //Test UserStory
-            if (!userStory.GetUsers().Contains(user))
-            {
-                ctrl.AddUserToIUsersAssigned(user, userStory);
-            }
-            countBefore = userStory.GetUsers().Count;
-            countAfterExpected = countBefore - 1;
-
-            ctrl.RemoveUserFromIUsersAssigned(user, userStory);
-
-            countAfter = userStory.GetUsers().Count;
-
-            Assert.AreEqual(countAfterExpected, countAfter);
-
-            //Test ChecklistItem
-            if (!checklistItem.GetUsers().Contains(user))
-            {
-                ctrl.AddUserToIUsersAssigned(user, checklistItem);
-            }
-            countBefore = checklistItem.GetUsers().Count;
-            countAfterExpected = countBefore - 1;
-
-            ctrl.RemoveUserFromIUsersAssigned(user, checklistItem);
-
-            countAfter = checklistItem.GetUsers().Count;
-
-            Assert.AreEqual(countAfterExpected, countAfter);
+            ctrl.Delete(project);
+            ctrl.Delete(userStory);
         }
         [TestMethod]
-        public void RemoveUserStoryFromSprintTest()
+        public void CRUDProject()
         {
-            if (sprint == null)
-            {
-                sprint = ctrl.Projects.Last().Sprints.Last();
-            }
-            if (userStory == null)
-            {
-                userStory = ctrl.Projects.Last().AllUserStories.Last();
-            }
-            if (!sprint.OrderedUserStories.ContainsValue(userStory))
-            {
-                ctrl.AddUserStoryToSprint(userStory, sprint);
-            }
-            int countBefore = sprint.OrderedUserStories.Count;
-            int countAfterExpected = countBefore - 1;
-            int countAfter;
+            string firstName = "the project first Name";
+            string firstDesc = "the project first description";
+            DateTime firstDate = DateTime.Now;
+            string secName = "the project sec Name";
+            string secDesc = "the project sec description";
+            DateTime secDate = DateTime.Now + new TimeSpan(7, 0, 0, 0);
 
-            ctrl.RemoveUserStoryFromSprint(userStory, sprint);
+            //Test Create
+            Assert.IsTrue(ctrl.CreateProject(firstName, firstDesc, firstDate));
+            Project project = ctrl.Projects.Last();
 
-            countAfter = sprint.OrderedUserStories.Count;
+            Assert.AreEqual(firstName, project.Name);
+            Assert.AreEqual(firstDesc, project.Description);
+            Assert.AreEqual(firstDate.ToString(), project.Begin.ToString());
 
-            Assert.AreEqual(countAfterExpected, countAfter);
+            //Test Update
+            Assert.IsTrue(ctrl.UpdateProject(secName, secDesc, secDate, project));
+
+            Assert.AreEqual(secName, project.Name);
+            Assert.AreEqual(secDesc, project.Description);
+            Assert.AreEqual(secDate.ToString(), project.Begin.ToString());
+
+            //Test Remove
+            Assert.IsTrue(ctrl.Delete(project));
         }
+        [TestMethod]
+        public void CRUDSprint()
+        {
+            DateTime firstBegin = DateTime.Now;
+            DateTime firstEnd = firstBegin + new TimeSpan(7, 0, 0, 0);
+            ctrl.CreateProject("aProjectName", "A Description for my project", DateTime.Now);
+            Project project = ctrl.Projects.Last();
+            DateTime secBegin = firstEnd;
+            DateTime secEnd = secBegin + new TimeSpan(7, 0, 0, 0);
+
+            //Test Create
+            Assert.IsTrue(ctrl.CreateSprint(firstBegin, firstEnd, project));
+            Sprint sprint = project.Sprints[0];
+
+            Assert.AreEqual(firstBegin.ToString(), sprint.Begin.ToString());
+            Assert.AreEqual(firstEnd.ToString(), sprint.End.ToString());
+
+            //Test Update
+
+            Assert.IsTrue(ctrl.UpdateSprint(secBegin, secEnd, sprint));
+
+            Assert.AreEqual(secBegin.ToString(), sprint.Begin.ToString());
+            Assert.AreEqual(secEnd.ToString(), sprint.End.ToString());
+
+            //Test Remove
+            Assert.IsTrue(ctrl.Delete(sprint));
+        }
+        [TestMethod]
+        public void CRUDState()
+        {
+            //Test Create
+            string firstName = "first state name";
+
+            Assert.IsTrue(ctrl.CreateState(firstName));
+            State state = ctrl.States.Last();
+
+            Assert.AreEqual(firstName, state.Name);
+
+
+            //Test Remove
+            Assert.IsTrue(ctrl.Delete(state));
+        }
+        [TestMethod]
+        public void CRUDUser()
+        {
+            //Test Create
+            string firstName = "first user name";
+
+            Assert.IsTrue(ctrl.CreateUser(firstName));
+            User user = ctrl.Users.Last();
+
+            Assert.AreEqual(firstName, user.Name);
+
+            //Test Remove
+            Assert.IsTrue(ctrl.Delete(user));
+        }
+        [TestMethod]
+        public void CRUDUserStoryTest()
+        {
+            ctrl.CreateProject("aProjectName", "A Description for my project", DateTime.Now);
+            Project project = ctrl.Projects.Last();
+
+            string firstDesc = "aDesc";
+            DateTime? firstDate = DateTime.Now;
+            int firstComplexity = 2;
+            Priority firstPrio = ctrl.Priorities[0];
+            Classes.Type firstType = ctrl.Types[0];
+
+
+            Assert.IsTrue(ctrl.CreateUserStory(firstDesc, firstDate, firstComplexity, firstPrio, firstType, project));
+            UserStory userStory = project.AllUserStories[0];
+
+            Assert.IsNotNull(userStory, "Exception in userStory creation");
+            Assert.AreEqual(firstDesc, userStory.Description);
+            Assert.AreEqual(firstDate, userStory.DateLimit);
+            Assert.AreEqual(firstComplexity, userStory.ComplexityEstimation);
+            Assert.AreEqual(firstPrio, userStory.Priority);
+            Assert.AreEqual(firstType, userStory.Type);
+            Assert.AreEqual(project, userStory.Project);
+            Assert.AreEqual(false, userStory.Blocked);
+            Assert.AreEqual(0, userStory.CompletedComplexity);
+
+
+            string secDesc = "aNewDesc";
+            DateTime? secDate = null;
+            int secComplexity = 3;
+            int secCompleted = 1;
+            bool secBlock = true;
+            Priority secPrio = ctrl.Priorities[1];
+            Classes.Type secType = ctrl.Types[1];
+            while (ctrl.States.Count < 2)
+            {
+                ctrl.CreateState("An additional state name");
+            }
+            State secState = ctrl.States.Last();
+
+           Assert.IsTrue(ctrl.UpdateUserStory(secDesc, secDate, secComplexity, secCompleted, secBlock, secPrio, secType, secState, userStory));
+
+            Assert.AreEqual(secDesc, userStory.Description);
+            Assert.AreEqual(secDate, userStory.DateLimit);
+            Assert.AreEqual(secComplexity, userStory.ComplexityEstimation);
+            Assert.AreEqual(secPrio, userStory.Priority);
+            Assert.AreEqual(secType, userStory.Type);
+            Assert.AreEqual(secState, userStory.State);
+            Assert.AreEqual(secBlock, userStory.Blocked);
+            Assert.AreEqual(secCompleted, userStory.CompletedComplexity);
+
+            Assert.IsTrue(ctrl.Delete(userStory));
+
+            ctrl.Delete(project);
+        }
+
+
     }
 }
