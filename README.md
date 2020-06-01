@@ -585,10 +585,31 @@ Refaire les tests m'a pris bien plus de temps que prévu. Je ne reussirais pas �
 - Finir les tests unitaires pour le Controller
  
 ### Liens utiles et idées
-J'ai commencé directement par changé les tests unitaires du Controller. Ce qui m'a fait perdre beaucoup des méthodes que j'avais avant en passant le nombre de tests de plus d'une trentaine à 17. J'ai également fait attention à ce que les tests ne puissent pas échouer si aucun enregistrement non nécessaire (autre que les type et le priorité) n'est présent dans la base.
+J'ai commencé directement par changé les tests unitaires du Controller. Ce qui m'a fait perdre beaucoup des méthodes que j'avais avant en passant le nombre de tests de plus d'une trentaine à 17 pour le controller. J'ai également fait attention à ce que les tests ne puissent pas échouer si aucun enregistrement non nécessaire (autre que les type et le priorité) n'est présent dans la base.
 
 Après cela, j'ai mis à jour différents élèments de la documentation tel que les illustrations.
 
 ### Tâches accomplies
 - Finir les tests unitaires pour le Controller et les documenter
 - Mise à jour des illustrations de la doc
+
+
+## 01.06
+
+### Tâches à faire
+- Trouver une solution pour le clavier virtuel
+- Implémenter les méthodes pour le mindmap et les node
+ 
+### Liens utiles et idées
+Alors que je cherchais un moyen de créer un clavier visuel, je suis tombé sur une astuce pour Windows 10 qui permet d'afficher le clavier visuel si aucun clavier n'est connecté sans que l'ordinateur soit en mode tablette dès que le focus sur un champ de type texte est lancé. https://blog.mzikmund.com/2015/09/how-to-show-touch-keyboard-on-touch-interaction-with-wpf-textboxes/ Pour cela, il faut aller dans les options > Périphériques > Saisie et activer le champ "Afficher le clavier tactile lorsque vous n'êtes pas en mode tablette et qu'aucun clavier n'est connecté".
+
+Cependant, le mode tablette ne peut pas être activer avec plus d'un écran ce qui rend le réglages de cette option obligatoire et qui rend la connexion d'un clavier non-recommandée. (https://answers.microsoft.com/fr-fr/windows/forum/all/le-mode-tablette-est-gris%C3%A9e-impossible-de/cff5b45b-e229-48dc-ad16-e85335189b45?auth=1)
+
+J'ai rajouté un chapitre dans le manuel d'installation pour le clavier virtuel.
+
+Pour le mindmap et les nodes, j'ai d'abord commencé par créer les méthodes dans la classe DB. J'ai ensuite continuer par le Controller et j'ai fait le CRUD dans le test unitaire pour les deux classes. Après avoir fais les tests unitaires et qu'ils soient valide, j'ai changé la documentation pour collé aux résultats.
+
+### Tâches accomplies
+- Trouver une solution pour le clavier virtuel
+- Implémenter les méthodes pour le mindmap et les node
+- Création des tests unitaires pour le mindmap et les node

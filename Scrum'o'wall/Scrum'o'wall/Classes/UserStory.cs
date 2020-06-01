@@ -23,7 +23,7 @@ namespace Scrum_o_wall.Classes
         private List<User> assignedUsers = new List<User>();
         private Type type;
         private Priority priority;
-        private State currentState;
+        private State state;
         private Project project;
 
         public UserStory(int anId, string aDesc, DateTime? aDateLimit, int aComplexity, int aCompletedComplexity, bool isBlocked, int aProjectId, int aStateId, int aTypeId, int aPriorityId)
@@ -48,10 +48,10 @@ namespace Scrum_o_wall.Classes
         public string Description { get; set; }
         public State State
         {
-            get => currentState;
+            get => state;
             set
             {
-                currentState = value;
+                state = value;
                 stateId = value.Id;
             }
         }

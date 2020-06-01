@@ -222,7 +222,6 @@ namespace Scrum_o_wall
             DB.GetConnection().Close();
             return result;
         }
-
         public static bool UpdateUser(string text, User user)
         {
             //Initialize variables
@@ -246,7 +245,6 @@ namespace Scrum_o_wall
             DB.GetConnection().Close();
             return result;
         }
-
         public static bool UpdateState(string text, State state)
         {
             //Initialize variables
@@ -270,6 +268,66 @@ namespace Scrum_o_wall
             DB.GetConnection().Close();
             return result;
         }
+        public static bool UpdateMindMap(string text, MindMap mindMap)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+            bool result;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "UPDATE TMindMaps SET NameMindMap = ? WHERE IdMindMap = ?;";
+            cmd.Parameters.Add("NameMindMap", OleDbType.VarChar, 255);
+            cmd.Parameters.Add("IdMindMap", OleDbType.Integer);
+            cmd.Parameters[0].Value = text;
+            cmd.Parameters[1].Value = mindMap.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            result = cmd.ExecuteNonQuery() == 1;
+
+            //Close database
+            DB.GetConnection().Close();
+            return result;
+        }
+        public static bool UpdateNode(string text, Node previous, Node node)
+        {
+            if ((previous == null && node.PreviousId != null) || (node.PreviousId == null && previous != null))
+            {
+                return false;
+            }
+            //Initialize variables
+            OleDbCommand cmd;
+            bool result;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "UPDATE TNodes SET NameNode = ?, PreviousIdNode = ? WHERE IdNode = ?;";
+            cmd.Parameters.Add("NameNode", OleDbType.VarChar, 255);
+            cmd.Parameters.Add("PreviousIdNode", OleDbType.Integer);
+            cmd.Parameters.Add("IdNode", OleDbType.Integer);
+            cmd.Parameters[0].Value = text;
+            if (previous == null)
+            {
+                cmd.Parameters[1].Value = DBNull.Value;
+            }
+            else
+            {
+                cmd.Parameters[1].Value = previous.Id;
+            }
+            cmd.Parameters[2].Value = node.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            result = cmd.ExecuteNonQuery() == 1;
+
+            //Close database
+            DB.GetConnection().Close();
+            return result;
+        }
+
         #endregion
         #region ADD
         public static Project CreateProject(string aName, string aDesc, DateTime aDate)
@@ -304,8 +362,6 @@ namespace Scrum_o_wall
             Project project = new Project(id, aName, aDesc, aDate);
             return project;
         }
-
-
         public static bool AddUserToChecklistItem(User user, ChecklistItem checklistItem)
         {
             //Initialize variables
@@ -331,7 +387,7 @@ namespace Scrum_o_wall
         }
         public static bool AddUserToUserStory(User user, UserStory userStory)
         {
-            
+
             //Initialize variables
             OleDbCommand cmd;
             bool result;
@@ -576,7 +632,7 @@ namespace Scrum_o_wall
             State state = new State(id, name);
             return state;
         }
-        public static Classes.File CreateFile(string fileName, string description,  UserStory userStory)
+        public static Classes.File CreateFile(string fileName, string description, UserStory userStory)
         {
             //Initialize variables
             OleDbCommand cmd;
@@ -727,6 +783,79 @@ namespace Scrum_o_wall
             DB.GetConnection().Close();
             return result;
         }
+        public static MindMap CreateMindmap(string name, Project project)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+            int id;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "INSERT INTO TMindMaps (NameMindMap,IdProject) VALUES (?,?);";
+            cmd.Parameters.Add("NameMindMap", OleDbType.VarChar, 255);
+            cmd.Parameters.Add("IdProject", OleDbType.Integer);
+            cmd.Parameters[0].Value = name;
+            cmd.Parameters[1].Value = project.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            //Get last inserted id
+            cmd.CommandText = "SELECT @@Identity;";
+            id = (int)cmd.ExecuteScalar();
+
+            //Close database
+            DB.GetConnection().Close();
+
+            MindMap mindMap = new MindMap(id, name, project.Id);
+            return mindMap;
+        }
+        public static Node CreateNode(string name, Node previous, MindMap mindMap)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+            int id;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "INSERT INTO TNodes (NameNode,PreviousIdNode,IdMindMap) VALUES (?,?,?);";
+            cmd.Parameters.Add("NameNode", OleDbType.VarChar, 255);
+            cmd.Parameters.Add("PreviousIdNode", OleDbType.Integer);
+            cmd.Parameters.Add("IdMindMap", OleDbType.Integer);
+            cmd.Parameters[0].Value = name;
+            if (previous == null)
+            {
+                cmd.Parameters[1].Value = DBNull.Value;
+            }
+            else
+            {
+                cmd.Parameters[1].Value = previous.Id;
+            }
+            cmd.Parameters[2].Value = mindMap.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            //Get last inserted id
+            cmd.CommandText = "SELECT @@Identity;";
+            id = (int)cmd.ExecuteScalar();
+
+            //Close database
+            DB.GetConnection().Close();
+
+            int? previousId = null;
+            if(previous != null)
+            {
+                previousId = previous.Id;
+            }
+            Node node = new Node(id, name, previousId, mindMap.Id);
+            return node;
+        }
+
         #endregion
         #region REMOVE
 
@@ -836,52 +965,6 @@ namespace Scrum_o_wall
             cmd.Parameters.Add("IdFile", OleDbType.Integer);
             cmd.Parameters[0].Value = true;
             cmd.Parameters[1].Value = File.Id;
-
-            //Execute sql statement
-            cmd.Prepare();
-            result = cmd.ExecuteNonQuery() == 1;
-
-            //Close database
-            DB.GetConnection().Close();
-            return result;
-        }
-        public static bool Delete(MindMap mindmap)
-        {
-            //Initialize variables
-            OleDbCommand cmd;
-            bool result;
-
-            //Open database, build sql statement and prepare
-            DB.GetConnection().Open();
-            cmd = DB.GetConnection().CreateCommand();
-            cmd.CommandText = "UPDATE TMindMaps SET deletedFlag = ? WHERE IdMindMap = ?;";
-            cmd.Parameters.Add("deletedFlag", OleDbType.Boolean);
-            cmd.Parameters.Add("IdMindMap", OleDbType.Integer);
-            cmd.Parameters[0].Value = true;
-            cmd.Parameters[1].Value = mindmap.Id;
-
-            //Execute sql statement
-            cmd.Prepare();
-            result = cmd.ExecuteNonQuery() == 1;
-
-            //Close database
-            DB.GetConnection().Close();
-            return result;
-        }
-        public static bool Delete(Node node)
-        {
-            //Initialize variables
-            OleDbCommand cmd;
-            bool result;
-
-            //Open database, build sql statement and prepare
-            DB.GetConnection().Open();
-            cmd = DB.GetConnection().CreateCommand();
-            cmd.CommandText = "UPDATE TNodes SET deletedFlag = ? WHERE IdNode = ?;";
-            cmd.Parameters.Add("deletedFlag", OleDbType.Boolean);
-            cmd.Parameters.Add("IdNode", OleDbType.Integer);
-            cmd.Parameters[0].Value = true;
-            cmd.Parameters[1].Value = node.Id;
 
             //Execute sql statement
             cmd.Prepare();
@@ -1116,6 +1199,56 @@ namespace Scrum_o_wall
             cmd.Parameters.Add("orderState", OleDbType.Integer);
             cmd.Parameters[0].Value = project.Id;
             cmd.Parameters[1].Value = order;
+
+            //Execute sql statement
+            cmd.Prepare();
+            result = cmd.ExecuteNonQuery() == 1;
+
+            //Close database
+            DB.GetConnection().Close();
+            return result;
+        }
+        public static bool Delete(MindMap mindmap)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+            bool result;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "UPDATE TMindMaps SET deletedFlag = ? WHERE IdMindMap = ?;";
+            cmd.Parameters.Add("deletedFlag", OleDbType.Boolean);
+            cmd.Parameters.Add("IdMindMap", OleDbType.Integer);
+            cmd.Parameters[0].Value = true;
+            cmd.Parameters[1].Value = mindmap.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            result = cmd.ExecuteNonQuery() == 1;
+
+            //Close database
+            DB.GetConnection().Close();
+            return result;
+        }
+        public static bool Delete(Node node)
+        {
+            if(node.PreviousId == null)
+            {
+                return false;
+            }
+            //Initialize variables
+            OleDbCommand cmd;
+            bool result;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "UPDATE TNodes SET deletedFlag = ? WHERE IdNode = ?;";
+            cmd.Parameters.Add("deletedFlag", OleDbType.Boolean);
+            cmd.Parameters.Add("IdNode", OleDbType.Integer);
+            cmd.Parameters[0].Value = true;
+            cmd.Parameters[1].Value = node.Id;
 
             //Execute sql statement
             cmd.Prepare();
@@ -1677,6 +1810,77 @@ namespace Scrum_o_wall
 
             return states;
 
+        }
+        public static List<MindMap> GetMindMaps()
+        {
+            //Declare variables
+            OleDbCommand cmd;
+            OleDbDataReader rdr;
+            object[] values;
+            List<MindMap> mindmaps = new List<MindMap>();
+
+            //Open Database
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+
+            //Execute SQL Command
+            cmd.CommandText = "SELECT * FROM TMindMaps WHERE deletedFlag = FALSE;";
+            cmd.Connection = DB.GetConnection();
+
+            //Read and put entries in a list of objects
+            rdr = cmd.ExecuteReader();
+            values = new object[4];
+            while (rdr.Read())
+            {
+                rdr.GetValues(values);
+                // 0:idMindMap,1:NameMindMap,2:idProject,3:deletedFlag
+                MindMap m = new MindMap((int)values[0], (string)values[1], (int)values[2]);
+                mindmaps.Add(m);
+            }
+
+            //Close database and reader
+            rdr.Close();
+            GetConnection().Close();
+
+            return mindmaps;
+        }
+        public static List<Node> GetNodes()
+        {
+            //Declare variables
+            OleDbCommand cmd;
+            OleDbDataReader rdr;
+            object[] values;
+            List<Node> nodes = new List<Node>();
+
+            //Open Database
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+
+            //Execute SQL Command
+            cmd.CommandText = "SELECT * FROM TNodes WHERE deletedFlag = FALSE;";
+            cmd.Connection = DB.GetConnection();
+
+            //Read and put entries in a list of objects
+            rdr = cmd.ExecuteReader();
+            values = new object[5];
+            while (rdr.Read())
+            {
+                rdr.GetValues(values);
+                
+                if(values[2] == DBNull.Value)
+                {
+                    values[2] = null;    
+                }
+                // 0:idNode,1:NameNode,2:PreviousIdNode,3:idMindmap,4:deletedFlag
+                Node n = new Node((int)values[0], (string)values[1], (int?)values[2], (int)values[3]);
+                nodes.Add(n);
+            }
+
+            //Close database and reader
+            rdr.Close();
+            GetConnection().Close();
+
+            return nodes;
         }
         #endregion
 

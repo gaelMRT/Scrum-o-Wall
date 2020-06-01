@@ -556,5 +556,96 @@ namespace Scrum_o_wall.Tests
             Assert.IsTrue(DB.Delete(userStory));
         }
 
+        [TestMethod]
+        public void CRUDMindMap()
+        {
+            Project project;
+
+            List<Project> projects = DB.GetProjects();
+            if (projects.Count == 0)
+            {
+                project = DB.CreateProject("a Project", "A desc of a project", DateTime.Now);
+            }
+            else
+            {
+                project = projects[0];
+            }
+
+            string firstName = "a mindmap first name";
+            string secondName = "a mindmap second name";
+
+            //Verify creation 
+            MindMap mindMap = DB.CreateMindmap(firstName, project);
+            Assert.IsNotNull(mindMap);
+            Assert.AreEqual(firstName, mindMap.Name);
+            Assert.AreEqual(project.Id,mindMap.ProjectId);
+
+            //Verify update
+            Assert.IsTrue(DB.UpdateMindMap(secondName, mindMap));
+
+            //Verify delete
+            Assert.IsTrue(DB.Delete(mindMap));
+
+            DB.Delete(project);
+        }
+        [TestMethod]
+        public void CRUDNode()
+        {
+            Project project;
+            MindMap mindmap;
+
+            List<Project> projects = DB.GetProjects();
+            if(projects.Count == 0)
+            {
+                project = DB.CreateProject("a Project", "A desc of a project", DateTime.Now);
+            }
+            else
+            {
+                project = projects[0];
+            }
+            List<MindMap> mindMaps = DB.GetMindMaps().Where(m => m.ProjectId == project.Id).ToList();
+            if (mindMaps.Count == 0)
+            {
+                mindmap = DB.CreateMindmap("a mindmap name", project);
+            }
+            else
+            {
+                mindmap = mindMaps[0];
+            }
+
+            string firstName = "a node first name";
+            string firstName2 = "a second node first name";
+            string secondName = "a node second name";
+            string secondName2 = "a second node second name";
+
+            //Verify creation with and without previous
+            Node node = DB.CreateNode(firstName, null, mindmap);
+
+            Assert.IsNotNull(node);
+            Assert.IsNull(node.PreviousId);
+            Assert.AreEqual(firstName, node.Name);
+            Assert.AreEqual(mindmap.Id, node.MindmapId);
+
+            Node node2 = DB.CreateNode(firstName2, node, mindmap);
+
+            Assert.IsNotNull(node2);
+            Assert.AreEqual(node.Id, node2.PreviousId);
+            Assert.AreEqual(firstName2, node2.Name);
+            Assert.AreEqual(mindmap.Id, node2.MindmapId);
+
+            //Verify updates with and without previous
+            Assert.IsFalse(DB.UpdateNode(secondName, node2, node),"cannot change previous to root");
+            Assert.IsTrue(DB.UpdateNode(secondName, null, node));
+            Assert.IsFalse(DB.UpdateNode(secondName2, null, node2),"cannot change node to root");
+            Assert.IsTrue(DB.UpdateNode(secondName2, node, node2));
+
+
+            //Verify delete
+            Assert.IsFalse(DB.Delete(node),"cannot delete root");
+            Assert.IsTrue(DB.Delete(node2));
+
+            DB.Delete(mindmap);
+            DB.Delete(project);
+        }
     }
 }

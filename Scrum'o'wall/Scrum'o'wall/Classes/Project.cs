@@ -39,7 +39,7 @@ namespace Scrum_o_wall.Classes
         public string Description { get; set; }
         public List<UserStory> AllUserStories { get; set; } = new List<UserStory>();
         public List<Sprint> Sprints { get; set; } = new List<Sprint>();
-        public List<MindMap> Roots { get; set; } = new List<MindMap>();
+        public List<MindMap> MindMaps { get; set; } = new List<MindMap>();
         public Dictionary<int,State> States { get; set; } = new Dictionary<int, State>();
 
 

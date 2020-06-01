@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.OleDb;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -50,6 +51,8 @@ namespace Scrum_o_wall
             List<Priority> allPriorities;
             List<Comment> allComments;
             List<Classes.Type> allTypes;
+            List<Node> allNodes;
+            List<MindMap> allMindMaps;
 
             List<int[]> projectStates;
             List<int[]> userStoriesSprint;
@@ -70,6 +73,8 @@ namespace Scrum_o_wall
             allPriorities = DB.GetPriorities();
             allComments = DB.GetComments();
             allTypes = DB.GetTypes();
+            allNodes = DB.GetNodes();
+            allMindMaps = DB.GetMindMaps();
 
 
             #region Link State with project
@@ -209,6 +214,46 @@ namespace Scrum_o_wall
             }
             #endregion
 
+            #region Link Node with Nodes and mindmaps
+            foreach (Node node in allNodes)
+            {
+                //verify if root node or not
+                if(node.PreviousId == null)
+                {
+                    List<MindMap> mindMaps = allMindMaps.Where(m => m.Id == node.MindmapId).ToList();
+                    if (mindMaps.Count == 1)
+                    {
+                        node.MindMap = mindMaps[0];
+                        mindMaps[0].Root = node;
+                    }
+                }
+                else
+                {
+                    List<Node> nodes = allNodes.Where(n => n.Id == node.PreviousId).ToList();
+                    if (nodes.Count == 1)
+                    {
+                        node.Previous = nodes[0];
+                    }
+                }
+
+                List<Node> childrens = allNodes.Where(n => n.PreviousId == node.Id).ToList();
+                node.Childrens = childrens;
+
+            }
+            #endregion
+
+            #region Link MindMaps with projects
+            foreach (MindMap mindMap in allMindMaps)
+            {
+                List<Project> projects = allProjects.Where(p => p.Id == mindMap.ProjectId).ToList();
+                if(projects.Count == 1)
+                {
+                    mindMap.Project = projects[0];
+                    projects[0].MindMaps.Add(mindMap);
+                }
+            }
+            #endregion
+
             projects = allProjects;
             users = allUsers;
             types = allTypes;
@@ -288,7 +333,6 @@ namespace Scrum_o_wall
             file.UserStory.Files.Remove(file);
             return result;
         }
-
         public bool RemoveStateFromProject(State state, Project project)
         {
             int order = -1;
@@ -370,6 +414,27 @@ namespace Scrum_o_wall
                 sprint.removeUserStoryByOrder(order);
                 result = DB.RemoveUserStoryFromSprint(userStory, sprint, order);
             }
+            return result;
+        }
+        public bool Delete(MindMap mindMap)
+        {
+            bool result = DB.Delete(mindMap);
+            mindMap.Project.MindMaps.Remove(mindMap);
+            return result;
+        }
+        public bool Delete(Node node)
+        {
+            bool result = DB.Delete(node);
+            if (!result)
+            {
+                return result;
+            }
+            foreach (Node n in node.Childrens)
+            {
+                n.Previous = node.Previous;
+                node.Previous.Childrens.Add(n);
+            }
+            node.Previous.Childrens.Remove(node);
             return result;
         }
 
@@ -469,6 +534,30 @@ namespace Scrum_o_wall
         {
             bool result = DB.UpdateUser(text, user);
             user.Name = text;
+            return result;
+        }
+        public bool UpdateMindMap(string text, MindMap mindMap)
+        {
+            bool result = DB.UpdateMindMap(text, mindMap);
+            mindMap.Name = text;
+            return result;
+        }
+        public bool UpdateNode(string text,Node previous, Node node)
+        {
+            bool result = DB.UpdateNode(text, previous,node);
+            if (!result)
+            {
+                return result;
+            }
+
+            if (node.Previous != previous)
+            {
+                node.Previous.Childrens.Remove(node);
+                node.Previous = previous;
+                previous.Childrens.Add(node);
+            }
+            node.Name = text;
+
             return result;
         }
         #endregion
@@ -648,6 +737,31 @@ namespace Scrum_o_wall
             DB.AddStateToProject(states[2], project, 2);
 
             projects.Add(project);
+            return result;
+        }
+
+        public bool CreateMindMap(string aName, Project project)
+        {
+            MindMap mindMap = DB.CreateMindmap(aName, project);
+            bool result = mindMap != null;
+            project.MindMaps.Add(mindMap);
+            mindMap.Project = project;
+            return result;
+        }
+        public bool CreateNode(string aName, Node previous,MindMap mindMap)
+        {
+            Node node = DB.CreateNode(aName,previous,mindMap);
+            bool result = node != null;
+            if (previous != null)
+            {
+                previous.Childrens.Add(node);
+            }
+            else
+            {
+                mindMap.Root = node;
+            }
+            node.Previous = previous;
+            node.MindMap = mindMap;
             return result;
         }
         #endregion

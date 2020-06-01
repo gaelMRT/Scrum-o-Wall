@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 
 namespace Scrum_o_wall.Classes
 {
@@ -16,6 +17,7 @@ namespace Scrum_o_wall.Classes
     {
         
         int id;
+        Node previous;
         int? previousId;
         int mindmapId;
         MindMap mindMap;
@@ -30,7 +32,21 @@ namespace Scrum_o_wall.Classes
 
         public int Id { get => id;  }
         public string Name { get; set; }
-        public int PreviousId { get => (previousId == null ? 0 : (int)previousId);  }
+        public int? PreviousId { get => previousId; }
+        public Node Previous { get => previous;
+            set
+            {
+                previous = value;
+                if(value == null)
+                {
+                    previousId = null;
+                }
+                else
+                {
+                    previousId = value.Id;
+                }
+            }
+        }
         public int MindmapId { get => mindmapId;  }
         public MindMap MindMap
         {

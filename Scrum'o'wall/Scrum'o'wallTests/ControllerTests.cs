@@ -364,7 +364,7 @@ namespace Scrum_o_wall.Tests
             }
             State secState = ctrl.States.Last();
 
-           Assert.IsTrue(ctrl.UpdateUserStory(secDesc, secDate, secComplexity, secCompleted, secBlock, secPrio, secType, secState, userStory));
+            Assert.IsTrue(ctrl.UpdateUserStory(secDesc, secDate, secComplexity, secCompleted, secBlock, secPrio, secType, secState, userStory));
 
             Assert.AreEqual(secDesc, userStory.Description);
             Assert.AreEqual(secDate, userStory.DateLimit);
@@ -380,6 +380,71 @@ namespace Scrum_o_wall.Tests
             ctrl.Delete(project);
         }
 
+        [TestMethod]
+        public void CRUDMindMap()
+        {
+
+            string firstName = "firstMindMap name";
+            string secondName = "secondtMindMap name";
+            ctrl.CreateProject("a project name", "a description", DateTime.Now);
+            Project project = ctrl.Projects.Last();
+
+            //Test Create
+
+            Assert.IsTrue(ctrl.CreateMindMap(firstName,project));
+            MindMap mindMap = project.MindMaps.Last();
+
+            Assert.AreEqual(firstName, mindMap.Name);
+
+            //Test Update
+            Assert.IsTrue(ctrl.UpdateMindMap(secondName, mindMap));
+            Assert.AreEqual(secondName, mindMap.Name);
+
+            //Test Remove
+            Assert.IsTrue(ctrl.Delete(mindMap));
+
+            ctrl.Delete(project);
+        }
+        [TestMethod]
+        public void CRUDNode()
+        {
+            ctrl.CreateProject("a project name", "a description", DateTime.Now);
+            Project project = ctrl.Projects.Last();
+            ctrl.CreateMindMap("a mind map name", project);
+            MindMap mindMap = project.MindMaps.Last();
+
+            //Test Create Without Previous
+            string firstName = "first node name";
+
+            Assert.IsTrue(ctrl.CreateNode(firstName,null,mindMap));
+            Node node = mindMap.Root;
+
+            Assert.AreEqual(firstName, node.Name);
+            //Test Create With Previous
+            string firstName2 = "first node name2";
+
+            Assert.IsTrue(ctrl.CreateNode(firstName2, node, mindMap));
+            Node node2 = node.Childrens.Last();
+
+            Assert.AreEqual(firstName2, node2.Name);
+            Assert.AreEqual(node, node2.Previous);
+            Assert.AreEqual(node2, node.Childrens.Last());
+
+            //Test Update
+            string secondName = "second node name";
+
+            Assert.IsFalse(ctrl.UpdateNode(secondName, node2, node));
+
+            Assert.IsTrue(ctrl.UpdateNode(secondName, null, node));
+            Assert.AreEqual(secondName, node.Name);
+
+            //Test Remove
+            Assert.IsFalse(ctrl.Delete(node));
+            Assert.IsTrue(ctrl.Delete(node2));
+
+            ctrl.Delete(mindMap);
+            ctrl.Delete(project);
+        }
 
     }
 }
