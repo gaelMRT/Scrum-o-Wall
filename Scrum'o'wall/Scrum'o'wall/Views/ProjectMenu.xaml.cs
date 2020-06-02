@@ -20,6 +20,7 @@ namespace Scrum_o_wall.Views
         Controller controller;
         List<UserControl> sprintUserControls = new List<UserControl>();
         List<UserControl> userStoriesControls = new List<UserControl>();
+        List<UserControl> mindMapControls = new List<UserControl>();
         Dictionary<InputDevice, Point> currentPoint = new Dictionary<InputDevice, Point>();
         Dictionary<InputDevice, UserControl> infos = new Dictionary<InputDevice, UserControl>();
         Dictionary<InputDevice, Border> borders = new Dictionary<InputDevice, Border>();
@@ -38,6 +39,34 @@ namespace Scrum_o_wall.Views
 
         private void Refresh()
         {
+            int nbMindMaps = project.MindMaps.Count;
+            foreach (UserControl mindmapControl in mindMapControls)
+            {
+                cnvsMindMaps.Children.Remove(mindmapControl);
+            }
+            mindMapControls.Clear();
+            for (int i = 0; i < nbMindMaps; i++)
+            {
+                MindMap mindMap = project.MindMaps[i];
+                //Create Sprint frame
+                UserControl mindmapControl = new UserControl();
+                mindmapControl.Content = mindMap.ToString();
+                mindmapControl.Width = cnvsMindMaps.Width - 40;
+                mindmapControl.BorderThickness = new Thickness(1);
+                mindmapControl.BorderBrush = Brushes.Black;
+                mindmapControl.Cursor = Cursors.Hand;
+                mindmapControl.Height = 50;
+                mindmapControl.Tag = mindMap;
+                mindmapControl.MouseDoubleClick += MindmapControl_Click; 
+                mindmapControl.TouchDown += MindmapControl_Click;
+
+                cnvsMindMaps.Children.Add(mindmapControl);
+                sprintUserControls.Add(mindmapControl);
+
+                Canvas.SetLeft(mindmapControl, 5);
+                Canvas.SetTop(mindmapControl, 60 * i);
+            }
+
             int nbSprints = project.Sprints.Count;
             foreach (UserControl sprintControl in sprintUserControls)
             {
@@ -56,7 +85,7 @@ namespace Scrum_o_wall.Views
                 sprintControl.Cursor = Cursors.Hand;
                 sprintControl.Height = 50;
                 sprintControl.Tag = sprint;
-                sprintControl.MouseLeftButtonDown += Sprint_Click;
+                sprintControl.MouseDoubleClick += Sprint_Click;
                 sprintControl.TouchDown += Sprint_Click;
                 sprintControl.TouchUp += Sprint_TouchUp;
                 sprintControl.TouchEnter += Sprint_TouchEnter;
@@ -106,7 +135,7 @@ namespace Scrum_o_wall.Views
                 userStoryControl.Cursor = Cursors.Hand;
                 userStoryControl.Height = 50;
                 userStoryControl.Tag = userStory;
-                userStoryControl.MouseLeftButtonUp += UserStory_MouseLeftButtonUp;
+                userStoryControl.MouseDoubleClick += UserStory_MouseDoubleClick;
                 userStoryControl.PreviewTouchDown += UserStory_PreviewTouchDown;
                 userStoryControl.TouchUp += UsrCtrlUserStory_TouchUp;
 
@@ -118,6 +147,14 @@ namespace Scrum_o_wall.Views
                 Canvas.SetLeft(userStoryControl, 5);
                 Canvas.SetTop(userStoryControl, 60 * i);
             }
+        }
+
+        private void MindmapControl_Click(object sender, EventArgs e)
+        {
+            MindMap m = (sender as UserControl).Tag as MindMap;
+            MindmapMenu mindmapMenu = new MindmapMenu(m, controller);
+            mindmapMenu.ShowDialog();
+            Refresh();
         }
 
         private void Sprint_TouchEnter(object sender, TouchEventArgs e)
@@ -160,11 +197,17 @@ namespace Scrum_o_wall.Views
             cnvsBacklog.Width = this.ActualWidth;
             cnvsBacklog.Height = this.ActualHeight;
 
-            gbxUserStories.Width = (cnvsBacklog.Width - 25) / 2.0;
-            gbxUserStories.Height = (cnvsBacklog.Height - 190);
+            gbxUserStories.Width = (cnvsBacklog.Width - 25) / 3.0;
+            gbxUserStories.Height = (cnvsBacklog.Height - 250);
 
-            gbxSprints.Width = (cnvsBacklog.Width - 25) / 2.0;
-            gbxSprints.Height = (cnvsBacklog.Height - 190);
+            gbxSprints.Width = (cnvsBacklog.Width - 25) / 3.0;
+            gbxSprints.Height = (cnvsBacklog.Height - 250);
+
+            gbxMindMap.Width = (cnvsBacklog.Width - 25) / 3.0;
+            gbxMindMap.Height = (cnvsBacklog.Height - 250);
+
+            cnvsMindMaps.Width = gbxMindMap.Width;
+            cnvsMindMaps.Height = gbxMindMap.Height - 25;
 
             cnvsSprints.Width = gbxSprints.Width;
             cnvsSprints.Height = gbxSprints.Height - 25;
@@ -173,8 +216,9 @@ namespace Scrum_o_wall.Views
             cnvsUserStories.Height = gbxUserStories.Height - 25;
 
             //Set controls positions
-            Canvas.SetLeft(gbxSprints, cnvsBacklog.Width / 2.0 + 2.5);
-            Canvas.SetRight(gbxUserStories, cnvsBacklog.Width / 2.0 - 2.5);
+            Canvas.SetLeft(gbxUserStories, 10);
+            Canvas.SetLeft(gbxSprints, gbxUserStories.Width + Canvas.GetLeft(gbxUserStories) + 5);
+            Canvas.SetLeft(gbxMindMap, gbxSprints.Width + Canvas.GetLeft(gbxSprints) + 5);
 
             Canvas.SetLeft(lblProjectName, (cnvsBacklog.Width - lblProjectName.ActualWidth) / 2.0);
             Canvas.SetLeft(lblBacklog, (cnvsBacklog.Width - lblBacklog.ActualWidth) / 2.0);
@@ -182,16 +226,19 @@ namespace Scrum_o_wall.Views
             Canvas.SetLeft(btnReturn, (cnvsBacklog.Width - btnReturn.ActualWidth) / 2.0);
             Canvas.SetTop(btnReturn, cnvsBacklog.Height - btnReturn.ActualHeight - 10);
 
-            Canvas.SetLeft(btnAddSprint, Canvas.GetLeft(gbxSprints) + gbxSprints.Width / 2.0);
+            Canvas.SetLeft(btnAddSprint, Canvas.GetLeft(gbxSprints) + (gbxSprints.Width - btnAddSprint.ActualWidth) / 2.0 );
             Canvas.SetTop(btnAddSprint, Canvas.GetTop(gbxSprints) + gbxSprints.Height + 10);
 
-            Canvas.SetLeft(btnAddUserStory, Canvas.GetLeft(gbxUserStories) + gbxUserStories.Width / 2.0);
+            Canvas.SetLeft(btnAddMindMap, Canvas.GetLeft(gbxMindMap) + (gbxMindMap.Width - btnAddMindMap.ActualWidth) / 2.0);
+            Canvas.SetTop(btnAddMindMap, Canvas.GetTop(gbxMindMap) + gbxMindMap.Height + 10);
+
+            Canvas.SetLeft(btnAddUserStory, Canvas.GetLeft(gbxUserStories) + (gbxUserStories.Width - btnAddUserStory.ActualWidth) / 2.0);
             Canvas.SetTop(btnAddUserStory, Canvas.GetTop(gbxUserStories) + gbxUserStories.Height + 10);
 
             //Refresh the window
             Refresh();
         }
-        private void UserStory_MouseLeftButtonUp(object sender, EventArgs e)
+        private void UserStory_MouseDoubleClick(object sender, EventArgs e)
         {
             UserStory userStory = (sender as UserControl).Tag as UserStory;
             UserStoryEditing(userStory);
@@ -223,6 +270,15 @@ namespace Scrum_o_wall.Views
             if (sprintCreate.ShowDialog() == true)
             {
                 controller.CreateSprint((DateTime)sprintCreate.dtpckDateBegin.SelectedDate, (DateTime)sprintCreate.dtpckDateEnd.SelectedDate, project);
+                Refresh();
+            }
+        }
+        private void btnAddMindMap_Click(object sender, EventArgs e)
+        {
+            MindmapCreate mindmapCreate = new MindmapCreate();
+            if (mindmapCreate.ShowDialog() == true)
+            {
+                controller.CreateMindMap(mindmapCreate.tbxName.Text, project);
                 Refresh();
             }
         }
@@ -321,5 +377,6 @@ namespace Scrum_o_wall.Views
                 }
             }
         }
+
     }
 }

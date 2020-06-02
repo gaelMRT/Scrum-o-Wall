@@ -42,5 +42,34 @@ namespace Scrum_o_wall.Views
             this.Close();
         }
 
+        private void Modify_Click(object sender, RoutedEventArgs e)
+        {
+            MindmapEdit mindMapEdit = new MindmapEdit(mindMap);
+            if (mindMapEdit.ShowDialog() == true)
+            {
+                if (mindMapEdit.Deleted)
+                {
+                    controller.Delete(mindMap);
+                    this.DialogResult = false;
+                    this.Close();
+                }
+                else
+                {
+                    controller.UpdateMindMap(mindMapEdit.tbxName.Text, mindMap);
+                }
+                Refresh();
+            }
+        }
+
+        private void CreateNode_Click(object sender, EventArgs e)
+        {
+            NodeCreate nodeCreate = new NodeCreate();
+            if(nodeCreate.ShowDialog() == true)
+            {
+                controller.CreateNode(nodeCreate.tbxName.Text, nodeCreate.cbxPrevious.SelectedItem as Node, mindMap);
+                Refresh();
+            }
+        }
+
     }
 }

@@ -130,11 +130,20 @@
     <Compile Include="Views\FileMenu.xaml.cs">
       <DependentUpon>FileMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MindmapEdit.xaml.cs">
+      <DependentUpon>MindmapEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MindmapCreate.xaml.cs">
       <DependentUpon>MindmapCreate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MindmapMenu.xaml.cs">
       <DependentUpon>MindmapMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NodeEdit.xaml.cs">
+      <DependentUpon>NodeEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NodeCreate.xaml.cs">
+      <DependentUpon>NodeCreate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProjectEdit.xaml.cs">
       <DependentUpon>ProjectEdit.xaml</DependentUpon>
@@ -262,11 +271,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\MindmapEdit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\MindmapCreate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MindmapMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NodeEdit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\NodeCreate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

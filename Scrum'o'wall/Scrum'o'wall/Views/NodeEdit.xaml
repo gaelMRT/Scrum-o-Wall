@@ -1,0 +1,38 @@
+﻿<Window x:Class="Scrum_o_wall.Views.NodeEdit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Scrum_o_wall.Views"
+        mc:Ignorable="d"
+        Title="Création d'un noeud" Height="240.027" Width="490.14" FontSize="16">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="161"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="47*"></RowDefinition>
+            <RowDefinition Height="50*"></RowDefinition>
+            <RowDefinition Height="62*"></RowDefinition>
+            <RowDefinition Height="62*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.ColumnSpan="2" TextAlignment="Center" FontSize="20" VerticalAlignment="Center" Height="28" Margin="0,10,0,9">Création d'un noeud</TextBlock>
+        <TextBlock Grid.Row="1" TextAlignment="Right" VerticalAlignment="Center" Margin="10">Nom :</TextBlock>
+        <TextBox x:Name="tbxName" Grid.Row="1" MaxLength="100" Grid.Column="1" Margin="10"></TextBox>
+
+        <TextBlock Grid.Row="2" TextAlignment="Right" VerticalAlignment="Center" Margin="10">Précèdent :</TextBlock>
+        <ComboBox x:Name="cbxPrevious" Grid.Row="2" Grid.Column="1" Margin="10"></ComboBox>
+
+        <Grid Grid.Row="3" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button TouchUp="BtnCancel_Click" x:Name="btnCancel" Grid.Column="0" Margin="10" Click="BtnCancel_Click">Annuler</Button>
+            <Button TouchUp="BtnDelete_Click" x:Name="btnDelete" Grid.Column="1" Margin="10" Click="BtnDelete_Click">Supprimer</Button>
+            <Button TouchUp="BtnConfirm_Click" x:Name="btnConfirm" Grid.Column="2" Margin="10" Click="BtnConfirm_Click">Confirmer</Button>
+        </Grid>
+    </Grid>
+</Window>

@@ -14,19 +14,25 @@
         </ContextMenu>
     </Window.ContextMenu>
     <Grid>
-        <Line x:Name="lnIdeal" X1="120" Y1="70" StrokeThickness="2" X2="730" Y2="380" Stroke="Red"></Line>
-        <Polyline x:Name="lnCurrent" Points="120,70,200,70,200,300,700,300,700,350" StrokeThickness="2" Stroke="Black">
-            
-        </Polyline>
-        <Border BorderBrush="Gray" BorderThickness="2,0,0,2" Margin="120,70,70,70"/>
-        <Label Content="Complexité" VerticalAlignment="Center"></Label>
-        <Label Content="Jour" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,20"></Label>
-        <Label VerticalAlignment="Bottom" Margin="120,0,0,40" Name="lblDayBegin">DD.MM</Label>
-        <Label VerticalAlignment="Bottom" Margin="0,0,70,40" HorizontalAlignment="Right" Name="lblDayEnd">DD.MM</Label>
-        
-        <Label VerticalAlignment="Top"    Margin="90,60,0,0"  HorizontalAlignment="Left" Name="lblComplexityMax"> XX</Label>
-        <Label VerticalAlignment="Bottom" Margin="100,0,0,60"    HorizontalAlignment="Left" Name="lblComplexityZero">0</Label>
+        <Line x:Name="lnIdeal" X1="120" Y1="70" StrokeThickness="2" X2="730" Y2="330" Stroke="Red"></Line>
+        <Polyline x:Name="lnCurrent" Points="120,70,300,300" StrokeThickness="2" Stroke="Black">
 
-        <Button x:Name="btnCancel" Click="Quit_Click" TouchUp="Quit_Click" Content="Retour" HorizontalAlignment="Left" Margin="10,0,0,10" Width="75" Height="25" VerticalAlignment="Bottom"/>
+        </Polyline>
+        <Border x:Name="brdrGraphic" BorderBrush="Gray" BorderThickness="2,0,0,2" Margin="120,70,70,120"/>
+        <Label Content="Complexité" VerticalAlignment="Center"></Label>
+        <Label Content="Jour" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="383,0,377,91" RenderTransformOrigin="0.575,-1.226"></Label>
+        <Label VerticalAlignment="Bottom" Margin="120,0,0,100" Name="lblDayBegin">DD.MM</Label>
+        <Label VerticalAlignment="Bottom" Margin="0,0,70,100" HorizontalAlignment="Right" Name="lblDayEnd">DD.MM</Label>
+
+        <Label VerticalAlignment="Top"    Margin="90,60,0,0"  HorizontalAlignment="Left" Name="lblComplexityMax">XX</Label>
+        <Label VerticalAlignment="Bottom" Margin="100,0,0,120"    HorizontalAlignment="Left" Name="lblComplexityZero">0</Label>
+
+        <Button x:Name="btnCancel" Click="Quit_Click" TouchUp="Quit_Click" Content="←" VerticalContentAlignment="Top" HorizontalAlignment="Center" Margin="10" Width="75" Height="75" FontSize="45" VerticalAlignment="Bottom">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="50"/>
+                </Style>
+            </Button.Resources>
+        </Button>
     </Grid>
 </Window>

@@ -613,3 +613,21 @@ Pour le mindmap et les nodes, j'ai d'abord commencé par créer les méthodes da
 - Trouver une solution pour le clavier virtuel
 - Implémenter les méthodes pour le mindmap et les node
 - Création des tests unitaires pour le mindmap et les node
+
+## 02.06
+
+### Tâches à faire
+- Rajouter un accès au mindmap depuis le menu du projet
+ 
+### Liens utiles et idées
+
+Pour rajouter l'accès au mindmap, j'ai préféré rajouter une colonne dans la fenêtre du menu du projet. En effet, les mindmaps sont liés aux projets et il me semble logique que ce soit leur place. Après cela, j'ai créer les liaisons entre les différentes fenêtres afin d'afficher la fenêtre de création de noeud quand il faut, etc...
+
+Après avoir placé les controls correctemments sur la fenêtre de projet, j'ai décidé de refaire un passage sur les différentes vues afin de normaliser un peu l'apparence. Maintenant, les pages pleines contiennent des boutons ronds et les pages pop-up contiennent des boutons carrés.
+
+
+### Tâches accomplies
+- Accès au mindmaps créés.
+- Création de noeud créé
+- Normalisation de l'interface utilisateur
+- Evenements de la fenetre du mindmap créés.

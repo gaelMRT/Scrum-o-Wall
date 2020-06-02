@@ -16,22 +16,26 @@
     <Canvas x:Name="cnvsBacklog">
         <Label Name="lblProjectName" Content="Nom du projet" FontSize="30" Height="60"/>
         <Label Name="lblBacklog" Canvas.Top="65" Height="30">Product Backlog</Label>
-        <GroupBox x:Name="gbxUserStories" Height="260" Width="387" Canvas.Top="100" Canvas.Left="10" Header="User stories" >
+        <GroupBox x:Name="gbxUserStories" Height="260" Width="280" Canvas.Top="100" Canvas.Left="10" Header="User stories" >
             <ScrollViewer Name="scrlUserStories" Margin="0,0,0,0">
                 <Canvas x:Name="cnvsUserStories">
-                    
+
                 </Canvas>
             </ScrollViewer>
         </GroupBox>
-        <GroupBox x:Name="gbxSprints" Height="260" Width="388" Canvas.Top="100" Canvas.Right="10" Canvas.Left="402" Header="Sprints"  >
+        <GroupBox x:Name="gbxSprints" Height="260" Width="220" Canvas.Top="100" Canvas.Right="10" Canvas.Left="295" Header="Sprints"  >
             <ScrollViewer Name="scrlSprints" Margin="0,0,0,0">
                 <Canvas x:Name="cnvsSprints">
 
                 </Canvas>
             </ScrollViewer>
         </GroupBox>
-        <GroupBox x:Name="gbxMindMap" Content="MindMap" Height="122" Width="388" Canvas.Top="238" Canvas.Right="10" Canvas.Left="402" Visibility="Hidden"   >
+        <GroupBox x:Name="gbxMindMap" Height="260" Width="270" Canvas.Top="100" Canvas.Right="10" Canvas.Left="520" Header="MindMaps"   >
+            <ScrollViewer Name="scrlMindMaps" Margin="0,0,0,0">
+                <Canvas x:Name="cnvsMindMaps">
 
+                </Canvas>
+            </ScrollViewer>
         </GroupBox>
         <Button x:Name="btnReturn" TouchUp="Quit_Click" Click="Quit_Click" Content="←" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="75" Height="75" BorderBrush="Black" FontSize="45" Canvas.Top="365" Canvas.Left="363">
             <Button.Resources>
@@ -47,7 +51,14 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="btnAddSprint" TouchUp="BtnAddSprint_Click" Click="BtnAddSprint_Click" Content="+" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="40" Height="40" BorderBrush="Black" FontSize="23" Canvas.Top="320" Canvas.Left="588">
+        <Button x:Name="btnAddSprint" TouchUp="BtnAddSprint_Click" Click="BtnAddSprint_Click" Content="+" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="40" Height="40" BorderBrush="Black" FontSize="23" Canvas.Top="320" Canvas.Left="380">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="50"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button x:Name="btnAddMindMap" TouchUp="btnAddMindMap_Click" Click="btnAddMindMap_Click" Content="+" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="40" Height="40" BorderBrush="Black" FontSize="23" Canvas.Top="333" Canvas.Left="656">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="50"/>

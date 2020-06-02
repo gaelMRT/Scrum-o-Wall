@@ -34,7 +34,7 @@
                     <ListBox Margin="10" Name="lstPossibleStates" MouseDoubleClick="Lst_MouseDoubleClick">
 
                     </ListBox>
-                    <Button TouchUp="BtnAddState_Click" Click="BtnAddState_Click" x:Name="btnAddState" Margin="10" Grid.Row="1">+</Button>
+                    <Button TouchUp="BtnAddState_Click" Click="BtnAddState_Click" x:Name="btnAddState" Margin="10" Grid.Row="1">Ajouter</Button>
                 </Grid>
             </GroupBox>
             <GroupBox Grid.Column="2"  Margin="10" Header="États assignés" Grid.Row="1">

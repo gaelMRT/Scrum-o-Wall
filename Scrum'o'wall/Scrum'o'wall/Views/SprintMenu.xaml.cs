@@ -121,7 +121,7 @@ namespace Scrum_o_wall.Views
             userControl.BorderBrush = Brushes.Black;
             userControl.Background = Brushes.LightGray;
             userControl.Cursor = Cursors.Hand;
-            userControl.MouseUp += usrCtrlUserStory_Click;
+            userControl.MouseDoubleClick += usrCtrlUserStory_Click;
             userControl.TouchUp += usrCtrlUserStory_Click;
 
             //Events for drag'n'drop

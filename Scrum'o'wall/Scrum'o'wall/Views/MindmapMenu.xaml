@@ -8,12 +8,38 @@
         Title="Scrum'o'Wall" Height="450" Width="800" WindowState="Maximized" WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" FontSize="16">
     <Window.ContextMenu >
         <ContextMenu >
-
+            <MenuItem Header="Créer un noeud" Name="CreateNode" Click="CreateNode_Click"/>
+            <MenuItem Header="Modifier le mindmap" Name="Modify" Click="Modify_Click"/>
             <Separator/>
             <MenuItem Header="Quitter" Name="Quit" Click="Quit_Click"/>
         </ContextMenu>
     </Window.ContextMenu>
     <Grid>
-        
+        <Grid.RowDefinitions >
+            <RowDefinition />
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer x:Name="scrllVwr" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
+            <Canvas x:Name="cnvsMindMap" Height="50">
+            </Canvas>
+        </ScrollViewer>
+        <Button Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" x:Name="btnAddNode" TouchUp="CreateNode_Click" Click="CreateNode_Click" Content="+" VerticalContentAlignment="Top"  Width="75" Height="75" BorderBrush="Black" FontSize="45" Margin="10">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="50"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Grid.Row="1"  HorizontalAlignment="Right" x:Name="btnReturn" TouchUp="Quit_Click" Click="Quit_Click" Content="←" VerticalContentAlignment="Top" BorderBrush="Black" FontSize="45"  Width="75" Height="75" Margin="10">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="50"/>
+                </Style>
+            </Button.Resources>
+        </Button>
     </Grid>
 </Window>

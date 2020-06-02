@@ -69,3 +69,9 @@ C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\S
 C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\StateEdit.g.cs
 C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\SprintEdit.baml
 C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\StateEdit.baml
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\MindmapEdit.g.cs
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\NodeEdit.g.cs
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\NodeCreate.g.cs
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\MindmapEdit.baml
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\NodeEdit.baml
+C:\Users\redwo\OneDrive\Scrum-o-Wall\Scrum'o'wall\Scrum'o'wall\obj\Debug\Views\NodeCreate.baml

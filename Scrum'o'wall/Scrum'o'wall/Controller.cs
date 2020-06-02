@@ -746,6 +746,7 @@ namespace Scrum_o_wall
             bool result = mindMap != null;
             project.MindMaps.Add(mindMap);
             mindMap.Project = project;
+            mindMap.Root = DB.CreateNode(aName, null, mindMap);
             return result;
         }
         public bool CreateNode(string aName, Node previous,MindMap mindMap)

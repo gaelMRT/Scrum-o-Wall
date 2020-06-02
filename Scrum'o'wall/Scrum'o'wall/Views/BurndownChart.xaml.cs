@@ -49,15 +49,15 @@ namespace Scrum_o_wall.Views
             }
 
             lblComplexityMax.Content = totalComplexity.ToString();
-            double x2Line = elapsedDays / totalDays * (this.ActualWidth - 200) + 130;
-            double y2Line = completedComplexity / (double)totalComplexity * (this.ActualHeight - 140) + 70;
+            double x2Line = elapsedDays / totalDays * (this.ActualWidth - brdrGraphic.Margin.Left - brdrGraphic.Margin.Right) + brdrGraphic.Margin.Left;
+            double y2Line = completedComplexity / (double)totalComplexity * (this.ActualHeight - brdrGraphic.Margin.Bottom - brdrGraphic.Margin.Top) + brdrGraphic.Margin.Top;
 
             PointCollection linePoints = new PointCollection();
-            linePoints.Add(new Point(120, 70));
+            linePoints.Add(new Point(brdrGraphic.Margin.Left, brdrGraphic.Margin.Top));
             linePoints.Add(new Point(x2Line, y2Line));
 
-            lnIdeal.X2 = ActualWidth - 70;
-            lnIdeal.Y2 = ActualHeight - 70;
+            lnIdeal.X2 = ActualWidth - brdrGraphic.Margin.Right;
+            lnIdeal.Y2 = ActualHeight - brdrGraphic.Margin.Bottom;
 
             lnCurrent.Points = linePoints;
 

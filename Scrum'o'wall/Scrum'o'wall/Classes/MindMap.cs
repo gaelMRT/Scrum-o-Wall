@@ -37,7 +37,10 @@ namespace Scrum_o_wall.Classes
                 projectId = value.Id;
             }
         }
-
+        public List<Node> GetAllNodes()
+        {
+            return Root.AllChildrens();
+        }
         public override string ToString()
         {
             return Name;

@@ -58,6 +58,19 @@ namespace Scrum_o_wall.Classes
             }
         }
         public List<Node> Childrens { get; set; } = new List<Node>();
+        public List<Node> AllChildrens(List<Node> aList = null)
+        {
+            if(aList == null)
+            {
+                aList = new List<Node>();
+            }
+            aList.AddRange(Childrens);
+            foreach (Node n in Childrens)
+            {
+                n.AllChildrens(aList);
+            }
+            return aList;
+        }
         public override string ToString()
         {
             return Name;
