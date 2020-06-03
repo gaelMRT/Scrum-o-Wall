@@ -33,6 +33,18 @@ namespace Scrum_o_wall.Classes
         public int Id { get => id;  }
         public string Name { get; set; }
         public int? PreviousId { get => previousId; }
+        public int Level { 
+            get
+            {
+                int lvl = 0;
+                Node n = this;
+                while (n.Previous != null)
+                {
+                    n = n.Previous;
+                    lvl++;
+                }
+                return lvl;
+            } }
         public Node Previous { get => previous;
             set
             {
@@ -63,6 +75,7 @@ namespace Scrum_o_wall.Classes
             if(aList == null)
             {
                 aList = new List<Node>();
+                aList.Add(this);
             }
             aList.AddRange(Childrens);
             foreach (Node n in Childrens)
@@ -73,7 +86,14 @@ namespace Scrum_o_wall.Classes
         }
         public override string ToString()
         {
-            return Name;
+            if(previous == null)
+            {
+                return Name;
+            }
+            else
+            {
+                return Name + " enfant de " + previous.Name;
+            }
         }
 
     }

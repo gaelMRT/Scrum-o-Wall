@@ -631,3 +631,30 @@ Après avoir placé les controls correctemments sur la fenêtre de projet, j'ai 
 - Création de noeud créé
 - Normalisation de l'interface utilisateur
 - Evenements de la fenetre du mindmap créés.
+
+## 03.06
+
+### Tâches à faire
+- Dessiner les Node
+- Faire le chapitre de l'apport personnel au projet
+- Visio avec mme Terrier
+ 
+### Liens utiles et idées
+Pour dessiner les nodes, je pense faire une arborescence comme les fichiers de repertoires d'une commande tree. Je mettrais donc le noeud "root" en haut à gauche et je vais créer des colonnes pour chaque profondeur.
+
+**Reunion avec MMe Terrier**
+Questions:
+- Pour le rendu c'est quoi un export git ?
+
+Rendre quelque chose de non executable aux experts 
+
+Défense à blanc le mercredi 10 juin. 
+Montrer la structure d'un test unitaire, la structure du drag'n'drop multipoint.
+
+Pendant que j'étais entrain d'essayer de créer correctement les node, j'ai remarqué que les bordures du drag'n'drop multipoint restaient parfois sur place lors du relachement et lorsqu'un user story était ouvert. J'ai réussi à enlever la zone lors du relachement mais pas quand l'user story s'ouvre. Cependant, j'ai essayé de supprimer l'apparition de la boite à l'édition d'un user story mais je n'ai pas réussi. Je n'ai pas eu d'autres choix que d'enlever l'aspect visuel du drag'n'drop
+
+### Tâches accomplies
+- Vision avec mme terrier
+- Dessin des Node
+- Correction de l'aspect du drag'n'drop multipoint
+- Chapitre sur l'apport personnel réalisé

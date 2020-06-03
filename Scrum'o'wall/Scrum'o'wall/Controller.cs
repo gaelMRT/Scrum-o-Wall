@@ -217,13 +217,17 @@ namespace Scrum_o_wall
             #region Link Node with Nodes and mindmaps
             foreach (Node node in allNodes)
             {
-                //verify if root node or not
-                if(node.PreviousId == null)
+                List<MindMap> mindMaps = allMindMaps.Where(m => m.Id == node.MindmapId).ToList();
+                if (mindMaps.Count == 1)
                 {
-                    List<MindMap> mindMaps = allMindMaps.Where(m => m.Id == node.MindmapId).ToList();
+                    node.MindMap = mindMaps[0];
+                }
+
+                //verify if root node or not
+                if (node.PreviousId == null)
+                {
                     if (mindMaps.Count == 1)
                     {
-                        node.MindMap = mindMaps[0];
                         mindMaps[0].Root = node;
                     }
                 }

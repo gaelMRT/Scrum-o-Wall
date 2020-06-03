@@ -29,7 +29,6 @@ namespace Scrum_o_wall.Views
 
         Dictionary<InputDevice, Point> currentPoint = new Dictionary<InputDevice, Point>();
         Dictionary<InputDevice, UserControl> infos = new Dictionary<InputDevice, UserControl>();
-        Dictionary<InputDevice, Border> borders = new Dictionary<InputDevice, Border>();
         public SprintMenu(Sprint aSprint, Controller aController)
         {
             InitializeComponent();
@@ -180,8 +179,6 @@ namespace Scrum_o_wall.Views
 
                     currentPoint.Remove(e.Device);
                     infos.Remove(e.Device);
-                    cnvsSprint.Children.Remove(borders[e.Device]);
-                    borders.Remove(e.Device);
                     Refresh();
                 }
             }
@@ -192,9 +189,6 @@ namespace Scrum_o_wall.Views
             if (currentPoint.ContainsKey(e.Device))
             {
                 currentPoint[e.Device] = e.GetTouchPoint(null).Position;
-
-                Canvas.SetLeft(borders[e.Device], currentPoint[e.Device].X - borders[e.Device].Width / 2.0);
-                Canvas.SetTop(borders[e.Device], currentPoint[e.Device].Y - borders[e.Device].Height / 2.0);
             }
 
             foreach (GroupBox col in columns)
@@ -225,21 +219,11 @@ namespace Scrum_o_wall.Views
             if (currentPoint.ContainsKey(e.Device))
             {
                 currentPoint.Remove(e.Device);
-                borders.Remove(e.Device);
                 infos.Remove(e.Device);
             }
 
-            Border border = new Border()
-            {
-                Height = 40,
-                Width = 100,
-                BorderBrush = Brushes.Black,
-                BorderThickness = new Thickness(2)
-            };
-            cnvsSprint.Children.Add(border);
             currentPoint.Add(e.Device, e.GetTouchPoint(null).Position);
             infos.Add(e.Device, sender as UserControl);
-            borders.Add(e.Device, border);
         }
         private void state_DragLeave(object sender, DragEventArgs e)
         {

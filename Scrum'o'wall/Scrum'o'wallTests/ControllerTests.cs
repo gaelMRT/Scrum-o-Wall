@@ -420,6 +420,7 @@ namespace Scrum_o_wall.Tests
             Node node = mindMap.Root;
 
             Assert.AreEqual(firstName, node.Name);
+            Assert.AreEqual(mindMap, node.MindMap);
             //Test Create With Previous
             string firstName2 = "first node name2";
 

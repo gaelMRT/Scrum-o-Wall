@@ -23,7 +23,6 @@ namespace Scrum_o_wall.Views
         List<UserControl> mindMapControls = new List<UserControl>();
         Dictionary<InputDevice, Point> currentPoint = new Dictionary<InputDevice, Point>();
         Dictionary<InputDevice, UserControl> infos = new Dictionary<InputDevice, UserControl>();
-        Dictionary<InputDevice, Border> borders = new Dictionary<InputDevice, Border>();
 
         public ProjectMenu(Project aProject, Controller aController)
         {
@@ -34,7 +33,17 @@ namespace Scrum_o_wall.Views
             lblProjectName.Content = aProject.Name;
 
             Loaded += ProjectMenu_Loaded;
-            PreviewTouchMove += UserStory_PreviewTouchMove;
+            PreviewTouchMove += canvas_PreviewTouchMove;
+            TouchUp += canvas_TouchUp;
+        }
+
+        private void canvas_TouchUp(object sender, TouchEventArgs e)
+        {
+            if (currentPoint.ContainsKey(e.Device))
+            {
+                currentPoint.Remove(e.Device);
+                infos.Remove(e.Device);
+            }
         }
 
         private void Refresh()
@@ -57,7 +66,7 @@ namespace Scrum_o_wall.Views
                 mindmapControl.Cursor = Cursors.Hand;
                 mindmapControl.Height = 50;
                 mindmapControl.Tag = mindMap;
-                mindmapControl.MouseDoubleClick += MindmapControl_Click; 
+                mindmapControl.MouseDoubleClick += MindmapControl_Click;
                 mindmapControl.TouchDown += MindmapControl_Click;
 
                 cnvsMindMaps.Children.Add(mindmapControl);
@@ -87,7 +96,7 @@ namespace Scrum_o_wall.Views
                 sprintControl.Tag = sprint;
                 sprintControl.MouseDoubleClick += Sprint_Click;
                 sprintControl.TouchDown += Sprint_Click;
-                sprintControl.TouchUp += Sprint_TouchUp;
+                sprintControl.PreviewTouchUp += Sprint_PreviewTouchUp;
                 sprintControl.TouchEnter += Sprint_TouchEnter;
                 sprintControl.TouchLeave += Sprint_TouchLeave;
                 sprintControl.AllowDrop = true;
@@ -226,7 +235,7 @@ namespace Scrum_o_wall.Views
             Canvas.SetLeft(btnReturn, (cnvsBacklog.Width - btnReturn.ActualWidth) / 2.0);
             Canvas.SetTop(btnReturn, cnvsBacklog.Height - btnReturn.ActualHeight - 10);
 
-            Canvas.SetLeft(btnAddSprint, Canvas.GetLeft(gbxSprints) + (gbxSprints.Width - btnAddSprint.ActualWidth) / 2.0 );
+            Canvas.SetLeft(btnAddSprint, Canvas.GetLeft(gbxSprints) + (gbxSprints.Width - btnAddSprint.ActualWidth) / 2.0);
             Canvas.SetTop(btnAddSprint, Canvas.GetTop(gbxSprints) + gbxSprints.Height + 10);
 
             Canvas.SetLeft(btnAddMindMap, Canvas.GetLeft(gbxMindMap) + (gbxMindMap.Width - btnAddMindMap.ActualWidth) / 2.0);
@@ -238,7 +247,7 @@ namespace Scrum_o_wall.Views
             //Refresh the window
             Refresh();
         }
-        private void UserStory_MouseDoubleClick(object sender, EventArgs e)
+        private void UserStory_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             UserStory userStory = (sender as UserControl).Tag as UserStory;
             UserStoryEditing(userStory);
@@ -282,7 +291,7 @@ namespace Scrum_o_wall.Views
                 Refresh();
             }
         }
-        private void Sprint_TouchUp(object sender, TouchEventArgs e)
+        private void Sprint_PreviewTouchUp(object sender, TouchEventArgs e)
         {
             if (currentPoint.ContainsKey(e.Device))
             {
@@ -308,40 +317,23 @@ namespace Scrum_o_wall.Views
 
                 currentPoint.Remove(e.Device);
                 infos.Remove(e.Device);
-                cnvsBacklog.Children.Remove(borders[e.Device]);
-                borders.Remove(e.Device);
             }
         }
         private void UserStory_PreviewTouchDown(object sender, TouchEventArgs e)
         {
-            if (currentPoint.ContainsKey(e.Device) || currentPoint.ContainsKey(e.Device) || infos.ContainsKey(e.Device))
+            if (currentPoint.ContainsKey(e.Device) || infos.ContainsKey(e.Device))
             {
                 currentPoint.Remove(e.Device);
                 infos.Remove(e.Device);
-                cnvsBacklog.Children.Remove(borders[e.Device]);
-                borders.Remove(e.Device);
             }
-            Border border = new Border()
-            {
-                Height = 40,
-                Width = 100,
-                BorderBrush = Brushes.Black,
-                BorderThickness = new Thickness(2)
-            };
-            cnvsBacklog.Children.Add(border);
             currentPoint.Add(e.Device, e.GetTouchPoint(null).Position);
             infos.Add(e.Device, sender as UserControl);
-            borders.Add(e.Device, border);
         }
-        private void UserStory_PreviewTouchMove(object sender, TouchEventArgs e)
+        private void canvas_PreviewTouchMove(object sender, TouchEventArgs e)
         {
             if (currentPoint.ContainsKey(e.Device))
             {
                 currentPoint[e.Device] = e.GetTouchPoint(null).Position;
-
-
-                Canvas.SetLeft(borders[e.Device], currentPoint[e.Device].X - borders[e.Device].Width / 2.0);
-                Canvas.SetTop(borders[e.Device], currentPoint[e.Device].Y - borders[e.Device].Height / 2.0);
             }
         }
         private void UsrCtrlUserStory_TouchUp(object sender, TouchEventArgs e)
@@ -350,8 +342,6 @@ namespace Scrum_o_wall.Views
             {
                 currentPoint.Remove(e.Device);
                 infos.Remove(e.Device);
-                cnvsBacklog.Children.Remove(borders[e.Device]);
-                borders.Remove(e.Device);
             }
             else
             {
