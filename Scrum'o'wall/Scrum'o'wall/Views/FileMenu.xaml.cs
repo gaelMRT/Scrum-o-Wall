@@ -39,7 +39,6 @@ namespace Scrum_o_wall.Views
             lstFiles.Items.Clear();
             foreach (File file in userStory.Files)
             {
-
                 //Create border
                 Border border = new Border();
                 border.BorderBrush = Brushes.Black;
@@ -92,13 +91,13 @@ namespace Scrum_o_wall.Views
                 }
                 else
                 {
-                    controller.UpdateFile(fileEdit.tbxDescription.Text, file);
+                    controller.UpdateFile(fileEdit.tbxDescription.Text.Trim(), file);
                 }
                 Refresh();
             }
             if(fileEdit.ShowDialog() == true)
             {
-                controller.UpdateFile(fileEdit.tbxDescription.Text, file);
+                controller.UpdateFile(fileEdit.tbxDescription.Text.Trim(), file);
             }
             Refresh();
         }
@@ -112,10 +111,19 @@ namespace Scrum_o_wall.Views
             FileCreate fileCreate = new FileCreate();
             if(fileCreate.ShowDialog() == true)
             {
-                controller.CreateFile(fileCreate.tbxFileName.Text, fileCreate.tbxDescription.Text, userStory);
+                controller.CreateFile(fileCreate.tbxFileName.Text.Trim(), fileCreate.tbxDescription.Text.Trim(), userStory);
                 Refresh();
             }
 
+        }
+
+        private void lstFiles_MouseDoubleClick(object sender, EventArgs e)
+        {
+            ListBox lbx = sender as ListBox;
+            if(lbx.SelectedItem != null)
+            {
+                FileEdit fileEdit = new FileEdit(lbx.SelectedItem as File);
+            }
         }
     }
 }

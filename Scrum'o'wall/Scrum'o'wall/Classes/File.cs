@@ -42,7 +42,7 @@ namespace Scrum_o_wall.Classes
 
         public override string ToString()
         {
-            return Name;
+            return Description;
         }
     }
 }

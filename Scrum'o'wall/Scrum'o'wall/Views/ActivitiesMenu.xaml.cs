@@ -34,5 +34,14 @@ namespace Scrum_o_wall.Views
             this.DialogResult = null;
             this.Close();
         }
+        private void lstActivities_MouseDoubleClick(object sender, EventArgs e)
+        {
+            ListBox lbx = sender as ListBox;
+            if (lbx.SelectedItem != null)
+            {
+                Comment comment = lbx.SelectedItem as Comment;
+                MessageBox.Show(String.Format("Auteur : {0}\nDate : {1}\n{2}", comment.User, comment.DateTime, comment.Description), "Contenu du commentaire", MessageBoxButton.OK);
+            }
+        }
     }
 }

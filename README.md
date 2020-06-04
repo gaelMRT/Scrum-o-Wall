@@ -658,3 +658,23 @@ Pendant que j'étais entrain d'essayer de créer correctement les node, j'ai rem
 - Dessin des Node
 - Correction de l'aspect du drag'n'drop multipoint
 - Chapitre sur l'apport personnel réalisé
+
+## 04.06
+
+### Tâches à faire
+- Corriger des bugs
+- Faire un test de l'interface utilisateur
+
+### Liens utiles et idées
+Afin d'avoir une interface de mindmap plus simple à créer et modifier, j'ai décidé de changer l'utilisation du canvas par une grid. Je crée ensuite des lignes pour chaque node dessiner et je rajoute une colonne à chaque fois que le nombre de colonnes requises est insuffisant.
+
+J'ai ensuite profiter d'une opportunité que mes camarades m'ont proposé de leur montrer mon application pour faire un test en live. J'ai grâce à cela découvert des bugs dans la modification des fichiers et l'obtention des commentaires au chargement de l'application.
+
+J'ai corriger ces problèmes et j'ai suivi un conseil qui m'a été donné pour certains aspects. Par exemple, afficher la date et l'heure d'une activité ou attribuer une couleur aux user stories possédant une date limite.
+
+### Tâches accomplies
+- Corriger les problèmes de dessin des node
+- Corriger la modification des fichier
+- Corriger l'obtention des commentaires
+- Ajout de couleurs aux user stories avec une date limite
+- Modifications sur l'affichage de certaines classes

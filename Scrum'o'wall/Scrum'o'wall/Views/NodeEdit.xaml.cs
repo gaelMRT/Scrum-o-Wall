@@ -27,9 +27,13 @@ namespace Scrum_o_wall.Views
             node = aNode;
             InitializeComponent();
             tbxName.Text = node.Name;
-            foreach (Node n in node.MindMap.GetAllNodes())
+            if(aNode.Previous != null)
             {
-                cbxPrevious.Items.Add(n);
+                foreach (Node n in node.MindMap.GetAllNodes())
+                {
+                    cbxPrevious.Items.Add(n);
+                }
+                cbxPrevious.SelectedItem = aNode.Previous;
             }
         }
         private void BtnCancel_Click(object sender, EventArgs e)
@@ -39,7 +43,7 @@ namespace Scrum_o_wall.Views
         }
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
-            if (tbxName.Text.Length > 1 && cbxPrevious.SelectedItem != null)
+            if (tbxName.Text.Trim().Length > 0 && cbxPrevious.SelectedItem != null )
             {
                 this.DialogResult = true;
                 this.Close();

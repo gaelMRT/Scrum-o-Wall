@@ -43,7 +43,7 @@ namespace Scrum_o_wall.Views
         }
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
-            if(tbxDescription.Text.Length > 1 && tbxFileName.Text.Length > 1 && System.IO.File.Exists(tbxFileName.Text) )
+            if(tbxDescription.Text.Trim().Length > 0 && tbxFileName.Text.Trim().Length > 0 && System.IO.File.Exists(tbxFileName.Text) )
             {
                 this.DialogResult = true;
                 this.Close();

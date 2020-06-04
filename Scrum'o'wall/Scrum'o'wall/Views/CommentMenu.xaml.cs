@@ -55,10 +55,19 @@ namespace Scrum_o_wall.Views
             }else if (commentCreate.ShowDialog() == true)
             {
                 
-                controller.CreateComment(commentCreate.tbxContent.Text,commentCreate.cbxAuthor.SelectedItem as User, userStory);
+                controller.CreateComment(commentCreate.tbxContent.Text.Trim(),commentCreate.cbxAuthor.SelectedItem as User, userStory);
                 Refresh();
             }
         }
-        
+
+        private void lstComments_MouseDoubleClick(object sender, EventArgs e)
+        {
+            ListBox lbx = sender as ListBox;
+            if(lbx.SelectedItem != null)
+            {
+                Comment comment = lbx.SelectedItem as Comment;
+                MessageBox.Show(String.Format("Auteur : {0}\nDate : {1}\n{2}", comment.User, comment.DateTime, comment.Description),"Contenu du commentaire",MessageBoxButton.OK);
+            }
+        }
     }
 }

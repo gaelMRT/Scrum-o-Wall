@@ -24,8 +24,8 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <ScrollViewer x:Name="scrllVwr" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
-            <Canvas x:Name="cnvsMindMap" Height="50">
-            </Canvas>
+            <Grid x:Name="grdMindMap" >
+            </Grid>
         </ScrollViewer>
         <Button Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" x:Name="btnAddNode" TouchUp="CreateNode_Click" Click="CreateNode_Click" Content="+" VerticalContentAlignment="Top"  Width="75" Height="75" BorderBrush="Black" FontSize="45" Margin="10">
             <Button.Resources>

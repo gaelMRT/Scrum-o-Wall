@@ -70,7 +70,7 @@ namespace Scrum_o_wall.Views
                 mindmapControl.TouchDown += MindmapControl_Click;
 
                 cnvsMindMaps.Children.Add(mindmapControl);
-                sprintUserControls.Add(mindmapControl);
+                mindMapControls.Add(mindmapControl);
 
                 Canvas.SetLeft(mindmapControl, 5);
                 Canvas.SetTop(mindmapControl, 60 * i);
@@ -135,12 +135,29 @@ namespace Scrum_o_wall.Views
             {
                 UserStory userStory = project.AllUserStories[i];
                 //Create userStory frame
+                TextBlock content = new TextBlock();
+                content.Text = userStory.ToString();
+                content.TextWrapping = TextWrapping.Wrap;
                 UserControl userStoryControl = new UserControl();
-                userStoryControl.Content = userStory.ToString();
+                userStoryControl.Content = content;
                 userStoryControl.Width = cnvsUserStories.Width - 40;
                 userStoryControl.BorderBrush = Brushes.Black;
                 userStoryControl.BorderThickness = new Thickness(1);
-                userStoryControl.Background = Brushes.LightGray;
+                if (userStory.DateLimit != null)
+                {
+                    if (DateTime.Now > userStory.DateLimit)
+                    {
+                        userStoryControl.Background = Brushes.LightPink;
+                    }
+                    else
+                    {
+                        userStoryControl.Background = Brushes.LightBlue;
+                    }
+                }
+                else
+                {
+                    userStoryControl.Background = Brushes.LightGray;
+                }
                 userStoryControl.Cursor = Cursors.Hand;
                 userStoryControl.Height = 50;
                 userStoryControl.Tag = userStory;
@@ -194,7 +211,7 @@ namespace Scrum_o_wall.Views
                 }
                 else
                 {
-                    controller.UpdateUserStory(userStoryEdit.tbxDesc.Text, userStoryEdit.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryEdit.tbxComplexity.Text), Convert.ToInt32(userStoryEdit.tbxCompletedComplexity.Text), userStoryEdit.chckBxBlocked.IsChecked == true, (Priority)userStoryEdit.cbxPriority.SelectedItem, (Classes.Type)userStoryEdit.cbxType.SelectedItem, userStory.State, userStory);
+                    controller.UpdateUserStory(userStoryEdit.tbxDesc.Text.Trim(), userStoryEdit.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryEdit.tbxComplexity.Text), Convert.ToInt32(userStoryEdit.tbxCompletedComplexity.Text), userStoryEdit.chckBxBlocked.IsChecked == true, (Priority)userStoryEdit.cbxPriority.SelectedItem, (Classes.Type)userStoryEdit.cbxType.SelectedItem, userStory.State, userStory);
                 }
                 Refresh();
             }
@@ -269,7 +286,7 @@ namespace Scrum_o_wall.Views
             UserStoryCreate userStoryCreate = new UserStoryCreate(controller);
             if (userStoryCreate.ShowDialog() == true)
             {
-                controller.CreateUserStory(userStoryCreate.tbxDesc.Text, userStoryCreate.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryCreate.tbxComplexity.Text), (Priority)userStoryCreate.cbxPriority.SelectedItem, (Classes.Type)userStoryCreate.cbxType.SelectedItem, project);
+                controller.CreateUserStory(userStoryCreate.tbxDesc.Text.Trim(), userStoryCreate.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryCreate.tbxComplexity.Text), (Priority)userStoryCreate.cbxPriority.SelectedItem, (Classes.Type)userStoryCreate.cbxType.SelectedItem, project);
                 Refresh();
             }
         }
@@ -287,7 +304,7 @@ namespace Scrum_o_wall.Views
             MindmapCreate mindmapCreate = new MindmapCreate();
             if (mindmapCreate.ShowDialog() == true)
             {
-                controller.CreateMindMap(mindmapCreate.tbxName.Text, project);
+                controller.CreateMindMap(mindmapCreate.tbxName.Text.Trim(), project);
                 Refresh();
             }
         }
@@ -362,7 +379,7 @@ namespace Scrum_o_wall.Views
                 }
                 else
                 {
-                    controller.UpdateProject(projectEdit.tbxName.Text, projectEdit.tbxDesc.Text, (DateTime)projectEdit.dtpckrDateBegin.SelectedDate, project);
+                    controller.UpdateProject(projectEdit.tbxName.Text.Trim(), projectEdit.tbxDesc.Text.Trim(), (DateTime)projectEdit.dtpckrDateBegin.SelectedDate, project);
                     Refresh();
                 }
             }

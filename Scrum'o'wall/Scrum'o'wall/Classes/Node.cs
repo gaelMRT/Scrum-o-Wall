@@ -86,14 +86,7 @@ namespace Scrum_o_wall.Classes
         }
         public override string ToString()
         {
-            if(previous == null)
-            {
-                return Name;
-            }
-            else
-            {
-                return Name + " enfant de " + previous.Name;
-            }
+            return Name;
         }
 
     }

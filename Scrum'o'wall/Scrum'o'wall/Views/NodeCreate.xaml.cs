@@ -35,7 +35,7 @@ namespace Scrum_o_wall.Views
         }
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
-            if (tbxName.Text.Length > 1 && cbxPrevious.SelectedItem != null)
+            if (tbxName.Text.Trim().Length > 0 && cbxPrevious.SelectedItem != null)
             {
                 this.DialogResult = true;
                 this.Close();

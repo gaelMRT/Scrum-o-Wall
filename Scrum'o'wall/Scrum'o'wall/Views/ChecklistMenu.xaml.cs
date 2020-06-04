@@ -108,7 +108,7 @@ namespace Scrum_o_wall.Views
                 {
                     items.Add(item as ChecklistItem);
                 }
-                controller.UpdateCheckList(checklistEdit.tbxName.Text, items, checklist);
+                controller.UpdateCheckList(checklistEdit.tbxName.Text.Trim(), items, checklist);
                 Refresh();
             }
         }
@@ -122,7 +122,7 @@ namespace Scrum_o_wall.Views
             ChecklistCreate checklistCreate = new ChecklistCreate();
             if(checklistCreate.ShowDialog() == true)
             {
-                Checklist checklist = controller.CreateCheckList(checklistCreate.tbxName.Text,userStory);
+                Checklist checklist = controller.CreateCheckList(checklistCreate.tbxName.Text.Trim(),userStory);
                 foreach (ChecklistItem item in checklistCreate.itemsToAdd)
                 {
                     controller.CreateCheckListItem(item.NameItem, checklist);

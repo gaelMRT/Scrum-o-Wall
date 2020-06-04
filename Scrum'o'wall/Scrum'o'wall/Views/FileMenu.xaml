@@ -18,7 +18,7 @@
         </Grid.ColumnDefinitions>
         <TextBlock Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="10,16" TextAlignment="Center" FontSize="28" Height="38">Gestion des fichiers</TextBlock>
         <Border Grid.Row="1" Grid.ColumnSpan="2" Margin="10" BorderThickness="1" BorderBrush="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}">
-            <ListView x:Name="lstFiles">
+            <ListView x:Name="lstFiles" TouchUp="lstFiles_MouseDoubleClick" MouseDoubleClick="lstFiles_MouseDoubleClick">
             </ListView>
         </Border>
 

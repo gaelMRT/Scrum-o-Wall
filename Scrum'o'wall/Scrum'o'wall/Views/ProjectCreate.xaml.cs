@@ -32,7 +32,7 @@ namespace Scrum_o_wall.Views
         }
         private void BtnAddProject_Click(object sender, RoutedEventArgs e)
         {
-            if(tbxName.Text.Length > 0 && tbxDesc.Text.Length > 0 &&  tbxDate.SelectedDate != null)
+            if(tbxName.Text.Trim().Length > 0 && tbxDesc.Text.Trim().Length > 0 &&  tbxDate.SelectedDate != null)
             {
                 this.DialogResult = true;
                 this.Close();

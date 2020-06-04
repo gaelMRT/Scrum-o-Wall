@@ -37,7 +37,7 @@ namespace Scrum_o_wall.Views
 
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
-            if (dtpckrDateBegin.SelectedDate != null && tbxDesc.Text.Length > 0 && tbxName.Text.Length > 0)
+            if (dtpckrDateBegin.SelectedDate != null && tbxDesc.Text.Trim().Length > 0 && tbxName.Text.Trim().Length > 0)
             {
                 this.DialogResult = true;
                 this.Close();

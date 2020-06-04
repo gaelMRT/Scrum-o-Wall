@@ -44,7 +44,7 @@ namespace Scrum_o_wall.Views
             ChecklistItemCreate checklistItemCreate = new ChecklistItemCreate();
             if(checklistItemCreate.ShowDialog() == true)
             {
-                ChecklistItem checklistItem = new ChecklistItem(-1, checklistItemCreate.tbxObjet.Text, false, -1);
+                ChecklistItem checklistItem = new ChecklistItem(-1, checklistItemCreate.tbxObjet.Text.Trim(), false, -1);
 
                 itemsToAdd.Add(checklistItem);
                 Refresh();
@@ -57,7 +57,7 @@ namespace Scrum_o_wall.Views
         }
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
-            if(tbxName.Text.Length > 0 && listItems.Items.Count > 0)
+            if(tbxName.Text.Trim().Length > 0 && listItems.Items.Count > 0)
             {
                 this.DialogResult = true;
                 this.Close();

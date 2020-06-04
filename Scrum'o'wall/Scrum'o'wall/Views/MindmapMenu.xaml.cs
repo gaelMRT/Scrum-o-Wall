@@ -31,13 +31,10 @@ namespace Scrum_o_wall.Views
             InitializeComponent();
 
             this.Loaded += MindmapMenu_Loaded;
-
         }
 
         private void MindmapMenu_Loaded(object sender, RoutedEventArgs e)
         {
-            cnvsMindMap.Width = cnvsMindMap.ActualWidth;
-            cnvsMindMap.Height = cnvsMindMap.ActualHeight;
             Refresh();
         }
 
@@ -45,62 +42,78 @@ namespace Scrum_o_wall.Views
         {
             foreach (UserControl nodeControl in nodeControls)
             {
-                cnvsMindMap.Children.Remove(nodeControl);
+                grdMindMap.Children.Remove(nodeControl);
             }
+            grdMindMap.ColumnDefinitions.Clear();
+            grdMindMap.RowDefinitions.Clear();
             nodeControls.Clear();
             DrawNode(mindMap.Root);
-            
+
         }
         private int DrawNode(Node node, int level = 0)
         {
-
-            UserControl nodeControl = new UserControl();
-            nodeControl.Content = node.ToString();
-            nodeControl.Tag = node;
-            nodeControl.BorderBrush = Brushes.Black;
-            nodeControl.BorderThickness = new Thickness(1);
-            nodeControl.Background = Brushes.LightGray;
-            nodeControl.Cursor = Cursors.Hand;
+            TextBlock content = new TextBlock();
+            content.Text = node.ToString();
+            content.TextWrapping = TextWrapping.Wrap;
+            UserControl nodeControl = new UserControl
+            {
+                Content = content,
+                Tag = node,
+                BorderBrush = Brushes.Black,
+                BorderThickness = new Thickness(1),
+                Background = Brushes.LightGray,
+                Margin = new Thickness(3),
+                Cursor = Cursors.Hand,
+                MinHeight = 50
+            };
             nodeControl.MouseDoubleClick += NodeControl_Click;
             nodeControl.TouchUp += NodeControl_Click;
 
-            nodeControl.Height = 50;
-
-            cnvsMindMap.Children.Add(nodeControl);
+            grdMindMap.Children.Add(nodeControl);
             nodeControls.Add(nodeControl);
 
-            Canvas.SetTop(nodeControl, nodeControls.Count * (nodeControl.Height + 5));
+            grdMindMap.RowDefinitions.Add(new RowDefinition());
+
+            Grid.SetRow(nodeControl, grdMindMap.RowDefinitions.Count - 1);
 
             int maxlvl = (level == 0 ? 1 : level);
             foreach (Node n in node.Childrens)
             {
-                maxlvl = DrawNode(n, level + 1);
+                int nodeMaxLvl = DrawNode(n, level + 1);
+                maxlvl = (maxlvl < nodeMaxLvl ? nodeMaxLvl : maxlvl);
             }
 
-            Console.WriteLine(level);
+            while (grdMindMap.ColumnDefinitions.Count <= level)
+            {
+                grdMindMap.ColumnDefinitions.Add(new ColumnDefinition());
+            }
+            Grid.SetColumn(nodeControl, level);
 
-            nodeControl.Width = 200;
-            Canvas.SetLeft(nodeControl, (200 + 10) * level);
-
-
-            return maxlvl;
+            return maxlvl + 1;
         }
 
         private void NodeControl_Click(object sender, EventArgs e)
         {
             Node node = (sender as UserControl).Tag as Node;
-            NodeEdit nodeEdit = new NodeEdit(node);
-            if (nodeEdit.ShowDialog() == true)
+            if (node.Previous == null)
             {
-                if (nodeEdit.Deleted)
+                MessageBox.Show("Pour changer l'intitulé de ce noeud, modifiez le mindmap", "Information", MessageBoxButton.OK);
+            }
+            else
+            {
+                NodeEdit nodeEdit = new NodeEdit(node);
+                if (nodeEdit.ShowDialog() == true)
                 {
-                    controller.Delete(node);
+                    if (nodeEdit.Deleted)
+                    {
+                        controller.Delete(node);
+                    }
+                    else
+                    {
+                        controller.UpdateNode(nodeEdit.tbxName.Text.Trim(), nodeEdit.cbxPrevious.SelectedItem as Node, node);
+                    }
+                    Refresh();
                 }
-                else
-                {
-                    controller.UpdateNode(nodeEdit.tbxName.Text, nodeEdit.cbxPrevious.SelectedItem as Node, node);
-                }
-                Refresh();
             }
         }
 
@@ -123,7 +136,7 @@ namespace Scrum_o_wall.Views
                 }
                 else
                 {
-                    controller.UpdateMindMap(mindMapEdit.tbxName.Text, mindMap);
+                    controller.UpdateMindMap(mindMapEdit.tbxName.Text.Trim(), mindMap);
                 }
                 Refresh();
             }
@@ -134,7 +147,7 @@ namespace Scrum_o_wall.Views
             NodeCreate nodeCreate = new NodeCreate(mindMap);
             if (nodeCreate.ShowDialog() == true)
             {
-                controller.CreateNode(nodeCreate.tbxName.Text, nodeCreate.cbxPrevious.SelectedItem as Node, mindMap);
+                controller.CreateNode(nodeCreate.tbxName.Text.Trim(), nodeCreate.cbxPrevious.SelectedItem as Node, mindMap);
                 Refresh();
             }
         }

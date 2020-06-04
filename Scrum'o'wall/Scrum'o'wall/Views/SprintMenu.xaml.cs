@@ -118,7 +118,21 @@ namespace Scrum_o_wall.Views
             userControl.Height = 50;
             userControl.Width = gbx.Width - 20;
             userControl.BorderBrush = Brushes.Black;
-            userControl.Background = Brushes.LightGray;
+            if(userStory.DateLimit != null)
+            {
+                if(DateTime.Now > userStory.DateLimit)
+                {
+                    userControl.Background = Brushes.LightBlue;
+                }
+                else
+                {
+                    userControl.Background = Brushes.LightPink;
+                }
+            }
+            else
+            {
+                userControl.Background = Brushes.LightGray;
+            }
             userControl.Cursor = Cursors.Hand;
             userControl.MouseDoubleClick += usrCtrlUserStory_Click;
             userControl.TouchUp += usrCtrlUserStory_Click;
@@ -259,7 +273,7 @@ namespace Scrum_o_wall.Views
                 }
                 else
                 {
-                    controller.UpdateUserStory(userStoryEdit.tbxDesc.Text, userStoryEdit.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryEdit.tbxComplexity.Text), Convert.ToInt32(userStoryEdit.tbxCompletedComplexity.Text), userStoryEdit.chckBxBlocked.IsChecked == true, (Priority)userStoryEdit.cbxPriority.SelectedItem, (Classes.Type)userStoryEdit.cbxType.SelectedItem, userStory.State, userStory);
+                    controller.UpdateUserStory(userStoryEdit.tbxDesc.Text.Trim(), userStoryEdit.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryEdit.tbxComplexity.Text), Convert.ToInt32(userStoryEdit.tbxCompletedComplexity.Text), userStoryEdit.chckBxBlocked.IsChecked == true, (Priority)userStoryEdit.cbxPriority.SelectedItem, (Classes.Type)userStoryEdit.cbxType.SelectedItem, userStory.State, userStory);
                 }
                 Refresh();
             }

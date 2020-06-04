@@ -119,7 +119,7 @@ namespace Scrum_o_wall.Views
                 }
                 else
                 {
-                    controller.UpdateState(stateEdit.tbxStateName.Text, state);
+                    controller.UpdateState(stateEdit.tbxStateName.Text.Trim(), state);
                 }
                 Refresh();
             }

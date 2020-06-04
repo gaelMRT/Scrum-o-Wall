@@ -5,6 +5,7 @@ using System.Data.OleDb;
 using System.IO;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -104,6 +105,7 @@ namespace Scrum_o_wall
                 List<Activity> activities = allActivities.Where(a => a.UserStoryId == u.Id).ToList();
                 List<Classes.File> files = allFiles.Where(f => f.UserStoryId == u.Id).ToList();
                 List<Checklist> checklists = allChecklists.Where(c => c.UserStoryId == u.Id).ToList();
+                List<Comment> comments = allComments.Where(c => c.UserStoryId == u.Id).ToList();
 
                 if (state.Count == 1)
                 {
@@ -131,6 +133,16 @@ namespace Scrum_o_wall
                 foreach (Checklist c in checklists)
                 {
                     c.UserStory = u;
+                }
+                u.Comments = comments;
+                foreach (Comment c in comments)
+                {
+                    List<User> users = allUsers.Where(user => user.Id == c.UserId).ToList();
+                    if(users.Count == 1)
+                    {
+                        c.User = users[0];
+                        c.UserStory = u;
+                    }
                 }
 
                 u.Files = files;
@@ -544,6 +556,7 @@ namespace Scrum_o_wall
         {
             bool result = DB.UpdateMindMap(text, mindMap);
             mindMap.Name = text;
+            result = result && this.UpdateNode(text, null, mindMap.Root);
             return result;
         }
         public bool UpdateNode(string text,Node previous, Node node)
@@ -556,6 +569,15 @@ namespace Scrum_o_wall
 
             if (node.Previous != previous)
             {
+                if (node.AllChildrens().Contains(previous))
+                {
+                    List<Node> directChilds = node.Childrens;
+                    for (int i = 0; i < directChilds.Count; i++)
+                    {
+                        Node n = directChilds[i];
+                        this.UpdateNode(n.Name, node.Previous, n);
+                    }
+                }
                 node.Previous.Childrens.Remove(node);
                 node.Previous = previous;
                 previous.Childrens.Add(node);
@@ -748,9 +770,9 @@ namespace Scrum_o_wall
         {
             MindMap mindMap = DB.CreateMindmap(aName, project);
             bool result = mindMap != null;
-            project.MindMaps.Add(mindMap);
             mindMap.Project = project;
             mindMap.Root = DB.CreateNode(aName, null, mindMap);
+            project.MindMaps.Add(mindMap);
             return result;
         }
         public bool CreateNode(string aName, Node previous,MindMap mindMap)

@@ -41,7 +41,7 @@ namespace Scrum_o_wall.Classes
 
         public override string ToString()
         {
-            return Description;
+            return DateTime.ToString("dd.MM.yyyy - HH:mm:ss") + " - "+Description;
         }
     }
 }

@@ -89,7 +89,7 @@ namespace Scrum_o_wall.Views
         }
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
-            if(tbxCompletedComplexity.Text.Length > 0 && tbxComplexity.Text.Length > 0 && tbxDesc.Text.Length > 0)
+            if(tbxCompletedComplexity.Text.Trim().Length > 0 && tbxComplexity.Text.Trim().Length > 0 && tbxDesc.Text.Trim().Length > 0)
             {
                 this.DialogResult = true;
                 this.Close();

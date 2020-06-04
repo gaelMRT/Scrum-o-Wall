@@ -119,7 +119,7 @@ namespace Scrum_o_wall.Views
                 }
                 else
                 {
-                    controller.UpdateUser(userEdit.tbxUserName.Text, user);
+                    controller.UpdateUser(userEdit.tbxUserName.Text.Trim(), user);
                 }
                 Refresh();
             }
