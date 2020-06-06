@@ -696,3 +696,14 @@ J'ai finalement repassé sur le planning avant de m'ateller à des morceaux de d
 - Commenter les endroits manquants
 - Faire le planning final
 - Rempli le glisser-deposer dans la doc
+
+## 06.06
+
+### Tâches à faire
+- Documentation. chapitre conclusion
+
+### Liens utiles et idées
+J'ai commencé par les difficultés rencontrés, j'ai continuer sur les améliorations possibles et finalement mon ressenti sur le projet.
+
+### Tâches accomplies
+- Documentation. chapitre conclusion
