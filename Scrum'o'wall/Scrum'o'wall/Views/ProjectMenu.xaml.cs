@@ -1,8 +1,12 @@
-﻿using Scrum_o_wall.Classes;
+﻿/*
+ * Author   :   Gaël Serge Mariot
+ * Project  :   Scrum'o'wall
+ * File     :   ProjectMenu.xaml.cs
+ * Desc.    :   This file contains the logic in the ProjectMenu view
+ */
+using Scrum_o_wall.Classes;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,13 +20,14 @@ namespace Scrum_o_wall.Views
     /// </summary>
     public partial class ProjectMenu : Window
     {
-        Project project;
-        Controller controller;
-        List<UserControl> sprintUserControls = new List<UserControl>();
-        List<UserControl> userStoriesControls = new List<UserControl>();
-        List<UserControl> mindMapControls = new List<UserControl>();
-        Dictionary<InputDevice, Point> currentPoint = new Dictionary<InputDevice, Point>();
-        Dictionary<InputDevice, UserControl> infos = new Dictionary<InputDevice, UserControl>();
+        private readonly Project project;
+        private readonly Controller controller;
+        private List<UserControl> sprintUserControls = new List<UserControl>();
+        private List<UserControl> userStoriesControls = new List<UserControl>();
+        private List<UserControl> mindMapControls = new List<UserControl>();
+
+        private Dictionary<InputDevice, Point> currentPoint = new Dictionary<InputDevice, Point>();
+        private Dictionary<InputDevice, UserControl> infos = new Dictionary<InputDevice, UserControl>();
 
         public ProjectMenu(Project aProject, Controller aController)
         {
@@ -33,11 +38,11 @@ namespace Scrum_o_wall.Views
             lblProjectName.Content = aProject.Name;
 
             Loaded += ProjectMenu_Loaded;
-            PreviewTouchMove += canvas_PreviewTouchMove;
-            TouchUp += canvas_TouchUp;
+            PreviewTouchMove += Canvas_PreviewTouchMove;
+            TouchUp += Canvas_TouchUp;
         }
 
-        private void canvas_TouchUp(object sender, TouchEventArgs e)
+        private void Canvas_TouchUp(object sender, TouchEventArgs e)
         {
             if (currentPoint.ContainsKey(e.Device))
             {
@@ -58,14 +63,16 @@ namespace Scrum_o_wall.Views
             {
                 MindMap mindMap = project.MindMaps[i];
                 //Create Sprint frame
-                UserControl mindmapControl = new UserControl();
-                mindmapControl.Content = mindMap.ToString();
-                mindmapControl.Width = cnvsMindMaps.Width - 40;
-                mindmapControl.BorderThickness = new Thickness(1);
-                mindmapControl.BorderBrush = Brushes.Black;
-                mindmapControl.Cursor = Cursors.Hand;
-                mindmapControl.Height = 50;
-                mindmapControl.Tag = mindMap;
+                UserControl mindmapControl = new UserControl
+                {
+                    Content = mindMap.ToString(),
+                    Width = cnvsMindMaps.Width - 40,
+                    BorderThickness = new Thickness(1),
+                    BorderBrush = Brushes.Black,
+                    Cursor = Cursors.Hand,
+                    Height = 50,
+                    Tag = mindMap
+                };
                 mindmapControl.MouseDoubleClick += MindmapControl_Click;
                 mindmapControl.TouchDown += MindmapControl_Click;
 
@@ -86,20 +93,21 @@ namespace Scrum_o_wall.Views
             {
                 Sprint sprint = project.Sprints[i];
                 //Create Sprint frame
-                UserControl sprintControl = new UserControl();
-                sprintControl.Content = sprint.ToString();
-                sprintControl.Width = cnvsSprints.Width - 40;
-                sprintControl.BorderThickness = new Thickness(1);
-                sprintControl.BorderBrush = Brushes.Black;
-                sprintControl.Cursor = Cursors.Hand;
-                sprintControl.Height = 50;
-                sprintControl.Tag = sprint;
+                UserControl sprintControl = new UserControl
+                {
+                    Content = sprint.ToString(),
+                    Width = cnvsSprints.Width - 40,
+                    BorderThickness = new Thickness(1),
+                    BorderBrush = Brushes.Black,
+                    Cursor = Cursors.Hand,
+                    Height = 50,
+                    Tag = sprint
+                };
                 sprintControl.MouseDoubleClick += Sprint_Click;
                 sprintControl.TouchDown += Sprint_Click;
                 sprintControl.PreviewTouchUp += Sprint_PreviewTouchUp;
                 sprintControl.TouchEnter += Sprint_TouchEnter;
                 sprintControl.TouchLeave += Sprint_TouchLeave;
-                sprintControl.AllowDrop = true;
                 //Change Color by DateRange
                 if (DateTime.Now > sprint.Begin && DateTime.Now < sprint.End)
                 {
@@ -135,14 +143,22 @@ namespace Scrum_o_wall.Views
             {
                 UserStory userStory = project.AllUserStories[i];
                 //Create userStory frame
-                TextBlock content = new TextBlock();
-                content.Text = userStory.ToString();
-                content.TextWrapping = TextWrapping.Wrap;
-                UserControl userStoryControl = new UserControl();
-                userStoryControl.Content = content;
-                userStoryControl.Width = cnvsUserStories.Width - 40;
-                userStoryControl.BorderBrush = Brushes.Black;
-                userStoryControl.BorderThickness = new Thickness(1);
+                TextBlock content = new TextBlock
+                {
+                    Text = userStory.ToString(),
+                    TextWrapping = TextWrapping.Wrap
+                };
+                UserControl userStoryControl = new UserControl
+                {
+                    Content = content,
+                    Cursor = Cursors.Hand,
+                    Height = 50,
+                    Tag = userStory,
+                    Width = cnvsUserStories.Width - 40,
+                    BorderBrush = Brushes.Black,
+                    BorderThickness = new Thickness(1)
+                };
+                // Change color by limit date (if exists and happened or not)
                 if (userStory.DateLimit != null)
                 {
                     if (DateTime.Now > userStory.DateLimit)
@@ -158,9 +174,6 @@ namespace Scrum_o_wall.Views
                 {
                     userStoryControl.Background = Brushes.LightGray;
                 }
-                userStoryControl.Cursor = Cursors.Hand;
-                userStoryControl.Height = 50;
-                userStoryControl.Tag = userStory;
                 userStoryControl.MouseDoubleClick += UserStory_MouseDoubleClick;
                 userStoryControl.PreviewTouchDown += UserStory_PreviewTouchDown;
                 userStoryControl.TouchUp += UsrCtrlUserStory_TouchUp;
@@ -220,8 +233,8 @@ namespace Scrum_o_wall.Views
         private void ProjectMenu_Loaded(object sender, RoutedEventArgs e)
         {
             //set controls sizes
-            cnvsBacklog.Width = this.ActualWidth;
-            cnvsBacklog.Height = this.ActualHeight;
+            cnvsBacklog.Width = ActualWidth;
+            cnvsBacklog.Height = ActualHeight;
 
             gbxUserStories.Width = (cnvsBacklog.Width - 25) / 3.0;
             gbxUserStories.Height = (cnvsBacklog.Height - 250);
@@ -278,8 +291,8 @@ namespace Scrum_o_wall.Views
         }
         private void Quit_Click(object sender, EventArgs e)
         {
-            this.DialogResult = null;
-            this.Close();
+            DialogResult = null;
+            Close();
         }
         private void BtnAddUserStory_Click(object sender, EventArgs e)
         {
@@ -299,7 +312,7 @@ namespace Scrum_o_wall.Views
                 Refresh();
             }
         }
-        private void btnAddMindMap_Click(object sender, EventArgs e)
+        private void BtnAddMindMap_Click(object sender, EventArgs e)
         {
             MindmapCreate mindmapCreate = new MindmapCreate();
             if (mindmapCreate.ShowDialog() == true)
@@ -346,7 +359,7 @@ namespace Scrum_o_wall.Views
             currentPoint.Add(e.Device, e.GetTouchPoint(null).Position);
             infos.Add(e.Device, sender as UserControl);
         }
-        private void canvas_PreviewTouchMove(object sender, TouchEventArgs e)
+        private void Canvas_PreviewTouchMove(object sender, TouchEventArgs e)
         {
             if (currentPoint.ContainsKey(e.Device))
             {
@@ -374,8 +387,8 @@ namespace Scrum_o_wall.Views
                 if (projectEdit.Deleted)
                 {
                     controller.Delete(project);
-                    this.DialogResult = true;
-                    this.Close();
+                    DialogResult = true;
+                    Close();
                 }
                 else
                 {

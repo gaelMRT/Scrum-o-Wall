@@ -189,8 +189,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller.cs" />
-    <Compile Include="DB.cs" />
+    <Compile Include="Controls\Controller.cs" />
+    <Compile Include="Controls\DB.cs" />
     <Compile Include="Views\MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
@@ -211,13 +211,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="ClassesDiagram.cd" />
-    <None Include="OthersDiagram.cd" />
+    <None Include="Diagrams\ClassesDiagram.cd" />
+    <None Include="Diagrams\OthersDiagram.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="ViewsDiagram.cd" />
+    <None Include="Diagrams\ViewsDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,22 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*
+ * Author   :   Gaël Serge Mariot
+ * Project  :   Scrum'o'wall
+ * File     :   Priority.cs
+ * Desc.    :   This file contains the structure of the Priority class   
+ */
 
 namespace Scrum_o_wall.Classes
 {
     public class Priority
     {
-        int id;
+        private readonly int id;
 
         public Priority(int id, string name)
         {
             this.id = id;
-            this.Name = name;
+            Name = name;
         }
 
-        public int Id { get => id;}
+        public int Id => id;
         public string Name { get; set; }
         public override string ToString()
         {

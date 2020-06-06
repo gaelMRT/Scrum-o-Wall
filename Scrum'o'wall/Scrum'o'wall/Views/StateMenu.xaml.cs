@@ -1,18 +1,16 @@
-﻿using Scrum_o_wall.Classes;
+﻿/*
+ * Author   :   Gaël Serge Mariot
+ * Project  :   Scrum'o'wall
+ * File     :   StateMenu.xaml.cs
+ * Desc.    :   This file contains the logic in the StateMenu view
+ */
+using Scrum_o_wall.Classes;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Scrum_o_wall.Views
 {
@@ -21,8 +19,8 @@ namespace Scrum_o_wall.Views
     /// </summary>
     public partial class StateMenu : Window
     {
-        Project project;
-        Controller controller;
+        private readonly Project project;
+        private readonly Controller controller;
         public StateMenu(Project aProject, Controller aController)
         {
             project = aProject;
@@ -51,13 +49,12 @@ namespace Scrum_o_wall.Views
 
         private void Quit_Click(object sender, EventArgs e)
         {
-            this.DialogResult = null;
-            this.Close();
+            DialogResult = null;
+            Close();
         }
         private void BtnGoLeft_Click(object sender, EventArgs e)
         {
-            State state = lstAssignedStates.SelectedItem as State;
-            if (state != null)
+            if (lstAssignedStates.SelectedItem is State state)
             {
                 lstAssignedStates.Items.Remove(state);
                 lstPossibleStates.Items.Add(state);
@@ -65,8 +62,7 @@ namespace Scrum_o_wall.Views
         }
         private void BtnGoRight_Click(object sender, EventArgs e)
         {
-            State state = lstPossibleStates.SelectedItem as State;
-            if (state != null)
+            if (lstPossibleStates.SelectedItem is State state)
             {
                 lstPossibleStates.Items.Remove(state);
                 lstAssignedStates.Items.Add(state);
@@ -95,7 +91,7 @@ namespace Scrum_o_wall.Views
             {
                 controller.RemoveStateFromProject(state, project);
             }
-            this.Close();
+            Close();
         }
         private void BtnAddState_Click(object sender, EventArgs e)
         {

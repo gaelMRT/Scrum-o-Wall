@@ -1,17 +1,16 @@
-﻿using Scrum_o_wall.Classes;
+﻿/*
+ * Author   :   Gaël Serge Mariot
+ * Project  :   Scrum'o'wall
+ * File     :   MindmapMenu.xaml.cs
+ * Desc.    :   This file contains the logic in the MindmapMenu view
+ */
+using Scrum_o_wall.Classes;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Scrum_o_wall.Views
 {
@@ -20,9 +19,9 @@ namespace Scrum_o_wall.Views
     /// </summary>
     public partial class MindmapMenu : Window
     {
-        MindMap mindMap;
-        Controller controller;
-        List<UserControl> nodeControls = new List<UserControl>();
+        private readonly MindMap mindMap;
+        private readonly Controller controller;
+        private readonly List<UserControl> nodeControls = new List<UserControl>();
         public MindmapMenu(MindMap aMindMap, Controller aController)
         {
             mindMap = aMindMap;
@@ -30,7 +29,7 @@ namespace Scrum_o_wall.Views
 
             InitializeComponent();
 
-            this.Loaded += MindmapMenu_Loaded;
+            Loaded += MindmapMenu_Loaded;
         }
 
         private void MindmapMenu_Loaded(object sender, RoutedEventArgs e)
@@ -52,9 +51,11 @@ namespace Scrum_o_wall.Views
         }
         private int DrawNode(Node node, int level = 0)
         {
-            TextBlock content = new TextBlock();
-            content.Text = node.ToString();
-            content.TextWrapping = TextWrapping.Wrap;
+            TextBlock content = new TextBlock
+            {
+                Text = node.ToString(),
+                TextWrapping = TextWrapping.Wrap
+            };
             UserControl nodeControl = new UserControl
             {
                 Content = content,
@@ -119,8 +120,8 @@ namespace Scrum_o_wall.Views
 
         private void Quit_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = null;
-            this.Close();
+            DialogResult = null;
+            Close();
         }
 
         private void Modify_Click(object sender, RoutedEventArgs e)
@@ -131,8 +132,8 @@ namespace Scrum_o_wall.Views
                 if (mindMapEdit.Deleted)
                 {
                     controller.Delete(mindMap);
-                    this.DialogResult = false;
-                    this.Close();
+                    DialogResult = false;
+                    Close();
                 }
                 else
                 {

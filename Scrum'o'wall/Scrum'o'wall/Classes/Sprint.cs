@@ -6,15 +6,12 @@
  */
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Scrum_o_wall.Classes
 {
     public class Sprint
     {
-        private int id;
+        private readonly int id;
         private int projectId;
         private Project project;
 
@@ -25,10 +22,10 @@ namespace Scrum_o_wall.Classes
             End = anEnd;
             projectId = aProjectId;
         }
-        public int Id { get => id; }
+        public int Id => id;
         public DateTime Begin { get; set; }
         public DateTime End { get; set; }
-        public int ProjectId { get => projectId; }
+        public int ProjectId => projectId;
         public Project Project
         {
             get => project;
@@ -41,18 +38,18 @@ namespace Scrum_o_wall.Classes
         public Dictionary<int, UserStory> OrderedUserStories { get; } = new Dictionary<int, UserStory>();
 
         #region Add/Remove userStories
-        public void addUserStory(int order, UserStory toAdd)
+        public void AddUserStory(int order, UserStory toAdd)
         {
             OrderedUserStories.Add(order, toAdd);
         }
-        public void addListUserStories(Dictionary<int, UserStory> ListToAdd)
+        public void AddListUserStories(Dictionary<int, UserStory> ListToAdd)
         {
             foreach (KeyValuePair<int, UserStory> item in ListToAdd)
             {
                 OrderedUserStories.Add(item.Key, item.Value);
             }
         }
-        public void removeUserStoryByOrder(int order)
+        public void RemoveUserStoryByOrder(int order)
         {
             OrderedUserStories.Remove(order);
         }
@@ -60,7 +57,7 @@ namespace Scrum_o_wall.Classes
 
         public override string ToString()
         {
-            return String.Format("Sprint du {0} au {1}", Begin.ToShortDateString(), End.ToShortDateString());
+            return string.Format("Sprint du {0} au {1}", Begin.ToShortDateString(), End.ToShortDateString());
         }
     }
 }

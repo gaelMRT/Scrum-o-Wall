@@ -1,8 +1,8 @@
 ﻿<!-- 
-    Author  :   Gaël Serge Mariot
-    Project :   Scrum'o'Wall
-    File    :   MainMenu.xaml
-    Desc.   :   This file contains the graphics of the MainMenu window
+ * Author   :   Gaël Mariot
+ * Project  :   Scrum'o'wall
+ * File     :   ActivitiesMenu.xaml
+ * Desc.    :   This file contains the basic template of the ActivitiesMenu view
     -->
 <Window x:Class="Scrum_o_wall.MainMenu"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"

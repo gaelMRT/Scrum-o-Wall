@@ -1,18 +1,14 @@
-﻿using Scrum_o_wall.Classes;
+﻿/*
+ * Author   :   Gaël Serge Mariot
+ * Project  :   Scrum'o'wall
+ * File     :   BurndownChart.xaml.cs
+ * Desc.    :   This file contains the logic in the BurndownChart view
+ */
+using Scrum_o_wall.Classes;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Scrum_o_wall.Views
 {
@@ -21,7 +17,7 @@ namespace Scrum_o_wall.Views
     /// </summary>
     public partial class BurndownChart : Window
     {
-        Sprint sprint;
+        private readonly Sprint sprint;
         public BurndownChart(Sprint aSprint)
         {
             sprint = aSprint;
@@ -49,12 +45,14 @@ namespace Scrum_o_wall.Views
             }
 
             lblComplexityMax.Content = totalComplexity.ToString();
-            double x2Line = elapsedDays / totalDays * (this.ActualWidth - brdrGraphic.Margin.Left - brdrGraphic.Margin.Right) + brdrGraphic.Margin.Left;
-            double y2Line = completedComplexity / (double)totalComplexity * (this.ActualHeight - brdrGraphic.Margin.Bottom - brdrGraphic.Margin.Top) + brdrGraphic.Margin.Top;
+            double x2Line = elapsedDays / totalDays * (ActualWidth - brdrGraphic.Margin.Left - brdrGraphic.Margin.Right) + brdrGraphic.Margin.Left;
+            double y2Line = completedComplexity / (double)totalComplexity * (ActualHeight - brdrGraphic.Margin.Bottom - brdrGraphic.Margin.Top) + brdrGraphic.Margin.Top;
 
-            PointCollection linePoints = new PointCollection();
-            linePoints.Add(new Point(brdrGraphic.Margin.Left, brdrGraphic.Margin.Top));
-            linePoints.Add(new Point(x2Line, y2Line));
+            PointCollection linePoints = new PointCollection
+            {
+                new Point(brdrGraphic.Margin.Left, brdrGraphic.Margin.Top),
+                new Point(x2Line, y2Line)
+            };
 
             lnIdeal.X2 = ActualWidth - brdrGraphic.Margin.Right;
             lnIdeal.Y2 = ActualHeight - brdrGraphic.Margin.Bottom;
@@ -64,8 +62,8 @@ namespace Scrum_o_wall.Views
         }
         private void Quit_Click(object sender, EventArgs e)
         {
-            this.DialogResult = null;
-            this.Close();
+            DialogResult = null;
+            Close();
         }
 
     }

@@ -1,17 +1,13 @@
-﻿using Scrum_o_wall.Classes;
+﻿/*
+ * Author   :   Gaël Serge Mariot
+ * Project  :   Scrum'o'wall
+ * File     :   CommentMenu.xaml.cs
+ * Desc.    :   This file contains the logic in the CommentMenu view
+ */
+using Scrum_o_wall.Classes;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Scrum_o_wall.Views
 {
@@ -20,8 +16,8 @@ namespace Scrum_o_wall.Views
     /// </summary>
     public partial class CommentMenu : Window
     {
-        UserStory userStory;
-        Controller controller;
+        private readonly UserStory userStory;
+        private readonly Controller controller;
         public CommentMenu(UserStory aUserStory, Controller aController)
         {
             userStory = aUserStory;
@@ -43,8 +39,8 @@ namespace Scrum_o_wall.Views
 
         private void BtnCancel_Click(object sender, EventArgs e)
         {
-            this.DialogResult = null;
-            this.Close();
+            DialogResult = null;
+            Close();
         }
         private void BtnAddComment_Click(object sender, EventArgs e)
         {
@@ -52,21 +48,22 @@ namespace Scrum_o_wall.Views
             if (userStory.GetUsers().Count == 0)
             {
                 MessageBox.Show("Aucun utilisateur assigné", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-            }else if (commentCreate.ShowDialog() == true)
+            }
+            else if (commentCreate.ShowDialog() == true)
             {
-                
-                controller.CreateComment(commentCreate.tbxContent.Text.Trim(),commentCreate.cbxAuthor.SelectedItem as User, userStory);
+
+                controller.CreateComment(commentCreate.tbxContent.Text.Trim(), commentCreate.cbxAuthor.SelectedItem as User, userStory);
                 Refresh();
             }
         }
 
-        private void lstComments_MouseDoubleClick(object sender, EventArgs e)
+        private void LstComments_MouseDoubleClick(object sender, EventArgs e)
         {
             ListBox lbx = sender as ListBox;
-            if(lbx.SelectedItem != null)
+            if (lbx.SelectedItem != null)
             {
                 Comment comment = lbx.SelectedItem as Comment;
-                MessageBox.Show(String.Format("Auteur : {0}\nDate : {1}\n{2}", comment.User, comment.DateTime, comment.Description),"Contenu du commentaire",MessageBoxButton.OK);
+                MessageBox.Show(string.Format("Auteur : {0}\nDate : {1}\n{2}", comment.User, comment.DateTime, comment.Description), "Contenu du commentaire", MessageBoxButton.OK);
             }
         }
     }

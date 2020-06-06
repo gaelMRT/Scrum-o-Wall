@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*
+ * Author   :   Gaël Serge Mariot
+ * Project  :   Scrum'o'wall
+ * File     :   ProjectCreate.xaml.cs
+ * Desc.    :   This file contains the logic in the ProjectCreate view
+ */
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Scrum_o_wall.Views
 {
@@ -27,15 +20,15 @@ namespace Scrum_o_wall.Views
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = null;
-            this.Close();
+            DialogResult = null;
+            Close();
         }
         private void BtnAddProject_Click(object sender, RoutedEventArgs e)
         {
-            if(tbxName.Text.Trim().Length > 0 && tbxDesc.Text.Trim().Length > 0 &&  tbxDate.SelectedDate != null)
+            if (tbxName.Text.Trim().Length > 0 && tbxDesc.Text.Trim().Length > 0 && tbxDate.SelectedDate != null)
             {
-                this.DialogResult = true;
-                this.Close();
+                DialogResult = true;
+                Close();
             }
             else
             {

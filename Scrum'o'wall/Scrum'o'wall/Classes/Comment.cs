@@ -5,34 +5,30 @@
  * Desc.    :   This file contains the structure of the Comment class   
  */
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Scrum_o_wall.Classes
 {
     public class Comment
     {
-        int id;
-        int userStoryId;
-        int userId;
+        private readonly int id;
+        private int userStoryId;
+        private int userId;
         private UserStory userStory;
         private User user;
 
         public Comment(int id, string description, DateTime dateTime, int userStoryId, int userId)
         {
             this.id = id;
-            this.Description = description;
-            this.DateTime = dateTime;
+            Description = description;
+            DateTime = dateTime;
             this.userStoryId = userStoryId;
             this.userId = userId;
         }
 
-        public int Id { get => id; }
+        public int Id => id;
         public string Description { get; set; }
         public DateTime DateTime { get; set; }
-        public int UserStoryId { get => userStoryId; }
+        public int UserStoryId => userStoryId;
         public UserStory UserStory
         {
             get => userStory; set
@@ -41,7 +37,7 @@ namespace Scrum_o_wall.Classes
                 userStoryId = value.Id;
             }
         }
-        public int UserId { get => userId; }
+        public int UserId => userId;
         public User User
         {
             get => user;

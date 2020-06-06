@@ -1,11 +1,17 @@
-﻿<Window x:Class="Scrum_o_wall.Views.ChecklistCreate"
+﻿<!--
+ * Author   :   Gaël Mariot
+ * Project  :   Scrum'o'wall
+ * File     :   ChecklistCreate.xaml
+ * Desc.    :   This file contains the basic template of the ChecklistCreate view
+    -->
+<Window x:Class="Scrum_o_wall.Views.ChecklistCreate"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Scrum_o_wall.Views"
         mc:Ignorable="d"
-        Title="Créer une checklist" Height="450" Width="447.5" FontSize="16">
+        Title="Créer une checklist" WindowStartupLocation="CenterScreen" Height="450" Width="447.5" FontSize="16">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="70*"></RowDefinition>
@@ -21,13 +27,13 @@
         <TextBlock Grid.Row="1" VerticalAlignment="Center" Margin="10" TextAlignment="Right" Height="20" >Nom :</TextBlock>
         <TextBlock Grid.Row="2" VerticalAlignment="Top" Margin="10,10,10,0" TextAlignment="Right" Height="21" >Objets :</TextBlock>
 
-        <TextBox Grid.Row="1" MaxLength="255" Grid.Column="1" Margin="10" Name="tbxName"></TextBox>
+        <TextBox Grid.Row="1" MaxLength="255" Grid.Column="1" Margin="10" Name="tbxName" Stylus.IsPressAndHoldEnabled="False"></TextBox>
         <Grid Grid.Row="2" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="107*"></RowDefinition>
                 <RowDefinition Height="25*"></RowDefinition>
             </Grid.RowDefinitions>
-            <ListView x:Name="listItems" Margin="10">
+            <ListView x:Name="listItems" Margin="10" Stylus.IsPressAndHoldEnabled="False">
             </ListView>
             <Button x:Name="btnAddItem" Grid.Row="1" Margin="10" TouchUp="BtnAddItem_Click" Click="BtnAddItem_Click">Ajouter un objet</Button>
         </Grid>

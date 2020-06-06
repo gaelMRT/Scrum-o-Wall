@@ -1,18 +1,13 @@
-﻿using Scrum_o_wall.Classes;
+﻿/*
+ * Author   :   Gaël Serge Mariot
+ * Project  :   Scrum'o'wall
+ * File     :   UserStoryEdit.xaml.cs
+ * Desc.    :   This file contains the logic in the UserStoryEdit view
+ */
+using Scrum_o_wall.Classes;
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Scrum_o_wall.Views
 {
@@ -21,12 +16,12 @@ namespace Scrum_o_wall.Views
     /// </summary>
     public partial class UserStoryEdit : Window
     {
-        UserStory userStory;
-        Controller controller;
-        Project project;
+        private readonly UserStory userStory;
+        private readonly Controller controller;
+        private readonly Project project;
         public bool Deleted = false;
 
-        public UserStoryEdit(UserStory aUserStory,Project aProject,Controller aController)
+        public UserStoryEdit(UserStory aUserStory, Project aProject, Controller aController)
         {
             InitializeComponent();
             userStory = aUserStory;
@@ -69,7 +64,7 @@ namespace Scrum_o_wall.Views
         }
         private void BtnUserAssigned_Click(object sender, EventArgs e)
         {
-            UserMenu userMenu = new UserMenu(userStory,project.GetUsers(), controller);
+            UserMenu userMenu = new UserMenu(userStory, project.GetUsers(), controller);
             userMenu.ShowDialog();
         }
         private void BtnChecklists_Click(object sender, EventArgs e)
@@ -89,10 +84,10 @@ namespace Scrum_o_wall.Views
         }
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
-            if(tbxCompletedComplexity.Text.Trim().Length > 0 && tbxComplexity.Text.Trim().Length > 0 && tbxDesc.Text.Trim().Length > 0)
+            if (tbxCompletedComplexity.Text.Trim().Length > 0 && tbxComplexity.Text.Trim().Length > 0 && tbxDesc.Text.Trim().Length > 0)
             {
-                this.DialogResult = true;
-                this.Close();
+                DialogResult = true;
+                Close();
             }
             else
             {
@@ -101,16 +96,16 @@ namespace Scrum_o_wall.Views
         }
         private void BtnCancel_Click(object sender, EventArgs e)
         {
-            this.DialogResult = null;
-            this.Close();
+            DialogResult = null;
+            Close();
         }
         private void BtnDelete_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("La user story sera supprimée.\nÊtes-vous sûr(e)?", "Attention", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                this.DialogResult = true;
+                DialogResult = true;
                 Deleted = true;
-                this.Close();
+                Close();
             }
         }
 

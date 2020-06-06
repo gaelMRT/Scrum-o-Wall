@@ -1,4 +1,10 @@
-﻿<Window x:Class="Scrum_o_wall.Views.SprintCreate"
+﻿<!--
+ * Author   :   Gaël Mariot
+ * Project  :   Scrum'o'wall
+ * File     :   SprintCreate.xaml
+ * Desc.    :   This file contains the basic template of the SprintCreate view
+    -->
+<Window x:Class="Scrum_o_wall.Views.SprintCreate"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -22,8 +28,8 @@
         <Label Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" >Date de fin :</Label>
         <Button TouchUp="BtnCancel_Click" x:Name="btnCancel" Click="BtnCancel_Click" Grid.Row="3" Margin="10">Annuler</Button>
 
-        <DatePicker Grid.Row="1" Name="dtpckDateBegin" Grid.Column="1" Margin="10"/>
-        <DatePicker Grid.Row="2" Name="dtpckDateEnd" Grid.Column="1" Margin="10"/>
+        <DatePicker Grid.Row="1" Name="dtpckDateBegin" Grid.Column="1" Margin="10" Stylus.IsPressAndHoldEnabled="False"/>
+        <DatePicker Grid.Row="2" Name="dtpckDateEnd" Grid.Column="1" Margin="10" Stylus.IsPressAndHoldEnabled="False"/>
         <Button TouchUp="BtnAddProject_Click" x:Name="btnAddProject" Click="BtnAddProject_Click" Grid.Row="3" Grid.Column="1" Margin="10">Confirmer</Button>
     </Grid>
 </Window>

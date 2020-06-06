@@ -4,34 +4,33 @@
  * File     :   ChecklistItem.cs
  * Desc.    :   This file contains the structure of the ChecklistItem class   
  */
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Scrum_o_wall.Classes
 {
     public class ChecklistItem : IUsersAssigned
     {
-        int id;
-        int checklistId;
-        Checklist checklist;
-        private List<User> assignedUsers = new List<User>();
+        private readonly int id;
+        private int checklistId;
+        private Checklist checklist;
+        private readonly List<User> assignedUsers = new List<User>();
 
         public ChecklistItem(int id, string nameItem, bool done, int checklistId)
         {
             this.id = id;
-            this.NameItem = nameItem;
-            this.Done = done;
+            NameItem = nameItem;
+            Done = done;
             this.checklistId = checklistId;
         }
 
-        public int Id { get => id; }
+        public int Id => id;
         public string NameItem { get; set; }
         public bool Done { get; set; }
-        public int ChecklistId { get => checklistId; }
-        public Checklist Checklist { get => checklist; set {
+        public int ChecklistId => checklistId;
+        public Checklist Checklist
+        {
+            get => checklist; set
+            {
                 checklist = value;
                 checklistId = value.Id;
             }

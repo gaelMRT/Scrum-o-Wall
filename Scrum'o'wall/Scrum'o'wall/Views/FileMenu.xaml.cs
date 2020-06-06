@@ -1,18 +1,14 @@
-﻿using Microsoft.Win32;
+﻿/*
+ * Author   :   Gaël Serge Mariot
+ * Project  :   Scrum'o'wall
+ * File     :   FileMenu.xaml.cs
+ * Desc.    :   This file contains the logic in the FileMenu view
+ */
 using Scrum_o_wall.Classes;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Scrum_o_wall.Views
 {
@@ -21,8 +17,8 @@ namespace Scrum_o_wall.Views
     /// </summary>
     public partial class FileMenu : Window
     {
-        UserStory userStory;
-        Controller controller;
+        private readonly UserStory userStory;
+        private readonly Controller controller;
         public FileMenu(UserStory aUserStory, Controller aController)
         {
             userStory = aUserStory;
@@ -40,35 +36,43 @@ namespace Scrum_o_wall.Views
             foreach (File file in userStory.Files)
             {
                 //Create border
-                Border border = new Border();
-                border.BorderBrush = Brushes.Black;
-                border.BorderThickness = new Thickness(1);
-                border.Width = 408;
-                border.Tag = file;
+                Border border = new Border
+                {
+                    BorderBrush = Brushes.Black,
+                    BorderThickness = new Thickness(1),
+                    Width = 408,
+                    Tag = file
+                };
                 border.TouchDown += FileInList_Click;
                 border.MouseLeftButtonDown += FileInList_Click;
 
                 //Create grid
-                Grid grd = new Grid();
-                grd.Name = "lst" + file.Id.ToString();
+                Grid grd = new Grid
+                {
+                    Name = "lst" + file.Id.ToString()
+                };
                 grd.RowDefinitions.Add(new RowDefinition());
                 grd.RowDefinitions.Add(new RowDefinition());
 
                 //Create element for name
-                TextBlock textBlock = new TextBlock();
-                textBlock.VerticalAlignment = VerticalAlignment.Top;
-                textBlock.TextWrapping = TextWrapping.Wrap;
-                textBlock.Margin = new Thickness(10);
-                textBlock.TextAlignment = TextAlignment.Right;
-                textBlock.Text = file.Name;
+                TextBlock textBlock = new TextBlock
+                {
+                    VerticalAlignment = VerticalAlignment.Top,
+                    TextWrapping = TextWrapping.Wrap,
+                    Margin = new Thickness(10),
+                    TextAlignment = TextAlignment.Right,
+                    Text = file.Name
+                };
 
                 //Create element for name
-                TextBlock descBlock = new TextBlock();
-                descBlock.VerticalAlignment = VerticalAlignment.Top;
-                descBlock.TextWrapping = TextWrapping.Wrap;
-                descBlock.Margin = new Thickness(10);
-                descBlock.TextAlignment = TextAlignment.Right;
-                descBlock.Text = file.Name;
+                TextBlock descBlock = new TextBlock
+                {
+                    VerticalAlignment = VerticalAlignment.Top,
+                    TextWrapping = TextWrapping.Wrap,
+                    Margin = new Thickness(10),
+                    TextAlignment = TextAlignment.Right,
+                    Text = file.Name
+                };
 
                 grd.Children.Add(textBlock);
                 grd.Children.Add(descBlock);
@@ -95,7 +99,7 @@ namespace Scrum_o_wall.Views
                 }
                 Refresh();
             }
-            if(fileEdit.ShowDialog() == true)
+            if (fileEdit.ShowDialog() == true)
             {
                 controller.UpdateFile(fileEdit.tbxDescription.Text.Trim(), file);
             }
@@ -103,13 +107,13 @@ namespace Scrum_o_wall.Views
         }
         private void Quit_Click(object sender, EventArgs e)
         {
-            this.DialogResult = null;
-            this.Close();
+            DialogResult = null;
+            Close();
         }
         private void BtnAddFile_Click(object sender, EventArgs e)
         {
             FileCreate fileCreate = new FileCreate();
-            if(fileCreate.ShowDialog() == true)
+            if (fileCreate.ShowDialog() == true)
             {
                 controller.CreateFile(fileCreate.tbxFileName.Text.Trim(), fileCreate.tbxDescription.Text.Trim(), userStory);
                 Refresh();
@@ -117,12 +121,24 @@ namespace Scrum_o_wall.Views
 
         }
 
-        private void lstFiles_MouseDoubleClick(object sender, EventArgs e)
+        private void LstFiles_MouseDoubleClick(object sender, EventArgs e)
         {
             ListBox lbx = sender as ListBox;
-            if(lbx.SelectedItem != null)
+            if (lbx.SelectedItem != null)
             {
-                FileEdit fileEdit = new FileEdit(lbx.SelectedItem as File);
+                File file = lbx.SelectedItem as File;
+                FileEdit fileEdit = new FileEdit(file);
+                if (fileEdit.ShowDialog() == true)
+                {
+                    if (fileEdit.Deleted)
+                    {
+                        controller.Delete(file);
+                    }
+                    else
+                    {
+                        controller.UpdateFile(fileEdit.tbxDescription.Text, file);
+                    }
+                }
             }
         }
     }

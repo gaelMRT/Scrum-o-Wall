@@ -2,22 +2,15 @@
  * Author   :   Gaël Serge Mariot
  * Project  :   Scrum'o'wall
  * File     :   DB.cs
- * Desc.    :   This file is a singlotron's class to access to the database
+ * Desc.    :   This file is a class to access to the database
  */
 using Microsoft.Win32;
 using Scrum_o_wall.Classes;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data.OleDb;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Documents;
 
 namespace Scrum_o_wall
 {
@@ -54,6 +47,7 @@ namespace Scrum_o_wall
 
 
         #region UPDATE
+        //Update the objects and send true if exactly one line has changed
         public static bool UpdateUserStory(string description, DateTime? selectedDate, int complexity, int completedComplexity, bool blocked, Priority priority, State state, Classes.Type type, UserStory userStory)
         {
             //Initialize variables
@@ -330,6 +324,7 @@ namespace Scrum_o_wall
 
         #endregion
         #region ADD
+        //All the methods send back the objects after getting back the created id (except linking methods)
         public static Project CreateProject(string aName, string aDesc, DateTime aDate)
         {
             //Initialize variables
@@ -361,103 +356,6 @@ namespace Scrum_o_wall
             //return created project
             Project project = new Project(id, aName, aDesc, aDate);
             return project;
-        }
-        public static bool AddUserToChecklistItem(User user, ChecklistItem checklistItem)
-        {
-            //Initialize variables
-            OleDbCommand cmd;
-            bool result;
-
-            //Open database, build sql statement and prepare
-            DB.GetConnection().Open();
-            cmd = DB.GetConnection().CreateCommand();
-            cmd.CommandText = "INSERT INTO TUserChecklistItem (IdUser,IdChecklistItem) VALUES (?,?);";
-            cmd.Parameters.Add("IdUser", OleDbType.Integer);
-            cmd.Parameters.Add("IdProject", OleDbType.Integer);
-            cmd.Parameters[0].Value = user.Id;
-            cmd.Parameters[1].Value = checklistItem.Id;
-
-            //Execute sql statement
-            cmd.Prepare();
-            result = cmd.ExecuteNonQuery() == 1;
-
-            //Close database
-            DB.GetConnection().Close();
-            return result;
-        }
-        public static bool AddUserToUserStory(User user, UserStory userStory)
-        {
-
-            //Initialize variables
-            OleDbCommand cmd;
-            bool result;
-
-            //Open database, build sql statement and prepare
-            DB.GetConnection().Open();
-            cmd = DB.GetConnection().CreateCommand();
-            cmd.CommandText = "INSERT INTO TUserUserStory(IdUser,IdUserStory) VALUES (?,?);";
-            cmd.Parameters.Add("IdUser", OleDbType.Integer);
-            cmd.Parameters.Add("IdProject", OleDbType.Integer);
-            cmd.Parameters[0].Value = user.Id;
-            cmd.Parameters[1].Value = userStory.Id;
-
-            //Execute sql statement
-            cmd.Prepare();
-            result = cmd.ExecuteNonQuery() == 1;
-
-            //Close database
-            DB.GetConnection().Close();
-            return result;
-        }
-        public static bool AddUserToProject(User user, Project project)
-        {
-            //Initialize variables
-            OleDbCommand cmd;
-            bool result;
-
-            //Open database, build sql statement and prepare
-            DB.GetConnection().Open();
-            cmd = DB.GetConnection().CreateCommand();
-            cmd.CommandText = "INSERT INTO TUserProject (IdUser,IdProject) VALUES (?,?);";
-            cmd.Parameters.Add("IdUser", OleDbType.Integer);
-            cmd.Parameters.Add("IdProject", OleDbType.Integer);
-            cmd.Parameters[0].Value = user.Id;
-            cmd.Parameters[1].Value = project.Id;
-
-            //Execute sql statement
-            cmd.Prepare();
-            result = cmd.ExecuteNonQuery() == 1;
-
-            //Close database
-            DB.GetConnection().Close();
-            return result;
-        }
-        public static bool AddUserStoryToSprint(UserStory userStory, Sprint sprint, int order)
-        {
-            //Initialize variables
-            OleDbCommand cmd;
-            bool result;
-
-            //Open database, build sql statement and prepare
-            DB.GetConnection().Open();
-            cmd = DB.GetConnection().CreateCommand();
-            cmd.CommandText = "INSERT INTO TUserStoriesSprint (IdUserStory , IdSprint , OrderUserStory) VALUES (? , ? , ?) ;";
-
-            cmd.Parameters.Add("IdUserStory", OleDbType.Integer);
-            cmd.Parameters.Add("IdSprint", OleDbType.Integer);
-            cmd.Parameters.Add("OrderUserStory", OleDbType.Integer);
-
-            cmd.Parameters[0].Value = userStory.Id;
-            cmd.Parameters[1].Value = sprint.Id;
-            cmd.Parameters[2].Value = order;
-
-            //Execute sql statement
-            cmd.Prepare();
-            result = cmd.ExecuteNonQuery() == 1;
-
-            //Close database
-            DB.GetConnection().Close();
-            return result;
         }
         public static ChecklistItem CreateCheckListItem(string aName, Checklist checklist)
         {
@@ -758,31 +656,6 @@ namespace Scrum_o_wall
             return sprint;
 
         }
-        public static bool AddStateToProject(State state, Project project, int order)
-        {
-            //Initialize variables
-            OleDbCommand cmd;
-            bool result;
-
-            //Open database, build sql statement and prepare
-            DB.GetConnection().Open();
-            cmd = DB.GetConnection().CreateCommand();
-            cmd.CommandText = "INSERT INTO TProjectStates (IdProject,IdState,orderState) VALUES (?,?,?) ;";
-            cmd.Parameters.Add("IdProject", OleDbType.Integer);
-            cmd.Parameters.Add("IdState", OleDbType.Integer);
-            cmd.Parameters.Add("orderState", OleDbType.Integer);
-            cmd.Parameters[0].Value = project.Id;
-            cmd.Parameters[1].Value = state.Id;
-            cmd.Parameters[2].Value = order;
-
-            //Execute sql statement
-            cmd.Prepare();
-            result = cmd.ExecuteNonQuery() == 1;
-
-            //Close database
-            DB.GetConnection().Close();
-            return result;
-        }
         public static MindMap CreateMindmap(string name, Project project)
         {
             //Initialize variables
@@ -848,17 +721,139 @@ namespace Scrum_o_wall
             DB.GetConnection().Close();
 
             int? previousId = null;
-            if(previous != null)
+            if (previous != null)
             {
                 previousId = previous.Id;
             }
             Node node = new Node(id, name, previousId, mindMap.Id);
             return node;
         }
+        public static bool AddStateToProject(State state, Project project, int order)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+            bool result;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "INSERT INTO TProjectStates (IdProject,IdState,orderState) VALUES (?,?,?) ;";
+            cmd.Parameters.Add("IdProject", OleDbType.Integer);
+            cmd.Parameters.Add("IdState", OleDbType.Integer);
+            cmd.Parameters.Add("orderState", OleDbType.Integer);
+            cmd.Parameters[0].Value = project.Id;
+            cmd.Parameters[1].Value = state.Id;
+            cmd.Parameters[2].Value = order;
+
+            //Execute sql statement
+            cmd.Prepare();
+            result = cmd.ExecuteNonQuery() == 1;
+
+            //Close database
+            DB.GetConnection().Close();
+            return result;
+        }
+        public static bool AddUserToChecklistItem(User user, ChecklistItem checklistItem)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+            bool result;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "INSERT INTO TUserChecklistItem (IdUser,IdChecklistItem) VALUES (?,?);";
+            cmd.Parameters.Add("IdUser", OleDbType.Integer);
+            cmd.Parameters.Add("IdProject", OleDbType.Integer);
+            cmd.Parameters[0].Value = user.Id;
+            cmd.Parameters[1].Value = checklistItem.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            result = cmd.ExecuteNonQuery() == 1;
+
+            //Close database
+            DB.GetConnection().Close();
+            return result;
+        }
+        public static bool AddUserToUserStory(User user, UserStory userStory)
+        {
+
+            //Initialize variables
+            OleDbCommand cmd;
+            bool result;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "INSERT INTO TUserUserStory(IdUser,IdUserStory) VALUES (?,?);";
+            cmd.Parameters.Add("IdUser", OleDbType.Integer);
+            cmd.Parameters.Add("IdProject", OleDbType.Integer);
+            cmd.Parameters[0].Value = user.Id;
+            cmd.Parameters[1].Value = userStory.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            result = cmd.ExecuteNonQuery() == 1;
+
+            //Close database
+            DB.GetConnection().Close();
+            return result;
+        }
+        public static bool AddUserToProject(User user, Project project)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+            bool result;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "INSERT INTO TUserProject (IdUser,IdProject) VALUES (?,?);";
+            cmd.Parameters.Add("IdUser", OleDbType.Integer);
+            cmd.Parameters.Add("IdProject", OleDbType.Integer);
+            cmd.Parameters[0].Value = user.Id;
+            cmd.Parameters[1].Value = project.Id;
+
+            //Execute sql statement
+            cmd.Prepare();
+            result = cmd.ExecuteNonQuery() == 1;
+
+            //Close database
+            DB.GetConnection().Close();
+            return result;
+        }
+        public static bool AddUserStoryToSprint(UserStory userStory, Sprint sprint, int order)
+        {
+            //Initialize variables
+            OleDbCommand cmd;
+            bool result;
+
+            //Open database, build sql statement and prepare
+            DB.GetConnection().Open();
+            cmd = DB.GetConnection().CreateCommand();
+            cmd.CommandText = "INSERT INTO TUserStoriesSprint (IdUserStory , IdSprint , OrderUserStory) VALUES (? , ? , ?) ;";
+
+            cmd.Parameters.Add("IdUserStory", OleDbType.Integer);
+            cmd.Parameters.Add("IdSprint", OleDbType.Integer);
+            cmd.Parameters.Add("OrderUserStory", OleDbType.Integer);
+
+            cmd.Parameters[0].Value = userStory.Id;
+            cmd.Parameters[1].Value = sprint.Id;
+            cmd.Parameters[2].Value = order;
+
+            //Execute sql statement
+            cmd.Prepare();
+            result = cmd.ExecuteNonQuery() == 1;
+
+            //Close database
+            DB.GetConnection().Close();
+            return result;
+        }
 
         #endregion
         #region REMOVE
-
+        //Set the deletion flag to true
         public static bool Delete(Activity activity)
         {
             //Initialize variables
@@ -1233,7 +1228,7 @@ namespace Scrum_o_wall
         }
         public static bool Delete(Node node)
         {
-            if(node.PreviousId == null)
+            if (node.PreviousId == null)
             {
                 return false;
             }
@@ -1260,6 +1255,7 @@ namespace Scrum_o_wall
         }
         #endregion
         #region GET
+        //get objects with deletedflag on false
         public static List<int[]> GetUserStoriesSprint()
         {
             //Declare variables
@@ -1866,10 +1862,10 @@ namespace Scrum_o_wall
             while (rdr.Read())
             {
                 rdr.GetValues(values);
-                
-                if(values[2] == DBNull.Value)
+
+                if (values[2] == DBNull.Value)
                 {
-                    values[2] = null;    
+                    values[2] = null;
                 }
                 // 0:idNode,1:NameNode,2:PreviousIdNode,3:idMindmap,4:deletedFlag
                 Node n = new Node((int)values[0], (string)values[1], (int?)values[2], (int)values[3]);

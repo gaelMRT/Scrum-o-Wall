@@ -4,30 +4,25 @@
  * File     :   File.cs
  * Desc.    :   This file contains the structure of the TaskFile class   
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Scrum_o_wall.Classes
 {
     public class File
     {
-        int id;
-        int userStoryId;
+        private readonly int id;
+        private int userStoryId;
         private UserStory userStory;
 
 
-        public File(int id, string name, string description,  int userStoryId)
+        public File(int id, string name, string description, int userStoryId)
         {
             this.id = id;
-            this.Name = name;
-            this.Description = description;
+            Name = name;
+            Description = description;
             this.userStoryId = userStoryId;
         }
 
-        public int Id { get => id; }
+        public int Id => id;
         public string Name { get; set; }
         public string Description { get; set; }
         public UserStory UserStory
@@ -38,7 +33,7 @@ namespace Scrum_o_wall.Classes
                 userStoryId = value.Id;
             }
         }
-        public int UserStoryId { get => userStoryId; }
+        public int UserStoryId => userStoryId;
 
         public override string ToString()
         {

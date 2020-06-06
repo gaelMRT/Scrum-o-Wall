@@ -1,17 +1,12 @@
-﻿using Scrum_o_wall.Classes;
+﻿/*
+ * Author   :   Gaël Serge Mariot
+ * Project  :   Scrum'o'wall
+ * File     :   UserEdit.xaml.cs
+ * Desc.    :   This file contains the logic in the UserEdit view
+ */
+using Scrum_o_wall.Classes;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Scrum_o_wall.Views
 {
@@ -20,8 +15,8 @@ namespace Scrum_o_wall.Views
     /// </summary>
     public partial class UserEdit : Window
     {
-        User user;
-        public bool Deleted= false;
+        private readonly User user;
+        public bool Deleted = false;
         public UserEdit(User aUser)
         {
             user = aUser;
@@ -33,10 +28,10 @@ namespace Scrum_o_wall.Views
 
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
-            if(tbxUserName.Text.Trim().Length > 0)
+            if (tbxUserName.Text.Trim().Length > 0)
             {
-                this.DialogResult = true;
-                this.Close();
+                DialogResult = true;
+                Close();
             }
             else
             {
@@ -45,16 +40,16 @@ namespace Scrum_o_wall.Views
         }
         private void BtnCancel_Click(object sender, EventArgs e)
         {
-            this.DialogResult = null;
-            this.Close();
+            DialogResult = null;
+            Close();
         }
         private void BtnDelete_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("L'utilisateur sera supprimé.\nÊtes-vous sûr(e)?", "Attention", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
                 Deleted = true;
-                this.DialogResult = true;
-                this.Close();
+                DialogResult = true;
+                Close();
             }
         }
 

@@ -6,21 +6,17 @@
  */
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Documents;
 
 namespace Scrum_o_wall.Classes
 {
     public class UserStory : IUsersAssigned
     {
-        private int id;
+        private readonly int id;
         private int stateId;
         private int projectId;
         private int typeId;
         private int priorityId;
-        private List<User> assignedUsers = new List<User>();
+        private readonly List<User> assignedUsers = new List<User>();
         private Type type;
         private Priority priority;
         private State state;
@@ -40,11 +36,11 @@ namespace Scrum_o_wall.Classes
             priorityId = aPriorityId;
         }
 
-        public int Id { get => id; }
-        public int StateId { get => stateId; }
-        public int ProjectId { get => projectId; }
-        public int TypeId { get => typeId; }
-        public int PriorityId { get => priorityId; }
+        public int Id => id;
+        public int StateId => stateId;
+        public int ProjectId => projectId;
+        public int TypeId => typeId;
+        public int PriorityId => priorityId;
         public string Description { get; set; }
         public State State
         {

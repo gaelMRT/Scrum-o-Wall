@@ -1,11 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Scrum_o_wall;
 using Scrum_o_wall.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Scrum_o_wall.Tests
 {
@@ -117,7 +114,7 @@ namespace Scrum_o_wall.Tests
             Activity activity = userStory.Activities.Last();
             Assert.AreEqual(aDesc, activity.Description);
             Assert.IsTrue(ctrl.Delete(activity));
-            
+
             ctrl.Delete(userStory);
             ctrl.Delete(project);
         }
@@ -160,7 +157,7 @@ namespace Scrum_o_wall.Tests
             ctrl.CreateUserStory("aDescription", null, 2, ctrl.Priorities[0], ctrl.Types[0], project);
             UserStory userStory = project.AllUserStories[0];
             ctrl.CreateCheckList("aCheck", userStory);
-            Checklist checklist = userStory.Checklists[0]; 
+            Checklist checklist = userStory.Checklists[0];
 
             Assert.IsTrue(ctrl.CreateCheckListItem(aName, checklist));
             ChecklistItem checklistItem = checklist.ChecklistItems[0];
@@ -391,7 +388,7 @@ namespace Scrum_o_wall.Tests
 
             //Test Create
 
-            Assert.IsTrue(ctrl.CreateMindMap(firstName,project));
+            Assert.IsTrue(ctrl.CreateMindMap(firstName, project));
             MindMap mindMap = project.MindMaps.Last();
 
             Assert.AreEqual(firstName, mindMap.Name);
@@ -416,7 +413,7 @@ namespace Scrum_o_wall.Tests
             //Test Create Without Previous
             string firstName = "first node name";
 
-            Assert.IsTrue(ctrl.CreateNode(firstName,null,mindMap));
+            Assert.IsTrue(ctrl.CreateNode(firstName, null, mindMap));
             Node node = mindMap.Root;
 
             Assert.AreEqual(firstName, node.Name);

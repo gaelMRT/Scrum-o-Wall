@@ -1,4 +1,10 @@
-﻿<Window x:Class="Scrum_o_wall.Views.BurndownChart"
+﻿<!--
+ * Author   :   Gaël Mariot
+ * Project  :   Scrum'o'wall
+ * File     :   BurndownChart.xaml
+ * Desc.    :   This file contains the basic template of the BurndownChart view
+    -->
+<Window x:Class="Scrum_o_wall.Views.BurndownChart"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"

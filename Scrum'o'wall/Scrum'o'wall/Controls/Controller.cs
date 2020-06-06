@@ -1,15 +1,13 @@
-﻿using Scrum_o_wall.Classes;
+﻿/*
+ * Author   :   Gaël Serge Mariot
+ * Project  :   Scrum'o'wall
+ * File     :   Controller.cs
+ * Desc.    :   This file is the control class. It is used by the view to communicate with the database.
+ */
+using Scrum_o_wall.Classes;
 using System;
 using System.Collections.Generic;
-using System.Data.OleDb;
-using System.IO;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Documents;
 
 namespace Scrum_o_wall
 {
@@ -22,11 +20,11 @@ namespace Scrum_o_wall
         private List<Priority> priorities;
         private List<State> states;
 
-        public List<Project> Projects { get => projects; }
-        public List<User> Users { get => users; }
-        public List<Classes.Type> Types { get => types; }
-        public List<Priority> Priorities { get => priorities; }
-        public List<State> States { get => states; }
+        public List<Project> Projects => projects;
+        public List<User> Users => users;
+        public List<Classes.Type> Types => types;
+        public List<Priority> Priorities => priorities;
+        public List<State> States => states;
 
         public Controller()
         {
@@ -93,7 +91,6 @@ namespace Scrum_o_wall
 
             }
             #endregion
-
             #region Link UserStory with other classes
             foreach (UserStory u in allUserStories)
             {
@@ -138,7 +135,7 @@ namespace Scrum_o_wall
                 foreach (Comment c in comments)
                 {
                     List<User> users = allUsers.Where(user => user.Id == c.UserId).ToList();
-                    if(users.Count == 1)
+                    if (users.Count == 1)
                     {
                         c.User = users[0];
                         c.UserStory = u;
@@ -152,7 +149,6 @@ namespace Scrum_o_wall
                 }
             }
             #endregion
-
             #region Link UserStory with Sprint
             userStoriesSprint = DB.GetUserStoriesSprint();
             // 0:IdUserStory,1:IdSprint,2:Order
@@ -162,11 +158,10 @@ namespace Scrum_o_wall
                 List<Sprint> sprint = allSprints.Where(s => s.Id == item[1]).ToList();
                 if (userStory.Count == 1 && sprint.Count == 1)
                 {
-                    sprint[0].addUserStory(item[2], userStory[0]);
+                    sprint[0].AddUserStory(item[2], userStory[0]);
                 }
             }
             #endregion
-
             #region Link Sprint with Project
             foreach (Sprint s in allSprints)
             {
@@ -178,14 +173,12 @@ namespace Scrum_o_wall
                 }
             }
             #endregion
-
             #region Link Checklist with ChecklistItems
             foreach (Checklist chk in allChecklists)
             {
                 chk.ChecklistItems = allChecklistItems.Where(c => c.ChecklistId == chk.Id).ToList();
             }
             #endregion
-
             #region Link user with UserStory
             userUserStories = DB.GetUserUserStory();
             foreach (int[] item in userUserStories)
@@ -225,7 +218,6 @@ namespace Scrum_o_wall
                 }
             }
             #endregion
-
             #region Link Node with Nodes and mindmaps
             foreach (Node node in allNodes)
             {
@@ -257,12 +249,11 @@ namespace Scrum_o_wall
 
             }
             #endregion
-
             #region Link MindMaps with projects
             foreach (MindMap mindMap in allMindMaps)
             {
                 List<Project> projects = allProjects.Where(p => p.Id == mindMap.ProjectId).ToList();
-                if(projects.Count == 1)
+                if (projects.Count == 1)
                 {
                     mindMap.Project = projects[0];
                     projects[0].MindMaps.Add(mindMap);
@@ -280,8 +271,7 @@ namespace Scrum_o_wall
 
 
         #region Remove Methods
-
-
+        //All the creations methods remove the object in controller's values and tell DB to remove them
         public bool Delete(Project project)
         {
             bool result = DB.Delete(project);
@@ -305,7 +295,7 @@ namespace Scrum_o_wall
             List<Project> removingState = projects.Where(p => p.States.ContainsValue(state)).ToList();
             foreach (Project project in removingState)
             {
-                this.RemoveStateFromProject(state, project);
+                RemoveStateFromProject(state, project);
             }
             bool result = DB.Delete(state);
             return result;
@@ -327,7 +317,7 @@ namespace Scrum_o_wall
             List<Sprint> sprintRemoveUserStory = userStory.Project.Sprints.Where(s => s.OrderedUserStories.ContainsValue(userStory)).ToList();
             foreach (Sprint sprint in sprintRemoveUserStory)
             {
-                this.RemoveUserStoryFromSprint(userStory, sprint);
+                RemoveUserStoryFromSprint(userStory, sprint);
             }
             userStory.Project.AllUserStories.Remove(userStory);
             bool result = DB.Delete(userStory);
@@ -363,7 +353,7 @@ namespace Scrum_o_wall
 
                         foreach (UserStory userStory in project.AllUserStories.Where(u => u.State.Id == state.Id))
                         {
-                            this.UserStorySwitchState(userStory, project.States.First().Value);
+                            UserStorySwitchState(userStory, project.States.First().Value);
                         }
 
                         break;
@@ -383,14 +373,14 @@ namespace Scrum_o_wall
             switch (typeName)
             {
                 case "Project":
-                    this.RemoveUserFromProject(user, usersAssigned as Project);
+                    RemoveUserFromProject(user, usersAssigned as Project);
                     break;
                 case "UserStory":
-                    this.RemoveUserFromUserStory(user, usersAssigned as UserStory);
-                    this.CreateActivity(String.Format("{0} a été désassigné", user), usersAssigned as UserStory);
+                    RemoveUserFromUserStory(user, usersAssigned as UserStory);
+                    CreateActivity(string.Format("{0} a été désassigné", user), usersAssigned as UserStory);
                     break;
                 case "ChecklistItem":
-                    this.RemoveUserFromChecklistItem(user, usersAssigned as ChecklistItem);
+                    RemoveUserFromChecklistItem(user, usersAssigned as ChecklistItem);
                     break;
                 default:
                     return false;
@@ -406,7 +396,7 @@ namespace Scrum_o_wall
         private bool RemoveUserFromUserStory(User user, UserStory userStory)
         {
             bool result = DB.RemoveUserFromUserStory(user, userStory);
-            this.CreateActivity(String.Format("\"{0}\" a été désassigné", user), userStory);
+            CreateActivity(string.Format("\"{0}\" a été désassigné", user), userStory);
             userStory.RemoveUser(user);
             return result;
         }
@@ -426,8 +416,8 @@ namespace Scrum_o_wall
                 {
                     order++;
                 }
-                this.CreateActivity(String.Format("A été supprimé du sprint \"{0}\"", sprint), userStory);
-                sprint.removeUserStoryByOrder(order);
+                CreateActivity(string.Format("A été supprimé du sprint \"{0}\"", sprint), userStory);
+                sprint.RemoveUserStoryByOrder(order);
                 result = DB.RemoveUserStoryFromSprint(userStory, sprint, order);
             }
             return result;
@@ -457,12 +447,13 @@ namespace Scrum_o_wall
         #endregion
 
         #region Update Methods
+        //All the creations methods update the objects in controller's values and send them to DB
         public bool UserStorySwitchState(UserStory userStory, State state)
         {
             bool result = false;
             if (userStory.State != state)
             {
-                this.CreateActivity(String.Format("Passé de l'état \"{0}\" à l'état \"{1}\"", userStory.State, state), userStory);
+                CreateActivity(string.Format("Passé de l'état \"{0}\" à l'état \"{1}\"", userStory.State, state), userStory);
                 result = DB.UpdateUserStory(userStory.Description, userStory.DateLimit, userStory.ComplexityEstimation, userStory.CompletedComplexity, userStory.Blocked, userStory.Priority, state, userStory.Type, userStory);
                 userStory.State = state;
             }
@@ -487,7 +478,7 @@ namespace Scrum_o_wall
                 userStory.Type != aType ||
                 userStory.State != aState)
             {
-                this.CreateActivity("Les informations ont été mises à jour", userStory);
+                CreateActivity("Les informations ont été mises à jour", userStory);
                 result = DB.UpdateUserStory(description, selectedDate, complexity, completedComplexity, blocked, aPriority, aState, aType, userStory);
                 userStory.Description = description;
                 userStory.DateLimit = selectedDate;
@@ -519,7 +510,7 @@ namespace Scrum_o_wall
                 }
                 else
                 {
-                    this.UpdateCheckListItem(item.NameItem, item.Done, item);
+                    UpdateCheckListItem(item.NameItem, item.Done, item);
                     checklist.ChecklistItems.Add(item);
                 }
             }
@@ -556,12 +547,12 @@ namespace Scrum_o_wall
         {
             bool result = DB.UpdateMindMap(text, mindMap);
             mindMap.Name = text;
-            result = result && this.UpdateNode(text, null, mindMap.Root);
+            result = result && UpdateNode(text, null, mindMap.Root);
             return result;
         }
-        public bool UpdateNode(string text,Node previous, Node node)
+        public bool UpdateNode(string text, Node previous, Node node)
         {
-            bool result = DB.UpdateNode(text, previous,node);
+            bool result = DB.UpdateNode(text, previous, node);
             if (!result)
             {
                 return result;
@@ -575,7 +566,7 @@ namespace Scrum_o_wall
                     for (int i = 0; i < directChilds.Count; i++)
                     {
                         Node n = directChilds[i];
-                        this.UpdateNode(n.Name, node.Previous, n);
+                        UpdateNode(n.Name, node.Previous, n);
                     }
                 }
                 node.Previous.Childrens.Remove(node);
@@ -589,6 +580,7 @@ namespace Scrum_o_wall
         #endregion
 
         #region Creation Methods
+        //All the creations methods add the objects in controller's values and send them to DB
         public bool AddUserStoryToSprint(UserStory userStory, Sprint sprint)
         {
             if (!sprint.OrderedUserStories.ContainsValue(userStory))
@@ -598,9 +590,9 @@ namespace Scrum_o_wall
                 {
                     order++;
                 }
-                sprint.addUserStory(order, userStory);
+                sprint.AddUserStory(order, userStory);
                 DB.AddUserStoryToSprint(userStory, sprint, order);
-                this.CreateActivity(String.Format("A été ajouté au sprint \"{0}\"", sprint), userStory);
+                CreateActivity(string.Format("A été ajouté au sprint \"{0}\"", sprint), userStory);
                 return true;
             }
             else
@@ -626,13 +618,13 @@ namespace Scrum_o_wall
             switch (typeName)
             {
                 case "Project":
-                    this.AddUserToProject(user, usersAssigned as Project);
+                    AddUserToProject(user, usersAssigned as Project);
                     break;
                 case "UserStory":
-                    this.AddUserToUserStory(user, usersAssigned as UserStory);
+                    AddUserToUserStory(user, usersAssigned as UserStory);
                     break;
                 case "ChecklistItem":
-                    this.AddUserToChecklistItem(user, usersAssigned as ChecklistItem);
+                    AddUserToChecklistItem(user, usersAssigned as ChecklistItem);
                     break;
                 default:
                     return false;
@@ -642,7 +634,7 @@ namespace Scrum_o_wall
         private bool AddUserToUserStory(User user, UserStory userStory)
         {
             bool result = DB.AddUserToUserStory(user, userStory);
-            this.CreateActivity(String.Format("\"{0}\" a été assigné", user), userStory);
+            CreateActivity(string.Format("\"{0}\" a été assigné", user), userStory);
             userStory.AddUser(user);
             return result;
         }
@@ -677,7 +669,7 @@ namespace Scrum_o_wall
             userStory.Project = aProject;
 
             aProject.AllUserStories.Add(userStory);
-            this.CreateActivity("A été créé", userStory);
+            CreateActivity("A été créé", userStory);
             return result;
         }
         public bool CreateSprint(DateTime dateBegin, DateTime dateEnd, Project aProject)
@@ -694,7 +686,7 @@ namespace Scrum_o_wall
             bool result = file != null;
             userStory.Files.Add(file);
             file.UserStory = userStory;
-            this.CreateActivity(String.Format("\"{0}\" a été lié", file), userStory);
+            CreateActivity(string.Format("\"{0}\" a été lié", file), userStory);
             return result;
         }
         public bool CreateUser(string name)
@@ -718,7 +710,7 @@ namespace Scrum_o_wall
             comment.UserStory = userStory;
             userStory.Comments.Add(comment);
 
-            this.CreateActivity(String.Format("\"{0}\" a commenté", user), userStory);
+            CreateActivity(string.Format("\"{0}\" a commenté", user), userStory);
             return result;
         }
         public bool CreateCheckListItem(string aName, Checklist checklist)
@@ -734,15 +726,9 @@ namespace Scrum_o_wall
             Checklist checklist = DB.CreateCheckList(aName, aUserStory);
             aUserStory.Checklists.Add(checklist);
             checklist.UserStory = aUserStory;
-            this.CreateActivity(String.Format("La checklist \"{0}\" a été créée", checklist), aUserStory);
+            CreateActivity(string.Format("La checklist \"{0}\" a été créée", checklist), aUserStory);
             return checklist;
         }
-        /// <summary>
-        /// Create a project and add it to all projects
-        /// </summary>
-        /// <param name="aName"></param>
-        /// <param name="aDesc"></param>
-        /// <param name="aDate"></param>
         public bool CreateProject(string aName, string aDesc, DateTime aDate)
         {
             Project project = DB.CreateProject(aName, aDesc, aDate);
@@ -750,9 +736,9 @@ namespace Scrum_o_wall
             bool result = project != null;
             if (states.Count < 3)
             {
-                this.CreateState("A faire");
-                this.CreateState("En cours");
-                this.CreateState("Accompli");
+                CreateState("A faire");
+                CreateState("En cours");
+                CreateState("Accompli");
             }
             project.States.Add(0, states[0]);
             project.States.Add(1, states[1]);
@@ -765,7 +751,6 @@ namespace Scrum_o_wall
             projects.Add(project);
             return result;
         }
-
         public bool CreateMindMap(string aName, Project project)
         {
             MindMap mindMap = DB.CreateMindmap(aName, project);
@@ -775,9 +760,9 @@ namespace Scrum_o_wall
             project.MindMaps.Add(mindMap);
             return result;
         }
-        public bool CreateNode(string aName, Node previous,MindMap mindMap)
+        public bool CreateNode(string aName, Node previous, MindMap mindMap)
         {
-            Node node = DB.CreateNode(aName,previous,mindMap);
+            Node node = DB.CreateNode(aName, previous, mindMap);
             bool result = node != null;
             if (previous != null)
             {

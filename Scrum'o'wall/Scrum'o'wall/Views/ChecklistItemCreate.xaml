@@ -1,11 +1,17 @@
-﻿<Window x:Class="Scrum_o_wall.Views.ChecklistItemCreate"
+﻿<!--
+ * Author   :   Gaël Mariot
+ * Project  :   Scrum'o'wall
+ * File     :   ChecklistItemCreate.xaml
+ * Desc.    :   This file contains the basic template of the ChecklistItemCreate view
+    -->
+<Window x:Class="Scrum_o_wall.Views.ChecklistItemCreate"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Scrum_o_wall.Views"
         mc:Ignorable="d"
-        Title="Création d'un objet de liste" Height="189.532" Width="558.533" FontSize="16">
+        Title="Création d'un objet de liste" Height="189.532" Width="558.533" WindowStartupLocation="CenterScreen" FontSize="16">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="161"></ColumnDefinition>
@@ -18,7 +24,7 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.ColumnSpan="2" TextAlignment="Center" FontSize="20" VerticalAlignment="Center" Margin="10">Création d'un objet de liste</TextBlock>
         <TextBlock Grid.Row="1" TextAlignment="Right" VerticalAlignment="Center" Margin="10" >Objet :</TextBlock>
-        <TextBox Grid.Row="1" Grid.Column="1" MaxLength="255" Margin="10" Name="tbxObjet"></TextBox>
+        <TextBox Grid.Row="1" Grid.Column="1" MaxLength="255" Margin="10" Name="tbxObjet" Stylus.IsPressAndHoldEnabled="False"></TextBox>
         <Button x:Name="btnCancel" Grid.Row="2" Grid.Column="0" Margin="10" Click="BtnCancel_Click" TouchUp="BtnCancel_Click">Annuler</Button>
         <Button x:Name="btnConfirm" Grid.Row="2" Grid.Column="1" Margin="10" Click="BtnConfirm_Click" TouchUp="BtnConfirm_Click">Confirmer</Button>
     </Grid>

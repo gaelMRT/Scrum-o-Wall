@@ -2,25 +2,16 @@
  * Author   :   Gaël Serge Mariot
  * Project  :   Scrum'o'wall
  * File     :   MainMenu.xaml.cs
- * Desc.    :   This file contains the methods behind the MainMenu View   
+ * Desc.    :   This file contains the logic in the MainMenu view
  */
 using Scrum_o_wall.Classes;
 using Scrum_o_wall.Views;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Scrum_o_wall
 {
@@ -29,8 +20,8 @@ namespace Scrum_o_wall
     /// </summary>
     public partial class MainMenu : Window
     {
-        Controller controller;
-        List<UserControl> projectControls = new List<UserControl>();
+        private readonly Controller controller;
+        private readonly List<UserControl> projectControls = new List<UserControl>();
         public MainMenu()
         {
             InitializeComponent();
@@ -52,27 +43,33 @@ namespace Scrum_o_wall
                 Project p = controller.Projects[i];
 
                 //create a control for title
-                Label title = new Label();
-                title.Content = p.Name;
-                title.HorizontalContentAlignment = HorizontalAlignment.Center;
-                title.FontSize = 24;
+                Label title = new Label
+                {
+                    Content = p.Name,
+                    HorizontalContentAlignment = HorizontalAlignment.Center,
+                    FontSize = 24
+                };
                 Grid.SetRow(title, 0);
 
                 //Create a control for description
                 Label desc = new Label();
-                TextBlock txtBlck = new TextBlock();
-                txtBlck.TextWrapping = TextWrapping.WrapWithOverflow;
-                txtBlck.Text = p.Description;
+                TextBlock txtBlck = new TextBlock
+                {
+                    TextWrapping = TextWrapping.WrapWithOverflow,
+                    Text = p.Description
+                };
                 desc.Content = txtBlck;
                 desc.HorizontalAlignment = HorizontalAlignment.Stretch;
                 desc.FontSize = 18;
                 Grid.SetRow(desc, 1);
 
                 //Create a control of date
-                Label date = new Label();
-                date.Content = "Date de début : " + p.Begin.ToShortDateString();
-                date.HorizontalContentAlignment = HorizontalAlignment.Left;
-                date.FontSize = 18;
+                Label date = new Label
+                {
+                    Content = "Date de début : " + p.Begin.ToShortDateString(),
+                    HorizontalContentAlignment = HorizontalAlignment.Left,
+                    FontSize = 18
+                };
                 Grid.SetRow(date, 2);
 
                 //Place controls in a grid
@@ -85,14 +82,16 @@ namespace Scrum_o_wall
                 grd.Children.Add(date);
 
                 //Create project frame
-                UserControl usrCntrl = new UserControl();
-                usrCntrl.Width = cnvsProject.Width / 4;
-                usrCntrl.Height = cnvsProject.Height / 5;
-                usrCntrl.Content = grd;
-                usrCntrl.BorderBrush = Brushes.Black;
-                usrCntrl.Background = Brushes.LightGray;
-                usrCntrl.Cursor = Cursors.Hand;
-                usrCntrl.Tag = p;
+                UserControl usrCntrl = new UserControl
+                {
+                    Width = cnvsProject.Width / 4,
+                    Height = cnvsProject.Height / 5,
+                    Content = grd,
+                    BorderBrush = Brushes.Black,
+                    Background = Brushes.LightGray,
+                    Cursor = Cursors.Hand,
+                    Tag = p
+                };
                 usrCntrl.TouchDown += UsrCntrl_Click;
                 usrCntrl.MouseLeftButtonDown += UsrCntrl_Click;
 
@@ -114,8 +113,8 @@ namespace Scrum_o_wall
         private void MainMenu_Loaded(object sender, RoutedEventArgs e)
         {
             //ActualWidth and ActualHeight measured when window is loaded minus border sizes
-            cnvsProject.Width = this.ActualWidth;
-            cnvsProject.Height = this.ActualHeight;
+            cnvsProject.Width = ActualWidth;
+            cnvsProject.Height = ActualHeight;
             scrllVwr.Width = cnvsProject.Width;
             scrllVwr.Height = cnvsProject.Height;
 
@@ -132,7 +131,7 @@ namespace Scrum_o_wall
         }
         private void Quit_Click(object sender, EventArgs e)
         {
-            if(MessageBox.Show("Vous allez quitter l'application.\nÊtes-vous sûr de vouloir continuer ?","Attention",MessageBoxButton.OKCancel,MessageBoxImage.Warning) == MessageBoxResult.OK)
+            if (MessageBox.Show("Vous allez quitter l'application.\nÊtes-vous sûr de vouloir continuer ?", "Attention", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
             {
                 Application.Current.Shutdown();
             }

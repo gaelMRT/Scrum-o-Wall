@@ -1,18 +1,15 @@
-﻿using Scrum_o_wall.Classes;
+﻿/*
+ * Author   :   Gaël Serge Mariot
+ * Project  :   Scrum'o'wall
+ * File     :   UserMenu.xaml.cs
+ * Desc.    :   This file contains the logic in the UserMenu view
+ */
+using Scrum_o_wall.Classes;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Scrum_o_wall.Views
 {
@@ -21,9 +18,9 @@ namespace Scrum_o_wall.Views
     /// </summary>
     public partial class UserMenu : Window
     {
-        Controller controller;
-        IUsersAssigned objectWithAssignedUsers;
-        List<User> possibleUsers;
+        private readonly Controller controller;
+        private readonly IUsersAssigned objectWithAssignedUsers;
+        private readonly List<User> possibleUsers;
         public UserMenu(IUsersAssigned anObjectWithAssignedUsers, List<User> possibilities, Controller aController)
         {
             controller = aController;
@@ -54,8 +51,7 @@ namespace Scrum_o_wall.Views
 
         private void BtnGoLeft_Click(object sender, EventArgs e)
         {
-            User state = lstAssignedUsers.SelectedItem as User;
-            if (state != null)
+            if (lstAssignedUsers.SelectedItem is User state)
             {
                 lstAssignedUsers.Items.Remove(state);
                 lstPossibleUsers.Items.Add(state);
@@ -63,8 +59,7 @@ namespace Scrum_o_wall.Views
         }
         private void BtnGoRight_Click(object sender, EventArgs e)
         {
-            User state = lstPossibleUsers.SelectedItem as User;
-            if (state != null)
+            if (lstPossibleUsers.SelectedItem is User state)
             {
                 lstPossibleUsers.Items.Remove(state);
                 lstAssignedUsers.Items.Add(state);
@@ -94,8 +89,8 @@ namespace Scrum_o_wall.Views
                 controller.RemoveUserFromIUsersAssigned(user, objectWithAssignedUsers);
             }
 
-            this.DialogResult = null;
-            this.Close();
+            DialogResult = null;
+            Close();
         }
         private void BtnAddUser_Click(object sender, EventArgs e)
         {

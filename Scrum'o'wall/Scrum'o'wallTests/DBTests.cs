@@ -1,13 +1,8 @@
-﻿using Scrum_o_wall;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Scrum_o_wall.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Scrum_o_wall.Classes;
-using System.Reflection;
-using System.Security.AccessControl;
 
 namespace Scrum_o_wall.Tests
 {
@@ -578,7 +573,7 @@ namespace Scrum_o_wall.Tests
             MindMap mindMap = DB.CreateMindmap(firstName, project);
             Assert.IsNotNull(mindMap);
             Assert.AreEqual(firstName, mindMap.Name);
-            Assert.AreEqual(project.Id,mindMap.ProjectId);
+            Assert.AreEqual(project.Id, mindMap.ProjectId);
 
             //Verify update
             Assert.IsTrue(DB.UpdateMindMap(secondName, mindMap));
@@ -595,7 +590,7 @@ namespace Scrum_o_wall.Tests
             MindMap mindmap;
 
             List<Project> projects = DB.GetProjects();
-            if(projects.Count == 0)
+            if (projects.Count == 0)
             {
                 project = DB.CreateProject("a Project", "A desc of a project", DateTime.Now);
             }
@@ -634,14 +629,14 @@ namespace Scrum_o_wall.Tests
             Assert.AreEqual(mindmap.Id, node2.MindmapId);
 
             //Verify updates with and without previous
-            Assert.IsFalse(DB.UpdateNode(secondName, node2, node),"cannot change previous to root");
+            Assert.IsFalse(DB.UpdateNode(secondName, node2, node), "cannot change previous to root");
             Assert.IsTrue(DB.UpdateNode(secondName, null, node));
-            Assert.IsFalse(DB.UpdateNode(secondName2, null, node2),"cannot change node to root");
+            Assert.IsFalse(DB.UpdateNode(secondName2, null, node2), "cannot change node to root");
             Assert.IsTrue(DB.UpdateNode(secondName2, node, node2));
 
 
             //Verify delete
-            Assert.IsFalse(DB.Delete(node),"cannot delete root");
+            Assert.IsFalse(DB.Delete(node), "cannot delete root");
             Assert.IsTrue(DB.Delete(node2));
 
             DB.Delete(mindmap);

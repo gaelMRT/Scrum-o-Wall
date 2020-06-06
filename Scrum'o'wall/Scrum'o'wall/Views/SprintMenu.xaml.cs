@@ -1,19 +1,17 @@
-﻿using Scrum_o_wall.Classes;
+﻿/*
+ * Author   :   Gaël Serge Mariot
+ * Project  :   Scrum'o'wall
+ * File     :   SprintMenu.xaml.cs
+ * Desc.    :   This file contains the logic in the SprintMenu view
+ */
+using Scrum_o_wall.Classes;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Scrum_o_wall.Views
 {
@@ -22,20 +20,23 @@ namespace Scrum_o_wall.Views
     /// </summary>
     public partial class SprintMenu : Window
     {
-        Sprint sprint;
-        Controller controller;
-        List<GroupBox> columns = new List<GroupBox>();
-        List<UserControl> userStories = new List<UserControl>();
+        private readonly Sprint sprint;
+        private readonly Controller controller;
+        private readonly List<GroupBox> columns = new List<GroupBox>();
+        private readonly List<UserControl> userStories = new List<UserControl>();
 
-        Dictionary<InputDevice, Point> currentPoint = new Dictionary<InputDevice, Point>();
-        Dictionary<InputDevice, UserControl> infos = new Dictionary<InputDevice, UserControl>();
+        private readonly Dictionary<InputDevice, Point> currentPoint = new Dictionary<InputDevice, Point>();
+        private readonly Dictionary<InputDevice, UserControl> infos = new Dictionary<InputDevice, UserControl>();
+
         public SprintMenu(Sprint aSprint, Controller aController)
         {
             InitializeComponent();
             sprint = aSprint;
             controller = aController;
+
             Loaded += SprintMenu_Loaded;
-            PreviewTouchMove += sprintMenu_PreviewTouchMove;
+            PreviewTouchMove += SprintMenu_PreviewTouchMove;
+            TouchUp += SprintMenu_PreviewTouchUp;
 
             lblProjectName.Content = sprint.Project.Name;
             lblSprintName.Content = aSprint.ToString();
@@ -77,19 +78,20 @@ namespace Scrum_o_wall.Views
                 CreateUserStoryControl(userStory, userStoriesPerState[userStory.State]);
                 userStoriesPerState[userStory.State]++;
             }
-            TouchUp += userStory_PreviewTouchUp;
         }
         private GroupBox CreateStateColumn(State state)
         {
             //Create the column
-            GroupBox gbx = new GroupBox();
-            gbx.Height = cnvsSprint.ActualHeight - 190;
-            gbx.Width = cnvsSprint.ActualWidth / sprint.Project.States.Count;
-            gbx.Name = "gbx" + state.Name.Replace(" ", "");
-            gbx.Header = state.Name;
-            gbx.Tag = state;
-            gbx.BorderBrush = Brushes.Black;
-            gbx.BorderThickness = new Thickness(1);
+            GroupBox gbx = new GroupBox
+            {
+                Height = cnvsSprint.ActualHeight - 190,
+                Width = cnvsSprint.ActualWidth / sprint.Project.States.Count,
+                Name = "gbx" + state.Name.Replace(" ", ""),
+                Header = state.Name,
+                Tag = state,
+                BorderBrush = Brushes.Black,
+                BorderThickness = new Thickness(1)
+            };
 
             //Positioning and put into canvas
             cnvsSprint.Children.Add(gbx);
@@ -108,19 +110,25 @@ namespace Scrum_o_wall.Views
             GroupBox gbx = columns.Where(c => c.Tag == userStory.State).First();
 
             //Create userStory frame
-            TextBlock content = new TextBlock();
-            content.Text = userStory.ToString();
-            content.TextWrapping = TextWrapping.Wrap;
-
-            UserControl userControl = new UserControl();
-            userControl.Content = content;
-            userControl.Tag = userStory;
-            userControl.Height = 50;
-            userControl.Width = gbx.Width - 20;
-            userControl.BorderBrush = Brushes.Black;
-            if(userStory.DateLimit != null)
+            TextBlock content = new TextBlock
             {
-                if(DateTime.Now > userStory.DateLimit)
+                Text = userStory.ToString(),
+                TextWrapping = TextWrapping.Wrap
+            };
+
+            UserControl userControl = new UserControl
+            {
+                Content = content,
+                Tag = userStory,
+                Height = 50,
+                Width = gbx.Width - 20,
+                BorderBrush = Brushes.Black,
+                Cursor = Cursors.Hand
+            };
+            // Set background color by limit date
+            if (userStory.DateLimit != null)
+            {
+                if (DateTime.Now > userStory.DateLimit)
                 {
                     userControl.Background = Brushes.LightBlue;
                 }
@@ -133,12 +141,11 @@ namespace Scrum_o_wall.Views
             {
                 userControl.Background = Brushes.LightGray;
             }
-            userControl.Cursor = Cursors.Hand;
-            userControl.MouseDoubleClick += usrCtrlUserStory_Click;
-            userControl.TouchUp += usrCtrlUserStory_Click;
+            userControl.MouseDoubleClick += UsrCtrlUserStory_Click;
+            userControl.TouchUp += UsrCtrlUserStory_Click;
 
             //Events for drag'n'drop
-            userControl.PreviewTouchDown += userStory_PreviewTouchDown;
+            userControl.PreviewTouchDown += UserStory_PreviewTouchDown;
             Stylus.SetIsPressAndHoldEnabled(userControl, false);
 
             //Add to lists, positionning and return
@@ -151,8 +158,8 @@ namespace Scrum_o_wall.Views
 
         private void SprintMenu_Loaded(object sender, RoutedEventArgs e)
         {
-            cnvsSprint.Width = this.ActualWidth;
-            cnvsSprint.Height = this.ActualHeight;
+            cnvsSprint.Width = ActualWidth;
+            cnvsSprint.Height = ActualHeight;
 
             //set control positions
             Canvas.SetLeft(lblProjectName, (cnvsSprint.Width - lblProjectName.ActualWidth) / 2.0);
@@ -162,7 +169,7 @@ namespace Scrum_o_wall.Views
 
             Refresh();
         }
-        private void userStory_PreviewTouchUp(object sender, TouchEventArgs e)
+        private void SprintMenu_PreviewTouchUp(object sender, TouchEventArgs e)
         {
             if (currentPoint.ContainsKey(e.Device))
             {
@@ -190,26 +197,25 @@ namespace Scrum_o_wall.Views
                     State state = gbxState.Tag as State;
                     UserStory userStory = (infos[e.Device] as UserControl).Tag as UserStory;
                     controller.UserStorySwitchState(userStory, state);
-
-                    currentPoint.Remove(e.Device);
-                    infos.Remove(e.Device);
-                    Refresh();
                 }
+                currentPoint.Remove(e.Device);
+                infos.Remove(e.Device);
+                Refresh();
             }
         }
-        private void sprintMenu_PreviewTouchMove(object sender, TouchEventArgs e)
+        private void SprintMenu_PreviewTouchMove(object sender, TouchEventArgs e)
         {
-
+            //Update position of point
             if (currentPoint.ContainsKey(e.Device))
             {
                 currentPoint[e.Device] = e.GetTouchPoint(null).Position;
             }
-
+            //Set border thickness to default
             foreach (GroupBox col in columns)
             {
                 col.BorderThickness = new Thickness(1);
-
             }
+            //Verify each points to change border thickness if in bounds
             foreach (KeyValuePair<InputDevice, Point> keyValuePair in currentPoint)
             {
                 Point p = keyValuePair.Value;
@@ -228,7 +234,7 @@ namespace Scrum_o_wall.Views
                 }
             }
         }
-        private void userStory_PreviewTouchDown(object sender, TouchEventArgs e)
+        private void UserStory_PreviewTouchDown(object sender, TouchEventArgs e)
         {
             if (currentPoint.ContainsKey(e.Device))
             {
@@ -239,17 +245,17 @@ namespace Scrum_o_wall.Views
             currentPoint.Add(e.Device, e.GetTouchPoint(null).Position);
             infos.Add(e.Device, sender as UserControl);
         }
-        private void state_DragLeave(object sender, DragEventArgs e)
+        private void State_DragLeave(object sender, DragEventArgs e)
         {
             GroupBox gbx = sender as GroupBox;
             gbx.BorderThickness = new Thickness(1);
         }
-        private void state_DragEnter(object sender, DragEventArgs e)
+        private void State_DragEnter(object sender, DragEventArgs e)
         {
             GroupBox gbx = sender as GroupBox;
             gbx.BorderThickness = new Thickness(5);
         }
-        private void state_Drop(object sender, DragEventArgs e)
+        private void State_Drop(object sender, DragEventArgs e)
         {
             GroupBox gbx = sender as GroupBox;
             gbx.BorderThickness = new Thickness(1);
@@ -261,7 +267,7 @@ namespace Scrum_o_wall.Views
 
             Refresh();
         }
-        private void usrCtrlUserStory_Click(object sender, EventArgs e)
+        private void UsrCtrlUserStory_Click(object sender, EventArgs e)
         {
             UserStory userStory = (sender as UserControl).Tag as UserStory;
             UserStoryEdit userStoryEdit = new UserStoryEdit(userStory, sprint.Project, controller);
@@ -278,7 +284,7 @@ namespace Scrum_o_wall.Views
                 Refresh();
             }
         }
-        private void addColumn_Click(object sender, RoutedEventArgs e)
+        private void AddColumn_Click(object sender, RoutedEventArgs e)
         {
             StateMenu stateMenu = new StateMenu(sprint.Project, controller);
             stateMenu.ShowDialog();
@@ -291,11 +297,11 @@ namespace Scrum_o_wall.Views
         }
         private void BtnReturn_Click(object sender, EventArgs e)
         {
-            this.DialogResult = null;
-            this.Close();
+            DialogResult = null;
+            Close();
         }
 
-        private void btnEditSprint_Click(object sender, RoutedEventArgs e)
+        private void BtnEditSprint_Click(object sender, RoutedEventArgs e)
         {
             SprintEdit sprintEdit = new SprintEdit(sprint);
             if (sprintEdit.ShowDialog() == true)
@@ -303,8 +309,8 @@ namespace Scrum_o_wall.Views
                 if (sprintEdit.Deleted)
                 {
                     controller.Delete(sprint);
-                    this.DialogResult = true;
-                    this.Close();
+                    DialogResult = true;
+                    Close();
                 }
                 else
                 {

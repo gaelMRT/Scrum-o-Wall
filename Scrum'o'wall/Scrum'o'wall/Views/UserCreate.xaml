@@ -1,11 +1,17 @@
-﻿<Window x:Class="Scrum_o_wall.Views.UserCreate"
+﻿<!--
+ * Author   :   Gaël Mariot
+ * Project  :   Scrum'o'wall
+ * File     :   UserCreate.xaml
+ * Desc.    :   This file contains the basic template of the UserCreate view
+    -->
+<Window x:Class="Scrum_o_wall.Views.UserCreate"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Scrum_o_wall.Views"
         mc:Ignorable="d"
-        Title="Création d'un utilisateur" Height="178.199" Width="458.533" FontSize="16">
+        Title="Création d'un utilisateur" Height="178.199" Width="458.533" WindowStartupLocation="CenterScreen" FontSize="16">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="179"></ColumnDefinition>
@@ -18,7 +24,7 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.ColumnSpan="2" TextAlignment="Center" FontSize="20" VerticalAlignment="Center">Création d'un utilisateur</TextBlock>
         <TextBlock Grid.Row="1" TextAlignment="Right" VerticalAlignment="Center" Margin="10,13,10,14">Nom de l'utilisateur :</TextBlock>
-        <TextBox Grid.Row="1" Name="tbxUserName" Grid.Column="1" MaxLength="255" Margin="10"></TextBox>
+        <TextBox Grid.Row="1" Name="tbxUserName" Grid.Column="1" MaxLength="255" Margin="10" Stylus.IsPressAndHoldEnabled="False"></TextBox>
         <Button TouchUp="BtnCancel_Click" x:Name="btnCancel" Click="BtnCancel_Click" Grid.Row="2" Grid.Column="0" Margin="10">Annuler</Button>
         <Button TouchUp="BtnConfirm_Click" x:Name="btnConfirm" Click="BtnConfirm_Click" Grid.Row="2" Grid.Column="1" Margin="10">Confirmer</Button>
     </Grid>

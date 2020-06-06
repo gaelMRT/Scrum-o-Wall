@@ -678,3 +678,21 @@ J'ai corriger ces problèmes et j'ai suivi un conseil qui m'a été donné pour 
 - Corriger l'obtention des commentaires
 - Ajout de couleurs aux user stories avec une date limite
 - Modifications sur l'affichage de certaines classes
+
+## 05.06
+
+### Tâches à faire
+- Commenter les endroits manquants
+- Faire le planning final
+
+### Liens utiles et idées
+N'ayant pas commenter entièrement mon projet, il a fallu que je repasse sur certains fichiers pour rajouter des précisions sur certaines lignes de code. J'ai également mis un entête sur les fichiers n'en possedant pas.
+
+Après cela, j'ai normalisé les variables et les méthodes du projet en mettant les variables en readonly ou en mettant des majuscules au début des fonctions.
+
+J'ai finalement repassé sur le planning avant de m'ateller à des morceaux de documentation que je n'avais pas encore créé. J'ai remplis la section sur le drag-and-drop
+
+### Tâches accomplies
+- Commenter les endroits manquants
+- Faire le planning final
+- Rempli le glisser-deposer dans la doc

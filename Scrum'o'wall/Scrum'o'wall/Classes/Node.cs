@@ -4,36 +4,32 @@
  * File     :   Node.cs
  * Desc.    :   This file contains the structure of the Node class   
  */
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Navigation;
 
 namespace Scrum_o_wall.Classes
 {
     public class Node
     {
-        
-        int id;
-        Node previous;
-        int? previousId;
-        int mindmapId;
-        MindMap mindMap;
+
+        private readonly int id;
+        private Node previous;
+        private int? previousId;
+        private int mindmapId;
+        private MindMap mindMap;
 
         public Node(int anId, string aName, int? aPreviousId, int aMindmapId)
         {
-            this.id = anId;
-            this.Name = aName;
-            this.previousId = aPreviousId;
-            this.mindmapId = aMindmapId;
+            id = anId;
+            Name = aName;
+            previousId = aPreviousId;
+            mindmapId = aMindmapId;
         }
 
-        public int Id { get => id;  }
+        public int Id => id;
         public string Name { get; set; }
-        public int? PreviousId { get => previousId; }
-        public int Level { 
+        public int? PreviousId => previousId;
+        public int Level
+        {
             get
             {
                 int lvl = 0;
@@ -44,12 +40,15 @@ namespace Scrum_o_wall.Classes
                     lvl++;
                 }
                 return lvl;
-            } }
-        public Node Previous { get => previous;
+            }
+        }
+        public Node Previous
+        {
+            get => previous;
             set
             {
                 previous = value;
-                if(value == null)
+                if (value == null)
                 {
                     previousId = null;
                 }
@@ -59,7 +58,7 @@ namespace Scrum_o_wall.Classes
                 }
             }
         }
-        public int MindmapId { get => mindmapId;  }
+        public int MindmapId => mindmapId;
         public MindMap MindMap
         {
             get => mindMap;
@@ -72,10 +71,12 @@ namespace Scrum_o_wall.Classes
         public List<Node> Childrens { get; set; } = new List<Node>();
         public List<Node> AllChildrens(List<Node> aList = null)
         {
-            if(aList == null)
+            if (aList == null)
             {
-                aList = new List<Node>();
-                aList.Add(this);
+                aList = new List<Node>
+                {
+                    this
+                };
             }
             aList.AddRange(Childrens);
             foreach (Node n in Childrens)

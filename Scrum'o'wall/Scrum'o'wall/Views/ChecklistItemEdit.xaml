@@ -1,11 +1,17 @@
-﻿<Window x:Class="Scrum_o_wall.Views.ChecklistItemEdit"
+﻿<!--
+ * Author   :   Gaël Mariot
+ * Project  :   Scrum'o'wall
+ * File     :   ChecklistItemEdit.xaml
+ * Desc.    :   This file contains the basic template of the ChecklistItemEdit view
+    -->
+<Window x:Class="Scrum_o_wall.Views.ChecklistItemEdit"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Scrum_o_wall.Views"
         mc:Ignorable="d"
-        Title="Création d'un objet de liste" Height="270.407" Width="515.033" FontSize="16">
+        Title="Création d'un objet de liste" Height="270.407" Width="515.033" WindowStartupLocation="CenterScreen" FontSize="16">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="161"></ColumnDefinition>
@@ -20,9 +26,9 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.ColumnSpan="2" TextAlignment="Center" FontSize="20" VerticalAlignment="Center">Création d'un objet de liste</TextBlock>
         <TextBlock Grid.Row="1" TextAlignment="Right" VerticalAlignment="Center" Margin="10" Height="20" >Objet :</TextBlock>
-        <TextBox Grid.Row="1" Grid.Column="1" MaxLength="255" Margin="10" Name="tbxObjet"></TextBox>
+        <TextBox Grid.Row="1" Grid.Column="1" MaxLength="255" Margin="10" Name="tbxObjet" Stylus.IsPressAndHoldEnabled="False"></TextBox>
 
-        <CheckBox Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Name="chkbxDone">Accompli</CheckBox>
+        <CheckBox Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Name="chkbxDone" Stylus.IsPressAndHoldEnabled="False">Accompli</CheckBox>
 
         <Button Click="BtnAssignedUsers_Click" TouchUp="BtnAssignedUsers_Click" Margin="10" Name="btnAssignedUsers" Grid.Row="3" Grid.ColumnSpan="2">Utilisateurs assignés</Button>
 

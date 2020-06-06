@@ -1,17 +1,15 @@
-﻿using Scrum_o_wall.Classes;
+﻿/*
+ * Author   :   Gaël Serge Mariot
+ * Project  :   Scrum'o'wall
+ * File     :   ChecklistMenu.xaml.cs
+ * Desc.    :   This file contains the logic in the ChecklistMenu view
+ */
+using Scrum_o_wall.Classes;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Scrum_o_wall.Views
 {
@@ -20,8 +18,8 @@ namespace Scrum_o_wall.Views
     /// </summary>
     public partial class ChecklistMenu : Window
     {
-        UserStory userStory;
-        Controller controller;
+        private readonly UserStory userStory;
+        private readonly Controller controller;
         public ChecklistMenu(UserStory aUserStory, Controller aController)
         {
             controller = aController;
@@ -36,47 +34,61 @@ namespace Scrum_o_wall.Views
         {
             foreach (Checklist chckLst in userStory.Checklists)
             {
-                ColumnDefinition col1 = new ColumnDefinition();
-                col1.Width = new GridLength(30, GridUnitType.Star);
-                ColumnDefinition col2 = new ColumnDefinition();
-                col2.Width = new GridLength(67, GridUnitType.Star);
+                ColumnDefinition col1 = new ColumnDefinition
+                {
+                    Width = new GridLength(30, GridUnitType.Star)
+                };
+                ColumnDefinition col2 = new ColumnDefinition
+                {
+                    Width = new GridLength(67, GridUnitType.Star)
+                };
 
                 //Create border
-                Border border = new Border();
-                border.BorderBrush = Brushes.Black;
-                border.BorderThickness = new Thickness(1);
-                border.Width = 390;
-                border.Tag = chckLst;
+                Border border = new Border
+                {
+                    BorderBrush = Brushes.Black,
+                    BorderThickness = new Thickness(1),
+                    Width = 390,
+                    Tag = chckLst
+                };
                 border.TouchDown += Checklist_Click;
                 border.MouseLeftButtonDown += Checklist_Click;
 
                 //Create grid
-                Grid grd = new Grid();
-                grd.Name = "lst" + chckLst.Id.ToString();
+                Grid grd = new Grid
+                {
+                    Name = "lst" + chckLst.Id.ToString()
+                };
                 grd.ColumnDefinitions.Add(col1);
                 grd.ColumnDefinitions.Add(col2);
                 grd.RowDefinitions.Add(new RowDefinition());
                 grd.RowDefinitions.Add(new RowDefinition());
 
                 //Create element for name
-                TextBlock textBlock = new TextBlock();
-                textBlock.VerticalAlignment = VerticalAlignment.Top;
-                textBlock.TextWrapping = TextWrapping.Wrap;
-                textBlock.Margin = new Thickness(10);
-                textBlock.TextAlignment = TextAlignment.Right;
-                textBlock.Text = chckLst.Name;
+                TextBlock textBlock = new TextBlock
+                {
+                    VerticalAlignment = VerticalAlignment.Top,
+                    TextWrapping = TextWrapping.Wrap,
+                    Margin = new Thickness(10),
+                    TextAlignment = TextAlignment.Right,
+                    Text = chckLst.Name
+                };
 
                 //Create element for list
-                ListView lstView = new ListView();
-                lstView.VerticalAlignment = VerticalAlignment.Top;
-                lstView.Margin = new Thickness(10);
-                lstView.Height = 26 * chckLst.ChecklistItems.Count;
+                ListView lstView = new ListView
+                {
+                    VerticalAlignment = VerticalAlignment.Top,
+                    Margin = new Thickness(10),
+                    Height = 26 * chckLst.ChecklistItems.Count
+                };
                 foreach (ChecklistItem item in chckLst.ChecklistItems)
                 {
-                    CheckBox checkBox = new CheckBox();
-                    checkBox.IsChecked = item.Done;
-                    checkBox.Content = item.NameItem;
-                    checkBox.Tag = item;
+                    CheckBox checkBox = new CheckBox
+                    {
+                        IsChecked = item.Done,
+                        Content = item.NameItem,
+                        Tag = item
+                    };
                     checkBox.Checked += ChecklistItem_Checked;
                     lstView.Items.Add(checkBox);
                 }
@@ -100,11 +112,11 @@ namespace Scrum_o_wall.Views
         private void Checklist_Click(object sender, EventArgs e)
         {
             Checklist checklist = (sender as Border).Tag as Checklist;
-            ChecklistEdit checklistEdit = new ChecklistEdit(checklist,userStory, controller);
-            if(checklistEdit.ShowDialog() == true)
+            ChecklistEdit checklistEdit = new ChecklistEdit(checklist, userStory, controller);
+            if (checklistEdit.ShowDialog() == true)
             {
                 List<ChecklistItem> items = new List<ChecklistItem>();
-                foreach (var item in checklistEdit.listItems.Items)
+                foreach (object item in checklistEdit.listItems.Items)
                 {
                     items.Add(item as ChecklistItem);
                 }
@@ -114,15 +126,15 @@ namespace Scrum_o_wall.Views
         }
         private void BtnCancel_Click(object sender, EventArgs e)
         {
-            this.DialogResult = null;
-            this.Close();
+            DialogResult = null;
+            Close();
         }
         private void BtnAddList_Click(object sender, EventArgs e)
         {
             ChecklistCreate checklistCreate = new ChecklistCreate();
-            if(checklistCreate.ShowDialog() == true)
+            if (checklistCreate.ShowDialog() == true)
             {
-                Checklist checklist = controller.CreateCheckList(checklistCreate.tbxName.Text.Trim(),userStory);
+                Checklist checklist = controller.CreateCheckList(checklistCreate.tbxName.Text.Trim(), userStory);
                 foreach (ChecklistItem item in checklistCreate.itemsToAdd)
                 {
                     controller.CreateCheckListItem(item.NameItem, checklist);

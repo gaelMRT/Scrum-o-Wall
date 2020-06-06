@@ -1,4 +1,10 @@
-﻿<Window x:Class="Scrum_o_wall.Views.ProjectMenu"
+﻿<!--
+ * Author   :   Gaël Mariot
+ * Project  :   Scrum'o'wall
+ * File     :   ProjectMenu.xaml
+ * Desc.    :   This file contains the basic template of the ProjectMenu view
+    -->
+<Window x:Class="Scrum_o_wall.Views.ProjectMenu"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -58,7 +64,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="btnAddMindMap" TouchUp="btnAddMindMap_Click" Click="btnAddMindMap_Click" Content="+" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="40" Height="40" BorderBrush="Black" FontSize="23" Canvas.Top="333" Canvas.Left="656">
+        <Button x:Name="btnAddMindMap" TouchUp="BtnAddMindMap_Click" Click="BtnAddMindMap_Click" Content="+" VerticalContentAlignment="Top"  Canvas.Bottom="10" Width="40" Height="40" BorderBrush="Black" FontSize="23" Canvas.Top="333" Canvas.Left="656">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="50"/>

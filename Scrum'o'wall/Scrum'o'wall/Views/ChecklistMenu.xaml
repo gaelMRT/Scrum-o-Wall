@@ -1,11 +1,17 @@
-﻿<Window x:Class="Scrum_o_wall.Views.ChecklistMenu"
+﻿<!--
+ * Author   :   Gaël Mariot
+ * Project  :   Scrum'o'wall
+ * File     :   ChecklistMenu.xaml
+ * Desc.    :   This file contains the basic template of the ChecklistMenu view
+    -->
+<Window x:Class="Scrum_o_wall.Views.ChecklistMenu"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Scrum_o_wall.Views"
         mc:Ignorable="d"
-       Title="Gestion des listes" Height="450" Width="447.5" FontSize="16">
+       Title="Gestion des listes" Height="450" Width="447.5" WindowStartupLocation="CenterScreen" FontSize="16">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="70"></RowDefinition>
