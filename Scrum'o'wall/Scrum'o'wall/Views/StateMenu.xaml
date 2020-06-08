@@ -11,14 +11,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Scrum_o_wall.Views"
         mc:Ignorable="d"
-        Title="Gestion des états" Height="450" Width="600" WindowStartupLocation="CenterScreen" FontSize="16" ResizeMode="NoResize">
-    <Window.ContextMenu >
-        <ContextMenu >
-
-            <Separator/>
-            <MenuItem Header="Quitter" Name="Quit" Click="Quit_Click"/>
-        </ContextMenu>
-    </Window.ContextMenu>
+        Title="Gestion des états" Height="450" Width="600" Closing="StateMenu_Closing" WindowStartupLocation="CenterScreen" FontSize="16" ResizeMode="NoResize">
     <Canvas x:Name="cnvsStates" Margin="0">
         <Grid x:Name="grdStates" Width="594" Height="421">
             <Grid.ColumnDefinitions>

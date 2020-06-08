@@ -15,10 +15,10 @@
     <Window.ContextMenu >
         <ContextMenu >
             <MenuItem Header="Ajouter une colonne" Name="addColumn" Click="AddColumn_Click"/>
-            <MenuItem Header="Ouvrir le calendrier" Name="btnBurndownChartMenu" Click="BtnBurndownChart_Click"/>
+            <MenuItem Header="Ouvrir le burndown chart" Name="btnBurndownChartMenu" Click="BtnBurndownChart_Click"/>
             <MenuItem Header="Editer le sprint" Name="btnEditSprint" Click="BtnEditSprint_Click"/>
             <Separator/>
-            <MenuItem Header="Quitter" Name="Quit" Click="BtnReturn_Click"/>
+            <MenuItem Header="Retour" Name="Quit" Click="BtnReturn_Click"/>
         </ContextMenu>
     </Window.ContextMenu>
     <Canvas x:Name="cnvsSprint">

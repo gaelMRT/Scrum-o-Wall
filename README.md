@@ -707,3 +707,30 @@ J'ai commencé par les difficultés rencontrés, j'ai continuer sur les amélior
 
 ### Tâches accomplies
 - Documentation. chapitre conclusion
+
+## 07.06 - 08.06
+
+### Tâches à faire
+- Récupération du code source
+- Création du manuel utilisateur
+- Mettre le journal de bord en pdf
+- Rendu du projet
+
+### Liens utiles et idées
+J'ai commencé par créer le manuel utilisateur. j'ai décidé de faire une description très détaillée des menus principaux puis une description plus brève des différents pop-up. J'ai donc utilisé GIMP afin d'identifier les principales composantes des vues pour les expliquer au mieux.
+
+Tout en faisant le manuel utilisateur, j'ai découvert certains problèmes que j'ai corrigé en même temps.
+
+Problèmes trouvés :
+- Delete checklistItem, checklist, file,
+- Création commentaires
+- Modification sprint + Etat (Texte)
+
+Après cela, j'ai utilisé les indications de M. Maréchal sur le moodle afin de rendre mon code source en un fichier pdf avec LaTeX.
+
+Finalement, je vais récupérer le journal de bord que voici et le mettre au format pdf afin de le rendre avec la documentation.
+### Tâches accomplies
+- Bug fix
+- Récupération du code source
+- Création du manuel utilisateur
+- Journal de bord en pdf + rendu (futur instantané)

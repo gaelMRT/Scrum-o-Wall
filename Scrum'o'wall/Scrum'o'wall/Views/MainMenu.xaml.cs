@@ -120,7 +120,6 @@ namespace Scrum_o_wall
 
             //Refresh the view
             Refresh();
-
         }
         private void UsrCntrl_Click(object sender, EventArgs e)
         {

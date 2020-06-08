@@ -249,7 +249,7 @@ namespace Scrum_o_wall
             DB.GetConnection().Open();
             cmd = DB.GetConnection().CreateCommand();
             cmd.CommandText = "UPDATE TStates SET NameState = ? WHERE IdState = ?;";
-            cmd.Parameters.Add("NameState", OleDbType.Date);
+            cmd.Parameters.Add("NameState", OleDbType.VarChar,100);
             cmd.Parameters.Add("IdState", OleDbType.Integer);
             cmd.Parameters[0].Value = text;
             cmd.Parameters[1].Value = state.Id;
@@ -460,7 +460,7 @@ namespace Scrum_o_wall
             //Open database, build sql statement and prepare
             DB.GetConnection().Open();
             cmd = DB.GetConnection().CreateCommand();
-            cmd.CommandText = "INSERT INTO TUserStories (DescriptionUserStory,DateLimite,ComplexityEstimation,CompletedComplexity,Blocked,IdProject,IdState,IdType,IdPriority) VALUES (?,?,?,?,?,?,?,?,?);";
+            cmd.CommandText = "INSERT INTO TUserStories (DescriptionUserStory, DateLimite, ComplexityEstimation, CompletedComplexity, Blocked, IdProject, IdState, IdType, IdPriority) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
             cmd.Parameters.Add("DescriptionUserStory", OleDbType.LongVarChar, 65535);
             cmd.Parameters.Add("DateLimite", OleDbType.Date);
             cmd.Parameters.Add("ComplexityEstimation", OleDbType.Integer);
@@ -1499,7 +1499,7 @@ namespace Scrum_o_wall
             while (rdr.Read())
             {
                 rdr.GetValues(values);
-                // 0:idUserStory,1:DescriptionUserStory,2:DateLimite,3:ComplexityEstimation,4:CompletedComplexity,5:Blocked,6:ProjectId,7:StateId,8:TypeId,9:PriorityId
+                // 0:idUserStory, 1:DescriptionUserStory, 2:DateLimite, 3:ComplexityEstimation, 4:CompletedComplexity, 5:Blocked, 6:ProjectId, 7:StateId, 8:TypeId, 9:PriorityId
                 UserStory u = new UserStory((int)values[0], (string)values[1], values[2] as DateTime?, (int)values[3], (int)values[4], (bool)values[5], (int)values[6], (int)values[7], (int)values[8], (int)values[9]);
                 userStories.Add(u);
             }

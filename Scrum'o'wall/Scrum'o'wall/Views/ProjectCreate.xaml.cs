@@ -19,13 +19,14 @@ namespace Scrum_o_wall.Views
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = null;
+        {
             Close();
         }
         private void BtnAddProject_Click(object sender, RoutedEventArgs e)
         {
-            if (tbxName.Text.Trim().Length > 0 && tbxDesc.Text.Trim().Length > 0 && tbxDate.SelectedDate != null)
+            int nameLength = tbxName.Text.Trim().Length;
+            int descLength = tbxDesc.Text.Trim().Length;
+            if (nameLength > 0 && descLength > 0 && tbxDate.SelectedDate != null)
             {
                 DialogResult = true;
                 Close();

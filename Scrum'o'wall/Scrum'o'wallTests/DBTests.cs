@@ -1,4 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿/*
+ * Author   :   Gaël Serge Mariot
+ * Project  :   Scrum'o'wall
+ * File     :   DBTests.cs
+ * Desc.    :   This file test the DB class
+ */
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Scrum_o_wall.Classes;
 using System;
 using System.Collections.Generic;

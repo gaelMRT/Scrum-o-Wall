@@ -7,6 +7,7 @@
 using Scrum_o_wall.Classes;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -22,6 +23,7 @@ namespace Scrum_o_wall.Views
         private readonly Controller controller;
         private readonly UserStory userStory;
         private readonly List<ChecklistItem> itemsToAdd;
+        public bool Deleted = false;
         public ChecklistEdit(Checklist aChecklist, UserStory aUserStory, Controller aController)
         {
             checklist = aChecklist;
@@ -62,11 +64,13 @@ namespace Scrum_o_wall.Views
                 {
                     if (checklistItemEdit.Deleted)
                     {
-                        controller.UpdateCheckListItem(checklistItemEdit.tbxObjet.Text.Trim(), checklistItemEdit.chkbxDone.IsChecked == true, checklistItem);
+                        controller.Delete(checklistItem);
                     }
                     else
                     {
-                        controller.Delete(checklistItem);
+                        string objet = checklistItemEdit.tbxObjet.Text.Trim();
+                        bool done = checklistItemEdit.chkbxDone.IsChecked == true;
+                        controller.UpdateCheckListItem(objet, done, checklistItem);
                     }
                     Refresh();
                 }
@@ -84,8 +88,7 @@ namespace Scrum_o_wall.Views
             }
         }
         private void BtnCancel_Click(object sender, EventArgs e)
-        {
-            DialogResult = null;
+        {
             Close();
         }
         private void BtnConfirm_Click(object sender, EventArgs e)
@@ -105,6 +108,7 @@ namespace Scrum_o_wall.Views
         {
             if (MessageBox.Show("La liste sera supprimée.\nÊtes-vous sûr(e)?", "Attention", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
+                Deleted = true;
                 DialogResult = true;
                 Close();
             }

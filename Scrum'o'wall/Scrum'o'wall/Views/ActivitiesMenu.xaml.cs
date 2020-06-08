@@ -29,8 +29,7 @@ namespace Scrum_o_wall.Views
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)
-        {
-            DialogResult = null;
+        {
             Close();
         }
         private void LstActivities_MouseDoubleClick(object sender, EventArgs e)
@@ -38,8 +37,8 @@ namespace Scrum_o_wall.Views
             ListBox lbx = sender as ListBox;
             if (lbx.SelectedItem != null)
             {
-                Comment comment = lbx.SelectedItem as Comment;
-                MessageBox.Show(string.Format("Auteur : {0}\nDate : {1}\n{2}", comment.User, comment.DateTime, comment.Description), "Contenu du commentaire", MessageBoxButton.OK);
+                Activity activity = lbx.SelectedItem as Activity;
+                MessageBox.Show(string.Format("Date : {0}\n{1}", activity.DateTime, activity.Description), "Activité", MessageBoxButton.OK);
             }
         }
     }

@@ -40,7 +40,9 @@ namespace Scrum_o_wall.Views
 
             lblProjectName.Content = sprint.Project.Name;
             lblSprintName.Content = aSprint.ToString();
+
         }
+
 
         private void CleanLists()
         {
@@ -86,7 +88,7 @@ namespace Scrum_o_wall.Views
             {
                 Height = cnvsSprint.ActualHeight - 190,
                 Width = cnvsSprint.ActualWidth / sprint.Project.States.Count,
-                Name = "gbx" + state.Name.Replace(" ", ""),
+                Name = "gbx" + state.Name.Replace(" ", "").Replace("'",""),
                 Header = state.Name,
                 Tag = state,
                 BorderBrush = Brushes.Black,
@@ -279,7 +281,16 @@ namespace Scrum_o_wall.Views
                 }
                 else
                 {
-                    controller.UpdateUserStory(userStoryEdit.tbxDesc.Text.Trim(), userStoryEdit.dtpckrDateLimit.SelectedDate, Convert.ToInt32(userStoryEdit.tbxComplexity.Text), Convert.ToInt32(userStoryEdit.tbxCompletedComplexity.Text), userStoryEdit.chckBxBlocked.IsChecked == true, (Priority)userStoryEdit.cbxPriority.SelectedItem, (Classes.Type)userStoryEdit.cbxType.SelectedItem, userStory.State, userStory);
+                    string desc = userStoryEdit.tbxDesc.Text.Trim();
+                    DateTime? dateLimite = userStoryEdit.dtpckrDateLimit.SelectedDate;
+                    int complexity = Convert.ToInt32(userStoryEdit.tbxComplexity.Text);
+                    int completedComplexity = Convert.ToInt32(userStoryEdit.tbxCompletedComplexity.Text);
+                    bool blocked = userStoryEdit.chckBxBlocked.IsChecked == true;
+                    Priority priority = (Priority)userStoryEdit.cbxPriority.SelectedItem;
+                    Classes.Type type = (Classes.Type)userStoryEdit.cbxType.SelectedItem;
+                    State state = userStory.State;
+
+                    controller.UpdateUserStory(desc, dateLimite, complexity, completedComplexity, blocked, priority, type, state, userStory);
                 }
                 Refresh();
             }
@@ -297,7 +308,6 @@ namespace Scrum_o_wall.Views
         }
         private void BtnReturn_Click(object sender, EventArgs e)
         {
-            DialogResult = null;
             Close();
         }
 

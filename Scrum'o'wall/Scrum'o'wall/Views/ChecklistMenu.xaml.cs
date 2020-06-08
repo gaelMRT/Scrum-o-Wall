@@ -32,6 +32,7 @@ namespace Scrum_o_wall.Views
 
         private void Refresh()
         {
+            lstLists.Items.Clear();
             foreach (Checklist chckLst in userStory.Checklists)
             {
                 ColumnDefinition col1 = new ColumnDefinition
@@ -51,8 +52,6 @@ namespace Scrum_o_wall.Views
                     Width = 390,
                     Tag = chckLst
                 };
-                border.TouchDown += Checklist_Click;
-                border.MouseLeftButtonDown += Checklist_Click;
 
                 //Create grid
                 Grid grd = new Grid
@@ -109,24 +108,8 @@ namespace Scrum_o_wall.Views
             item.Done = (sender as CheckBox).IsChecked == true;
             controller.UpdateCheckListItem(item.NameItem, item.Done, item);
         }
-        private void Checklist_Click(object sender, EventArgs e)
-        {
-            Checklist checklist = (sender as Border).Tag as Checklist;
-            ChecklistEdit checklistEdit = new ChecklistEdit(checklist, userStory, controller);
-            if (checklistEdit.ShowDialog() == true)
-            {
-                List<ChecklistItem> items = new List<ChecklistItem>();
-                foreach (object item in checklistEdit.listItems.Items)
-                {
-                    items.Add(item as ChecklistItem);
-                }
-                controller.UpdateCheckList(checklistEdit.tbxName.Text.Trim(), items, checklist);
-                Refresh();
-            }
-        }
         private void BtnCancel_Click(object sender, EventArgs e)
-        {
-            DialogResult = null;
+        {
             Close();
         }
         private void BtnAddList_Click(object sender, EventArgs e)
@@ -134,12 +117,40 @@ namespace Scrum_o_wall.Views
             ChecklistCreate checklistCreate = new ChecklistCreate();
             if (checklistCreate.ShowDialog() == true)
             {
-                Checklist checklist = controller.CreateCheckList(checklistCreate.tbxName.Text.Trim(), userStory);
+                string name = checklistCreate.tbxName.Text.Trim();
+                Checklist checklist = controller.CreateCheckList(name, userStory);
                 foreach (ChecklistItem item in checklistCreate.itemsToAdd)
                 {
                     controller.CreateCheckListItem(item.NameItem, checklist);
                 }
                 Refresh();
+            }
+        }
+
+        private void lstLists_TouchUp(object sender, EventArgs e)
+        {
+            if(lstLists.SelectedItem != null)
+            {
+                Checklist checklist = (lstLists.SelectedItem as Border).Tag as Checklist;
+                ChecklistEdit checklistEdit = new ChecklistEdit(checklist, userStory, controller);
+                if (checklistEdit.ShowDialog() == true)
+                {
+                    if (checklistEdit.Deleted)
+                    {
+                        controller.Delete(checklist);
+                    }
+                    else
+                    {
+                        List<ChecklistItem> items = new List<ChecklistItem>();
+                        foreach (object item in checklistEdit.listItems.Items)
+                        {
+                            items.Add(item as ChecklistItem);
+                        }
+                        string name = checklistEdit.tbxName.Text.Trim();
+                        controller.UpdateCheckList(name, items, checklist);
+                    }
+                    Refresh();
+                }
             }
         }
 

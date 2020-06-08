@@ -38,8 +38,7 @@ namespace Scrum_o_wall.Views
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)
-        {
-            DialogResult = null;
+        {
             Close();
         }
         private void BtnAddComment_Click(object sender, EventArgs e)
@@ -51,8 +50,9 @@ namespace Scrum_o_wall.Views
             }
             else if (commentCreate.ShowDialog() == true)
             {
-
-                controller.CreateComment(commentCreate.tbxContent.Text.Trim(), commentCreate.cbxAuthor.SelectedItem as User, userStory);
+                string content = commentCreate.tbxContent.Text.Trim();
+                User user = commentCreate.cbxAuthor.SelectedItem as User;
+                controller.CreateComment(content, user, userStory);
                 Refresh();
             }
         }

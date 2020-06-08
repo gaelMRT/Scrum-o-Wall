@@ -106,8 +106,7 @@ namespace Scrum_o_wall.Views
             Refresh();
         }
         private void Quit_Click(object sender, EventArgs e)
-        {
-            DialogResult = null;
+        {
             Close();
         }
         private void BtnAddFile_Click(object sender, EventArgs e)
@@ -115,7 +114,9 @@ namespace Scrum_o_wall.Views
             FileCreate fileCreate = new FileCreate();
             if (fileCreate.ShowDialog() == true)
             {
-                controller.CreateFile(fileCreate.tbxFileName.Text.Trim(), fileCreate.tbxDescription.Text.Trim(), userStory);
+                string fileName = fileCreate.tbxFileName.Text.Trim();
+                string description = fileCreate.tbxDescription.Text.Trim();
+                controller.CreateFile(fileName, description, userStory);
                 Refresh();
             }
 
@@ -138,6 +139,7 @@ namespace Scrum_o_wall.Views
                     {
                         controller.UpdateFile(fileEdit.tbxDescription.Text, file);
                     }
+                    Refresh();
                 }
             }
         }

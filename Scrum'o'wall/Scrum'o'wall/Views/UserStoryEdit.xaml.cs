@@ -84,7 +84,10 @@ namespace Scrum_o_wall.Views
         }
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
-            if (tbxCompletedComplexity.Text.Trim().Length > 0 && tbxComplexity.Text.Trim().Length > 0 && tbxDesc.Text.Trim().Length > 0)
+            int descLength = tbxDesc.Text.Trim().Length;
+            int complexityLength = tbxComplexity.Text.Trim().Length;
+            int completedLength = tbxCompletedComplexity.Text.Trim().Length;
+            if (completedLength > 0 && complexityLength > 0 && descLength > 0)
             {
                 DialogResult = true;
                 Close();
@@ -95,8 +98,7 @@ namespace Scrum_o_wall.Views
             }
         }
         private void BtnCancel_Click(object sender, EventArgs e)
-        {
-            DialogResult = null;
+        {
             Close();
         }
         private void BtnDelete_Click(object sender, EventArgs e)

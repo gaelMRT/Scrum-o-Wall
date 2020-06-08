@@ -30,8 +30,8 @@ namespace Scrum_o_wall.Views
             InitializeComponent();
 
             Loaded += MindmapMenu_Loaded;
-        }
 
+        }
         private void MindmapMenu_Loaded(object sender, RoutedEventArgs e)
         {
             Refresh();
@@ -111,7 +111,9 @@ namespace Scrum_o_wall.Views
                     }
                     else
                     {
-                        controller.UpdateNode(nodeEdit.tbxName.Text.Trim(), nodeEdit.cbxPrevious.SelectedItem as Node, node);
+                        string name = nodeEdit.tbxName.Text.Trim();
+                        Node previous = nodeEdit.cbxPrevious.SelectedItem as Node;
+                        controller.UpdateNode(name,previous, node);
                     }
                     Refresh();
                 }
@@ -119,8 +121,7 @@ namespace Scrum_o_wall.Views
         }
 
         private void Quit_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = null;
+        {
             Close();
         }
 
@@ -137,7 +138,8 @@ namespace Scrum_o_wall.Views
                 }
                 else
                 {
-                    controller.UpdateMindMap(mindMapEdit.tbxName.Text.Trim(), mindMap);
+                    string name = mindMapEdit.tbxName.Text.Trim();
+                    controller.UpdateMindMap(name, mindMap);
                 }
                 Refresh();
             }
@@ -148,7 +150,9 @@ namespace Scrum_o_wall.Views
             NodeCreate nodeCreate = new NodeCreate(mindMap);
             if (nodeCreate.ShowDialog() == true)
             {
-                controller.CreateNode(nodeCreate.tbxName.Text.Trim(), nodeCreate.cbxPrevious.SelectedItem as Node, mindMap);
+                string name = nodeCreate.tbxName.Text.Trim();
+                Node previous = nodeCreate.cbxPrevious.SelectedItem as Node;
+                controller.CreateNode(name, previous, mindMap);
                 Refresh();
             }
         }

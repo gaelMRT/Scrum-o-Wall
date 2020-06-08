@@ -29,6 +29,7 @@ namespace Scrum_o_wall.Views
 
         }
 
+
         private void BurndownChart_Loaded(object sender, RoutedEventArgs e)
         {
             double daysSinceBegin = (DateTime.Now - sprint.Begin).TotalDays;
@@ -61,8 +62,7 @@ namespace Scrum_o_wall.Views
 
         }
         private void Quit_Click(object sender, EventArgs e)
-        {
-            DialogResult = null;
+        {
             Close();
         }
 

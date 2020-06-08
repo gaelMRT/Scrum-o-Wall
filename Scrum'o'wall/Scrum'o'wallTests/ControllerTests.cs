@@ -1,4 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿/*
+ * Author   :   Gaël Serge Mariot
+ * Project  :   Scrum'o'wall
+ * File     :   ControllerTests.cs
+ * Desc.    :   This file test the Controller class
+ */
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Scrum_o_wall.Classes;
 using System;
 using System.Collections.Generic;
@@ -72,7 +78,7 @@ namespace Scrum_o_wall.Tests
             ctrl.CreateProject("aProjectName", "A Description for my project", DateTime.Now);
             Project project = ctrl.Projects.Last();
 
-            ctrl.CreateUser("a user name");
+            ctrl.CreateUser("a user name",project);
             User user = ctrl.Users.Last();
 
             Assert.IsTrue(ctrl.AddUserToIUsersAssigned(user, project));
@@ -191,7 +197,7 @@ namespace Scrum_o_wall.Tests
             ctrl.CreateUserStory("aDescription", null, 2, ctrl.Priorities[0], ctrl.Types[0], project);
             UserStory userStory = project.AllUserStories[0];
 
-            ctrl.CreateUser("a user name");
+            ctrl.CreateUser("a user name", userStory);
             User user = ctrl.Users.Last();
 
             Assert.IsTrue(ctrl.CreateComment(aName, user, userStory));
@@ -313,7 +319,7 @@ namespace Scrum_o_wall.Tests
             //Test Create
             string firstName = "first user name";
 
-            Assert.IsTrue(ctrl.CreateUser(firstName));
+            Assert.IsTrue(ctrl.CreateUser(firstName,null));
             User user = ctrl.Users.Last();
 
             Assert.AreEqual(firstName, user.Name);

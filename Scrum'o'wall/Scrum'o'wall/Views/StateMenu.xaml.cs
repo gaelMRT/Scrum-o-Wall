@@ -47,9 +47,12 @@ namespace Scrum_o_wall.Views
             }
         }
 
-        private void Quit_Click(object sender, EventArgs e)
+        private void StateMenu_Closing(object sender, EventArgs e)
         {
-            DialogResult = null;
+            if (MessageBox.Show("Les changements non sauvegardés seront perdus.\nVoulez-vous sauvegarder les modifications ?", "Attention",MessageBoxButton.YesNo,MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                Save();
+            }
             Close();
         }
         private void BtnGoLeft_Click(object sender, EventArgs e)
@@ -68,7 +71,7 @@ namespace Scrum_o_wall.Views
                 lstAssignedStates.Items.Add(state);
             }
         }
-        private void BtnSave_Click(object sender, EventArgs e)
+        private void Save()
         {
             List<State> toRemove = new List<State>();
             List<State> toAdd = new List<State>();
@@ -91,6 +94,10 @@ namespace Scrum_o_wall.Views
             {
                 controller.RemoveStateFromProject(state, project);
             }
+        }
+        private void BtnSave_Click(object sender, EventArgs e)
+        {
+            Save();
             Close();
         }
         private void BtnAddState_Click(object sender, EventArgs e)
@@ -115,7 +122,8 @@ namespace Scrum_o_wall.Views
                 }
                 else
                 {
-                    controller.UpdateState(stateEdit.tbxStateName.Text.Trim(), state);
+                    string name = stateEdit.tbxStateName.Text.Trim();
+                    controller.UpdateState(name, state);
                 }
                 Refresh();
             }

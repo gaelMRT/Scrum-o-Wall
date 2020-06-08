@@ -32,13 +32,14 @@ namespace Scrum_o_wall.Views
             }
         }
         private void BtnCancel_Click(object sender, EventArgs e)
-        {
-            DialogResult = null;
+        {
             Close();
         }
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
-            if (tbxDescription.Text.Trim().Length > 0 && tbxFileName.Text.Trim().Length > 0 && System.IO.File.Exists(tbxFileName.Text))
+            int descriptionLength = tbxDescription.Text.Trim().Length;
+            int fileNameLength = tbxFileName.Text.Trim().Length;
+            if (descriptionLength > 0 && fileNameLength > 0 && System.IO.File.Exists(tbxFileName.Text))
             {
                 DialogResult = true;
                 Close();

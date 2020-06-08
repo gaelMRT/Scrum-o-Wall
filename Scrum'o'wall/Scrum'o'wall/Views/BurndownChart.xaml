@@ -16,7 +16,7 @@
         <ContextMenu >
 
             <Separator/>
-            <MenuItem Header="Quitter" Name="Quit" Click="Quit_Click"/>
+            <MenuItem Header="Retour" Name="Quit" Click="Quit_Click"/>
         </ContextMenu>
     </Window.ContextMenu>
     <Grid>

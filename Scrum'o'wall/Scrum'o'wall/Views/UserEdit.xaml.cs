@@ -21,9 +21,9 @@ namespace Scrum_o_wall.Views
         {
             user = aUser;
 
-            tbxUserName.Text = user.Name;
-
             InitializeComponent();
+
+            tbxUserName.Text = user.Name;
         }
 
         private void BtnConfirm_Click(object sender, EventArgs e)
@@ -39,8 +39,7 @@ namespace Scrum_o_wall.Views
             }
         }
         private void BtnCancel_Click(object sender, EventArgs e)
-        {
-            DialogResult = null;
+        {
             Close();
         }
         private void BtnDelete_Click(object sender, EventArgs e)

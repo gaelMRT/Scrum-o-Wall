@@ -39,13 +39,14 @@ namespace Scrum_o_wall.Views
             }
         }
         private void BtnCancel_Click(object sender, EventArgs e)
-        {
-            DialogResult = null;
+        {
             Close();
         }
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
-            if (tbxDesc.Text.Trim().Length > 0 && tbxComplexity.Text.Trim().Length > 0 && cbxPriority.SelectedIndex >= 0 && cbxType.SelectedIndex >= 0)
+            int descLength = tbxDesc.Text.Trim().Length;
+            int complexityLength = tbxComplexity.Text.Trim().Length;
+            if (descLength  > 0 && complexityLength > 0 && cbxPriority.SelectedIndex >= 0 && cbxType.SelectedIndex >= 0)
             {
                 DialogResult = true;
                 Close();

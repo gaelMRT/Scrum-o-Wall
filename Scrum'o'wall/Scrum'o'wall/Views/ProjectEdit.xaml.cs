@@ -32,7 +32,9 @@ namespace Scrum_o_wall.Views
 
         private void BtnConfirm_Click(object sender, EventArgs e)
         {
-            if (dtpckrDateBegin.SelectedDate != null && tbxDesc.Text.Trim().Length > 0 && tbxName.Text.Trim().Length > 0)
+            int nameLength = tbxName.Text.Trim().Length;
+            int descLength = tbxDesc.Text.Trim().Length;
+            if (dtpckrDateBegin.SelectedDate != null && descLength > 0 && nameLength > 0)
             {
                 DialogResult = true;
                 Close();
@@ -53,8 +55,7 @@ namespace Scrum_o_wall.Views
             userMenu.ShowDialog();
         }
         private void BtnCancel_Click(object sender, EventArgs e)
-        {
-            DialogResult = null;
+        {
             Close();
         }
         private void BtnDelete_Click(object sender, EventArgs e)

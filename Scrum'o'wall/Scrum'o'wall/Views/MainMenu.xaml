@@ -15,7 +15,6 @@
     <Window.ContextMenu >
         <ContextMenu >
             <MenuItem Header="Ajouter un projet" Name="AddProject" Click="AddProject_Click"/>
-
             <Separator/>
             <MenuItem Header="Quitter" Name="Quit" Click="Quit_Click"/>
         </ContextMenu>

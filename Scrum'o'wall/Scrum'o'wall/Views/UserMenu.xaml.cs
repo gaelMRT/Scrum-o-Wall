@@ -32,6 +32,13 @@ namespace Scrum_o_wall.Views
             Refresh();
         }
 
+        private void UserMenu_Closing(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Les changements non sauvegardés seront perdus.\nVoulez-vous sauvegarder les modifications ?", "Attention", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                Save();
+            }
+        }
         private void Refresh()
         {
             lstAssignedUsers.Items.Clear();
@@ -65,7 +72,7 @@ namespace Scrum_o_wall.Views
                 lstAssignedUsers.Items.Add(state);
             }
         }
-        private void BtnSave_Click(object sender, EventArgs e)
+        private void Save()
         {
             List<User> toRemove = new List<User>();
             List<User> toAdd = new List<User>();
@@ -88,8 +95,10 @@ namespace Scrum_o_wall.Views
             {
                 controller.RemoveUserFromIUsersAssigned(user, objectWithAssignedUsers);
             }
-
-            DialogResult = null;
+        }
+        private void BtnSave_Click(object sender, EventArgs e)
+        {
+            Save();
             Close();
         }
         private void BtnAddUser_Click(object sender, EventArgs e)
@@ -97,7 +106,7 @@ namespace Scrum_o_wall.Views
             UserCreate userCreate = new UserCreate();
             if (userCreate.ShowDialog() == true)
             {
-                controller.CreateUser(userCreate.tbxUserName.Text);
+                controller.CreateUser(userCreate.tbxUserName.Text, objectWithAssignedUsers);
                 Refresh();
             }
         }
@@ -114,7 +123,8 @@ namespace Scrum_o_wall.Views
                 }
                 else
                 {
-                    controller.UpdateUser(userEdit.tbxUserName.Text.Trim(), user);
+                    string name = userEdit.tbxUserName.Text.Trim();
+                    controller.UpdateUser(name, user);
                 }
                 Refresh();
             }

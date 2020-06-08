@@ -11,7 +11,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Scrum_o_wall.Views"
         mc:Ignorable="d"
-        Title="Création d'un objet de liste" Height="270.407" Width="515.033" WindowStartupLocation="CenterScreen" FontSize="16">
+        Title="Modification d'un objet de liste" Height="270.407" Width="515.033" WindowStartupLocation="CenterScreen" FontSize="16">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="161"></ColumnDefinition>
@@ -24,7 +24,7 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.ColumnSpan="2" TextAlignment="Center" FontSize="20" VerticalAlignment="Center">Création d'un objet de liste</TextBlock>
+        <TextBlock Grid.ColumnSpan="2" TextAlignment="Center" FontSize="20" VerticalAlignment="Center">Modification d'un objet de liste</TextBlock>
         <TextBlock Grid.Row="1" TextAlignment="Right" VerticalAlignment="Center" Margin="10" Height="20" >Objet :</TextBlock>
         <TextBox Grid.Row="1" Grid.Column="1" MaxLength="255" Margin="10" Name="tbxObjet" Stylus.IsPressAndHoldEnabled="False"></TextBox>
 

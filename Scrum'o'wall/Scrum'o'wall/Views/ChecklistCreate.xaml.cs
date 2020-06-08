@@ -40,15 +40,15 @@ namespace Scrum_o_wall.Views
             ChecklistItemCreate checklistItemCreate = new ChecklistItemCreate();
             if (checklistItemCreate.ShowDialog() == true)
             {
-                ChecklistItem checklistItem = new ChecklistItem(-1, checklistItemCreate.tbxObjet.Text.Trim(), false, -1);
+                string name = checklistItemCreate.tbxObjet.Text.Trim();
+                ChecklistItem checklistItem = new ChecklistItem(-1, name, false, -1);
 
                 itemsToAdd.Add(checklistItem);
                 Refresh();
             }
         }
         private void BtnCancel_Click(object sender, EventArgs e)
-        {
-            DialogResult = null;
+        {
             Close();
         }
         private void BtnConfirm_Click(object sender, EventArgs e)

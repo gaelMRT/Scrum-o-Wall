@@ -11,7 +11,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Scrum_o_wall.Views"
         mc:Ignorable="d"
-           Title="Création d'un état" Height="169.532" Width="500.533" WindowStartupLocation="CenterScreen" FontSize="16">
+           Title="Modification d'un état" Height="169.532" Width="500.533" WindowStartupLocation="CenterScreen" FontSize="16">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="174"></ColumnDefinition>
@@ -22,7 +22,7 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.ColumnSpan="2" TextAlignment="Center" FontSize="20" VerticalAlignment="Center">Création d'un état</TextBlock>
+        <TextBlock Grid.ColumnSpan="2" TextAlignment="Center" FontSize="20" VerticalAlignment="Center">Modification d'un état</TextBlock>
         <TextBlock Grid.Row="1" TextAlignment="Right" VerticalAlignment="Center" Margin="10,13,10,14">Nom de l'état :</TextBlock>
         <TextBox Grid.Row="1" Grid.Column="1" MaxLength="30" Margin="10" Name="tbxStateName" Stylus.IsPressAndHoldEnabled="False"></TextBox>
         <Grid Grid.Row="5" Grid.ColumnSpan="2">
